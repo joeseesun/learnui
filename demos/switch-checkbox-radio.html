@@ -1,0 +1,180 @@
+<div class="demo demo-switch-checkbox-radio">
+  <div class="col">
+    <span class="col-label">Switch</span>
+    <div class="col-body">
+      <button type="button" role="switch" aria-checked="true" aria-label="Enable notifications" class="switch">
+        <span class="thumb"></span>
+      </button>
+    </div>
+  </div>
+  <div class="col">
+    <span class="col-label">Checkbox</span>
+    <div class="col-body">
+      <button type="button" role="checkbox" aria-checked="true" aria-label="Select item" class="checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div class="col">
+    <span class="col-label">Radio</span>
+    <div class="col-body">
+      <div role="radiogroup" aria-label="Contact method" class="radios">
+        <button type="button" role="radio" aria-checked="true" aria-label="Email" class="radio">
+          <span class="dot"></span>
+        </button>
+        <button type="button" role="radio" aria-checked="false" aria-label="SMS" class="radio">
+          <span class="dot"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-switch-checkbox-radio {
+  --d-blue: #2563eb;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 100%;
+}
+.demo-switch-checkbox-radio .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 72px;
+}
+.demo-switch-checkbox-radio .col-label {
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #334155;
+}
+.demo-switch-checkbox-radio .col-body {
+  display: flex;
+  align-items: center;
+  height: 28px;
+}
+.demo-switch-checkbox-radio .switch,
+.demo-switch-checkbox-radio .checkbox,
+.demo-switch-checkbox-radio .radio {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.demo-switch-checkbox-radio .switch:focus-visible,
+.demo-switch-checkbox-radio .checkbox:focus-visible,
+.demo-switch-checkbox-radio .radio:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--d-blue);
+}
+/* Switch */
+.demo-switch-checkbox-radio .switch {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 24px;
+  border: 0;
+  border-radius: 999px;
+  background: #e2e8f0;
+  transition: background-color 200ms ease;
+}
+.demo-switch-checkbox-radio .switch[aria-checked="true"] { background: var(--d-blue); }
+.demo-switch-checkbox-radio .thumb {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .2);
+  transition: transform 200ms ease;
+}
+.demo-switch-checkbox-radio .switch[aria-checked="true"] .thumb { transform: translateX(16px); }
+/* Checkbox */
+.demo-switch-checkbox-radio .checkbox {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #ffffff;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.demo-switch-checkbox-radio .checkbox .check {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+.demo-switch-checkbox-radio .checkbox[aria-checked="true"] {
+  border-color: var(--d-blue);
+  background: var(--d-blue);
+}
+.demo-switch-checkbox-radio .checkbox[aria-checked="true"] .check { opacity: 1; }
+/* Radio */
+.demo-switch-checkbox-radio .radios {
+  display: flex;
+  gap: 6px;
+}
+.demo-switch-checkbox-radio .radio {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #ffffff;
+  transition: border-color 150ms ease;
+}
+.demo-switch-checkbox-radio .radio .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--d-blue);
+  transform: scale(0);
+  transition: transform 150ms ease;
+}
+.demo-switch-checkbox-radio .radio[aria-checked="true"] .dot { transform: scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-switch-checkbox-radio .switch,
+  .demo-switch-checkbox-radio .thumb,
+  .demo-switch-checkbox-radio .checkbox,
+  .demo-switch-checkbox-radio .checkbox .check,
+  .demo-switch-checkbox-radio .radio,
+  .demo-switch-checkbox-radio .radio .dot {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const sw = ROOT.querySelector('.switch');
+  if (sw) {
+    sw.addEventListener('click', function () {
+      sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+    });
+  }
+
+  const cb = ROOT.querySelector('.checkbox');
+  if (cb) {
+    cb.addEventListener('click', function () {
+      cb.setAttribute('aria-checked', cb.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+    });
+  }
+
+  const radios = Array.prototype.slice.call(ROOT.querySelectorAll('.radio'));
+  radios.forEach(function (radio) {
+    radio.addEventListener('click', function () {
+      radios.forEach(function (r) {
+        r.setAttribute('aria-checked', r === radio ? 'true' : 'false');
+      });
+    });
+  });
+})();
+</script>

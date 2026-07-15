@@ -1,0 +1,80 @@
+<div class="demo demo-focus-ring-web">
+  <div class="row">
+    <button type="button" class="btn ghost">Back</button>
+    <button type="button" class="btn primary static-ring">Continue</button>
+    <button type="button" class="btn ghost">Save</button>
+  </div>
+  <p class="tag">:focus-visible</p>
+</div>
+<style>
+.demo-focus-ring-web {
+  --d-blue: #2563eb;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+.demo-focus-ring-web .row {
+  display: flex;
+  gap: 12px;
+}
+.demo-focus-ring-web .btn {
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+.demo-focus-ring-web .btn:focus { outline: none; }
+.demo-focus-ring-web .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--d-blue);
+}
+.demo-focus-ring-web .ghost {
+  background: #ffffff;
+  color: #475569;
+}
+.demo-focus-ring-web .ghost:hover { background: #f8fafc; }
+.demo-focus-ring-web .primary {
+  border-color: var(--d-blue);
+  background: var(--d-blue);
+  color: #ffffff;
+}
+.demo-focus-ring-web .primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+/* Static specimen ring shown until the visitor takes over with real focus. */
+.demo-focus-ring-web .static-ring {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--d-blue);
+}
+.demo-focus-ring-web .tag {
+  margin: 20px 0 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  color: var(--d-blue);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-focus-ring-web .btn { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+  const staticRing = ROOT.querySelector('.static-ring');
+  if (!staticRing) return;
+
+  // Default state paints a specimen ring on "Continue". Once the visitor
+  // interacts (pointer or keyboard), hand over to real :focus-visible.
+  function release() {
+    staticRing.classList.remove('static-ring');
+    ROOT.removeEventListener('pointerdown', release);
+    ROOT.removeEventListener('keydown', release);
+  }
+  ROOT.addEventListener('pointerdown', release);
+  ROOT.addEventListener('keydown', release);
+})();
+</script>

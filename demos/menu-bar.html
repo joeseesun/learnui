@@ -1,0 +1,130 @@
+<div class="demo demo-menu-bar">
+  <div class="desktop"></div>
+  <div class="menubar">
+    <svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M11.9 8.5c0-1.5 1.2-2.2 1.3-2.3-.7-1-1.8-1.2-2.2-1.2-.9-.1-1.8.6-2.3.6-.5 0-1.2-.6-2-.6-1 0-2 .6-2.5 1.5-1.1 1.9-.3 4.7.8 6.2.5.8 1.1 1.6 1.9 1.6.8 0 1.1-.5 2-.5s1.2.5 2 .5 1.4-.7 1.9-1.5c.6-.9.8-1.7.8-1.8 0 0-1.6-.6-1.7-2.5ZM10.4 3.9c.4-.5.7-1.2.6-1.9-.6 0-1.4.4-1.8.9-.4.4-.7 1.1-.6 1.8.7.1 1.4-.3 1.8-.8Z"/></svg>
+    <span class="app">Finder</span>
+    <div class="extras">
+      <span class="status">
+        <button type="button" class="status-btn open" aria-haspopup="menu" aria-expanded="true" aria-label="NameThat status menu">
+          <svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.6l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.4l-3.8 2 .7-4.3-3.1-3 4.3-.6L8 1.6Z"/></svg>
+        </button>
+        <div class="menu open" role="menu">
+          <button type="button" role="menuitem">Open NameThat</button>
+          <button type="button" role="menuitem" class="hl">Check for Updates…</button>
+          <button type="button" role="menuitem">Settings…<span class="kbd">⌘,</span></button>
+          <div class="sep" role="separator"></div>
+          <button type="button" role="menuitem">Quit<span class="kbd">⌘Q</span></button>
+        </div>
+      </span>
+      <span class="status">
+        <svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 6.5a9 9 0 0 1 12 0"/><path d="M4.3 9a5.7 5.7 0 0 1 7.4 0"/><path d="M6.6 11.4a2.5 2.5 0 0 1 2.8 0"/><circle cx="8" cy="13.2" r="0.4" fill="currentColor" stroke="none"/></svg>
+      </span>
+      <span class="status">
+        <svg aria-hidden="true" width="18" height="12" viewBox="0 0 22 12" fill="none"><rect x="1" y="1.5" width="17" height="9" rx="2.5" stroke="currentColor" stroke-width="1.1" opacity="0.5"/><rect x="2.6" y="3.1" width="10" height="5.8" rx="1.2" fill="currentColor"/><path d="M19.5 4.5v3c1-.3 1.5-.9 1.5-1.5s-.5-1.2-1.5-1.5Z" fill="currentColor" opacity="0.5"/></svg>
+      </span>
+      <span class="clock">9:41</span>
+    </div>
+  </div>
+</div>
+<style>
+.demo-menu-bar {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  font-family: var(--font-sans);
+  color: rgba(0,0,0,.8);
+}
+.demo-menu-bar .desktop {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #a7c4e2, #c6cbe8 50%, #e2c8d8);
+}
+.demo-menu-bar .menubar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 28px; display: flex; align-items: center; gap: 14px;
+  padding: 0 12px; font-size: 12px; font-weight: 500;
+  color: rgba(0,0,0,.8);
+  background: rgba(255,255,255,.6);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.demo-menu-bar .app { font-weight: 600; }
+.demo-menu-bar .extras { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.demo-menu-bar .status { position: relative; display: flex; height: 22px; align-items: center; padding: 0 2px; }
+.demo-menu-bar .status-btn {
+  display: flex; height: 22px; align-items: center;
+  border-radius: 4px; padding: 0 6px;
+  border: none; background: transparent; color: inherit;
+  cursor: pointer; font: inherit;
+  transition: background-color .15s;
+}
+.demo-menu-bar .status-btn.open { background: rgba(0,0,0,.1); }
+.demo-menu-bar .clock { padding: 0 4px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.demo-menu-bar .menu {
+  position: absolute; right: 0; top: calc(100% + 5px); z-index: 10;
+  width: 192px; transform: scale(.95); transform-origin: top right;
+  border-radius: 8px; border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.85);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  padding: 4px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.1);
+  opacity: 0; pointer-events: none;
+  transition: opacity .15s, transform .15s;
+}
+.demo-menu-bar .menu.open { opacity: 1; transform: scale(1); pointer-events: auto; }
+.demo-menu-bar .menu button {
+  display: flex; width: 100%; align-items: center; justify-content: space-between;
+  border: none; background: none; font: inherit;
+  font-size: 12px; color: rgba(0,0,0,.85);
+  text-align: left; padding: 3px 8px; border-radius: 5px; cursor: pointer;
+  transition: background-color .1s, color .1s;
+}
+.demo-menu-bar .menu button.hl { background: #0a6cff; color: #fff; }
+.demo-menu-bar .kbd { font-size: 11px; letter-spacing: .05em; color: rgba(0,0,0,.4); }
+.demo-menu-bar .menu button.hl .kbd { color: rgba(255,255,255,.65); }
+.demo-menu-bar .sep { margin: 4px 8px; height: 1px; background: rgba(0,0,0,.1); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-menu-bar .status-btn,
+  .demo-menu-bar .menu,
+  .demo-menu-bar .menu button { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const btn = ROOT.querySelector('.status-btn');
+  const menu = ROOT.querySelector('.menu');
+  const items = menu.querySelectorAll('button');
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    const willOpen = !menu.classList.contains('open');
+    menu.classList.toggle('open', willOpen);
+    btn.classList.toggle('open', willOpen);
+    btn.setAttribute('aria-expanded', String(willOpen));
+  });
+
+  items.forEach(function (item) {
+    item.addEventListener('mouseenter', function () {
+      items.forEach(function (i) { i.classList.toggle('hl', i === item); });
+    });
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
+      items.forEach(function (i) { i.classList.toggle('hl', i === item); });
+    });
+  });
+
+  ROOT.addEventListener('click', function () {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  });
+
+  ROOT.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+</script>

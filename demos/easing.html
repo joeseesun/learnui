@@ -1,0 +1,124 @@
+<div class="demo demo-easing">
+  <div class="eas-card">
+    <div class="eas-row eas-row-linear">
+      <svg viewBox="0 0 24 24" class="eas-icon" aria-hidden="true"><path d="M3,21 L21,3" fill="none" stroke="#0a6cff" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div class="eas-track"><span class="eas-ball"></span></div>
+    </div>
+    <div class="eas-row eas-row-ease-out">
+      <svg viewBox="0 0 24 24" class="eas-icon" aria-hidden="true"><path d="M3,21 C7,7 12,4 21,3" fill="none" stroke="#0a6cff" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div class="eas-track"><span class="eas-ball"></span></div>
+    </div>
+    <div class="eas-row eas-row-ease-in-out">
+      <svg viewBox="0 0 24 24" class="eas-icon" aria-hidden="true"><path d="M3,21 C10,21 14,3 21,3" fill="none" stroke="#0a6cff" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div class="eas-track"><span class="eas-ball"></span></div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-easing {
+  font-family: var(--font-sans);
+}
+.demo-easing .eas-card {
+  width: 240px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 12px;
+  cursor: pointer;
+}
+.demo-easing .eas-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-easing .eas-row + .eas-row {
+  margin-top: 10px;
+}
+.demo-easing .eas-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: rgba(226, 232, 240, 0.7);
+}
+.demo-easing .eas-track {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0;
+  height: 16px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+}
+.demo-easing .eas-ball {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #0a6cff;
+  transform: translateY(-50%);
+  transition: transform 1200ms cubic-bezier(0, 0, 0.58, 1);
+}
+.demo-easing .eas-row-linear .eas-ball {
+  transition-timing-function: linear;
+}
+.demo-easing .eas-row-ease-in-out .eas-ball {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-easing .eas-ball {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  var ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  var balls = ROOT.querySelectorAll('.eas-ball');
+  var media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var DURATION = 1200;
+  var HOLD = 600;
+  var atEnd = false;
+  var timer = 0;
+
+  function travel(ball) {
+    var track = ball.parentElement;
+    return track.clientWidth - 2 - ball.offsetWidth - 2;
+  }
+
+  function go(end) {
+    atEnd = end;
+    for (var i = 0; i < balls.length; i++) {
+      var d = end ? travel(balls[i]) : 0;
+      balls[i].style.transform = 'translateX(' + d + 'px) translateY(-50%)';
+    }
+  }
+
+  function schedule() {
+    timer = setTimeout(function () {
+      go(!atEnd);
+      schedule();
+    }, DURATION + HOLD);
+  }
+
+  function start() {
+    clearTimeout(timer);
+    if (media.matches) { go(true); return; }
+    go(true);
+    schedule();
+  }
+
+  ROOT.addEventListener('click', function () {
+    if (!media.matches) { start(); }
+  });
+  if (media.addEventListener) {
+    media.addEventListener('change', start);
+  }
+  start();
+})();
+</script>

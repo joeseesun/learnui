@@ -1,0 +1,199 @@
+<div class="demo demo-hamburger-menu">
+  <div class="ham-phone">
+    <div class="ham-header">
+      <button type="button" class="ham-btn" aria-label="Close navigation" aria-expanded="true" aria-controls="demo-hamburger-menu-nav">
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+      </button>
+      <span class="ham-title">Field Notes</span>
+    </div>
+    <div class="ham-body">
+      <div class="ham-block"></div>
+      <div class="ham-textline ham-w80"></div>
+      <div class="ham-textline ham-w60"></div>
+      <div class="ham-textline ham-w66"></div>
+    </div>
+    <button type="button" class="ham-scrim open" aria-label="Close navigation"></button>
+    <nav class="ham-drawer open" id="demo-hamburger-menu-nav" aria-label="Main navigation">
+      <p class="ham-navlabel">Browse</p>
+      <span class="ham-item ham-item-active">Home</span>
+      <span class="ham-item">Articles</span>
+      <span class="ham-item">Archive</span>
+      <span class="ham-item">About</span>
+    </nav>
+  </div>
+</div>
+<style>
+.demo-hamburger-menu {
+  font-family: var(--font-sans);
+}
+.demo-hamburger-menu .ham-phone {
+  position: relative;
+  width: 208px;
+  max-width: 100%;
+  height: 196px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.demo-hamburger-menu .ham-header {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.demo-hamburger-menu .ham-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 100ms;
+}
+.demo-hamburger-menu .ham-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.demo-hamburger-menu .ham-line {
+  display: block;
+  width: 14px;
+  height: 2px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.7);
+}
+.demo-hamburger-menu .ham-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
+}
+.demo-hamburger-menu .ham-body {
+  padding: 12px;
+}
+.demo-hamburger-menu .ham-block {
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.demo-hamburger-menu .ham-textline {
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+}
+.demo-hamburger-menu .ham-w80 { width: 80%; }
+.demo-hamburger-menu .ham-w60 { width: 60%; }
+.demo-hamburger-menu .ham-w66 { width: 66.6%; }
+.demo-hamburger-menu .ham-scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 36px;
+  bottom: 0;
+  z-index: 10;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: rgba(2, 6, 23, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  transition: opacity 300ms;
+}
+.demo-hamburger-menu .ham-scrim.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.demo-hamburger-menu .ham-drawer {
+  position: absolute;
+  left: 0;
+  top: 36px;
+  bottom: 0;
+  z-index: 20;
+  width: 128px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 17px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  transform: translateX(-110%);
+  transition: transform 300ms ease-out;
+}
+.demo-hamburger-menu .ham-drawer.open {
+  transform: translateX(0);
+}
+.demo-hamburger-menu .ham-navlabel {
+  margin: 0;
+  padding: 10px 8px 6px;
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  line-height: 1.3;
+  color: rgba(0, 0, 0, 0.4);
+}
+.demo-hamburger-menu .ham-item {
+  display: block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: default;
+  transition: background-color 100ms;
+}
+.demo-hamburger-menu .ham-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.demo-hamburger-menu .ham-item-active,
+.demo-hamburger-menu .ham-item-active:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.9);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-hamburger-menu .ham-scrim,
+  .demo-hamburger-menu .ham-drawer {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  var ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  var btn = ROOT.querySelector('.ham-btn');
+  var scrim = ROOT.querySelector('.ham-scrim');
+  var drawer = ROOT.querySelector('.ham-drawer');
+
+  function setOpen(open) {
+    drawer.classList.toggle('open', open);
+    scrim.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  }
+
+  btn.addEventListener('click', function () {
+    setOpen(btn.getAttribute('aria-expanded') !== 'true');
+  });
+  scrim.addEventListener('click', function () {
+    setOpen(false);
+  });
+  ROOT.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { setOpen(false); }
+  });
+})();
+</script>

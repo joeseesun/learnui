@@ -1,0 +1,245 @@
+<div class="demo demo-badge-chip-pill">
+  <div class="grid">
+    <div class="cell">
+      <span class="cap">Badge</span>
+      <div class="stage">
+        <button type="button" class="anchor" aria-label="Messages, 7 unread">
+          <span class="mail" aria-hidden="true">✉</span>
+          <span class="count">7</span>
+        </button>
+      </div>
+    </div>
+    <div class="cell">
+      <span class="cap">Chip</span>
+      <div class="stage">
+        <span class="chip">
+          <svg class="chip-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          Design
+          <button type="button" class="chip-x" aria-label="Remove chip">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          </button>
+        </span>
+        <button type="button" class="restore" hidden>+ Add chip</button>
+      </div>
+    </div>
+    <div class="cell">
+      <span class="cap">Pill</span>
+      <div class="stage">
+        <span class="pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          Active
+        </span>
+      </div>
+    </div>
+    <div class="cell">
+      <span class="cap">Tag</span>
+      <div class="stage">
+        <span class="tag">Web</span>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-badge-chip-pill {
+  font-family: var(--font-sans);
+}
+.demo-badge-chip-pill .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 16px;
+}
+.demo-badge-chip-pill .cell {
+  display: flex;
+  min-width: 64px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.demo-badge-chip-pill .cap {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+.demo-badge-chip-pill .stage {
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+.demo-badge-chip-pill .anchor {
+  position: relative;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+.demo-badge-chip-pill .anchor:hover {
+  background: #e2e8f0;
+}
+.demo-badge-chip-pill .count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  min-width: 16px;
+  place-items: center;
+  border-radius: 999px;
+  background: #ef4444;
+  padding: 0 4px;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #ffffff;
+  box-shadow: 0 0 0 2px #ffffff;
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 150ms, opacity 150ms;
+}
+.demo-badge-chip-pill .anchor.cleared .count {
+  transform: scale(0);
+  opacity: 0;
+}
+.demo-badge-chip-pill .chip {
+  position: relative;
+  display: flex;
+  height: 28px;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  background: #eff6ff;
+  padding: 0 6px 0 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #2563eb;
+  cursor: pointer;
+  transition: transform 150ms, opacity 150ms, background-color 150ms, color 150ms;
+}
+.demo-badge-chip-pill .chip-check {
+  display: none;
+}
+.demo-badge-chip-pill .chip.selected {
+  background: #2563eb;
+  color: #ffffff;
+}
+.demo-badge-chip-pill .chip.selected .chip-check {
+  display: block;
+}
+.demo-badge-chip-pill .chip.gone {
+  transform: scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-badge-chip-pill .chip-x {
+  display: grid;
+  width: 16px;
+  height: 16px;
+  place-items: center;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+.demo-badge-chip-pill .chip-x:hover {
+  background: rgba(37, 99, 235, 0.15);
+}
+.demo-badge-chip-pill .chip.selected .chip-x:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.demo-badge-chip-pill .restore {
+  height: 28px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0 10px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: border-color 150ms, color 150ms;
+}
+.demo-badge-chip-pill .restore:hover {
+  border-color: #94a3b8;
+  color: #64748b;
+}
+.demo-badge-chip-pill .pill {
+  display: flex;
+  height: 28px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  background: #d1fae5;
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #047857;
+}
+.demo-badge-chip-pill .tag {
+  border-radius: 4px;
+  border: 1px solid #fde68a;
+  background: #fffbeb;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #b45309;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-badge-chip-pill .anchor,
+  .demo-badge-chip-pill .count,
+  .demo-badge-chip-pill .chip,
+  .demo-badge-chip-pill .chip-x,
+  .demo-badge-chip-pill .restore {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const anchor = ROOT.querySelector('.anchor');
+  const count = ROOT.querySelector('.count');
+  const chip = ROOT.querySelector('.chip');
+  const chipX = ROOT.querySelector('.chip-x');
+  const restore = ROOT.querySelector('.restore');
+
+  anchor.addEventListener('click', function () {
+    const cleared = anchor.classList.toggle('cleared');
+    anchor.setAttribute('aria-label', cleared ? 'Messages' : 'Messages, 7 unread');
+    count.textContent = cleared ? '0' : '7';
+  });
+
+  chip.addEventListener('click', function () {
+    chip.classList.toggle('selected');
+  });
+
+  chipX.addEventListener('click', function (event) {
+    event.stopPropagation();
+    chip.classList.add('gone');
+    restore.hidden = false;
+    setTimeout(function () {
+      if (chip.classList.contains('gone')) chip.style.display = 'none';
+    }, 160);
+  });
+
+  restore.addEventListener('click', function () {
+    chip.style.display = '';
+    chip.classList.remove('gone');
+    restore.hidden = true;
+  });
+})();
+</script>

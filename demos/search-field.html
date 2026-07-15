@@ -1,0 +1,235 @@
+<div class="demo demo-search-field">
+  <div class="wrap">
+    <div class="field">
+      <button type="button" class="search-btn" aria-expanded="false" aria-label="Recent searches">
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg aria-hidden="true" width="6" height="6" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M1.5 3 4 5.5 6.5 3"/></svg>
+      </button>
+      <input class="input" type="text" placeholder="Search" aria-label="Search" value="inv">
+      <span class="clear-wrap">
+        <button type="button" class="clear-btn" aria-label="Clear search">
+          <svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </button>
+      </span>
+    </div>
+    <div class="menu">
+      <p class="menu-head">Recent Searches</p>
+      <div class="menu-items"></div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-search-field {
+  font-family: var(--font-sans);
+}
+.demo-search-field .wrap {
+  position: relative;
+}
+.demo-search-field .field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 256px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.15);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.demo-search-field .field:focus-within {
+  border-color: rgba(10,108,255,.6);
+  box-shadow: 0 0 0 3px rgba(10,108,255,.25);
+}
+.demo-search-field button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.demo-search-field .search-btn {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 4px;
+  color: rgba(0,0,0,.45);
+  transition: color .1s;
+}
+.demo-search-field .search-btn:hover {
+  color: rgba(0,0,0,.7);
+}
+.demo-search-field .input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 12.5px;
+  color: rgba(0,0,0,.85);
+  outline: none;
+}
+.demo-search-field .input::placeholder {
+  color: rgba(0,0,0,.35);
+}
+.demo-search-field .clear-wrap {
+  display: flex;
+  align-items: center;
+  transition: opacity .15s;
+}
+.demo-search-field .clear-wrap.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-search-field .clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.25);
+  color: #fff;
+  transition: background .1s;
+}
+.demo-search-field .clear-btn:hover {
+  background: rgba(0,0,0,.4);
+}
+.demo-search-field .menu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 5px);
+  z-index: 10;
+  width: 176px;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08);
+  transform-origin: top left;
+  transform: scale(.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .15s, opacity .15s;
+}
+.demo-search-field .menu.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.demo-search-field .menu-head {
+  margin: 0;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: rgba(0,0,0,.4);
+}
+.demo-search-field .recent-item {
+  display: block;
+  width: 100%;
+  padding: 3px 8px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 12px;
+  color: rgba(0,0,0,.85);
+  transition: background .1s, color .1s;
+}
+.demo-search-field .recent-item:hover {
+  background: #0a6cff;
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-search-field .search-btn,
+  .demo-search-field .clear-wrap,
+  .demo-search-field .clear-btn,
+  .demo-search-field .menu,
+  .demo-search-field .recent-item {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const searchBtn = ROOT.querySelector('.search-btn');
+  const input = ROOT.querySelector('.input');
+  const clearWrap = ROOT.querySelector('.clear-wrap');
+  const clearBtn = ROOT.querySelector('.clear-btn');
+  const menu = ROOT.querySelector('.menu');
+  const menuItems = ROOT.querySelector('.menu-items');
+
+  let recents = ['invoices 2026', 'receipts', 'tax'];
+
+  function renderRecents() {
+    menuItems.innerHTML = '';
+    recents.forEach(function (text) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'recent-item';
+      btn.textContent = text;
+      btn.addEventListener('click', function () {
+        input.value = text;
+        syncClear();
+        closeMenu();
+        input.focus();
+      });
+      menuItems.appendChild(btn);
+    });
+  }
+  renderRecents();
+
+  // the cancel button only appears for a nonempty query
+  function syncClear() {
+    clearWrap.classList.toggle('is-hidden', input.value.length === 0);
+  }
+  syncClear();
+
+  function openMenu() {
+    menu.classList.add('is-open');
+    searchBtn.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu() {
+    menu.classList.remove('is-open');
+    searchBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  input.addEventListener('input', syncClear);
+
+  clearBtn.addEventListener('click', function () {
+    input.value = '';
+    syncClear();
+    input.focus();
+  });
+
+  // the magnifier button opens the recent-searches menu
+  searchBtn.addEventListener('click', function () {
+    if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
+  });
+
+  // pressing Return runs the search and saves it to recents
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      const q = input.value.trim();
+      if (q) {
+        recents = [q].concat(recents.filter(function (r) { return r !== q; })).slice(0, 5);
+        renderRecents();
+      }
+      closeMenu();
+    } else if (e.key === 'Escape') {
+      if (menu.classList.contains('is-open')) closeMenu();
+      else { input.value = ''; syncClear(); }
+    }
+  });
+
+  document.addEventListener('pointerdown', function (e) {
+    if (!ROOT.contains(e.target)) closeMenu();
+  });
+})();
+</script>

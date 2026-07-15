@@ -1,0 +1,132 @@
+<div class="demo demo-dialog-drawer-sheet">
+  <div class="topbar">
+    <span class="brand">Workspace</span>
+    <div class="triggers">
+      <button type="button" class="trig" data-open="dialog">dialog</button>
+      <button type="button" class="trig" data-open="drawer">drawer</button>
+      <button type="button" class="trig" data-open="sheet">sheet</button>
+    </div>
+  </div>
+  <div class="grid" aria-hidden="true">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <button type="button" class="scrim" aria-label="Close overlay"></button>
+  <div class="ov ov-dialog" role="dialog" aria-label="Modal dialog example">
+    <strong class="ov-title">Delete file?</strong>
+    <p class="ov-sub">Blocks everything behind it.</p>
+    <div class="ov-actions">
+      <button type="button" class="btn btn-cancel" data-close>Cancel</button>
+      <button type="button" class="btn btn-danger" data-close>Delete</button>
+    </div>
+  </div>
+  <div class="ov ov-drawer is-hidden" role="dialog" aria-label="Drawer example">
+    <strong class="ov-title">Edit details</strong>
+    <p class="ov-sub">Blocks everything behind it.</p>
+    <div class="ov-actions">
+      <button type="button" class="btn btn-cancel" data-close>Cancel</button>
+      <button type="button" class="btn btn-primary" data-close>Save</button>
+    </div>
+  </div>
+  <div class="ov ov-sheet is-hidden" role="dialog" aria-label="Bottom sheet example">
+    <div class="grabber" aria-hidden="true"></div>
+    <strong class="ov-title">Share with…</strong>
+    <p class="ov-sub">Blocks everything behind it.</p>
+    <div class="ov-actions">
+      <button type="button" class="btn btn-cancel" data-close>Cancel</button>
+      <button type="button" class="btn btn-primary" data-close>Share</button>
+    </div>
+  </div>
+</div>
+<style>
+.demo-dialog-drawer-sheet { font-family: var(--font-sans); position: relative; width: 288px; height: 184px; border-radius: 12px; overflow: hidden; background: #f8fafc; border: 1px solid #e2e8f0; }
+.demo-dialog-drawer-sheet, .demo-dialog-drawer-sheet * { box-sizing: border-box; }
+.demo-dialog-drawer-sheet p { margin: 0; }
+.demo-dialog-drawer-sheet .topbar { position: relative; z-index: 30; display: flex; align-items: center; height: 48px; padding: 0 16px; background: #fff; border-bottom: 1px solid #e2e8f0; }
+.demo-dialog-drawer-sheet .brand { font-size: 12px; font-weight: 600; color: #334155; }
+.demo-dialog-drawer-sheet .triggers { margin-left: auto; display: flex; gap: 6px; }
+.demo-dialog-drawer-sheet .trig { margin: 0; appearance: none; font: inherit; font-size: 10px; font-weight: 500; text-transform: capitalize; color: #475569; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 4px 8px; cursor: pointer; transition: background-color .15s; }
+.demo-dialog-drawer-sheet .trig:hover { background: #f1f5f9; }
+.demo-dialog-drawer-sheet .trig:focus-visible { outline: 2px solid rgba(37,99,235,.5); outline-offset: 1px; }
+.demo-dialog-drawer-sheet .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 16px; }
+.demo-dialog-drawer-sheet .cell { height: 48px; border-radius: 8px; border: 1px solid #e2e8f0; background: #fff; }
+.demo-dialog-drawer-sheet .scrim { position: absolute; left: 0; right: 0; bottom: 0; top: 48px; z-index: 10; margin: 0; padding: 0; border: 0; background: rgba(2,6,23,.45); -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px); opacity: 1; transition: opacity .3s; }
+.demo-dialog-drawer-sheet .scrim.is-hidden { opacity: 0; pointer-events: none; }
+.demo-dialog-drawer-sheet .ov { position: absolute; z-index: 20; background: #fff; border: 1px solid rgba(0,0,0,.1); }
+.demo-dialog-drawer-sheet .ov-title { display: block; font-size: 14px; font-weight: 600; color: #0f172a; }
+.demo-dialog-drawer-sheet .ov-sub { margin-top: 6px; font-size: 11px; line-height: 16px; color: #64748b; }
+.demo-dialog-drawer-sheet .ov-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.demo-dialog-drawer-sheet .btn { margin: 0; appearance: none; font: inherit; font-size: 11px; font-weight: 500; height: 28px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; color: #475569; cursor: pointer; transition: background-color .15s, filter .15s; }
+.demo-dialog-drawer-sheet .btn:hover { background: #f1f5f9; }
+.demo-dialog-drawer-sheet .btn:focus-visible { outline: 2px solid rgba(37,99,235,.5); outline-offset: 1px; }
+.demo-dialog-drawer-sheet .btn-danger { background: #ef4444; color: #fff; padding: 0 12px; }
+.demo-dialog-drawer-sheet .btn-danger:hover { background: #dc2626; }
+.demo-dialog-drawer-sheet .btn-primary { background: #2563eb; color: #fff; padding: 0 12px; }
+.demo-dialog-drawer-sheet .btn-primary:hover { background: #2563eb; filter: brightness(1.1); }
+.demo-dialog-drawer-sheet .ov-dialog { left: 50%; top: 50%; width: 208px; margin-top: 24px; padding: 12px; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,.25); opacity: 1; transform: translate(-50%,-50%) scale(1); transition: opacity .3s, transform .3s cubic-bezier(.23,1,.32,1); }
+.demo-dialog-drawer-sheet .ov-dialog.is-hidden { opacity: 0; transform: translate(-50%,-50%) scale(.96); pointer-events: none; }
+.demo-dialog-drawer-sheet .ov-drawer { right: 0; top: 48px; bottom: 0; width: 208px; padding: 16px; border-width: 0 0 0 1px; box-shadow: -12px 0 40px rgba(0,0,0,.18); transform: translateX(0); transition: transform .3s cubic-bezier(.23,1,.32,1); }
+.demo-dialog-drawer-sheet .ov-drawer.is-hidden { transform: translateX(102%); pointer-events: none; }
+.demo-dialog-drawer-sheet .ov-sheet { left: 0; right: 0; bottom: 0; padding: 16px; border-width: 1px 0 0; border-radius: 16px 16px 0 0; box-shadow: 0 -12px 40px rgba(0,0,0,.2); transform: translateY(0); transition: transform .3s cubic-bezier(.23,1,.32,1); }
+.demo-dialog-drawer-sheet .ov-sheet.is-hidden { transform: translateY(102%); pointer-events: none; }
+.demo-dialog-drawer-sheet .grabber { width: 32px; height: 4px; margin: 0 auto 12px; border-radius: 999px; background: #cbd5e1; }
+@media (prefers-reduced-motion: reduce) {
+  .demo-dialog-drawer-sheet .trig,
+  .demo-dialog-drawer-sheet .scrim,
+  .demo-dialog-drawer-sheet .btn,
+  .demo-dialog-drawer-sheet .ov-dialog,
+  .demo-dialog-drawer-sheet .ov-drawer,
+  .demo-dialog-drawer-sheet .ov-sheet { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const scrim = ROOT.querySelector('.scrim');
+  const panes = {
+    dialog: ROOT.querySelector('.ov-dialog'),
+    drawer: ROOT.querySelector('.ov-drawer'),
+    sheet: ROOT.querySelector('.ov-sheet')
+  };
+  const triggers = Array.from(ROOT.querySelectorAll('[data-open]'));
+  let openName = 'dialog';
+  let lastTrigger = null;
+  function apply() {
+    scrim.classList.toggle('is-hidden', !openName);
+    Object.keys(panes).forEach(function (n) {
+      panes[n].classList.toggle('is-hidden', n !== openName);
+    });
+  }
+  function open(name, trigger) {
+    lastTrigger = trigger || null;
+    openName = name;
+    apply();
+    const f = panes[name].querySelector('.btn-cancel');
+    if (f) f.focus({ preventScroll: true });
+  }
+  function close() {
+    if (!openName) return;
+    openName = null;
+    apply();
+    if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+  }
+  triggers.forEach(function (t) {
+    t.addEventListener('click', function () {
+      const n = t.getAttribute('data-open');
+      if (openName === n) close(); else open(n, t);
+    });
+  });
+  scrim.addEventListener('click', close);
+  ROOT.querySelectorAll('[data-close]').forEach(function (b) {
+    b.addEventListener('click', close);
+  });
+  ROOT.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+  apply();
+})();
+</script>

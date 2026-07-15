@@ -1,0 +1,660 @@
+{
+ "focus-ring": {
+  "name_zh": "焦点环",
+  "tagline_zh": "标示当前接收键盘输入的控件的强调色光晕",
+  "description_zh": "焦点环是围绕在当前接收键盘交互控件周围的强调色光晕，通常为蓝色。文本框默认接受焦点；开启全键盘控制（Full Keyboard Access）后，Tab 键还能在按钮、弹出式按钮等更多控件之间移动焦点。AppKit 会根据第一响应者的 focusRingType 为其绘制焦点环，自定义布局必须留出足够空间，保证焦点环完整可见。",
+  "aka_zh": [
+   "键盘焦点指示器",
+   "焦点光晕",
+   "第一响应者光圈"
+  ],
+  "fuzzy_zh": [
+   "选中控件周围那圈蓝色光晕",
+   "按 Tab 切到按钮时出现的描边",
+   "有键盘焦点的输入框外那圈蓝边",
+   "标示键盘输入会去向何处的高亮",
+   "开了全键盘控制后按钮周围的圈"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "保留第一响应者周围的原生焦点环。在 AppKit 中，让控件有资格成为第一响应者，用 NSWindow.makeFirstResponder(_:) 移动焦点，并保持 NSView.focusRingType 为 .default；在 SwiftUI 中，使用 View.focusable(_:) 配合 FocusState。为标准的 macOS 强调色焦点环留出足够空间，不要用自定义边框替代它。",
+  "debugPrompt_zh": "调试我的 macOS 焦点环（NSView.focusRingType、SwiftUI .focusable/.focusEffectDisabled）。逐一排除：用户 Mac 上的全键盘控制（AppleKeyboardUIMode）让每个首个控件都抢占焦点并显示焦点环；自定义 drawFocusRingMask 配合 focusRingType = .none 把焦点环屏蔽了；焦点环被裁切到边界的祖先视图裁掉；SwiftUI 的焦点状态与显式调用 makeFirstResponder 互相打架。症状是：",
+  "parts_zh": {
+   "first-responder": {
+    "name_zh": "第一响应者",
+    "description_zh": "“我打字会送到的那个控件”就是窗口的第一响应者。",
+    "prompt_zh": "当前接收键盘输入的 NSWindow.firstResponder 控件"
+   }
+  }
+ },
+ "inspector": {
+  "name_zh": "检查器",
+  "tagline_zh": "右侧用于查看和编辑当前选中项详情的面板",
+  "description_zh": "检查器是位于窗口尾侧的面板，用来显示主内容中当前选中项的属性和控件。Keynote、Xcode 这类 App 把格式、标识、配置等控件组织在检查器里，让用户调整细节时文稿始终可见。在 macOS 14 及更高版本中，SwiftUI 提供了专门的 inspector 修饰器；经典 AppKit 布局则通常把它做成拆分视图的尾侧项。",
+  "aka_zh": [
+   "检查器面板",
+   "详情边栏",
+   "属性检查器",
+   "工具区"
+  ],
+  "fuzzy_zh": [
+   "右边那个属性面板",
+   "右侧随选中项变化的边栏",
+   "Keynote 那种格式面板",
+   "Xcode 里显示选中项详情的面板",
+   "右侧可折叠的设置栏"
+  ],
+  "api_notes_zh": [
+   "macOS 14+",
+   null,
+   "经典尾侧检查器的常用基础",
+   null
+  ],
+  "prompt_zh": "用 SwiftUI View.inspector(isPresented:content:)（macOS 14+）把这些随选中项变化的控件放进检查器，做成右侧可折叠的栏，并设置合理的 inspectorColumnWidth。检查器必须跟随选中对象更新内容，而不是替换主内容。",
+  "debugPrompt_zh": "调试我的 macOS 检查器（SwiftUI View.inspector(isPresented:)、NSSplitViewItem(inspectorWithViewController:)）。逐一排除：窗口变窄时检查器自动以 sheet 形式弹出——这是内建的自适应行为；开关绑定不同步，因为用户也能拖拽把它关掉；min/ideal 宽度在窗口缩放时强制折叠了它；检查器内容没有跟随当前选中项。症状是：",
+  "parts_zh": {
+   "inspector-column": {
+    "name_zh": "检查器栏",
+    "description_zh": "“右边那个属性面板”就是检查器栏。",
+    "prompt_zh": "用 View.inspector(isPresented:content:) 创建的尾侧检查器栏，位于主内容旁边而不是覆盖其上"
+   },
+   "section-disclosure": {
+    "name_zh": "检查器分节披露控件",
+    "description_zh": "“能折叠一组设置的小箭头”就是检查器的分节披露控件。",
+    "prompt_zh": "检查器内部的 DisclosureGroup 分节披露控件，箭头与分节标题对齐"
+   },
+   "column-divider": {
+    "name_zh": "检查器栏分隔线",
+    "description_zh": "“拖动就能调整属性面板宽度的那条细线”就是检查器栏分隔线。",
+    "prompt_zh": "尾侧 NSSplitViewItem 检查器栏前面那条可拖拽的分隔线"
+   }
+  }
+ },
+ "panel": {
+  "name_zh": "面板（浮动窗口 / HUD）",
+  "tagline_zh": "悬浮在相关文稿窗口上方的 macOS 辅助窗口",
+  "description_zh": "面板是一种辅助窗口，用来承载工具、控件或临时信息，而不是主要文稿。它可以悬浮在普通窗口之上、在 App 失活时自动隐藏，或采用 HUD 外观。不激活面板（non-activating panel）能在不把整个 App 带到前台的情况下接受适当的交互，很适合命令启动器和 Spotlight 风格的界面。",
+  "aka_zh": [
+   "浮动面板",
+   "工具面板",
+   "HUD 窗口",
+   "平视显示（HUD）"
+  ],
+  "fuzzy_zh": [
+   "一直浮在主窗口上面的小工具窗口",
+   "Mac 上悬浮的控件调板",
+   "深色半透明的平视显示窗口",
+   "Spotlight 那种不激活 App 的窗口",
+   "跟着当前文稿走的工具窗口"
+  ],
+  "api_notes_zh": [
+   null,
+   "让面板显示时不激活所属 App",
+   "HUD（平视显示）面板外观",
+   null,
+   null
+  ],
+  "prompt_zh": "用 NSPanel 把这个辅助界面实现为面板（浮动窗口 / HUD），设置 NSWindow.Level.floating 让它保持在相关文稿窗口上方。如果它应该像 Spotlight 那样工作，就使用 nonactivatingPanel 样式，让显示它时不会激活 App，也不会不必要地抢走焦点。",
+  "debugPrompt_zh": "调试我的 macOS 面板（NSPanel）。逐一排除：缺少 nonactivatingPanel 样式导致面板从主窗口抢焦点；面板无法成为 key window，导致里面的文本框拒绝输入；hidesOnDeactivate 让面板在 App 失活时消失；浮动窗口层级与其他置顶窗口互相冲突。症状是：",
+  "parts_zh": {
+   "floating-level": {
+    "name_zh": "浮动窗口层级",
+    "description_zh": "“一直浮在文稿上面的工具窗口”用的就是浮动窗口层级。",
+    "prompt_zh": "一个层级为 NSWindow.Level.floating 的 NSPanel，始终位于相关文稿窗口上方"
+   },
+   "hud-chrome": {
+    "name_zh": "HUD 窗口外框",
+    "description_zh": "“深色半透明的 HUD 边框”就是 HUD 窗口外框。",
+    "prompt_zh": "辅助 NSPanel 周围深色半透明的 NSWindow.StyleMask.hudWindow 外框"
+   }
+  }
+ },
+ "popover": {
+  "name_zh": "弹出框（Popover）",
+  "tagline_zh": "带箭头的浮动气泡，箭头指回打开它的控件",
+  "description_zh": "弹出框是一种轻量的浮动气泡，用来展示与某个特定来源视图相关的控件或信息。它的箭头标明是哪个控件打开了它，AppKit 会选择一条边让气泡保持在屏幕内。根据行为设置，它可以在用户点击别处时关闭，也可以一直停留到被显式关闭。",
+  "aka_zh": [
+   "锚定弹出框",
+   "弹出气泡",
+   "标注气泡"
+  ],
+  "fuzzy_zh": [
+   "带箭头的小浮动气泡",
+   "箭头指回打开它的按钮的框",
+   "挂在工具栏按钮上的小窗口",
+   "锚在控件上的对话气泡面板",
+   "点别处就关掉的浮动设置气泡"
+  ],
+  "api_notes_zh": [
+   null,
+   "定位弹出框及其锚点箭头",
+   null,
+   null
+  ],
+  "prompt_zh": "用 NSPopover（SwiftUI：View.popover）把它呈现为弹出框，显示指向打开它的那个控件的锚点箭头。它要在视觉上始终附着于该控件，并按原生弹出框的行为关闭。",
+  "debugPrompt_zh": "调试我的 macOS 弹出框（NSPopover、SwiftUI View.popover）。逐一排除：transient 行为导致在自定义内容里点第一下就关闭——因为内容不接受第一响应者；布局变化后箭头还锚在过期的定位矩形上；弹出框被拖动时分离成浮动窗口（detachable 代理）；SwiftUI 弹出框在紧凑上下文中以 sheet 形式呈现。症状是：",
+  "parts_zh": {
+   "anchor-arrow": {
+    "name_zh": "锚点箭头",
+    "description_zh": "“气泡上指着按钮的小尖角”就是锚点箭头。",
+    "prompt_zh": "由 show(relativeTo:of:preferredEdge:) 生成的 NSPopover 锚点箭头，精确指向来源控件"
+   },
+   "positioning-rect": {
+    "name_zh": "定位矩形",
+    "description_zh": "“气泡贴住按钮的那一小块位置”就是定位矩形。",
+    "prompt_zh": "传给 NSPopover.show(relativeTo:of:preferredEdge:) 的定位矩形，把气泡锚定在来源视图的预期位置上"
+   }
+  }
+ },
+ "popup-pulldown-combo": {
+  "name_zh": "弹出式按钮 vs. 下拉式按钮 vs. 组合框",
+  "tagline_zh": "三个外观相似的 macOS 控件，分别用于选取一个值或触发菜单操作",
+  "description_zh": "弹出式按钮表示一次选择：关闭时按钮标签显示当前选项，点开后列出所有可选值。下拉式按钮是把 pullsDown 设为 true 的 NSPopUpButton，按钮标签固定不变，弹出的是一组命令，不表示持续的选中状态。组合框则是文本框加下拉列表，用户可以直接输入值，不必局限于列表中的选项。",
+  "aka_zh": [
+   "弹出菜单按钮",
+   "下拉菜单按钮",
+   "组合框",
+   "菜单选择器"
+  ],
+  "fuzzy_zh": [
+   "显示当前选中项的下拉框",
+   "带小箭头、点开是操作菜单的按钮",
+   "带下拉列表的文本框",
+   "Mac 菜单按钮和可编辑下拉框的区别",
+   "长得像按钮、点开是选项的选择器",
+   "既能打字又能选已有值的输入框"
+  ],
+  "api_notes_zh": [
+   "pullsDown 为 false 时是选择控件",
+   "可编辑文本框搭配选项列表",
+   "设为 true 就变成面向操作的下拉式按钮",
+   null
+  ],
+  "prompt_zh": "在弹出式按钮、下拉式按钮、组合框三者中选择正确的控件：表示持续选中状态用 pullsDown 为 false 的 NSPopUpButton；弹出命令菜单用 pullsDown 为 true 的同一个控件；需要用户既能输入又能选择时用 NSComboBox。保留所选控件的原生箭头、菜单行为和显示值语义。",
+  "debugPrompt_zh": "调试我的 macOS 弹出/下拉/组合框（NSPopUpButton、NSComboBox）。逐一排除：下拉式按钮把第一个菜单项吞掉当成了标题——插入一个占位的首项；菜单重建后没调用 selectItem 导致选中状态不同步；autoenablesItems 把没有目标的菜单项变灰；把组合框当成菜单用——它其实是可编辑文本框加列表。症状是：",
+  "parts_zh": {
+   "current-value-label": {
+    "name_zh": "当前值标签",
+    "description_zh": "“下拉框上显示当前选中内容的文字”就是弹出式按钮的当前值标签。",
+    "prompt_zh": "选择控件关闭状态下显示的 NSPopUpButton.titleOfSelectedItem 当前值标签"
+   },
+   "pull-down-indicator": {
+    "name_zh": "下拉指示箭头",
+    "description_zh": "“表示这个按钮会弹出操作的小箭头”就是下拉指示箭头。",
+    "prompt_zh": "pullsDown = true 的 NSPopUpButton 上的菜单指示箭头，表明这个标签固定的按钮弹出的是命令"
+   },
+   "editable-field": {
+    "name_zh": "可编辑值输入框",
+    "description_zh": "“下拉框里能自己输入值的框”就是组合框的可编辑输入框。",
+    "prompt_zh": "NSComboBox 的可编辑值输入框，视觉上与建议列表的展开按钮连为一体"
+   },
+   "selected-item-checkmark": {
+    "name_zh": "选中项勾号",
+    "description_zh": "“当前选项旁边的勾号”就是选中菜单项的状态标记。",
+    "prompt_zh": "打开的 NSPopUpButton 菜单中当前值旁边的 NSMenuItem.state 勾号"
+   }
+  }
+ },
+ "segmented-control": {
+  "name_zh": "分段控件",
+  "tagline_zh": "一排相连的选项，当前选中的分段清晰可见",
+  "description_zh": "分段控件把一小组相关选项组织成一排水平相连的按钮。选中的分段呈现按下或填充的样式，让当前模式一目了然。NSSegmentedControl 也可以配置为多选或瞬时（momentary）跟踪，但分段样式的 Picker 通常只表示一个持续的选中项。",
+  "aka_zh": [
+   "分段控制条",
+   "分段选择器",
+   "按钮组"
+  ],
+  "fuzzy_zh": [
+   "连在一起的一排按钮，总有一个保持选中",
+   "一个胶囊被切成几个能点的选项",
+   "切换视图用的小标签页",
+   "工具栏里连成一组的图标按钮",
+   "横排选择器，有一格是按下去的"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   "单选、多选或瞬时选择行为",
+   null
+  ],
+  "prompt_zh": "使用分段控件：NSSegmentedControl（SwiftUI：带 PickerStyle.segmented 的 Picker），用原生选中样式标示当前分段。让各按钮连成一个整体控件，并绑定选中状态，保证这个视图切换器始终恰好有一个分段被选中。",
+  "debugPrompt_zh": "调试我的 macOS 分段控件（NSSegmentedControl）。逐一排除：trackingMode 设错——momentary 模式的分段触发后立刻取消选中，selectOne 才会保留选中；momentary 模式下 action 里 selectedSegment 为 -1；分段图片不是模板图像导致深色模式显示异常；标签变化时自动分段宽度跳动。症状是：",
+  "parts_zh": {
+   "selected-segment": {
+    "name_zh": "选中分段",
+    "description_zh": "“一直保持按下的那一格”就是选中分段。",
+    "prompt_zh": "带原生常驻选中填充的 NSSegmentedControl.selectedSegment"
+   },
+   "segment-divider": {
+    "name_zh": "分段分隔线",
+    "description_zh": "“胶囊里隔开两个选项的细线”就是分段分隔线。",
+    "prompt_zh": "同一个 NSSegmentedControl 内部相邻选项之间的原生分隔线"
+   }
+  }
+ },
+ "sheet": {
+  "name_zh": "窗口附着面板（Sheet）",
+  "tagline_zh": "只附着于单个 macOS 窗口、而非整个 App 的模态面板",
+  "description_zh": "Sheet 是附着在某个特定窗口上的模态面板，传统上从窗口标题栏下滑出。它只阻止用户与父窗口交互，App 的其他窗口仍然可用。而 App 级模态对话框会锁住整个应用，视觉上也不附着于任何文稿窗口。",
+  "aka_zh": [
+   "窗口级模态对话框",
+   "文稿级模态对话框",
+   "附着式面板"
+  ],
+  "fuzzy_zh": [
+   "从窗口标题栏滑下来的对话框",
+   "只挂在一个 Mac 窗口上的模态框",
+   "吊在文稿窗口顶部的面板",
+   "挂在父窗口上的存储对话框",
+   "只挡一个窗口、不挡整个 App 的弹窗"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   "App 级模态的替代方案，不是 Sheet"
+  ],
+  "prompt_zh": "用 NSWindow.beginSheet(_:completionHandler:)（SwiftUI：View.sheet）把它呈现为窗口级模态的 Sheet，视觉上附着在父窗口标题栏下方。只阻挡父窗口，不要阻挡 App 的所有窗口。",
+  "debugPrompt_zh": "调试我的 macOS Sheet（NSWindow.beginSheet(_:completionHandler:)、SwiftUI View.sheet）。逐一排除：isPresented/item 绑定从未复位，导致无法再次弹出；从未调用 endSheet，父窗口一直被锁；从已脱离窗口的视图控制器发起呈现，结果什么都不显示；同一窗口上排队的两个 Sheet 意外接连弹出。症状是：",
+  "parts_zh": {
+   "dimming-layer": {
+    "name_zh": "变暗层",
+    "description_zh": "“Sheet 后面变暗的区域”就是变暗层，表示父界面暂时不可用。",
+    "prompt_zh": "Sheet 的变暗层（View.sheet(isPresented:content:)）：覆盖在被阻挡父界面上的半透明暗色遮罩"
+   }
+  }
+ },
+ "sidebar": {
+  "name_zh": "边栏（源列表）",
+  "tagline_zh": "位于 macOS 窗口左缘的半透明导航列",
+  "description_zh": "边栏是窗口最左侧的导航列，访达、邮件这类 App 用它把目的地分成分区。AppKit 把这种列表外观称为源列表（source list），而现代 SwiftUI 通常用 NavigationSplitView 加 sidebar 列表样式来搭建。它可以独立于主内容折叠，行背景常使用半透明材质。",
+  "aka_zh": [
+   "源列表",
+   "导航边栏",
+   "分栏视图边栏"
+  ],
+  "fuzzy_zh": [
+   "Mac App 左边那条半透明的列表",
+   "访达风格的导航列",
+   "左边带分区和选中行的面板",
+   "主内容旁边能折叠的边栏",
+   "左边的文件夹或页面列表",
+   "Mac 上那种磨砂背景的导航栏"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   "AppKit 标准的列表外观",
+   null
+  ],
+  "prompt_zh": "用 NavigationSplitView（AppKit：NSSplitViewController）构建 macOS 边栏（源列表），使用原生半透明边栏外观和源列表式的行选中。它必须占据左侧列、支持折叠，并让导航与详情内容分离。",
+  "debugPrompt_zh": "调试我的 macOS 边栏（NSSplitViewController sidebar item、SwiftUI NavigationSplitView）。逐一排除：磨砂的 vibrancy 效果缺失，因为边栏内容没有放进 sidebar 材质的效果视图里；toggleSidebar 接错了拆分视图项；没有 autosaveName 导致宽度无法记住；列表样式变化后选中高亮失去了圆角内嵌样式。症状是：",
+  "parts_zh": {
+   "source-list-style": {
+    "name_zh": "源列表样式",
+    "description_zh": "行距宽松、带 vibrancy 效果的访达式行外观，就是 AppKit 的源列表样式。",
+    "prompt_zh": "原生源列表样式（NSTableView.Style.sourceList）：半透明背景上、采用系统间距的访达式边栏行"
+   },
+   "section-header": {
+    "name_zh": "分区标题",
+    "description_zh": "把目的地分成“个人收藏”“iCloud”等组的小号强调标签，就是分区标题。",
+    "prompt_zh": "边栏分区标题（NSOutlineViewDelegate.outlineView(_:isGroupItem:)）：一组源列表行上方、本身不是目的地的分组标签"
+   },
+   "selection-pill": {
+    "name_zh": "选中胶囊",
+    "description_zh": "“当前行后面那个圆角彩色背景”就是边栏的选中胶囊。",
+    "prompt_zh": "边栏选中胶囊（NSTableRowView.isSelected）：当前源列表行后面的强调色圆角背景"
+   },
+   "sidebar-toggle": {
+    "name_zh": "边栏开关工具栏按钮",
+    "description_zh": "工具栏上那个标准的分栏矩形图标，用来显示或隐藏前侧栏，就是边栏开关。",
+    "prompt_zh": "边栏开关工具栏按钮（NSSplitViewController.toggleSidebar(_:)）：标准的分栏矩形图标，用于折叠或展开前侧边栏"
+   }
+  }
+ },
+ "stepper": {
+  "name_zh": "步进器",
+  "tagline_zh": "一对紧凑的上下箭头，用来递增或递减数值",
+  "description_zh": "步进器是一对上下堆叠的小箭头按钮，按固定步长改变数值。它通常放在数字输入框旁边，用户既可以精确输入，也可以一步一步地调整。它的可用状态应反映配置的最小值和最大值，按住箭头可以连续变化。",
+  "aka_zh": [
+   "步进控件",
+   "步进箭头",
+   "数字步进器",
+   "增减器"
+  ],
+  "fuzzy_zh": [
+   "数字框旁边那对小上下箭头",
+   "能增减数值的小控件",
+   "数字输入框旁边上下叠着的箭头按钮",
+   "调数字用的那种加减小控件",
+   "一步一步调数值的微调箭头"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 NSStepper（SwiftUI：Stepper）把原生步进器放在数字输入框旁边，紧凑的上下箭头对与输入框垂直对齐。把两个控件绑定到同一个值，并约束好预期的步长、最小值和最大值。",
+  "debugPrompt_zh": "调试我的 macOS 步进器（NSStepper、SwiftUI Stepper）。逐一排除：步进器和文本框没有绑定到同一个值，两边各走各的；valueWraps 让数值从最大值绕回最小值；想要单步调节，autorepeat 却在按住时连续触发；数字格式化器把步进器刚设的值截断或拒绝了。症状是：",
+  "parts_zh": {
+   "increment-button": {
+    "name_zh": "递增按钮",
+    "description_zh": "“上面那个把数字调大的小箭头”就是递增按钮。",
+    "prompt_zh": "NSStepper 的上箭头递增按钮，按 NSStepper.increment 的步长增大绑定值"
+   },
+   "decrement-button": {
+    "name_zh": "递减按钮",
+    "description_zh": "“下面那个把数字调小的小箭头”就是递减按钮。",
+    "prompt_zh": "NSStepper 的下箭头递减按钮，按 NSStepper.increment 的步长减小绑定值"
+   }
+  }
+ },
+ "toolbar": {
+  "name_zh": "工具栏（统一标题栏）",
+  "tagline_zh": "与现代 macOS 标题栏融为一体的一排窗口操作",
+  "description_zh": "工具栏承载窗口的主要操作，在统一样式下还能与窗口标题共用顶部同一行。原生工具栏项参与 macOS 的间距、验证、自定义和溢出行为。根据窗口样式和滚动位置，工具栏与窗口内容之间可能出现一条标题栏分隔线。",
+  "aka_zh": [
+   "窗口工具栏",
+   "统一工具栏",
+   "标题栏工具栏"
+  ],
+  "fuzzy_zh": [
+   "Mac 窗口顶部那一排按钮",
+   "标题栏里塞着搜索和操作图标",
+   "Mac 窗口顶部工具栏和标题挤在一行的那条",
+   "顶部那条能自定义窗口操作的横条",
+   "工具栏和窗口内容之间的那条线"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   "让窗口标题与工具栏项排在同一行",
+   null,
+   null
+  ],
+  "prompt_zh": "用 NSToolbar 和 NSWindow.ToolbarStyle.unified（SwiftUI：View.toolbar）创建工具栏（统一标题栏），采用原生 NSToolbarItem 的布局与间距。让标题与操作保持在同一行，并用 NSWindow.titlebarSeparatorStyle 控制内容上方的分隔线。",
+  "debugPrompt_zh": "调试我的 macOS 工具栏（NSToolbar、NSToolbarItem）。逐一排除：工具栏项缺失，因为没加进 itemIdentifiers 的默认项或允许项；validateToolbarItem 返回 false（或自定义视图没实现它）导致项变灰；没有 autosavesConfiguration，用户的自定义无法保存；统一标题栏样式让内容布局缩到了工具栏下面。症状是：",
+  "parts_zh": {
+   "toolbar-item": {
+    "name_zh": "工具栏项",
+    "description_zh": "工具栏里的一个按钮、搜索框、控件组或弹性空白，都是一个工具栏项。",
+    "prompt_zh": "原生工具栏项（NSToolbarItem）：按标准 macOS 工具栏行为放置的一个操作、输入框、控件组或弹性空白"
+   },
+   "item-label": {
+    "name_zh": "工具栏项标签",
+    "description_zh": "图标加文字模式下显示在图标下方的文字就是项标签；自定义调板里可以用单独的调板标签。",
+    "prompt_zh": "工具栏项标签（NSToolbarItem.label）：图标加文字显示模式下与图标一起显示的操作名称"
+   },
+   "overflow-chevron": {
+    "name_zh": "溢出箭头",
+    "description_zh": "工具栏项放不下时末尾出现的箭头，点开就是工具栏的溢出菜单。",
+    "prompt_zh": "工具栏溢出箭头（NSToolbarItem.visibilityPriority）：末尾的 » 控件，收纳放不下的工具栏项"
+   },
+   "title-bar-separator": {
+    "name_zh": "标题栏分隔线样式",
+    "description_zh": "工具栏下方的边界可以通过标题栏分隔线样式设为自动、可见线条、阴影或没有。",
+    "prompt_zh": "标题栏分隔线样式（NSWindow.titlebarSeparatorStyle）：统一工具栏外框与窗口内容之间的边界，可选自动、线条、阴影或无"
+   }
+  }
+ },
+ "traffic-lights": {
+  "name_zh": "红绿灯按钮（窗口控制按钮）",
+  "tagline_zh": "macOS 窗口左上角的红、黄、绿三个控制按钮",
+  "description_zh": "红绿灯按钮是 macOS 窗口左上角的红色关闭、黄色最小化和绿色窗口按钮。指针悬停在这一组按钮上时会显示各自的符号。绿色按钮默认进入全屏，还提供系统的窗口排列选项；macOS 内部仍通过 NSWindow.ButtonType.zoomButton 标识它。",
+  "aka_zh": [
+   "窗口控制按钮",
+   "标题栏按钮",
+   "关闭/最小化/缩放按钮"
+  ],
+  "fuzzy_zh": [
+   "Mac 窗口角落里的三个彩色圆点",
+   "左上角红黄绿三个按钮",
+   "悬停时才出现的叉、减号和小箭头",
+   "Mac 窗口的关闭、最小化和全屏按钮",
+   "能把窗口变大的绿色按钮"
+  ],
+  "api_notes_zh": [
+   null,
+   "closeButton、miniaturizeButton 和 zoomButton",
+   "进入或退出占满一个空间的全屏窗口"
+  ],
+  "prompt_zh": "使用 NSWindow.standardWindowButton(_:) 提供的标准红绿灯按钮，保留原生的间距、悬停符号，以及绿色按钮由系统提供的全屏和窗口排列行为。通过 .zoomButton 获取绿色按钮，只在明确要进入全屏时才调用 NSWindow.toggleFullScreen(_:)；不要用自绘的圆点替代。",
+  "debugPrompt_zh": "调试我的 macOS 红绿灯按钮（NSWindow.standardWindowButton）。逐一排除：改了 styleMask 或用了无边框窗口导致按钮消失；自定义 titlebar accessory 拦截了跟踪，悬停符号没了；期待全屏但绿色按钮执行了缩放（Option 点击会触发缩放）；全屏切换后挪过位置的按钮被系统主题框架重新排布而漂移。症状是：",
+  "parts_zh": {
+   "close-button": {
+    "name_zh": "关闭按钮",
+    "description_zh": "红色按钮在整组悬停时显示 ×，它关闭窗口，但不一定退出 App。",
+    "prompt_zh": "红色关闭按钮（NSWindow.ButtonType.closeButton）：最左侧的红绿灯，悬停显示 ×，用于关闭 NSWindow"
+   },
+   "minimize-button": {
+    "name_zh": "最小化按钮",
+    "description_zh": "黄色按钮悬停时显示减号，把窗口最小化到程序坞。",
+    "prompt_zh": "黄色最小化按钮（NSWindow.ButtonType.miniaturizeButton）：中间的红绿灯，悬停显示减号，把窗口收进程序坞"
+   },
+   "zoom-button": {
+    "name_zh": "缩放 / 全屏按钮",
+    "description_zh": "绿色按钮默认进入全屏；按住 Option 点击则执行传统的窗口缩放（Zoom）行为。",
+    "prompt_zh": "绿色缩放按钮（NSWindow.ButtonType.zoomButton）：显示全屏悬停符号，默认进入全屏，Option 点击执行传统窗口缩放"
+   },
+   "dirty-document": {
+    "name_zh": "未保存更改圆点",
+    "description_zh": "替代关闭按钮 × 的深色圆点，表示文稿有未保存的更改。",
+    "prompt_zh": "未保存更改圆点（NSWindow.isDocumentEdited）：红色关闭按钮中央的深色标记，表示有未保存的更改"
+   }
+  }
+ },
+ "vibrancy": {
+  "name_zh": "视觉效果材质（Vibrancy）",
+  "tagline_zh": "macOS 边栏、菜单和面板背后那种自适应的半透明背景",
+  "description_zh": "视觉效果材质提供 macOS 边栏、菜单和面板背后那种自适应的半透明背景。NSVisualEffectView 通过 Material 和 BlendingMode 选择背景效果。Vibrancy 是与之配套的前景处理，让内容在材质背景上保持对比度；标准的 AppKit 控件会在合适的地方自动启用它。",
+  "aka_zh": [
+   "视觉效果材质",
+   "毛玻璃",
+   "半透明材质",
+   "模糊材质"
+  ],
+  "fuzzy_zh": [
+   "Mac 边栏背后的毛玻璃背景",
+   "半透明的模糊面板，能透出后面的颜色",
+   "菜单和 HUD 后面那种透光的材质",
+   "Mac 上跟着壁纸变的模糊效果",
+   "窗口控件背后的玻璃感背景"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 NSVisualEffectView 实现这个视觉效果材质背景（SwiftUI：Material）。按语义用途选择 NSVisualEffectView.Material，并设置合适的 BlendingMode；让标准控件自动提供 vibrancy，不要用固定的模糊和不透明度去重造这个效果。",
+  "debugPrompt_zh": "调试我的 macOS vibrancy（NSVisualEffectView）。逐一排除：材质选错了界面类型（sidebar、menu、popover、hudWindow 各不相同）；想要 behindWindow 却设成了 withinWindow，导致什么也透不出来；带 vibrancy 的文字和控件失效，因为它们不是效果视图的子视图；state 设为 followsWindowActiveState 导致窗口失活时一切变灰。症状是：",
+  "parts_zh": {
+   "material-layer": {
+    "name_zh": "材质层",
+    "description_zh": "“面板背后的毛玻璃背景”就是材质层。",
+    "prompt_zh": "一个 NSVisualEffectView.Material 材质层，为界面提供自适应的半透明背景"
+   },
+   "vibrant-foreground": {
+    "name_zh": "Vibrancy 前景",
+    "description_zh": "“在玻璃背景上自适应的文字和图标”就是 vibrancy 前景。",
+    "prompt_zh": "NSVisualEffectView.allowsVibrancy 前景处理，让控件在材质上保持清晰可读"
+   }
+  }
+ },
+ "toast": {
+  "name_zh": "轻提示（Snackbar）",
+  "tagline_zh": "操作完成后短暂出现、不打断流程的消息",
+  "description_zh": "Toast 是一种小巧的非模态状态消息，在操作完成后出现在屏幕角落，并自动消失。它用来确认保存、复制这类即时结果，不打断工作流程。与通知横幅不同，它不在页面布局中占据固定位置，也不要求用户确认。",
+  "aka_zh": [
+   "底部提示条",
+   "状态提示",
+   "应用内通知"
+  ],
+  "fuzzy_zh": [
+   "角落里弹出来的小消息",
+   "自己会消失的确认提示",
+   "“保存成功”那种弹窗",
+   "点了按钮后出现的临时消息",
+   "屏幕底部的小提示"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   "播报非紧急更新"
+  ],
+  "prompt_zh": "操作成功后，通过 role=\"status\" 实时区域显示一条 Toast（Snackbar）。把它固定在同一个角落且不遮挡页面；只给非关键消息设置短暂延时后自动消失，并在指针悬停或键盘焦点落在 Toast 上时暂停计时。",
+  "debugPrompt_zh": "调试我的 Toast（aria-live 区域、sonner）。逐一排除：没有 aria-live 区域，屏幕阅读器永远不播报；自动消失计时器在悬停或聚焦时没有暂停；堆叠的 Toast 互相重叠而不是依次错位；退出动画和移除不同步导致闪没；z-index 顺序让 Toast 渲染到了模态框下面。症状是：",
+  "parts_zh": {
+   "toast-viewport": {
+    "name_zh": "Toast 视口",
+    "description_zh": "“所有小消息堆在一起的那个角落”就是 Toast 视口。",
+    "prompt_zh": "shadcn/ui 的 Toaster 视口，固定在屏幕同一角落，供 Toast 堆叠"
+   },
+   "status-message": {
+    "name_zh": "状态消息",
+    "description_zh": "“自己冒出来的‘保存成功’文字”就是 Toast 的状态消息。",
+    "prompt_zh": "Toast 内部简洁的 role=\"status\" 消息，以 polite 方式播报且不移动焦点"
+   },
+   "toast-action": {
+    "name_zh": "Toast 操作按钮",
+    "description_zh": "“临时消息里的‘撤销’按钮”就是 Toast 操作按钮。",
+    "prompt_zh": "Toast 内部的 shadcn/ui ToastAction，提供一个安全且有时效的后续操作，比如撤销"
+   }
+  }
+ },
+ "dialog-drawer-sheet": {
+  "name_zh": "模态对话框 vs. 抽屉 vs. 底部面板",
+  "tagline_zh": "三种覆盖层模式，按位置、范围和任务深度区分",
+  "description_zh": "模态对话框居中显示，挡住底下的界面，适合简短的决策或需要专注的任务。抽屉从侧边滑入，保留更多视觉上下文，适合浏览或编辑。底部面板同样贴着屏幕边缘，多从底部升起，用于紧凑操作或移动端布局；三者处于模态时都需要明确的关闭方式和受管的焦点。",
+  "aka_zh": [
+   "模态框",
+   "侧面板",
+   "侧滑面板",
+   "底部面板"
+  ],
+  "fuzzy_zh": [
+   "中间那个挡住页面的弹窗",
+   "从侧边滑进来的面板",
+   "从底部升上来的托盘",
+   "不离开页面就能编辑的覆盖层",
+   "背后带深色背景的浮动框"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 <dialog> 构建模态对话框，并用 HTMLDialogElement.showModal() 打开，这样浏览器会把它放进顶层、让背后的页面变为 inert、提供 ::backdrop 并支持 Escape 键。需要带上下文的编辑用侧边抽屉（Drawer），紧凑或移动端操作用底部面板（Sheet）；只有当这些界面确实是模态时，才添加遮罩层（scrim）和模态焦点管理。",
+  "debugPrompt_zh": "调试我的对话框/抽屉/底部面板（HTMLDialogElement、Radix Dialog、vaul）。逐一排除：该用 showModal() 的地方用了 show()，导致没有 ::backdrop、背景也不是 inert；body 滚动没锁住，页面在背后跟着滚；关闭后焦点没有还给触发按钮；想拦截 Escape 却没处理 onCancel，导致一按就关；嵌套对话框把父级也关掉了。症状是：",
+  "parts_zh": {
+   "modal-surface": {
+    "name_zh": "模态界面",
+    "description_zh": "“中间那个真正的浮动框”就是模态界面。",
+    "prompt_zh": "居中于顶层、位于 ::backdrop 之上的 <dialog> 模态界面"
+   },
+   "scrim": {
+    "name_zh": "遮罩层（Scrim）",
+    "description_zh": "“弹窗背后那层深色半透明的背景”就是遮罩层。",
+    "prompt_zh": "覆盖并压暗模态界面背后页面的 <dialog>::backdrop 遮罩层"
+   }
+  }
+ },
+ "popover-dropdown-tooltip": {
+  "name_zh": "弹出框 vs. 下拉菜单 vs. 工具提示",
+  "tagline_zh": "三种锚定式覆盖层，触发方式、内容和关闭规则各不相同",
+  "description_zh": "弹出框（popover）点击触发，可以装富文本、控件或表单，一直停留到被显式关闭或点击外部关闭。下拉菜单同样点击触发，但呈现的是可键盘导航的操作列表，通常选中后即关闭。工具提示是简短、不可交互的标签，悬停或键盘聚焦时出现，指针离开或失焦时消失。",
+  "aka_zh": [
+   "弹窗",
+   "菜单",
+   "悬停提示",
+   "开关式提示"
+  ],
+  "fuzzy_zh": [
+   "挂在按钮上的小框",
+   "菜单按钮下面展开的列表",
+   "悬停时出现的小标签",
+   "里面带控件的弹窗",
+   "图标旁边的小说明"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "点击触发的富内容覆盖层用 HTML popover 属性，可键盘导航的操作列表用 role=\"menu\"，简短、不可交互的悬停或聚焦提示才用 role=\"tooltip\"。用 aria-describedby 把工具提示关联到它的触发元素，让每个覆盖层都锚定在触发元素上，并为每种模式实现正确的 Escape、点击外部和焦点关闭行为。",
+  "debugPrompt_zh": "调试我的弹出框/下拉菜单/工具提示（Popover API、Radix、floating-ui）。逐一排除：用错了基础组件——工具提示只响应悬停和聚焦，绝不放可交互内容；面板被 overflow 祖先裁掉，没有 portal 到 body 或使用顶层的 Popover API；缺少 flip/shift 中间件，导致在视口边缘溢出；外部点击在内部点击生效之前就先把它关了。症状是：",
+  "parts_zh": {
+   "overlay-trigger": {
+    "name_zh": "覆盖层触发器",
+    "description_zh": "“小框挂着的那个按钮”就是覆盖层触发器。",
+    "prompt_zh": "拥有并锚定弹出界面的 popovertarget 覆盖层触发器"
+   },
+   "menu-selection-highlight": {
+    "name_zh": "菜单选中高亮",
+    "description_zh": "“方向键停在下拉操作上时背后那条高亮”就是菜单选中高亮。",
+    "prompt_zh": "可键盘导航的下拉菜单中，当前激活 role=\"menuitem\" 背后的选中高亮"
+   },
+   "tooltip-arrow": {
+    "name_zh": "工具提示箭头",
+    "description_zh": "“把悬停标签指向图标的小尖角”就是工具提示箭头。",
+    "prompt_zh": "从 role=\"tooltip\" 提示指回触发元素的 Radix Tooltip.Arrow"
+   }
+  }
+ },
+ "scrim": {
+  "name_zh": "遮罩层（背景遮罩 / 覆盖层）",
+  "tagline_zh": "把模态界面与页面隔开的那层半透明层",
+  "description_zh": "遮罩层是位于打开的模态界面与背后内容之间的半透明全屏层。它压低背景对比度、防止误触，并让当前活跃层一目了然。原生 HTML 对话框把这层暴露为 ::backdrop 伪元素。",
+  "aka_zh": [
+   "背景遮罩",
+   "覆盖层",
+   "模态遮罩"
+  ],
+  "fuzzy_zh": [
+   "弹窗背后那层深色半透明层",
+   "模态框打开时页面变暗",
+   "对话框背后的灰色蒙层",
+   "挡住面板后面点击的那层",
+   "弹窗底下变灰变淡的背景",
+   "弹窗背后灰掉的背景"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 <dialog>::backdrop 伪元素在模态框背后添加遮罩层。它应覆盖整个视口，压暗页面（可选地加模糊），拦截指针输入，并随模态框一起可逆地淡入淡出。",
+  "debugPrompt_zh": "调试我的遮罩层（::backdrop、fixed 覆盖层）。逐一排除：滚动穿透到了页面——设置 overscroll-behavior: contain 并锁定 body 滚动；某个带 transform 的祖先建了自己的层叠上下文，把遮罩压到了内容下面；淡出期间 pointer-events 仍然生效，看不见却在吃点击；对话框是用 show() 而不是 showModal() 打开的，导致 ::backdrop 无法设置样式。症状是：",
+  "parts_zh": {
+   "dim-layer": {
+    "name_zh": "压暗层",
+    "description_zh": "“弹窗背后那层深色半透明层”就是遮罩层的压暗层。",
+    "prompt_zh": "覆盖模态框背后整个视口的 <dialog>::backdrop 压暗层"
+   },
+   "backdrop-blur": {
+    "name_zh": "背景模糊",
+    "description_zh": "“页面在深色蒙层后面变柔”就是背景模糊。",
+    "prompt_zh": "加在遮罩层上的 CSS backdrop-filter 模糊，让底下的页面变柔而不模糊模态框本身"
+   },
+   "light-dismiss-area": {
+    "name_zh": "轻点关闭区域",
+    "description_zh": "“点一下就能关掉模态框的外部区域”就是轻点关闭区域。",
+    "prompt_zh": "遮罩层的轻点关闭区域：只在点击落在对话框界面之外时调用 HTMLDialogElement.close()"
+   }
+  }
+ }
+}

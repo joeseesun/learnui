@@ -1,0 +1,236 @@
+<div class="demo demo-command-palette">
+  <div class="palette" role="dialog" aria-label="Command palette">
+    <div class="head">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+      <input class="input" type="text" placeholder="Type a command…" autocomplete="off" spellcheck="false" aria-label="Command search">
+      <kbd class="esc">ESC</kbd>
+    </div>
+    <div class="body">
+      <p class="group">Suggestions</p>
+      <div class="list">
+        <button type="button" class="cmd active" data-cmd="Create new project">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.35 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5.35"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M14 19h6"></path><path d="M17 16v6"></path></svg>
+          <span class="name">Create new project</span>
+          <kbd class="kbd">⌘ N</kbd>
+        </button>
+        <button type="button" class="cmd" data-cmd="Invite a teammate">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></svg>
+          <span class="name">Invite a teammate</span>
+          <kbd class="kbd">⌘ I</kbd>
+        </button>
+        <button type="button" class="cmd" data-cmd="Open settings">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          <span class="name">Open settings</span>
+          <kbd class="kbd">⌘ ,</kbd>
+        </button>
+      </div>
+      <p class="empty" hidden>No matching commands</p>
+    </div>
+  </div>
+</div>
+<style>
+.demo-command-palette {
+  font-family: var(--font-sans);
+  width: 100%;
+  max-width: 250px;
+}
+.demo-command-palette .palette {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+}
+.demo-command-palette .head {
+  position: relative;
+  display: flex;
+  height: 44px;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  border-radius: 12px 12px 0 0;
+  padding: 0 12px;
+  color: #94a3b8;
+}
+.demo-command-palette .input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #1e293b;
+  outline: none;
+}
+.demo-command-palette .input::placeholder {
+  color: #94a3b8;
+}
+.demo-command-palette .esc {
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  padding: 2px 6px;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  color: #94a3b8;
+}
+.demo-command-palette .body {
+  position: relative;
+  border-radius: 0 0 12px 12px;
+  padding: 6px;
+}
+.demo-command-palette .group {
+  margin: 0;
+  padding: 4px 8px 4px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+.demo-command-palette .cmd {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 8px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #475569;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+}
+.demo-command-palette .cmd:hover {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.demo-command-palette .cmd[hidden] {
+  display: none;
+}
+.demo-command-palette .cmd.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.demo-command-palette .cmd .name {
+  flex: 1;
+}
+.demo-command-palette .kbd {
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  color: #94a3b8;
+  transition: color 150ms;
+}
+.demo-command-palette .cmd:hover .kbd,
+.demo-command-palette .cmd.active .kbd {
+  color: #2563eb;
+}
+.demo-command-palette .cmd.ran {
+  animation: demo-command-palette-flash 450ms ease-out;
+}
+.demo-command-palette .empty {
+  margin: 0;
+  padding: 8px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+@keyframes demo-command-palette-flash {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-command-palette .cmd,
+  .demo-command-palette .kbd {
+    transition: none;
+  }
+  .demo-command-palette .cmd.ran {
+    animation: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const input = ROOT.querySelector('.input');
+  const cmds = Array.prototype.slice.call(ROOT.querySelectorAll('.cmd'));
+  const empty = ROOT.querySelector('.empty');
+  const group = ROOT.querySelector('.group');
+  let activeIndex = 0;
+
+  function visible() {
+    return cmds.filter(function (cmd) { return !cmd.hidden; });
+  }
+
+  function applyFilter() {
+    const query = input.value.trim().toLowerCase();
+    cmds.forEach(function (cmd) {
+      cmd.hidden = query !== '' && cmd.dataset.cmd.toLowerCase().indexOf(query) === -1;
+    });
+    const list = visible();
+    empty.hidden = list.length > 0;
+    group.hidden = list.length === 0;
+    activeIndex = list.length > 0 ? 0 : -1;
+    paint();
+  }
+
+  function paint() {
+    const list = visible();
+    cmds.forEach(function (cmd) { cmd.classList.remove('active'); });
+    if (activeIndex >= 0 && list[activeIndex]) {
+      list[activeIndex].classList.add('active');
+    }
+  }
+
+  function run(cmd) {
+    cmd.classList.remove('ran');
+    void cmd.offsetWidth;
+    cmd.classList.add('ran');
+  }
+
+  input.addEventListener('input', applyFilter);
+
+  input.addEventListener('keydown', function (event) {
+    const list = visible();
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (list.length > 0) {
+        activeIndex = (activeIndex + 1) % list.length;
+        paint();
+      }
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (list.length > 0) {
+        activeIndex = (activeIndex - 1 + list.length) % list.length;
+        paint();
+      }
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      if (activeIndex >= 0 && list[activeIndex]) {
+        run(list[activeIndex]);
+      }
+    } else if (event.key === 'Escape') {
+      input.value = '';
+      applyFilter();
+    }
+  });
+
+  cmds.forEach(function (cmd) {
+    cmd.addEventListener('click', function () {
+      run(cmd);
+    });
+    cmd.addEventListener('mouseenter', function () {
+      const list = visible();
+      activeIndex = list.indexOf(cmd);
+      paint();
+    });
+  });
+})();
+</script>

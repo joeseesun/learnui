@@ -1,0 +1,701 @@
+{
+ "progress-indicators": {
+  "name_zh": "进度环 vs. Spinner vs. 进度条",
+  "tagline_zh": "Spinner 只表示「请等待」；进度环或进度条能显示已经完成了多少",
+  "description_zh": "Spinner 不停转圈，不显示还剩多少工作量。确定型进度环沿圆周填充一段圆弧，线性进度条沿轨道推进填充；两者都表示一个已知数值。百分比标签可以把数值标得更精确，但它必须与指示器的无障碍进度值保持一致。",
+  "aka_zh": [
+   "环形进度指示器",
+   "加载转圈",
+   "确定型进度指示器",
+   "线性进度指示器"
+  ],
+  "fuzzy_zh": [
+   "倒计时那个圈，就是那个会被逐渐填满的圈",
+   "圆的那种进度条",
+   "菜单栏上那个一点点填满的环",
+   "会填满的那个环",
+   "加载时一直转的那个圈",
+   "显示进行到哪儿的那条杠"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "使用正确的进度指示器：剩余工作量未知时用 indeterminate spinner；需要用紧凑的圆弧逐渐填充至完成时用确定型进度环；空间足够放下一条可读轨道时用 HTML <progress> 线性进度条。自定义指示器要用 role=\"progressbar\" 配合 aria-valuenow，并让任何可见百分比与同一个无障碍值保持一致；SwiftUI 里对应的是 ProgressView。",
+  "debugPrompt_zh": "调试我的进度指示器（role=progressbar、aria-valuenow、spinner）。排除以下可能：本可以用确定型进度条却用了 indeterminate spinner（或反过来）；进度条宽度不动画，因为 transition 加在了错误的属性上；loading 标志卡在 true，spinner 永远停不下来；aria-valuenow 从不更新，辅助技术永远读到 0%。症状是：",
+  "parts_zh": {
+   "spinner": {
+    "name_zh": "不确定型 Spinner",
+    "description_zh": "那个一直循环转动的圈就是不确定型 Spinner：它只表示「正在工作」，不表示还剩多少。",
+    "prompt_zh": "一个带 role=\"progressbar\"、不带 aria-valuenow 的 indeterminate spinner：循环转动的圆形描边，只在剩余时长或完成量未知时使用"
+   },
+   "progress-ring": {
+    "name_zh": "确定型进度环",
+    "description_zh": "「会填满的那个环」就是确定型进度环：它的圆弧表示一个已知的完成值。",
+    "prompt_zh": "一个带 role=\"progressbar\" 和 aria-valuenow 的确定型进度环：圆弧沿固定轨道从空到满逐渐填充"
+   },
+   "progress-bar": {
+    "name_zh": "线性进度条",
+    "description_zh": "从一端填充到另一端的那条就是线性进度条；数值已知时用 <progress>。",
+    "prompt_zh": "一个用 HTML <progress> 实现的确定型线性进度条：填充值沿固定的水平轨道从最小值推进到完成"
+   },
+   "progress-track": {
+    "name_zh": "进度轨道",
+    "description_zh": "进度环或进度条背后那条未填充的底轨就是轨道（track），它展示指示器的完整量程。",
+    "prompt_zh": "<progress> 填充值背后的进度轨道：一条完整、低对比度的底轨，在指示器未填充的部分保持可见"
+   },
+   "percentage-label": {
+    "name_zh": "百分比标签",
+    "description_zh": "指示器旁边或内部的数字就是百分比标签，用可读的方式写出当前进度值。",
+    "prompt_zh": "给进度指示器加一个百分比标签，如 72%，并与 role=\"progressbar\" 及其 aria-valuenow 值保持同步"
+   }
+  }
+ },
+ "window": {
+  "name_zh": "Mac 窗口",
+  "tagline_zh": "可移动的 Mac 应用框架，从标题栏、工具栏一直到调整大小的边缘",
+  "description_zh": "Mac 窗口是可移动、通常可调整大小的框架，承载应用的一个界面。顶部外框（chrome）可以把可拖动的标题栏、标题、工具栏、附加控件和文档标签页组合在一起，红黄绿三个红绿灯按钮则始终是独立的标准控件。窗口标签页属于窗口框架，用来把多个独立窗口编组；内容区里的标签视图只在一个窗口内部切换内容。",
+  "aka_zh": [
+   "应用窗口",
+   "文档窗口",
+   "NSWindow",
+   "窗口框架"
+  ],
+  "fuzzy_zh": [
+   "屏幕上整个 Mac 应用的那个框",
+   "窗口顶部可以拖着走的地方",
+   "标题栏里那个小控件",
+   "红绿灯按钮旁边的一个按钮",
+   "嵌在 Mac 窗口框架里的标签页",
+   "角落里用来调窗口大小的小抓手"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "把它构建为原生 Mac 窗口（NSWindow；SwiftUI：Window 或 WindowGroup）。区分可拖动的标题栏区域与 NSWindow.title，用 NSToolbar 做统一的窗口外框（chrome），用 NSTitlebarAccessoryViewController 挂自定义标题栏控件，并保留原生窗口标签页和调整大小边缘。",
+  "debugPrompt_zh": "调试我的 macOS 窗口（NSWindow）。排除以下可能：设了 fullSizeContentView 加透明标题栏，内容钻到标题栏下面；窗口在预期位置拖不动——isMovableByWindowBackground 与可拖动标题栏区域的区别；按键石沉大海，因为 first responder 被清掉了；frame 自动保存恢复了旧位置，盖掉你手动调的 setFrame。症状是：",
+  "parts_zh": {
+   "title-bar": {
+    "name_zh": "标题栏",
+    "description_zh": "「窗口顶部那条横条」就是标题栏，即使标题文字隐藏了，它也可以保留。",
+    "prompt_zh": "Mac 窗口的标题栏（NSWindow.titleVisibility）：顶部外框，包含标题、红绿灯按钮和可选的统一工具栏"
+   },
+   "drag-region": {
+    "name_zh": "窗口拖动区域",
+    "description_zh": "按住就能移动窗口的空白区域是拖动区域，不一定是看得见的标题文字。",
+    "prompt_zh": "窗口拖动区域（NSWindow.isMovableByWindowBackground）：标题栏内无遮挡的区域，拖动它会移动整个 NSWindow"
+   },
+   "window-title": {
+    "name_zh": "窗口标题",
+    "description_zh": "显示在标题栏里的文档名或界面名就是窗口标题。",
+    "prompt_zh": "窗口标题（NSWindow.title）：放在标题栏外框里的文档名或界面名"
+   },
+   "unified-toolbar": {
+    "name_zh": "统一工具栏",
+    "description_zh": "当标题和窗口操作按钮共用顶部同一行时，这个外框用的就是统一工具栏样式。",
+    "prompt_zh": "一个统一的 Mac 工具栏（NSWindow.ToolbarStyle.unified）：与标题栏共用一行，而不是单独占一条"
+   },
+   "toolbar-item": {
+    "name_zh": "工具栏项",
+    "description_zh": "放在窗口工具栏里的一个按钮、输入框或弹性空隙，就是一个工具栏项。",
+    "prompt_zh": "一个原生工具栏项（NSToolbarItem），遵循 macOS 工具栏的间距、校验和溢出行为"
+   },
+   "title-bar-accessory": {
+    "name_zh": "标题栏附加控件",
+    "description_zh": "「标题栏里那个小控件」就是标题栏附加控件，和工具栏、红绿灯按钮都不相干。",
+    "prompt_zh": "标题栏附加控件（NSTitlebarAccessoryViewController）：附着在 NSWindow 标题栏某条边上的自定义控件条，独立于 NSToolbar"
+   },
+   "title-bar-separator": {
+    "name_zh": "标题栏分隔线",
+    "description_zh": "窗口顶部外框和内容之间那条细线就是标题栏分隔线。",
+    "prompt_zh": "标题栏分隔线（NSWindow.titlebarSeparatorStyle）：标题栏或工具栏外框与窗口内容之间的原生细线"
+   },
+   "window-tabs": {
+    "name_zh": "窗口标签页",
+    "description_zh": "窗口框架里的标签页用来把独立的文档窗口编组，不是内容区里的 NSTabView。",
+    "prompt_zh": "原生窗口标签页（NSWindowTabGroup）：窗口框架里的标签条，把多个独立的 NSWindow 文档编组，而不是内容里的 NSTabView"
+   },
+   "resize-edge": {
+    "name_zh": "调整大小边缘／角落",
+    "description_zh": "「角落里的小抓手」指调整大小的边缘或角落，即使没画出抓手，它也可能是可交互的。",
+    "prompt_zh": "原生的调整大小边缘和角落（NSWindow.StyleMask.resizable）：可拖动的窗口框架边界，包括右下角的大小抓手区域"
+   }
+  }
+ },
+ "split-view": {
+  "name_zh": "拆分视图",
+  "tagline_zh": "Mac 窗口里由可拖动分隔条隔开、可各自调整大小的窗格",
+  "description_zh": "拆分视图把窗口的一个区域划分成两个或多个可独立调整大小的窗格。中间那条线如果能拖动，就是拆分视图的分隔条（splitter），不只是装饰性分隔线。边栏是一种特殊的窗格，可以折叠起来，把空间让给剩下的窗格。",
+  "aka_zh": [
+   "拆分窗格",
+   "分隔条视图",
+   "多窗格布局",
+   "导航拆分视图"
+  ],
+  "fuzzy_zh": [
+   "被分成两个可调大小面板的窗口",
+   "两个窗格中间那条能拖的线",
+   "能拖着调整边栏宽度的分隔条",
+   "左边那个能收进边缘的面板",
+   "工具栏上那条跟着边栏分隔条走的线"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "用 NSSplitView 和 NSSplitViewItem 构建原生拆分视图（SwiftUI：NavigationSplitView），在可独立调整大小的窗格之间放可拖动的分隔条。给边栏项加上原生折叠行为，并用 NSTrackingSeparatorToolbarItem 对齐工具栏的分隔边界。",
+  "debugPrompt_zh": "调试我的 macOS 拆分视图（NSSplitView、NSSplitViewController）。排除以下可能：没设 autosaveName 导致分隔条位置不持久；holding priorities 决定哪个窗格吸收窗口的尺寸变化——优先级最低的窗格会被拉大；delegate 的最小／最大约束和同一窗格上的 Auto Layout 约束打架；canCollapse 导致双击时窗格意外合拢。症状是：",
+  "parts_zh": {
+   "pane": {
+    "name_zh": "窗格（拆分视图项）",
+    "description_zh": "分隔条两侧每个可独立调整大小的区域都是一个窗格，由 NSSplitViewItem 表示。",
+    "prompt_zh": "一个拆分视图窗格（NSSplitViewItem）：NSSplitView 内一个可独立调整大小的内容区域"
+   },
+   "divider": {
+    "name_zh": "拆分视图分隔条（splitter）",
+    "description_zh": "「两个窗格中间那条能拖的线」就是拆分视图分隔条，也叫 splitter。",
+    "prompt_zh": "两个窗格之间可拖动的拆分视图分隔条（splitter，NSSplitView.dividerThickness），带原生的调整大小光标和点击热区"
+   },
+   "sidebar-collapse": {
+    "name_zh": "边栏折叠行为",
+    "description_zh": "边栏收起、把宽度让给相邻窗格的方式就是它的折叠行为。",
+    "prompt_zh": "原生边栏折叠行为（NSSplitViewItem.collapseBehavior）：前侧窗格收起，相邻窗格扩展到它腾出的空间"
+   },
+   "tracking-separator": {
+    "name_zh": "跟踪分隔条工具栏项",
+    "description_zh": "工具栏上那条始终跟移动中的拆分视图分隔条上下对齐的分隔线，就是跟踪分隔条。",
+    "prompt_zh": "一个跟踪分隔条工具栏项（NSTrackingSeparatorToolbarItem）：与 NSSplitView 分隔条对齐并随它水平移动"
+   }
+  }
+ },
+ "scroll-view": {
+  "name_zh": "滚动视图（Scroller）",
+  "tagline_zh": "一个视口，它的滚动条在 AppKit 里叫 scroller",
+  "description_zh": "滚动视图是通往比可见区域更大的内容的一个视口。AppKit 把边缘那条控件叫 scroller：能拖动的滑块叫 knob，滑块后面的轨道叫 knob slot。现代的 overlay scroller 浮在内容之上、闲置时淡出；legacy scroller 则常驻并占用布局空间。",
+  "aka_zh": [
+   "可滚动视图",
+   "滚动容器",
+   "滚动条",
+   "NSScroller"
+  ],
+  "fuzzy_zh": [
+   "里面能滚动的那片区域",
+   "Mac 窗口边上的滚动条",
+   "滚动条上那个能拖的小滑块",
+   "滚动条滑块后面的轨道",
+   "不滚动就会淡出的滚动条",
+   "列表滚到底时的橡皮筋回弹"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "使用原生滚动视图（NSScrollView；SwiftUI：ScrollView）。在 AppKit 里，边缘那个控件叫 NSScroller：可拖动的 knob 位于 knob slot 之内；尊重 NSScroller.Style 里 overlay 与 legacy 的区别，并在内容边界保留原生的滚动弹性。",
+  "debugPrompt_zh": "调试我的 macOS 滚动视图（NSScrollView、NSClipView）。排除以下可能：document view 没有 flipped 导致内容原点搞反；overlay 和 legacy 两种 scroller 样式让不同用户看到的可用宽度不一样；橡皮筋过冲被 elasticity 设置禁用或叠了双倍；滚轮事件被嵌套的滚动视图吞掉；scrollToVisible 和响应式滚动预取互相打架。症状是：",
+  "parts_zh": {
+   "scroller": {
+    "name_zh": "Scroller（滚动条）",
+    "description_zh": "大多数人叫「滚动条」的那个控件，在 AppKit 里正式名称是 scroller。",
+    "prompt_zh": "滚动视图的 scroller（NSScroller）：内容边缘的原生 macOS「轨道＋滑块」控件"
+   },
+   "knob": {
+    "name_zh": "滚动滑块 knob（thumb）",
+    "description_zh": "「那个能拖的小滑块」就是 scroller 的 knob，它的长度反映可见内容占多大比例。",
+    "prompt_zh": "滚动滑块 knob（thumb，NSScroller.knobProportion）：可拖动的圆角小块，长度代表内容的可见比例"
+   },
+   "knob-slot": {
+    "name_zh": "滑块槽 knob slot（轨道）",
+    "description_zh": "knob 后面的滑槽就是 knob slot，通常叫滚动条轨道。",
+    "prompt_zh": "scroller 的滑块槽（轨道，NSScroller.drawKnobSlot(in:highlight:)）：可拖动 knob 后面的滑槽"
+   },
+   "scroller-style": {
+    "name_zh": "Overlay 与 legacy 两种 scroller 样式",
+    "description_zh": "overlay scroller 浮在内容上、闲置淡出；legacy scroller 一直可见并占用布局空间。",
+    "prompt_zh": "scroller 样式（NSScroller.Style）：overlay 浮在内容上方、闲置时淡出；legacy 在预留的空间里常驻可见"
+   }
+  }
+ },
+ "search-field": {
+  "name_zh": "搜索栏",
+  "tagline_zh": "Mac 上的文本输入框，自带搜索、清除和最近查询控件",
+  "description_zh": "搜索栏是专门用来筛选或查找内容的文本输入框。在 macOS 上，它通常带一个放大镜搜索按钮、一个在有关键词时出现的取消按钮，以及可选的最近搜索菜单。SwiftUI 的 searchable 修饰符会把平台搜索栏放到合适的位置，比如工具栏里。",
+  "aka_zh": [
+   "搜索框",
+   "搜索栏",
+   "NSSearchField",
+   "可搜索的输入框"
+  ],
+  "fuzzy_zh": [
+   "带放大镜的圆角框",
+   "Mac 工具栏里的搜索输入框",
+   "清空搜索内容的小 x",
+   "文本框里面的放大镜按钮",
+   "最近搜索的下拉列表"
+  ],
+  "api_notes_zh": [null, null, null],
+  "prompt_zh": "使用原生搜索栏 NSSearchField（SwiftUI：View.searchable），保留前缘的搜索按钮、有文本时出现在后缘的取消按钮，以及来自 NSSearchFieldCell.searchMenuTemplate 的可选最近搜索菜单。",
+  "debugPrompt_zh": "调试我的 macOS 搜索栏（NSSearchField）。排除以下可能：sendsSearchStringImmediately 为 false，导致只有按 Return 才触发搜索；清除按钮清掉了文本但你的代码没收到通知——留意空字符串 action；没设 recentsAutosaveName 导致最近搜索菜单失效；控件尺寸太小时取消按钮被隐藏。症状是：",
+  "parts_zh": {
+   "search-button": {
+    "name_zh": "搜索按钮",
+    "description_zh": "前缘内侧的放大镜是搜索按钮，不只是装饰性的占位图标。",
+    "prompt_zh": "搜索按钮（NSSearchFieldCell.searchButtonCell）：NSSearchField 内部前缘的放大镜控件"
+   },
+   "cancel-button": {
+    "name_zh": "取消按钮",
+    "description_zh": "「清空搜索的小 x」就是这个输入框的取消按钮。",
+    "prompt_zh": "取消按钮（NSSearchFieldCell.cancelButtonCell）：后缘的 x 控件，有关键词时出现，点击清空"
+   },
+   "recents-menu": {
+    "name_zh": "最近搜索菜单",
+    "description_zh": "挂在搜索图标上的菜单可以列出最近的查询和一条「清除最近搜索」命令。",
+    "prompt_zh": "最近搜索菜单（NSSearchFieldCell.searchMenuTemplate）：从搜索按钮打开的菜单，列出保存过的查询和「清除最近搜索」"
+   }
+  }
+ },
+ "save-panel": {
+  "name_zh": "存储面板",
+  "tagline_zh": "Mac 上给文件起名、选择存储位置的标准对话框",
+  "description_zh": "存储面板是用来选择文件名、位置、有时还有文件格式的系统对话框。它的紧凑形态可以展开成类似 Finder 的浏览器，带边栏和目录内容。NSSavePanel 提供原生行为、校验、沙盒集成以及 sheet 形式的呈现。",
+  "aka_zh": [
+   "保存对话框",
+   "另存为面板",
+   "文件保存选择器",
+   "NSSavePanel"
+  ],
+  "fuzzy_zh": [
+   "Mac 的「另存为」窗口",
+   "保存前给文件起名的那个对话框",
+   "把保存对话框展开的小箭头",
+   "另存为里的文件格式下拉框",
+   "保存窗口里那个 Finder 边栏"
+  ],
+  "api_notes_zh": [null, null, null],
+  "prompt_zh": "用 NSSavePanel 弹出标准存储面板（SwiftUI 流程：View.fileExporter），包括可编辑的名称栏、展开文件浏览器的披露按钮、按允许内容类型过滤的格式弹出式按钮，以及 Finder 风格的边栏。不要用自定义控件重造系统保存对话框。",
+  "debugPrompt_zh": "调试我的 macOS 存储面板（NSSavePanel、NSOpenPanel）。排除以下可能：沙盒 URL 之后失效，因为从没调用 startAccessingSecurityScopedResource，或从没保存 bookmark；allowedContentTypes 把所有类型都过滤掉了，导致「存储」按钮一直不可用；本该用 beginSheetModal 却用了 runModal 卡住整个应用；因为在展示之后才设 directoryURL，面板打开在错误的文件夹。症状是：",
+  "parts_zh": {
+   "name-field": {
+    "name_zh": "名称栏",
+    "description_zh": "「存储为」那个可编辑文本框就是面板的名称栏。",
+    "prompt_zh": "存储面板的名称栏（NSSavePanel.nameFieldStringValue）：浏览器上方可编辑的文件名输入框"
+   },
+   "disclosure-button": {
+    "name_zh": "披露展开按钮",
+    "description_zh": "「让保存窗口变大的那个小箭头」就是展开面板浏览器的披露按钮。",
+    "prompt_zh": "存储面板的披露展开按钮（NSSavePanel.isExpanded）：显示或隐藏完整文件浏览器的小控件"
+   },
+   "format-popup": {
+    "name_zh": "格式弹出式按钮",
+    "description_zh": "名称下方的文件类型选择器就是格式弹出式按钮，可选范围受面板允许的内容类型约束。",
+    "prompt_zh": "存储面板的格式弹出式按钮（NSSavePanel.allowedContentTypes）：文件名输入框下方的原生文件类型选择器"
+   }
+  }
+ },
+ "token-field": {
+  "name_zh": "令牌输入框",
+  "tagline_zh": "一种文本输入框，能把识别出来的值变成可移除的圆角令牌",
+  "description_zh": "令牌输入框把输入文本里识别出的片段转换成一个个独立的圆角令牌，就像邮件撰写窗口里的收件人。每个令牌代表一个值，可以单独选中、编辑或删除，而不是把整个输入框当纯文本处理。AppKit 通过 NSTokenField 提供令牌样式、自动补全、represented object 和分词分隔符。",
+  "aka_zh": [
+   "令牌输入",
+   "收件人栏",
+   "标签输入框",
+   "胶囊输入框"
+  ],
+  "fuzzy_zh": [
+   "里面带可删小胶囊的文本框",
+   "收件人栏里的邮箱气泡",
+   "能把词变成小标签的输入框",
+   "输入框里可以删掉的圆角小片",
+   "每个收件人都变成一个气泡的那个输入框"
+  ],
+  "api_notes_zh": [null, null, null],
+  "prompt_zh": "使用原生令牌输入框（NSTokenField）和 NSTokenField.TokenStyle，让每个识别出的收件人或标签都变成可单独选中、可删除的圆角令牌。保留令牌自动补全和键盘删除行为。",
+  "debugPrompt_zh": "调试我的 macOS 令牌输入框（NSTokenField）。排除以下可能：tokenizing character set 里缺了你的分隔符，导致按 Return 才把文本变成令牌；delegate 里把 represented object 和显示字符串搞混，令牌显示出原始标识符；没实现补全的 delegate 方法，补全列表永不出现；没实现向粘贴板写 represented object，复制出来只有纯文本。症状是：",
+  "parts_zh": {
+   "token-capsule": {
+    "name_zh": "令牌胶囊",
+    "description_zh": "「每个收件人外面那层圆角小气泡」就是令牌胶囊。",
+    "prompt_zh": "一个 NSTokenField.TokenStyle 令牌胶囊，在输入框里包裹一个识别出的值"
+   },
+   "selected-token": {
+    "name_zh": "选中的令牌",
+    "description_zh": "「删除前整个高亮的那粒胶囊」就是选中的令牌。",
+    "prompt_zh": "NSTokenField 中选中的令牌，带原生高亮，等待键盘删除或编辑"
+   }
+  }
+ },
+ "combo-button": {
+  "name_zh": "组合按钮",
+  "tagline_zh": "主操作和一个独立箭头拼在一起，箭头打开相关操作",
+  "description_zh": "组合按钮把两个相邻的点击目标拼在一起：主按钮立即执行默认操作，小箭头按钮打开相关的备选操作。弹出式按钮（pop-up button）显示的是当前选中的值；下拉式按钮（pull-down button）则整个控件都用来打开菜单，没有独立的主操作区域。NSComboButton 在 macOS 13 及更高版本可用。",
+  "aka_zh": [
+   "拆分按钮",
+   "菜单箭头按钮",
+   "操作＋菜单按钮",
+   "NSComboButton"
+  ],
+  "fuzzy_zh": [
+   "旁边连着一个小箭头的按钮",
+   "又能点又带下拉的那个按钮",
+   "右边带菜单的分体式操作按钮",
+   "主按钮拼着一个小 chevron 按钮",
+   "文字直接执行、箭头打开选项的那个按钮"
+  ],
+  "api_notes_zh": [
+   "macOS 13+",
+   "操作区域与菜单区域分离",
+   "没有单一的原生 SwiftUI 等价物"
+  ],
+  "prompt_zh": "使用组合按钮 NSComboButton（macOS 13+）的 split 样式：点主区域立即执行主操作，点附着的箭头区域打开它的 NSMenu。不要用弹出式按钮（pop-up button）——它显示的是当前选中项；也不要用下拉式按钮（pull-down button）——它整个按钮都用来打开操作菜单。",
+  "debugPrompt_zh": "调试我的 macOS 组合按钮（NSComboButton，macOS 13+）。排除以下可能：unified 和 split 样式搞混——unified 下整个按钮都弹出菜单，split 下只有箭头区域弹菜单；menu 属性为空，箭头点了没反应；跑在 macOS 12 或更早版本上，NSComboButton 不存在，需要回退到弹出式按钮方案。症状是：",
+  "parts_zh": {
+   "primary-action-region": {
+    "name_zh": "主操作区域",
+    "description_zh": "「点了立刻执行的那半边」就是主操作区域。",
+    "prompt_zh": "NSComboButton 的主操作区域，主标签点击后立即执行默认操作"
+   },
+   "menu-disclosure-region": {
+    "name_zh": "菜单披露区域",
+    "description_zh": "「按钮上连着的那个独立小箭头」就是菜单披露区域。",
+    "prompt_zh": "NSComboButton 独立的菜单披露区域：一个附着在旁边、窄窄的 chevron 点击目标，用来打开相关的 NSMenu"
+   },
+   "split-divider": {
+    "name_zh": "分体分隔线",
+    "description_zh": "「标签和箭头之间那条小细线」就是分体分隔线。",
+    "prompt_zh": "NSComboButton.Style.split 里的分隔线，在视觉上把主操作目标和箭头目标分开"
+   }
+  }
+ },
+ "level-indicator": {
+  "name_zh": "级别指示器",
+  "tagline_zh": "Mac 上的量表：容量条、评分星星或相关度仪表",
+  "description_zh": "级别指示器显示的是已知范围内的一个数值，而不是进行中任务的进度。它的原生样式包括连续或分段的容量条、用星星等符号表示的评分，以及紧凑的相关度仪表。数值越过警告和临界阈值时，容量指示器会随之变色。",
+  "aka_zh": [
+   "级别仪表",
+   "容量指示器",
+   "评分指示器",
+   "相关度指示器"
+  ],
+  "fuzzy_zh": [
+   "评分用的那排星星",
+   "显示磁盘容量的分段条",
+   "显示匹配程度的小仪表",
+   "到警告和临界值会变色的那条",
+   "Mac 上带刻度和彩色区间的量表"
+  ],
+  "api_notes_zh": [null, null, null],
+  "prompt_zh": "使用 NSLevelIndicator，样式要和含义匹配：有上限的量值用 .continuousCapacity 或 .discreteCapacity，星星评分用 .rating，匹配强度用 .relevancy。配置 warningValue 和 criticalValue 获得原生的阈值变色；SwiftUI 最接近的通用等价物是 Gauge。",
+  "debugPrompt_zh": "调试我的 macOS 级别指示器（NSLevelIndicator）。排除以下可能：样式用错——连续容量、离散刻度、评分星星是同一个类，只是 levelIndicatorStyle 值不同；警告和临界阈值意外改变了填充颜色；isEditable 让点击能改数值，而它本该只读展示；数值变化没有动画，因为 cell 瞬间重绘。症状是：",
+  "parts_zh": {
+   "filled-level": {
+    "name_zh": "已填充量",
+    "description_zh": "「小仪表里有颜色的那部分」就是已填充量。",
+    "prompt_zh": "NSLevelIndicator 的已填充量，按其 doubleValue 在配置好的范围内确定长度"
+   },
+   "warning-threshold": {
+    "name_zh": "警告阈值",
+    "description_zh": "「仪表变成警告颜色的那个点」就是警告阈值。",
+    "prompt_zh": "NSLevelIndicator.warningValue 阈值：容量填充在此处变为原生警告色"
+   },
+   "critical-threshold": {
+    "name_zh": "临界阈值",
+    "description_zh": "「条变成临界状态的那个点」就是临界阈值。",
+    "prompt_zh": "NSLevelIndicator.criticalValue 阈值：容量填充在此处变为原生临界色"
+   },
+   "rating-symbol": {
+    "name_zh": "评分符号",
+    "description_zh": "「评分那排里的每颗星星」都是级别指示器里的一个评分符号。",
+    "prompt_zh": "NSLevelIndicator.Style.rating 中重复的评分符号，按当前评分值填充"
+   }
+  }
+ },
+ "column-view": {
+  "name_zh": "分栏视图（层级浏览器）",
+  "tagline_zh": "Finder 风格的分栏，逐级展开层级结构",
+  "description_zh": "分栏视图是一种层级浏览器：每选中一个分支，它的子项就在右边下一列打开。Finder 的分栏显示是大家熟悉的例子：多个祖先层级同时可见，路径是空间化的，而不只是文字。AppKit 的原生控件是 NSBrowser；NavigationSplitView 只是 SwiftUI 里近似的组合方案。",
+  "aka_zh": [
+   "浏览器视图",
+   "Finder 分栏视图",
+   "Miller 分栏",
+   "层级浏览器"
+  ],
+  "fuzzy_zh": [
+   "Finder 里那个分栏的东西",
+   "文件夹一级级往右边开列",
+   "每深入一级就新开一列的文件浏览器",
+   "并排几列展示文件夹路径",
+   "行尾带箭头的层级浏览器"
+  ],
+  "api_notes_zh": [null, null, "近似方案；没有直接等价物"],
+  "prompt_zh": "用 NSBrowser 和 NSBrowserCell 构建 Finder 风格的分栏视图：选中非叶子行时，它的子项立即在右侧新列中出现，保持层级路径可见。不要用扁平列表或单个「边栏＋详情」拆分布局来替代。",
+  "debugPrompt_zh": "调试我的 macOS 分栏视图（NSBrowser、Miller columns）。排除以下可能：模型变了之后没调 reloadColumn/reloadData，列内容是旧的；把基于 path 的选中和基于 item 的 delegate 方法搞混；isLeafItem 回答错了，子项的懒加载永远不触发；新增列时水平滚动位置乱跳。症状是：",
+  "parts_zh": {
+   "path-column": {
+    "name_zh": "路径列",
+    "description_zh": "「每个文件夹在新列里打开」，每一列都是 NSBrowser 里的一列路径列。",
+    "prompt_zh": "NSBrowser 的一列路径列，保持所选层级中的一级可见"
+   },
+   "branch-indicator": {
+    "name_zh": "分支指示箭头",
+    "description_zh": "「文件夹行尾的小箭头」就是非叶子单元格的分支指示箭头。",
+    "prompt_zh": "非叶子 NSBrowserCell 上的分支指示箭头，表示选中该行会展开下一列"
+   },
+   "selected-path": {
+    "name_zh": "选中路径",
+    "description_zh": "「每一列里高亮的那一行」连起来就是浏览器里的选中路径。",
+    "prompt_zh": "NSBrowser 的选中路径，每个可见列里都保留一个高亮的祖先行"
+   }
+  }
+ },
+ "outline-view": {
+  "name_zh": "大纲视图",
+  "tagline_zh": "一棵带缩进的行树，展开后露出嵌套的子行",
+  "description_zh": "大纲视图是树形列表：行可以带子行，缩进表示深度，披露三角负责展开或折叠分支。普通列表没有层级。源列表（source list）是一种边栏外观和导航约定，可以用大纲视图实现，但两个词不能混用。",
+  "aka_zh": [
+   "树形视图",
+   "层级列表",
+   "大纲列表",
+   "可展开表格"
+  ],
+  "fuzzy_zh": [
+   "带小展开箭头的缩进列表",
+   "行下面还有子行的文件夹树",
+   "嵌套的行能开合的列表",
+   "长得像边栏、带层级的那种列表",
+   "缩在父级下面、能展开的行"
+  ],
+  "api_notes_zh": [null, null, "在提供层级 children 数据时"],
+  "prompt_zh": "用大纲视图 NSOutlineView（SwiftUI：OutlineGroup）实现缩进层级：父行带披露三角，展开后子行直接出现在它下方。只有当行没有子级时才用扁平列表；如果大纲用作边栏，再单独套源列表（source list）样式。",
+  "debugPrompt_zh": "调试我的 macOS 大纲视图（NSOutlineView）。排除以下可能：isItemExpandable 和子项数量的 delegate 回答不一致，行拒绝展开；reloadItem 没带 reloadChildren:true，子项还是旧的；autosaveExpandedItems 悄悄失效，因为 item 缺乏稳定标识，persistentObject 存取对不上；模型在动画更新之前就变了，行动画乱跳。症状是：",
+  "parts_zh": {
+   "disclosure-triangle": {
+    "name_zh": "披露三角",
+    "description_zh": "「行旁边那个展开小箭头」就是披露三角。",
+    "prompt_zh": "NSOutlineView 为有子级的行提供的原生披露三角"
+   },
+   "indentation-level": {
+    "name_zh": "缩进层级",
+    "description_zh": "「子行相对父行往里缩多少」就是它的缩进层级。",
+    "prompt_zh": "NSOutlineView.level(forItem:) 的缩进，让每一层子级深度都看得见"
+   },
+   "selection-highlight": {
+    "name_zh": "行选中高亮",
+    "description_zh": "「当前行背后的彩色条」就是行选中高亮。",
+    "prompt_zh": "NSTableRowView.isSelected 的高亮，铺满选中的大纲行"
+   }
+  }
+ },
+ "three-dots": {
+  "name_zh": "三个点（溢出菜单）",
+  "tagline_zh": "横排三个点、竖排三个点、三条横线和省略号，含义各不相同",
+  "description_zh": "横排三个点俗称「肉丸」（meatballs），竖排三个点俗称「烤串」（kebab）；两者通常都打开装次要操作的溢出菜单或「更多」菜单。三条横线是汉堡按钮，通常打开导航，常以抽屉形式出现。「打开…」这类标签里的省略号是标点，不是溢出图标：它表示命令执行前还需要更多输入。",
+  "aka_zh": [
+   "烤串菜单",
+   "肉丸菜单",
+   "汉堡菜单",
+   "溢出菜单",
+   "更多菜单",
+   "省略号按钮"
+  ],
+  "fuzzy_zh": [
+   "三个点的菜单",
+   "横着三个点的「肉丸」按钮",
+   "竖着三个点的「烤串」",
+   "三条横线的菜单图标",
+   "「打开」后面的三个点",
+   "这个按钮为什么以点结尾",
+   "更多选项的图标"
+  ],
+  "api_notes_zh": [null, null, null, "与此无关的截断省略号"],
+  "prompt_zh": "用对这三种标记：横排省略号（meatballs）或竖排省略号（kebab）按钮配 aria-haspopup=\"menu\"，用于当前项的溢出／更多菜单；三条横线的汉堡按钮配 aria-controls，用于打开导航抽屉；命令标签（如 “Open…”）里的省略号只在该命令执行前还需要更多输入时使用。",
+  "debugPrompt_zh": "调试我的三点菜单（kebab/meatballs、菜单按钮）。排除以下可能：纯图标按钮缺少 aria-label；选中菜单项后菜单不关；点外部和按 Escape 都关不掉；点击热区远小于 24px，移动端总点不中。症状是：",
+  "parts_zh": {
+   "meatballs": {
+    "name_zh": "横排三点（肉丸／更多）",
+    "description_zh": "横排三个点昵称「肉丸」，通常打开当前项目或区域的溢出／更多菜单。",
+    "prompt_zh": "横排三点的「肉丸」按钮（button[aria-haspopup=\"menu\"]）：一排三个点，打开当前上下文的溢出或更多菜单"
+   },
+   "kebab": {
+    "name_zh": "竖排三点（烤串菜单）",
+    "description_zh": "竖排三个点昵称「烤串」，通常打开同一类次要操作菜单。",
+    "prompt_zh": "竖排三点的「烤串」菜单按钮（button[aria-haspopup=\"menu\"]）：叠在一起的三个点，打开次要操作的溢出菜单"
+   },
+   "hamburger": {
+    "name_zh": "三条横线（汉堡菜单）",
+    "description_zh": "三条横线是汉堡按钮；和溢出圆点不同，它通常以抽屉形式打开站点主导航。",
+    "prompt_zh": "三条横线的汉堡菜单按钮（button[aria-controls]）：打开侧边抽屉的导航触发器，不是溢出操作菜单"
+   },
+   "command-ellipsis": {
+    "name_zh": "命令省略号",
+    "description_zh": "「打开…」里的省略号表示命令完成前还会要求更多输入；这些点是标签的一部分。",
+    "prompt_zh": "标签里的命令省略号（<button>Open…</button>）：单个省略号字符表示命令完成前需要更多输入，而不是按钮会打开溢出菜单"
+   }
+  }
+ },
+ "menu-bar": {
+  "name_zh": "菜单栏",
+  "tagline_zh": "Mac 屏幕顶部那条横条——每个部件都标上名字",
+  "description_zh": "菜单栏是 Mac 屏幕顶部那条半透明的横条。左侧是系统拥有的苹果菜单，接着是最前台应用的主菜单；右侧是菜单栏附加项，然后是系统状态项和时钟。下面每一块都有自己的正式名字；把指针悬停在数字上，就能看到它指的到底是哪个部件。",
+  "aka_zh": [
+   "菜单栏",
+   "系统菜单栏",
+   "顶部横条"
+  ],
+  "fuzzy_zh": [
+   "Mac 屏幕顶部那条横条",
+   "有苹果 logo 和时钟的那条",
+   "Mac 顶部带应用菜单的那条",
+   "Wi-Fi 和电池图标待的地方",
+   "顶部显示「文件、编辑、显示」的那个东西"
+  ],
+  "api_notes_zh": [
+   "左侧的应用菜单",
+   "右侧的图标区域",
+   "右侧单个图标，macOS 13+"
+  ],
+  "prompt_zh": "处理 macOS 菜单栏：应用主菜单（NSApp.mainMenu）在左侧，跟在苹果菜单后面；菜单栏附加项（NSStatusBar.system 里的 NSStatusItem）在右侧、时钟之前。用精确的部件名称：status item、它的 highlighted state、NSMenu、NSMenuItem、separator item。",
+  "debugPrompt_zh": "调试我的 macOS 菜单栏（NSMenu 主菜单、NSMenuItem）。排除以下可能：菜单项永远变灰，因为 action 没有 target，响应链里也没人实现它；关掉了自动启用（autoenablesItems）却没做手动校验；快捷键定义了但从不触发，因为校验时该项是禁用状态；应用菜单的标题来自 bundle 显示名而不是代码。症状是：",
+  "parts_zh": {
+   "app-menus": {
+    "name_zh": "应用菜单（主菜单）",
+    "description_zh": "「顶部那排「文件、编辑、显示」菜单」有正式名字：应用的主菜单。",
+    "prompt_zh": "macOS 菜单栏里的应用主菜单（NSApp.mainMenu）：粗体的应用名菜单，后面跟着 File、Edit、View"
+   },
+   "menu-bar-extra": {
+    "name_zh": "菜单栏附加项（status item）",
+    "description_zh": "「时钟旁边的小图标」是 NSStatusBar.system 里的一个 status item；SwiftUI 叫它 MenuBarExtra。",
+    "prompt_zh": "一个菜单栏附加项——macOS 菜单栏右侧的 NSStatusItem（SwiftUI：MenuBarExtra）"
+   },
+   "template-icon": {
+    "name_zh": "模板图标",
+    "description_zh": "那个会随浅色／深色菜单栏自动变色的单色图形——一张 template image，通常用 SF Symbol。",
+    "prompt_zh": "status item 的图标必须是 template image（NSImage.isTemplate = true，最好用 SF Symbol），这样 macOS 会为浅色和深色菜单栏自动重新着色"
+   },
+   "highlighted-state": {
+    "name_zh": "高亮状态",
+    "description_zh": "菜单或弹出框打开时，图标背后那片浅色圆角底衬——本页最难描述的像素。",
+    "prompt_zh": "status item 的高亮状态：菜单打开时菜单栏图标背后的浅色圆角背景（NSStatusBarButton.isHighlighted）"
+   },
+   "menu": {
+    "name_zh": "菜单",
+    "description_zh": "从菜单栏图标拉下的「那个下拉框」是一个 NSMenu——半透明、圆角、带 vibrancy 底。",
+    "prompt_zh": "挂在 status item 上的 NSMenu 下拉菜单"
+   },
+   "menu-item": {
+    "name_zh": "选中高亮（菜单项）",
+    "description_zh": "「悬停选项时那条蓝色横条」：菜单项的选中高亮，用系统强调色着色。",
+    "prompt_zh": "菜单项的选中高亮——NSMenuItem 悬停／选中时背后那条强调色圆角条"
+   },
+   "separator": {
+    "name_zh": "分隔线项",
+    "description_zh": "「选项之间那条小细线」就是分隔线项。",
+    "prompt_zh": "一个分隔线项（NSMenuItem.separator()），把菜单分成若干组"
+   },
+   "key-equivalent": {
+    "name_zh": "快捷键（key equivalent）",
+    "description_zh": "「菜单项右侧的 ⌘Q 字样」就是该项的 key equivalent。",
+    "prompt_zh": "显示在菜单项右缘的键盘快捷键（即它的 key equivalent，NSMenuItem.keyEquivalent，例如 ⌘Q）"
+   }
+  }
+ },
+ "context-menu": {
+  "name_zh": "上下文菜单",
+  "tagline_zh": "在项目上右键点按或 Control-点按，在指针处打开的菜单",
+  "description_zh": "上下文菜单展示与指针对象相关的操作，由次要点按或 Control-点按打开。它出现在点击位置附近，由标准菜单项、分隔线、快捷键和子菜单组成。下拉菜单有一个可见控件、用主键点击打开；上下文菜单则直接从内容上触发。",
+  "aka_zh": [
+   "上下文相关菜单",
+   "右键菜单",
+   "快捷菜单"
+  ],
+  "fuzzy_zh": [
+   "右键点一下冒出来的菜单",
+   "Control-点按指针下那个东西出来的选项",
+   "选中项旁边的小操作菜单",
+   "鼠标底下的「拷贝、重命名、删除」菜单",
+   "次要点按打开的菜单"
+  ],
+  "api_notes_zh": [null, null, "与某个视图关联的上下文菜单", null],
+  "prompt_zh": "用 NSMenu 给目标 NSView 加上下文菜单（SwiftUI：View.contextMenu），通过右键点按或 Control-点按指针下的项目来打开。菜单里放针对该项目的操作；别把它做成锚定在按钮上、主键点击打开的下拉菜单。",
+  "debugPrompt_zh": "调试我的 macOS 上下文菜单（NSMenu、menu(for:)、SwiftUI .contextMenu）。排除以下可能：菜单只构建了一次、内容过期——实现 menuNeedsUpdate/menuWillOpen；菜单项变灰，因为 target 是 nil 且响应链里没人实现该 action；右键点按、Control-点按和双指轻点走了不同代码路径；SwiftUI .contextMenu 吞掉了行上的普通点击。症状是：",
+  "parts_zh": {
+   "selection-highlight": {
+    "name_zh": "选中高亮",
+    "description_zh": "「指针下那个选项背后的蓝色条」就是菜单项的选中高亮。",
+    "prompt_zh": "上下文 NSMenu 中当前 NSMenuItem 背后的原生选中高亮"
+   },
+   "separator-item": {
+    "name_zh": "分隔线项",
+    "description_zh": "「右键选项分组之间那条小细线」就是分隔线项。",
+    "prompt_zh": "一个 NSMenuItem.separator()，把上下文菜单里的相关项分组隔开"
+   },
+   "key-equivalent": {
+    "name_zh": "快捷键（key equivalent）",
+    "description_zh": "「右侧的快捷键文字」就是该项的 key equivalent。",
+    "prompt_zh": "NSMenuItem.keyEquivalent，对齐在上下文菜单项的后缘，例如 ⌘C"
+   },
+   "submenu-indicator": {
+    "name_zh": "子菜单指示箭头",
+    "description_zh": "「那个朝旁边、能打开更多选项的箭头」就是子菜单指示箭头。",
+    "prompt_zh": "NSMenuItem 后缘的子菜单指示箭头，其子菜单在上下文菜单旁边打开"
+   }
+  }
+ },
+ "disclosure-triangle": {
+  "name_zh": "披露三角",
+  "tagline_zh": "那个会旋转的小控件，用来显示或隐藏嵌套内容",
+  "description_zh": "披露三角是大纲行或区块标签旁边的小巧指示器，用来显示嵌套内容。折叠时指向侧面，展开后转向下方。NSOutlineView 为层级行提供披露控件，DisclosureGroup 在 SwiftUI 里提供同样的展开／折叠模式。",
+  "aka_zh": [
+   "披露控件",
+   "大纲披露按钮",
+   "展开／折叠三角"
+  ],
+  "fuzzy_zh": [
+   "点开文件夹行的小三角",
+   "区块展开时会转的小箭头",
+   "带子级的行旁边的 chevron",
+   "大纲里那个展开／收起的小箭头",
+   "标题旁边那个显示更多内容的三角"
+  ],
+  "api_notes_zh": [null, null, "一种独立的披露按钮样式"],
+  "prompt_zh": "可展开的行用原生披露三角：大纲层级用 NSOutlineView，独立区块用 SwiftUI DisclosureGroup。小指示器必须在折叠和展开状态之间旋转，同时该行的子级直接出现在它下方。",
+  "debugPrompt_zh": "调试我的 macOS 披露三角（NSButton .disclosure bezel、SwiftUI DisclosureGroup）。排除以下可能：isExpanded 绑定没有真正驱动显示的内容；多个 DisclosureGroup 共用一个绑定，结果一起开合；状态和旋转分开设置，三角动画方向错了；三角和标签基线没对齐。症状是：",
+  "parts_zh": {
+   "disclosure-indicator": {
+    "name_zh": "披露指示器",
+    "description_zh": "「行旁边那个小三角」就是披露指示器。",
+    "prompt_zh": "可展开标签旁边的原生披露指示器，使用 NSButton.BezelStyle.disclosure"
+   },
+   "collapsed-state": {
+    "name_zh": "折叠状态",
+    "description_zh": "「打开前朝侧面的箭头」就是折叠状态。",
+    "prompt_zh": "折叠状态（DisclosureGroup.isExpanded = false）：指示器指向侧面，子级隐藏"
+   },
+   "expanded-state": {
+    "name_zh": "展开状态",
+    "description_zh": "「打开后转向下方的箭头」就是展开状态。",
+    "prompt_zh": "展开状态（DisclosureGroup.isExpanded = true）：披露指示器指向下方，露出的子级在它下面"
+   }
+  }
+ },
+ "dock-badge": {
+  "name_zh": "Dock 角标",
+  "tagline_zh": "叠在应用 Dock 图标上的红色数量或状态标签",
+  "description_zh": "Dock 角标是叠在应用 Dock 图标上的红色小标签，通常显示未读或待处理的数量。标签属于应用的 NSDockTile，也可以放简短的状态文字。请求用户注意会让 Dock 图标弹跳，那是另一种打断性更强的信号，要省着用。",
+  "aka_zh": [
+   "Dock 磁贴角标",
+   "应用图标角标",
+   "通知角标"
+  ],
+  "fuzzy_zh": [
+   "Dock 图标上的红色数字气泡",
+   "Dock 里应用图标上的未读数",
+   "Mac 应用图标角上的小红标",
+   "显示待处理通知数的数字角标",
+   "Dock 图标上的红点或数字"
+  ],
+  "api_notes_zh": [null, null, "让 Dock 图标弹跳；和角标是两回事", null],
+  "prompt_zh": "把数量赋给 NSApp.dockTile.badgeLabel 来显示 Dock 角标，数量清零时清空 label。如果需要更强的提醒，单独调用 NSApplication.requestUserAttention(_:) 让 Dock 图标弹跳；弹跳不是角标本体。",
+  "debugPrompt_zh": "调试我的 macOS Dock 角标（NSDockTile.badgeLabel、NSApp.dockTile）。排除以下可能：用字符串「0」而不是 nil 或空串来清除，导致 0 一直显示；在后台线程设置角标；指望角标在退出后保留——它只在应用运行期间存在（UNUserNotificationCenter 的 badge API 才能持久）；长字符串在图标上被截断。症状是：",
+  "parts_zh": {
+   "badge-label": {
+    "name_zh": "角标标签",
+    "description_zh": "「应用图标上的红色数字气泡」就是 Dock tile 的角标标签。",
+    "prompt_zh": "NSDockTile.badgeLabel：叠在 Dock 图标右上角的紧凑红色数字角标"
+   },
+   "attention-bounce": {
+    "name_zh": "提醒弹跳",
+    "description_zh": "「应用图标在 Dock 里跳」是提醒弹跳，不属于角标。",
+    "prompt_zh": "用 NSApplication.requestUserAttention(_:) 触发的 Dock 图标弹跳，与 NSDockTile.badgeLabel 分开使用"
+   }
+  }
+ }
+}

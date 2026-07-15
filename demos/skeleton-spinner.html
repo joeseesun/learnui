@@ -1,0 +1,106 @@
+<div class="demo demo-skeleton-spinner">
+  <div class="cols">
+    <div class="card">
+      <p class="cap">Skeleton</p>
+      <div class="skel" aria-busy="true">
+        <div class="block media"><div class="sweep" aria-hidden="true"></div></div>
+        <div class="block line"></div>
+        <div class="block line short"></div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="cap">Spinner</p>
+      <div class="spin-area" role="status" aria-label="Loading">
+        <div class="spinner" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-skeleton-spinner {
+  font-family: var(--font-sans);
+  width: 100%;
+  max-width: 320px;
+}
+.demo-skeleton-spinner .cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.demo-skeleton-spinner .card {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.demo-skeleton-spinner .cap {
+  margin: 0 0 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+.demo-skeleton-spinner .skel > * + * {
+  margin-top: 12px;
+}
+.demo-skeleton-spinner .block {
+  position: relative;
+  background: #e2e8f0;
+  animation: demo-skeleton-spinner-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.demo-skeleton-spinner .media {
+  height: 64px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.demo-skeleton-spinner .line {
+  height: 8px;
+  border-radius: 999px;
+}
+.demo-skeleton-spinner .line.short {
+  width: 66.7%;
+}
+.demo-skeleton-spinner .sweep {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: demo-skeleton-spinner-sweep 1.6s ease-in-out infinite;
+}
+.demo-skeleton-spinner .spin-area {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 92px;
+}
+.demo-skeleton-spinner .spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(37, 99, 235, 0.2);
+  border-top-color: #2563eb;
+  animation: demo-skeleton-spinner-rotate 0.8s linear infinite;
+}
+@keyframes demo-skeleton-spinner-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes demo-skeleton-spinner-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+@keyframes demo-skeleton-spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-skeleton-spinner .block,
+  .demo-skeleton-spinner .sweep,
+  .demo-skeleton-spinner .spinner {
+    animation: none;
+  }
+}
+</style>

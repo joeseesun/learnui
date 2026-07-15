@@ -1,0 +1,70 @@
+<div class="demo demo-sidebar">
+  <div class="win">
+    <div class="titlebar">
+      <div class="tl">
+        <span class="tl-btn tl-close"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="tl-btn tl-min"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="tl-btn tl-zoom"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+    </div>
+    <div class="main">
+      <div class="side">
+        <p class="side-head">Favorites</p>
+        <button type="button" class="row"><span class="dot" aria-hidden="true"></span>Recents</button>
+        <button type="button" class="row is-selected"><span class="dot" aria-hidden="true"></span>Desktop</button>
+        <button type="button" class="row"><span class="dot" aria-hidden="true"></span>Documents</button>
+        <button type="button" class="row"><span class="dot" aria-hidden="true"></span>Downloads</button>
+      </div>
+      <div class="content">
+        <p class="content-title">Desktop</p>
+        <div class="line w-75"></div>
+        <div class="line w-50"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-sidebar { font-family: var(--font-sans); }
+.demo-sidebar, .demo-sidebar * { box-sizing: border-box; }
+.demo-sidebar p { margin: 0; }
+.demo-sidebar .win { width: 256px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,.1); background: #f6f6f7; color: rgba(0,0,0,.85); box-shadow: 0 24px 50px -12px rgba(0,0,0,.25), 0 4px 12px rgba(0,0,0,.08); }
+.demo-sidebar .titlebar { position: relative; display: flex; align-items: center; height: 36px; padding: 0 12px; border-bottom: 1px solid rgba(0,0,0,.05); }
+.demo-sidebar .tl { display: flex; align-items: center; gap: 7px; }
+.demo-sidebar .tl-btn { display: flex; align-items: center; justify-content: center; width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15); }
+.demo-sidebar .tl-close { background: #ff5f57; }
+.demo-sidebar .tl-min { background: #febc2e; }
+.demo-sidebar .tl-zoom { background: #28c840; }
+.demo-sidebar .glyph { opacity: 0; transition: opacity .1s; }
+.demo-sidebar .tl:hover .glyph { opacity: 1; }
+.demo-sidebar .main { display: flex; }
+.demo-sidebar .side { flex: none; width: 96px; padding: 10px 8px; border-right: 1px solid rgba(0,0,0,.05); border-bottom-left-radius: 9px; background: rgba(0,0,0,.045); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.demo-sidebar .side-head { padding: 0 8px 4px; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: rgba(0,0,0,.4); }
+.demo-sidebar .row { display: flex; align-items: center; gap: 6px; width: 100%; margin: 0; border: 0; background: none; font: inherit; font-size: 11.5px; font-weight: 500; text-align: left; color: rgba(0,0,0,.7); padding: 3.5px 8px; border-radius: 6px; cursor: default; transition: background-color .1s, color .1s; }
+.demo-sidebar .row:hover { background: rgba(0,0,0,.05); }
+.demo-sidebar .row.is-selected { background: rgba(0,0,0,.1); color: rgba(0,0,0,.9); }
+.demo-sidebar .row:focus-visible { outline: 2px solid rgba(10,108,255,.6); outline-offset: 1px; }
+.demo-sidebar .dot { flex: none; width: 10px; height: 10px; border-radius: 3px; background: rgba(10,108,255,.7); }
+.demo-sidebar .row.is-selected .dot { background: #0a6cff; }
+.demo-sidebar .content { flex: 1; min-width: 0; height: 112px; padding: 12px 16px; }
+.demo-sidebar .content-title { font-size: 12px; font-weight: 600; }
+.demo-sidebar .line { height: 8px; border-radius: 4px; background: rgba(0,0,0,.1); margin-top: 10px; }
+.demo-sidebar .w-75 { width: 75%; }
+.demo-sidebar .w-50 { width: 50%; }
+@media (prefers-reduced-motion: reduce) {
+  .demo-sidebar .glyph,
+  .demo-sidebar .row { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const rows = Array.from(ROOT.querySelectorAll('.row'));
+  const title = ROOT.querySelector('.content-title');
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      rows.forEach(function (r) { r.classList.toggle('is-selected', r === row); });
+      title.textContent = row.textContent;
+    });
+  });
+})();
+</script>

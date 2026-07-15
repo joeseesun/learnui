@@ -1,0 +1,225 @@
+<div class="demo demo-alert">
+  <div class="stage">
+    <div class="alert" role="alertdialog" aria-modal="true" aria-labelledby="da-msg" aria-describedby="da-info">
+      <div class="icon">
+        <span class="app"><span class="app-ring"></span><span class="app-dot"></span></span>
+        <svg class="badge" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M13.7 4.1l8 13.8a2 2 0 0 1-1.7 3H4a2 2 0 0 1-1.7-3l8-13.8a2 2 0 0 1 3.4 0Z" fill="#fdbe30" stroke="#e0a422" stroke-width="0.5"></path>
+          <rect x="11" y="9" width="2" height="6" rx="1" fill="#6b4a05"></rect>
+          <circle cx="12" cy="17.4" r="1.2" fill="#6b4a05"></circle>
+        </svg>
+      </div>
+      <p class="msg" id="da-msg">Empty the Trash?</p>
+      <p class="info" id="da-info">You can’t undo this action.</p>
+      <div class="btns">
+        <button type="button" class="btn cancel">Cancel</button>
+        <button type="button" class="btn ok">Empty Trash</button>
+      </div>
+    </div>
+    <button type="button" class="reopen" hidden="">Show Alert</button>
+  </div>
+</div>
+<style>
+.demo-alert {
+  font-family: var(--font-sans);
+  max-width: 100%;
+}
+.demo-alert .stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 148px;
+  justify-content: center;
+}
+.demo-alert .alert {
+  width: 208px;
+  box-sizing: border-box;
+  background: #ececec;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.demo-alert .alert.entering {
+  animation: demo-alert-in 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.demo-alert .alert.closing {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 140ms ease-out, transform 140ms ease-out;
+}
+.demo-alert .icon {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+}
+.demo-alert .app {
+  position: absolute;
+  inset: 0;
+  border-radius: 22%;
+  background: linear-gradient(to bottom, #38bdf8, #6366f1);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.demo-alert .app-ring {
+  position: absolute;
+  inset: 22%;
+  border-radius: 999px;
+  border: 2.5px solid rgba(255, 255, 255, 0.9);
+}
+.demo-alert .app-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14%;
+  height: 14%;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+}
+.demo-alert .badge {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
+}
+.demo-alert .msg {
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+}
+.demo-alert .info {
+  margin: 4px 0 0;
+  font-size: 10.5px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.demo-alert .btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.demo-alert .btn {
+  appearance: none;
+  flex: 1 1 0;
+  margin: 0;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 0;
+  border-radius: 6px;
+  cursor: default;
+  transition: filter 75ms ease-out;
+}
+.demo-alert .btn:active {
+  filter: brightness(0.9);
+}
+.demo-alert .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(10, 108, 255, 0.35);
+}
+.demo-alert .cancel {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 0.5px 1.5px rgba(0, 0, 0, 0.15);
+}
+.demo-alert .ok {
+  background: #0a6cff;
+  border: 0;
+  color: #ffffff;
+  box-shadow: 0 0.5px 1.5px rgba(0, 0, 0, 0.2);
+}
+.demo-alert .reopen {
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 14px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 0.5px 1.5px rgba(0, 0, 0, 0.12);
+  cursor: default;
+  transition: filter 75ms ease-out;
+}
+.demo-alert .reopen:active {
+  filter: brightness(0.92);
+}
+.demo-alert .reopen:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(10, 108, 255, 0.35);
+}
+@keyframes demo-alert-in {
+  from {
+    opacity: 0;
+    transform: scale(1.06) translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-alert .alert.entering {
+    animation: none;
+  }
+  .demo-alert .alert.closing,
+  .demo-alert .btn,
+  .demo-alert .reopen {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const alertEl = ROOT.querySelector('.alert');
+  const reopen = ROOT.querySelector('.reopen');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let busy = false;
+
+  function dismiss() {
+    if (busy || alertEl.hidden) return;
+    busy = true;
+    if (reduced) {
+      alertEl.hidden = true;
+      reopen.hidden = false;
+      reopen.focus();
+      busy = false;
+      return;
+    }
+    alertEl.classList.add('closing');
+    window.setTimeout(function () {
+      alertEl.hidden = true;
+      alertEl.classList.remove('closing');
+      reopen.hidden = false;
+      reopen.focus();
+      busy = false;
+    }, 150);
+  }
+
+  function show() {
+    if (busy || !alertEl.hidden) return;
+    busy = true;
+    reopen.hidden = true;
+    alertEl.hidden = false;
+    if (!reduced) {
+      alertEl.classList.add('entering');
+      window.setTimeout(function () {
+        alertEl.classList.remove('entering');
+        busy = false;
+      }, 230);
+    } else {
+      busy = false;
+    }
+  }
+
+  ROOT.querySelector('.cancel').addEventListener('click', dismiss);
+  ROOT.querySelector('.ok').addEventListener('click', dismiss);
+  reopen.addEventListener('click', show);
+})();
+</script>

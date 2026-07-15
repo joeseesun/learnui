@@ -1,0 +1,212 @@
+<div class="demo demo-outline-view">
+  <div class="win">
+    <div class="titlebar">
+      <div class="tls">
+        <span class="tl tl-r"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-y"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-g"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+    </div>
+    <div class="list-wrap">
+      <p class="group-head">Library</p>
+      <div class="list"></div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-outline-view {
+  font-family: var(--font-sans);
+  user-select: none;
+}
+.demo-outline-view .win {
+  width: 224px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f6f6f7;
+  color: rgba(0,0,0,.85);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.1);
+  overflow: hidden;
+}
+.demo-outline-view .titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.demo-outline-view .tls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.demo-outline-view .tl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15);
+}
+.demo-outline-view .tl-r { background: #ff5f57; }
+.demo-outline-view .tl-y { background: #febc2e; }
+.demo-outline-view .tl-g { background: #28c840; }
+.demo-outline-view .tl svg {
+  opacity: 0;
+  transition: opacity .1s;
+}
+.demo-outline-view .tls:hover .tl svg {
+  opacity: 1;
+}
+.demo-outline-view .list-wrap {
+  padding: 8px;
+  min-height: 112px;
+}
+.demo-outline-view .group-head {
+  margin: 0;
+  padding: 0 8px 4px;
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: rgba(0,0,0,.4);
+}
+.demo-outline-view .orow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: rgba(0,0,0,.85);
+  cursor: pointer;
+  transition: background .1s;
+}
+.demo-outline-view .orow:hover {
+  background: rgba(0,0,0,.05);
+}
+.demo-outline-view .orow.is-sel {
+  background: #0a6cff;
+  color: #fff;
+}
+.demo-outline-view .otri {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  color: rgba(0,0,0,.45);
+}
+.demo-outline-view .orow.is-sel .otri {
+  color: #fff;
+}
+.demo-outline-view .otri svg {
+  transition: transform .15s;
+}
+.demo-outline-view .orow.is-open > .otri svg {
+  transform: rotate(90deg);
+}
+.demo-outline-view .orow.is-leaf > .otri {
+  opacity: 0;
+}
+.demo-outline-view .orow .icon {
+  font-size: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-outline-view .tl svg,
+  .demo-outline-view .orow,
+  .demo-outline-view .otri svg {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const list = ROOT.querySelector('.list');
+
+  const DATA = [
+    { id: 'projects', name: 'Projects', children: [
+      { id: 'namethat', name: 'NameThat', children: [
+        { id: 'content', name: 'content' }
+      ] },
+      { id: 'feelbench', name: 'FeelBench' }
+    ] }
+  ];
+  const TRI = '<svg aria-hidden="true" width="8" height="8" viewBox="0 0 10 10"><path d="M3 1.5 8 5 3 8.5Z" fill="currentColor"/></svg>';
+
+  const expanded = new Set(['projects', 'namethat']);
+  let selected = 'namethat';
+
+  function render() {
+    list.innerHTML = '';
+    (function walk(nodes, depth) {
+      nodes.forEach(function (node) {
+        const row = document.createElement('div');
+        row.className = 'orow';
+        row.setAttribute('role', 'button');
+        row.setAttribute('tabindex', '0');
+        row.dataset.id = node.id;
+        row.style.paddingLeft = (6 + depth * 16) + 'px';
+        const hasKids = !!node.children;
+        if (hasKids && expanded.has(node.id)) row.classList.add('is-open');
+        if (!hasKids) row.classList.add('is-leaf');
+        if (node.id === selected) row.classList.add('is-sel');
+
+        const tri = document.createElement('span');
+        tri.className = 'otri';
+        tri.innerHTML = TRI;
+        row.appendChild(tri);
+
+        const icon = document.createElement('span');
+        icon.className = 'icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.textContent = '📁';
+        row.appendChild(icon);
+
+        row.appendChild(document.createTextNode(node.name));
+        list.appendChild(row);
+
+        if (hasKids && expanded.has(node.id)) walk(node.children, depth + 1);
+      });
+    })(DATA, 0);
+  }
+  render();
+
+  // the disclosure triangle toggles a branch; the row body selects it
+  list.addEventListener('click', function (e) {
+    const row = e.target.closest('.orow');
+    if (!row) return;
+    const id = row.dataset.id;
+    if (e.target.closest('.otri') && !row.classList.contains('is-leaf')) {
+      if (expanded.has(id)) expanded.delete(id); else expanded.add(id);
+    } else {
+      selected = id;
+    }
+    render();
+  });
+
+  list.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const row = e.target.closest('.orow');
+    if (!row) return;
+    e.preventDefault();
+    const id = row.dataset.id;
+    if (row.classList.contains('is-leaf')) {
+      selected = id;
+    } else if (expanded.has(id)) {
+      expanded.delete(id);
+    } else {
+      expanded.add(id);
+      selected = id;
+    }
+    render();
+  });
+})();
+</script>

@@ -1,0 +1,159 @@
+<div class="demo demo-empty-state">
+  <section class="card" aria-labelledby="demo-empty-state-title">
+    <div class="view empty-view">
+      <div class="icon-tile" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"></path></svg>
+      </div>
+      <h3 id="demo-empty-state-title">No projects yet</h3>
+      <div class="action">
+        <button type="button" class="btn-new">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.35 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5.35"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M14 19h6"></path><path d="M17 16v6"></path></svg>
+          New project
+        </button>
+      </div>
+    </div>
+    <div class="view list-view" hidden>
+      <div class="project-row">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg>
+        <span class="project-name">Untitled project</span>
+        <span class="project-time">just now</span>
+      </div>
+      <p class="list-hint" role="status">1 project</p>
+      <button type="button" class="btn-reset">Remove all</button>
+    </div>
+  </section>
+</div>
+<style>
+.demo-empty-state {
+  --d-blue: #2563eb;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-empty-state .card {
+  width: 240px;
+  max-width: 100%;
+  padding: 16px;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .05);
+  text-align: center;
+}
+.demo-empty-state .view { animation: demo-empty-state-in 220ms ease-out; }
+.demo-empty-state .view[hidden] { display: none; }
+.demo-empty-state .icon-tile {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  border-radius: 12px;
+  background: #eaf0fe;
+  color: var(--d-blue);
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, .15);
+}
+.demo-empty-state h3 {
+  margin: 12px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+.demo-empty-state .action { margin-top: 16px; }
+.demo-empty-state .btn-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--d-blue);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+.demo-empty-state .btn-new:hover { background: rgba(37, 99, 235, .9); }
+.demo-empty-state .btn-new:focus-visible,
+.demo-empty-state .btn-reset:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--d-blue);
+}
+.demo-empty-state .list-view { text-align: left; }
+.demo-empty-state .project-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #94a3b8;
+}
+.demo-empty-state .project-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-empty-state .project-time {
+  margin-left: auto;
+  flex: none;
+  font-size: 10px;
+  color: #94a3b8;
+}
+.demo-empty-state .list-hint {
+  margin: 10px 0 0;
+  font-size: 10px;
+  color: #94a3b8;
+  text-align: center;
+}
+.demo-empty-state .btn-reset {
+  display: block;
+  margin: 10px auto 0;
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #64748b;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.demo-empty-state .btn-reset:hover { background: #f8fafc; color: #334155; }
+@keyframes demo-empty-state-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-empty-state .view { animation: none; }
+  .demo-empty-state .btn-new,
+  .demo-empty-state .btn-reset { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+  const emptyView = ROOT.querySelector('.empty-view');
+  const listView = ROOT.querySelector('.list-view');
+  const btnNew = ROOT.querySelector('.btn-new');
+  const btnReset = ROOT.querySelector('.btn-reset');
+  if (!emptyView || !listView || !btnNew || !btnReset) return;
+
+  btnNew.addEventListener('click', function () {
+    emptyView.hidden = true;
+    listView.hidden = false;
+    btnReset.focus();
+  });
+  btnReset.addEventListener('click', function () {
+    listView.hidden = true;
+    emptyView.hidden = false;
+    btnNew.focus();
+  });
+})();
+</script>

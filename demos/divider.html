@@ -1,0 +1,91 @@
+<div class="demo demo-divider">
+  <div class="spec">
+    <div class="card prose">
+      <div class="bar w80"></div>
+      <div class="bar w60"></div>
+      <hr />
+      <div class="bar w80"></div>
+      <div class="bar w40"></div>
+    </div>
+    <span class="cap">&lt;hr&gt; thematic break</span>
+  </div>
+  <div class="spec">
+    <div class="card menu" role="menu" aria-label="Edit commands">
+      <div class="item" role="menuitem" tabindex="0">Cut</div>
+      <div class="item" role="menuitem" tabindex="0">Copy</div>
+      <div class="item" role="menuitem" tabindex="0">Paste</div>
+      <div class="sep" role="separator"></div>
+      <div class="item danger" role="menuitem" tabindex="0">Delete</div>
+    </div>
+    <span class="cap">role="separator"</span>
+  </div>
+</div>
+<style>
+.demo-divider {
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 100%;
+}
+.demo-divider .spec {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 128px;
+}
+.demo-divider .card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+.demo-divider .prose {
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.demo-divider .bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(15, 23, 42, 0.15);
+}
+.demo-divider .bar + .bar {
+  margin-top: 6px;
+}
+.demo-divider .w80 { width: 80%; }
+.demo-divider .w60 { width: 60%; }
+.demo-divider .w40 { width: 40%; }
+.demo-divider hr {
+  margin: 10px 0;
+  border: 0;
+  height: 1px;
+  background: #e2e8f0;
+}
+.demo-divider .menu {
+  padding: 6px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.demo-divider .item {
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11.5px;
+  color: rgba(15, 23, 42, 0.85);
+  cursor: default;
+}
+.demo-divider .item:hover,
+.demo-divider .item:focus-visible {
+  background: #f1f5f9;
+  outline: none;
+}
+.demo-divider .sep {
+  height: 1px;
+  margin: 4px 8px;
+  background: #e2e8f0;
+}
+.demo-divider .cap {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #64748b;
+  text-align: center;
+}
+</style>

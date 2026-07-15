@@ -1,0 +1,151 @@
+{
+  "appkit-vs-swiftui": {
+    "title_zh": "AppKit vs SwiftUI",
+    "subtitle_zh": "NSButton · Button",
+    "lede_zh": "屏幕上是同一个像素，却有两个正式名字——该说哪一个，取决于你的项目",
+    "intro_zh": [
+      "AppKit 是 Mac 最早的一套工具箱——像一间工坊：你拿起每个零件（一个窗口、一个按钮、一个菜单），一件件告诉它该做什么。它的名字都以 NS 开头：NSWindow、NSMenu、NSStatusItem。",
+      "SwiftUI 是 Apple 的新方式：你不再拼装零件，而是描述造好的房间——“一个边栏，接着一个列表，再放上这个按钮”——由系统负责构建和更新。屏幕上的元素相同，名字却更朴素：Button、Menu、MenuBarExtra。",
+      "它们不是两类 App——一个 Mac App 可以（而且通常确实）两者混用。这意味着你指着的那个东西几乎总有两个都成立的名字；用对名字，能让你的 AI 代理精确得多。"
+    ],
+    "rulesTitle_zh": "该说哪个名字？三条规则",
+    "rules_zh": [
+      {
+        "title_zh": "跟着项目走。",
+        "body_zh": "文件里是 import SwiftUI、视图是 struct？就用 SwiftUI 的名字。是 NS 开头的类和 import AppKit？就用 AppKit 的名字。"
+      },
+      {
+        "title_zh": "混用的 App，指明要哪一层。",
+        "body_zh": "比如说“AppKit 窗口里的那个 SwiftUI 视图”“从我的 SwiftUI App 里弹出的那个 NSPanel”。AI 代理最容易在两层交界处迷路。"
+      },
+      {
+        "title_zh": "拿不准，就两个都给。",
+        "body_zh": "比如说“菜单栏附加项（SwiftUI: MenuBarExtra / AppKit: NSStatusItem）”——代理会检查项目，自己挑出对的那个。"
+      }
+    ],
+    "promptsTitle_zh": "写好的 prompt——直接粘给你的代理",
+    "prompts_zh": [
+      {
+        "label_zh": "SwiftUI 项目",
+        "text_zh": "在这个 macOS SwiftUI App 里，让 MenuBarExtra 打开一个 popover 风格的窗口，并在主窗口关闭后仍然保留菜单栏附加项。"
+      },
+      {
+        "label_zh": "AppKit 项目",
+        "text_zh": "在这个 AppKit macOS App 里，更新 NSStatusBar.system 中的 NSStatusItem：它的按钮使用模板图像（template image），点击时显示一个 NSMenu。"
+      },
+      {
+        "label_zh": "不确定是哪个",
+        "text_zh": "修好 Mac 时钟旁边那个小小的 App 图标——也就是菜单栏附加项（SwiftUI: MenuBarExtra / AppKit: NSStatusItem）。检查项目，在现有实现上改，不要再加第二个。"
+      }
+    ],
+    "confuseTitle_zh": "别和它们搞混",
+    "confuse_zh": [
+      {
+        "term_zh": "UIKit",
+        "body_zh": "Apple 为 iPhone 和 iPad 准备的框架——是 UIButton，不是 NSButton。只做 Mac 的 App 用不上它。"
+      },
+      {
+        "term_zh": "Mac Catalyst",
+        "body_zh": "披着 Mac 外衣的 iPad App。它在 Mac 上跑的是 UIKit，既不是 AppKit，也不是 SwiftUI。"
+      },
+      {
+        "term_zh": "Electron",
+        "body_zh": "套着桌面外壳的网页（Chromium + Node）。它的 UI 词汇对应本站的 Web 标签页。"
+      }
+    ],
+    "faqTitle_zh": "人人都会问的问题",
+    "faq_zh": [
+      {
+        "q_zh": "SwiftUI 正在取代 AppKit 吗？",
+        "a_zh": "在取代，但很慢，而且还没完成。Apple 建议新 App 用 SwiftUI，但仍在推出并为新的 AppKit API 写文档。实用原则：新界面用 SwiftUI；需要的 Mac 特有行为在 SwiftUI 里没暴露出来时，就去找 AppKit。"
+      },
+      {
+        "q_zh": "一个 App 能两个都用吗？",
+        "a_zh": "能，而且大多数认真的 Mac App 都这么做。NSViewRepresentable 把 AppKit 视图放进 SwiftUI，NSHostingView 则反过来。所以说清要改的是哪一层，才显得重要。"
+      },
+      {
+        "q_zh": "每个 SwiftUI 控件背地里都是 AppKit 控件吗？",
+        "a_zh": "别这么假设。有些做了桥接，很多没有，Apple 把这当作实现细节。把 Button 和 NSButton 当成两个碰巧长得像的 API 就好。"
+      },
+      {
+        "q_zh": "AppKit 和 UIKit 是一回事吗？",
+        "a_zh": "不是——AppKit 属于 Mac，UIKit 属于 iPhone/iPad。看前缀就露馅：NSButton 是 Mac，UIButton 是 iOS。Mac Catalyst 是第三种东西：披着 Mac 外衣的 iPad App。"
+      }
+    ],
+    "outro_zh": "NameThatUI 上每个 macOS 词条的 IN CODE 表格都列出两个名字；翻译对照表（Translation Table）把 60 多组映射收在一处——从你看得见的东西出发，拿走你项目需要的那个名字。"
+  },
+  "swift-vs-electron": {
+    "title_zh": "Swift vs Electron",
+    "subtitle_zh": "原生 · 套壳网页",
+    "lede_zh": "开发桌面 App 时遇到的第一个岔路口——它同时也决定了你之后用的词汇。",
+    "intro_zh": [
+      "这是你开发桌面 App 时遇到的第一个岔路口。选 Swift，就是用 Apple 自家的材料来造——App 是地地道道的 Mac App，本站 macOS 标签页里的每个元素都免费且原生。选 Electron，就是写一个网页，再把它装进一个专属浏览器窗口里发布——这个 App 其实是披着桌面外衣的网站，它的词汇对应本站的 Web 标签页。",
+      "两条路没有对错。它决定的是你的项目说哪套名字：Electron App 里没有 NSStatusItem（Electron 把菜单栏图标叫 Tray），Swift App 里也没有 CSS。"
+    ],
+    "tableTitle_zh": "这笔取舍，实话实说",
+    "table_zh": [
+      {
+        "aspect_zh": "它是什么",
+        "swift_zh": "Apple 的语言 + 原生框架（SwiftUI/AppKit）",
+        "electron_zh": "一个 Chromium 浏览器 + Node.js，裹着你的 Web App"
+      },
+      {
+        "aspect_zh": "看起来像 Mac App",
+        "swift_zh": "是，天生如此——真正的菜单、Sheet 面板、毛玻璃质感",
+        "electron_zh": "除非你自己用 CSS 重造一套 Mac 的样子"
+      },
+      {
+        "aspect_zh": "适合做什么",
+        "swift_zh": "只跑在 Mac 上、要有原生质感的 App",
+        "electron_zh": "跨平台、共用一套 Web 代码的 App"
+      },
+      {
+        "aspect_zh": "App 体积",
+        "swift_zh": "小（直接用系统自带的框架）",
+        "electron_zh": "大（自带一个浏览器，约 100MB+）"
+      },
+      {
+        "aspect_zh": "你的技能",
+        "swift_zh": "Swift——对多数 Web 开发者来说是一门新语言",
+        "electron_zh": "HTML/CSS/JS/React——Web 开发者本来就会的东西"
+      },
+      {
+        "aspect_zh": "知名案例",
+        "swift_zh": "Things、Fantastical、Craft",
+        "electron_zh": "VS Code、Slack、Discord、Figma"
+      }
+    ],
+    "ruleTitle_zh": "经验法则",
+    "rule_zh": "只上 Mac，还想让它看起来土生土长？选 Swift。要跨平台，或者团队靠 Web 技术吃饭？选 Electron（或者它更轻量的表亲 Tauri——把捆绑的浏览器换成系统自带的）。",
+    "promptsTitle_zh": "你的第一条 prompt——选好你的世界",
+    "promptsIntro_zh": "你发出的第一条消息，决定了代理在哪个世界里动工。把你这一边的粘过去——它会定下技术栈、代理容易忘掉的原生细节、词汇，以及一个你能真正看到的第一个里程碑：",
+    "prompts_zh": [
+      {
+        "label_zh": "从零开始一个 Swift App",
+        "note_zh": "只上 Mac，第一天就有原生质感",
+        "text_zh": "我要从零开始一个全新的原生 macOS App。把它搭建成一个 SwiftUI Mac App（Xcode 项目，macOS 14+）：一个主窗口，带 NavigationSplitView 边栏和统一的工具栏（unified toolbar），从一开始就支持浅色 + 深色模式。一切保持原生——系统字体、系统强调色、标准控件，不要自绘的窗口装饰。跟我说话时用 SwiftUI/AppKit 的名字（window、sidebar、toolbar、sheet），绝不用 Web 术语。第一个里程碑：空 App 能编译运行，边栏和工具栏都显示出来。"
+      },
+      {
+        "label_zh": "从零开始一个 Electron App",
+        "note_zh": "Web 技术，到处都能跑",
+        "text_zh": "我要从零开始一个用 Web 技术构建的全新桌面 App。把它搭建成一个 Electron App，用 Vite + React + TypeScript：一个 BrowserWindow，在 macOS 上把 titleBarStyle 设为 'hiddenInset' 让外观干净，采用安全的默认配置（打开 contextIsolation，关闭 nodeIntegration），开发时支持热重载。跟我说话时用 Web 的名字（components、CSS、div——菜单栏图标用 Electron 的 Tray），绝不用 Swift/AppKit 术语。第一个里程碑：窗口能打开，显示我的 React 页面，热重载正常工作。"
+      }
+    ],
+    "confuseTitle_zh": "别和它们搞混",
+    "confuse_zh": [
+      {
+        "term_zh": "Tauri",
+        "body_zh": "Electron 的轻量表亲——同样是 Web UI，App 小得多，底层是 Rust。"
+      },
+      {
+        "term_zh": "Catalyst",
+        "body_zh": "跑在 Mac 上的 iPad App。既不是原生 Mac，也不是 Web。"
+      },
+      {
+        "term_zh": "React Native",
+        "body_zh": "用 JavaScript 驱动原生控件——主要是移动端的故事，桌面上很少见。"
+      }
+    ],
+    "outro_zh": "选了 Swift？接着读《AppKit vs SwiftUI》。选了 Electron？你造的所有东西都在 Web 标签页里。"
+  }
+}

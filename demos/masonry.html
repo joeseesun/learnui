@@ -1,0 +1,86 @@
+<div class="demo demo-masonry">
+  <div class="mas-card">
+    <p class="mas-label">Masonry</p>
+    <div class="mas-cols">
+      <div class="mas-col">
+        <div class="mas-item mas-h16 mas-g1"><span class="mas-num">1</span></div>
+        <div class="mas-item mas-h11 mas-g3"><span class="mas-num">3</span></div>
+        <div class="mas-item mas-h8 mas-g5"><span class="mas-num">5</span></div>
+      </div>
+      <div class="mas-col">
+        <div class="mas-item mas-h9 mas-g2"><span class="mas-num">2</span></div>
+        <div class="mas-item mas-h14 mas-g4"><span class="mas-num">4</span></div>
+        <div class="mas-item mas-h12 mas-g6"><span class="mas-num">6</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-masonry {
+  font-family: var(--font-sans);
+}
+.demo-masonry .mas-card {
+  width: 140px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+}
+.demo-masonry .mas-label {
+  margin: 0 0 6px;
+  padding: 0 2px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+  color: #94a3b8;
+}
+.demo-masonry .mas-cols {
+  display: flex;
+  gap: 6px;
+}
+.demo-masonry .mas-col {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.demo-masonry .mas-item {
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+}
+.demo-masonry .mas-num {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1;
+}
+.demo-masonry .mas-h16 { height: 64px; }
+.demo-masonry .mas-h14 { height: 56px; }
+.demo-masonry .mas-h12 { height: 48px; }
+.demo-masonry .mas-h11 { height: 44px; }
+.demo-masonry .mas-h9 { height: 36px; }
+.demo-masonry .mas-h8 { height: 32px; }
+.demo-masonry .mas-g1 { background: linear-gradient(to bottom right, #fcd34d, #fb923c, #fb7185); }
+.demo-masonry .mas-g2 { background: linear-gradient(to bottom right, #67e8f9, #38bdf8, #6366f1); }
+.demo-masonry .mas-g3 { background: linear-gradient(to bottom right, #bef264, #34d399, #14b8a6); }
+.demo-masonry .mas-g4 { background: linear-gradient(to bottom right, #f0abfc, #c084fc, #818cf8); }
+.demo-masonry .mas-g5 { background: linear-gradient(to bottom right, #cbd5e1, #94a3b8, #64748b); }
+.demo-masonry .mas-g6 { background: linear-gradient(to bottom right, #fda4af, #f87171, #fb923c); }
+</style>

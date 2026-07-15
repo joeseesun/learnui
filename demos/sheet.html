@@ -1,0 +1,92 @@
+<div class="demo demo-sheet">
+  <div class="win">
+    <div class="titlebar">
+      <div class="tl">
+        <span class="tl-btn tl-close"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="tl-btn tl-min"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="tl-btn tl-zoom"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+      <span class="win-title">Documents</span>
+    </div>
+    <div class="body">
+      <div class="doc">
+        <div class="line w-66"></div>
+        <div class="line w-50"></div>
+        <div class="line w-60"></div>
+        <div class="line w-40"></div>
+        <button type="button" class="trigger">Delete Document…</button>
+      </div>
+      <div class="dim" aria-hidden="true"></div>
+      <div class="sheet-panel" role="dialog" aria-label="Delete document confirmation">
+        <p class="sheet-title">Delete “Q3 Report”?</p>
+        <p class="sheet-sub">Blocks only this window.</p>
+        <div class="sheet-actions">
+          <button type="button" class="btn btn-cancel">Cancel</button>
+          <button type="button" class="btn btn-primary">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-sheet { font-family: var(--font-sans); }
+.demo-sheet, .demo-sheet * { box-sizing: border-box; }
+.demo-sheet p { margin: 0; }
+.demo-sheet .win { width: 256px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,.1); background: #f6f6f7; color: rgba(0,0,0,.85); box-shadow: 0 24px 50px -12px rgba(0,0,0,.25), 0 4px 12px rgba(0,0,0,.08); }
+.demo-sheet .titlebar { position: relative; display: flex; align-items: center; height: 36px; padding: 0 12px; border-bottom: 1px solid rgba(0,0,0,.05); }
+.demo-sheet .tl { display: flex; align-items: center; gap: 7px; }
+.demo-sheet .tl-btn { display: flex; align-items: center; justify-content: center; width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15); }
+.demo-sheet .tl-close { background: #ff5f57; }
+.demo-sheet .tl-min { background: #febc2e; }
+.demo-sheet .tl-zoom { background: #28c840; }
+.demo-sheet .glyph { opacity: 0; transition: opacity .1s; }
+.demo-sheet .tl:hover .glyph { opacity: 1; }
+.demo-sheet .win-title { position: absolute; left: 0; right: 0; text-align: center; font-size: 12px; font-weight: 600; color: rgba(0,0,0,.6); pointer-events: none; }
+.demo-sheet .body { position: relative; }
+.demo-sheet .doc { padding: 12px 16px; }
+.demo-sheet .line { height: 8px; border-radius: 4px; background: rgba(0,0,0,.1); margin-top: 8px; }
+.demo-sheet .line:first-child { margin-top: 0; }
+.demo-sheet .w-66 { width: 66%; }
+.demo-sheet .w-50 { width: 50%; }
+.demo-sheet .w-60 { width: 60%; }
+.demo-sheet .w-40 { width: 40%; }
+.demo-sheet .trigger { margin: 10px 0 0; appearance: none; border: 1px solid rgba(0,0,0,.15); background: #fff; border-radius: 6px; font: inherit; font-size: 11px; font-weight: 500; color: rgba(0,0,0,.8); padding: 3px 10px; box-shadow: 0 .5px 1px rgba(0,0,0,.08); cursor: default; }
+.demo-sheet .trigger:hover { background: #f0f0f2; }
+.demo-sheet .trigger:active { background: #e6e6e9; }
+.demo-sheet .trigger:focus-visible { outline: 2px solid rgba(10,108,255,.6); outline-offset: 1px; }
+.demo-sheet .dim { position: absolute; inset: 0; background: rgba(0,0,0,.15); opacity: 1; transition: opacity .2s; }
+.demo-sheet .dim.is-hidden { opacity: 0; pointer-events: none; }
+.demo-sheet .sheet-panel { position: absolute; top: 0; left: 0; right: 0; margin: 0 auto; width: 78%; background: #f2f2f3; border: 1px solid rgba(0,0,0,.1); border-top: 0; border-radius: 0 0 10px 10px; box-shadow: 0 12px 28px rgba(0,0,0,.22); padding: 10px; transform: translateY(0); opacity: 1; transition: transform .22s cubic-bezier(.23,1,.32,1), opacity .18s; }
+.demo-sheet .sheet-panel.is-hidden { transform: translateY(-103%); opacity: 0; pointer-events: none; }
+.demo-sheet .sheet-title { font-size: 12px; font-weight: 600; color: rgba(0,0,0,.85); }
+.demo-sheet .sheet-sub { margin-top: 4px; font-size: 11px; line-height: 1.35; color: rgba(0,0,0,.55); }
+.demo-sheet .sheet-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.demo-sheet .btn { appearance: none; margin: 0; font: inherit; font-size: 11px; font-weight: 500; padding: 2px 10px; border-radius: 6px; border: 1px solid transparent; cursor: default; }
+.demo-sheet .btn-cancel { background: #fff; border-color: rgba(0,0,0,.15); color: rgba(0,0,0,.8); }
+.demo-sheet .btn-cancel:hover { background: #f0f0f2; }
+.demo-sheet .btn-primary { background: #0a6cff; color: #fff; }
+.demo-sheet .btn-primary:hover { background: #005ee0; }
+.demo-sheet .btn:focus-visible { outline: 2px solid rgba(10,108,255,.6); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) {
+  .demo-sheet .glyph,
+  .demo-sheet .dim,
+  .demo-sheet .sheet-panel { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const panel = ROOT.querySelector('.sheet-panel');
+  const dim = ROOT.querySelector('.dim');
+  ROOT.querySelector('.trigger').addEventListener('click', function () {
+    panel.classList.remove('is-hidden');
+    dim.classList.remove('is-hidden');
+  });
+  ROOT.querySelectorAll('.sheet-actions .btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      panel.classList.add('is-hidden');
+      dim.classList.add('is-hidden');
+    });
+  });
+})();
+</script>

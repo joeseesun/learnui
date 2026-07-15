@@ -1,0 +1,71 @@
+<div class="demo demo-stepper">
+  <div class="row">
+    <span class="label">Copies:</span>
+    <span class="field"><span class="val">2</span></span>
+    <span class="stepper">
+      <button type="button" class="st-btn st-up" aria-label="Increment"><svg aria-hidden="true" width="7" height="5" viewBox="0 0 8 6" fill="currentColor"><path d="M4 0.5 7.5 5.5h-7Z"/></svg></button>
+      <span class="st-div" aria-hidden="true"></span>
+      <button type="button" class="st-btn st-down" aria-label="Decrement"><svg aria-hidden="true" width="7" height="5" viewBox="0 0 8 6" fill="currentColor"><path d="M4 5.5 0.5 0.5h7Z"/></svg></button>
+    </span>
+  </div>
+</div>
+<style>
+.demo-stepper { font-family: var(--font-sans); }
+.demo-stepper, .demo-stepper * { box-sizing: border-box; }
+.demo-stepper .row { display: flex; align-items: center; gap: 8px; }
+.demo-stepper .label { width: 64px; text-align: right; font-size: 13px; color: rgba(0,0,0,.8); }
+.demo-stepper .field { display: flex; align-items: center; justify-content: flex-end; width: 56px; height: 22px; padding: 0 6px; border: 1px solid rgba(0,0,0,.15); border-radius: 5px; background: #fff; box-shadow: inset 0 1px 1px rgba(0,0,0,.04); font-size: 13px; color: rgba(0,0,0,.85); font-variant-numeric: tabular-nums; }
+.demo-stepper .stepper { display: flex; flex-direction: column; width: 16px; height: 22px; overflow: hidden; border: 1px solid rgba(0,0,0,.15); border-radius: 5px; background: #fff; box-shadow: 0 .5px 1px rgba(0,0,0,.12); color: rgba(0,0,0,.6); }
+.demo-stepper .st-btn { flex: 1; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: default; transition: background-color .075s, opacity .075s; }
+.demo-stepper .st-btn:hover { background: rgba(0,0,0,.04); }
+.demo-stepper .st-btn:active { background: rgba(0,0,0,.1); }
+.demo-stepper .st-btn:focus-visible { outline: 2px solid rgba(10,108,255,.6); outline-offset: -1px; }
+.demo-stepper .st-btn.is-disabled { opacity: .3; }
+.demo-stepper .st-div { flex: none; width: 100%; height: 1px; background: rgba(0,0,0,.1); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-stepper .st-btn { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const val = ROOT.querySelector('.val');
+  const up = ROOT.querySelector('.st-up');
+  const down = ROOT.querySelector('.st-down');
+  const MIN = 1, MAX = 99;
+  let v = 2, tDelay = null, tRepeat = null;
+  function render() {
+    val.textContent = v;
+    up.classList.toggle('is-disabled', v >= MAX);
+    up.setAttribute('aria-disabled', v >= MAX ? 'true' : 'false');
+    down.classList.toggle('is-disabled', v <= MIN);
+    down.setAttribute('aria-disabled', v <= MIN ? 'true' : 'false');
+  }
+  function step(d) {
+    const nv = Math.min(MAX, Math.max(MIN, v + d));
+    if (nv !== v) { v = nv; render(); }
+  }
+  function start(d) {
+    step(d);
+    stop();
+    tDelay = setTimeout(function () { tRepeat = setInterval(function () { step(d); }, 90); }, 450);
+  }
+  function stop() {
+    clearTimeout(tDelay); tDelay = null;
+    clearInterval(tRepeat); tRepeat = null;
+  }
+  [[up, 1], [down, -1]].forEach(function (pair) {
+    const btn = pair[0], d = pair[1];
+    let usedPointer = false;
+    btn.addEventListener('pointerdown', function (e) { e.preventDefault(); usedPointer = true; start(d); });
+    btn.addEventListener('pointerup', stop);
+    btn.addEventListener('pointerleave', stop);
+    btn.addEventListener('pointercancel', stop);
+    btn.addEventListener('click', function () {
+      if (usedPointer) { usedPointer = false; return; }
+      step(d);
+    });
+  });
+  render();
+})();
+</script>

@@ -1,0 +1,109 @@
+<div class="demo demo-disclosure-triangle">
+  <div class="win">
+    <div class="titlebar">
+      <div class="lights">
+        <span class="lt r"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="lt y"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="lt g"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="group">
+        <button type="button" class="row open" aria-expanded="true">
+          <svg aria-hidden="true" class="tri" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5 8 5 3 8.5Z" fill="currentColor"/></svg>
+          <span class="ic">📁</span>Documents
+        </button>
+        <div class="kids open"><div class="kids-in">
+          <div class="kid"><span class="ic">📄</span>Q3 Report.pages</div>
+          <div class="kid"><span class="ic">📄</span>Notes.md</div>
+        </div></div>
+      </div>
+      <div class="group">
+        <button type="button" class="row" aria-expanded="false">
+          <svg aria-hidden="true" class="tri" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5 8 5 3 8.5Z" fill="currentColor"/></svg>
+          <span class="ic">📁</span>Downloads
+        </button>
+        <div class="kids"><div class="kids-in">
+          <div class="kid"><span class="ic">📄</span>installer.dmg</div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-disclosure-triangle {
+  font-family: var(--font-sans);
+  display: flex;
+  justify-content: center;
+}
+.demo-disclosure-triangle .win {
+  width: 224px; border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f6f6f7; color: rgba(0,0,0,.85);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.25), 0 8px 16px -8px rgba(0,0,0,.12);
+}
+.demo-disclosure-triangle .titlebar {
+  position: relative; display: flex; align-items: center;
+  height: 36px; padding: 0 12px; flex-shrink: 0;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.demo-disclosure-triangle .lights { display: flex; align-items: center; gap: 7px; }
+.demo-disclosure-triangle .lt {
+  width: 12px; height: 12px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15);
+}
+.demo-disclosure-triangle .lt.r { background: #ff5f57; }
+.demo-disclosure-triangle .lt.y { background: #febc2e; }
+.demo-disclosure-triangle .lt.g { background: #28c840; }
+.demo-disclosure-triangle .lt svg { opacity: 0; transition: opacity .1s; }
+.demo-disclosure-triangle .titlebar:hover .lt svg { opacity: 1; }
+.demo-disclosure-triangle .body { padding: 8px 10px; min-height: 112px; }
+.demo-disclosure-triangle .row {
+  display: flex; width: 100%; align-items: center; gap: 4px;
+  border: none; background: none; font: inherit;
+  font-size: 12px; font-weight: 500; color: rgba(0,0,0,.85);
+  text-align: left; padding: 3px 6px; border-radius: 5px; cursor: pointer;
+  transition: background-color .1s;
+}
+.demo-disclosure-triangle .row:hover { background: rgba(0,0,0,.05); }
+.demo-disclosure-triangle .tri {
+  width: 9px; height: 9px; flex-shrink: 0; color: rgba(0,0,0,.6);
+  transition: transform .15s;
+}
+.demo-disclosure-triangle .row.open .tri { transform: rotate(90deg); }
+.demo-disclosure-triangle .row .ic { font-size: 13px; }
+.demo-disclosure-triangle .kids {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .2s;
+}
+.demo-disclosure-triangle .kids.open { grid-template-rows: 1fr; }
+.demo-disclosure-triangle .kids-in { overflow: hidden; min-height: 0; }
+.demo-disclosure-triangle .kid {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 0 3px 32px;
+  font-size: 11.5px; color: rgba(0,0,0,.7);
+}
+.demo-disclosure-triangle .kid .ic { font-size: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .demo-disclosure-triangle .lt svg,
+  .demo-disclosure-triangle .row,
+  .demo-disclosure-triangle .tri,
+  .demo-disclosure-triangle .kids { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  ROOT.querySelectorAll('.group').forEach(function (group) {
+    const row = group.querySelector('.row');
+    const kids = group.querySelector('.kids');
+    row.addEventListener('click', function () {
+      const willOpen = !row.classList.contains('open');
+      row.classList.toggle('open', willOpen);
+      kids.classList.toggle('open', willOpen);
+      row.setAttribute('aria-expanded', String(willOpen));
+    });
+  });
+})();
+</script>

@@ -1,0 +1,220 @@
+<div class="demo demo-popup-pulldown-combo">
+  <div class="cols">
+    <div class="col">
+      <div class="anchor">
+        <button type="button" class="pbtn pbtn-popup" aria-haspopup="listbox" aria-expanded="true">
+          <span class="val">Medium</span>
+          <span class="chev">
+            <svg aria-hidden="true" width="8" height="10" viewBox="0 0 8 12" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4.5 4 2l2.5 2.5"/><path d="M1.5 7.5 4 10l2.5-2.5"/></svg>
+          </span>
+        </button>
+        <div class="menu menu-popup open" role="listbox" style="top:-23.5px">
+          <button type="button" role="option"><span class="ck">✓</span>Small</button>
+          <button type="button" role="option" class="sel"><span class="ck">✓</span>Medium</button>
+          <button type="button" role="option"><span class="ck">✓</span>Large</button>
+        </div>
+      </div>
+      <span class="tag">pop-up button</span>
+    </div>
+    <div class="col">
+      <div class="anchor">
+        <button type="button" class="pbtn pbtn-pull" aria-haspopup="menu" aria-expanded="false">
+          <span class="val">Add</span>
+          <span class="chev">
+            <svg aria-hidden="true" width="8" height="10" viewBox="0 0 8 12" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5 4 7.5 6.5 5"/></svg>
+          </span>
+        </button>
+        <div class="menu menu-pull" role="menu">
+          <button type="button" role="menuitem">New File…</button>
+          <button type="button" role="menuitem">New Folder…</button>
+          <button type="button" role="menuitem">From Template…</button>
+        </div>
+      </div>
+      <span class="tag">pull-down button</span>
+    </div>
+    <div class="col">
+      <div class="anchor">
+        <div class="combo">
+          <input type="text" value="Helvetica" aria-label="Font name" />
+          <button type="button" class="cbtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Show font choices">
+            <svg aria-hidden="true" width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M1.5 3 4 5.5 6.5 3"/></svg>
+          </button>
+        </div>
+        <div class="menu menu-combo" role="listbox">
+          <button type="button" role="option">Avenir</button>
+          <button type="button" role="option">Geneva</button>
+          <button type="button" role="option">Helvetica</button>
+        </div>
+      </div>
+      <span class="tag">combo box</span>
+    </div>
+  </div>
+</div>
+<style>
+.demo-popup-pulldown-combo {
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-sans);
+}
+.demo-popup-pulldown-combo .cols {
+  display: flex; align-items: flex-start; gap: 12px;
+  flex-wrap: wrap; justify-content: center;
+  max-width: 100%;
+}
+.demo-popup-pulldown-combo .col { display: flex; flex-direction: column; gap: 6px; width: 96px; }
+.demo-popup-pulldown-combo .anchor { position: relative; }
+.demo-popup-pulldown-combo .pbtn {
+  display: flex; width: 100%; box-sizing: border-box;
+  align-items: center; justify-content: space-between;
+  border-radius: 6px; border: 1px solid rgba(0,0,0,.15);
+  background: #fff; padding: 4px 10px;
+  font: inherit; font-size: 11.5px; font-weight: 500; color: rgba(0,0,0,.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  cursor: pointer;
+}
+.demo-popup-pulldown-combo .chev {
+  margin-left: 8px; flex-shrink: 0;
+  display: flex; width: 15px; height: 15px;
+  align-items: center; justify-content: center;
+  border-radius: 4px; background: #0a6cff;
+}
+.demo-popup-pulldown-combo .tag {
+  text-align: center;
+  font-family: var(--font-mono); font-size: 9.5px; color: #71717a;
+}
+.demo-popup-pulldown-combo .menu {
+  position: absolute; left: 0; top: calc(100% + 4px); z-index: 10;
+  width: 100%; box-sizing: border-box;
+  transform: scale(.95); transform-origin: top;
+  border-radius: 8px; border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.95);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  padding: 4px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.1);
+  opacity: 0; pointer-events: none;
+  transition: opacity .15s, transform .15s;
+}
+.demo-popup-pulldown-combo .menu.open { opacity: 1; transform: scale(1); pointer-events: auto; }
+.demo-popup-pulldown-combo .menu button {
+  display: flex; width: 100%; box-sizing: border-box;
+  align-items: center; gap: 6px;
+  border: none; background: none; font: inherit;
+  font-size: 11.5px; line-height: 17.5px; color: rgba(0,0,0,.85);
+  text-align: left; padding: 3px 8px; border-radius: 5px;
+  cursor: pointer; white-space: nowrap;
+  transition: background-color .1s, color .1s;
+}
+.demo-popup-pulldown-combo .menu button:hover { background: #0a6cff; color: #fff; }
+.demo-popup-pulldown-combo .ck { width: 10px; flex-shrink: 0; font-weight: 600; opacity: 0; }
+.demo-popup-pulldown-combo .menu button.sel .ck { opacity: 1; }
+.demo-popup-pulldown-combo .combo {
+  display: flex; align-items: stretch;
+  border-radius: 6px; border: 1px solid rgba(0,0,0,.15);
+  background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.demo-popup-pulldown-combo .combo input {
+  width: 100%; min-width: 0; box-sizing: border-box;
+  border: none; background: transparent;
+  padding: 4px 10px; font: inherit;
+  font-size: 11.5px; font-weight: 500; color: rgba(0,0,0,.8);
+  outline: none; border-radius: 6px;
+}
+.demo-popup-pulldown-combo .cbtn {
+  display: flex; align-items: center; align-self: stretch;
+  border: none; border-left: 1px solid rgba(0,0,0,.1);
+  background: none; padding: 0 4px;
+  color: rgba(0,0,0,.5); cursor: pointer;
+  border-top-right-radius: 5px; border-bottom-right-radius: 5px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-popup-pulldown-combo .menu,
+  .demo-popup-pulldown-combo .menu button { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const ROW_H = 23.5;
+
+  function closeAll() {
+    ROOT.querySelectorAll('.menu').forEach(function (m) { m.classList.remove('open'); });
+    ROOT.querySelectorAll('[aria-expanded]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+  }
+
+  /* --- pop-up button: selection control, menu aligns selected row over the button --- */
+  const popupBtn = ROOT.querySelector('.pbtn-popup');
+  const popupMenu = ROOT.querySelector('.menu-popup');
+  const popupVal = popupBtn.querySelector('.val');
+  const popupItems = popupMenu.querySelectorAll('button');
+
+  function popupTop() {
+    let idx = 0;
+    popupItems.forEach(function (it, i) { if (it.classList.contains('sel')) idx = i; });
+    popupMenu.style.top = (-idx * ROW_H) + 'px';
+  }
+  popupBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    const willOpen = !popupMenu.classList.contains('open');
+    closeAll();
+    popupTop();
+    popupMenu.classList.toggle('open', willOpen);
+    popupBtn.setAttribute('aria-expanded', String(willOpen));
+  });
+  popupItems.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
+      popupItems.forEach(function (i) { i.classList.toggle('sel', i === item); });
+      popupVal.textContent = item.textContent.replace('✓', '').trim();
+      popupTop();
+      popupMenu.classList.remove('open');
+      popupBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* --- pull-down button: action menu, button label never changes --- */
+  const pullBtn = ROOT.querySelector('.pbtn-pull');
+  const pullMenu = ROOT.querySelector('.menu-pull');
+  pullBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    const willOpen = !pullMenu.classList.contains('open');
+    closeAll();
+    pullMenu.classList.toggle('open', willOpen);
+    pullBtn.setAttribute('aria-expanded', String(willOpen));
+  });
+  pullMenu.querySelectorAll('button').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
+      pullMenu.classList.remove('open');
+      pullBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* --- combo box: editable text field with a choices list --- */
+  const comboInput = ROOT.querySelector('.combo input');
+  const comboBtn = ROOT.querySelector('.cbtn');
+  const comboMenu = ROOT.querySelector('.menu-combo');
+  comboBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    const willOpen = !comboMenu.classList.contains('open');
+    closeAll();
+    comboMenu.classList.toggle('open', willOpen);
+    comboBtn.setAttribute('aria-expanded', String(willOpen));
+  });
+  comboMenu.querySelectorAll('button').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
+      comboInput.value = item.textContent.trim();
+      comboMenu.classList.remove('open');
+      comboBtn.setAttribute('aria-expanded', 'false');
+      comboInput.focus();
+    });
+  });
+
+  ROOT.addEventListener('click', function (e) {
+    if (!e.target.closest('.anchor')) closeAll();
+  });
+  ROOT.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAll();
+  });
+})();
+</script>

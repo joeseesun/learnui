@@ -1,0 +1,148 @@
+<div class="demo demo-truncation">
+  <div class="card">
+    <div class="col">
+      <div class="spec">
+        <p class="cap">text-overflow: ellipsis</p>
+        <div class="box" title="The quarterly review meeting has been rescheduled to Friday afternoon">
+          <span class="end">The quarterly review meeting has been rescheduled to Friday afternoon</span>
+        </div>
+      </div>
+      <div class="spec">
+        <p class="cap">-webkit-line-clamp: 2</p>
+        <div class="box" title="Release notes: this update reworks the sync engine, fixes twelve reported issues with offline edits, and adds keyboard shortcuts for every panel in the app.">
+          <span class="clamp">Release notes: this update reworks the sync engine, fixes twelve reported issues with offline edits, and adds keyboard shortcuts for every panel in the app.</span>
+        </div>
+      </div>
+      <div class="spec">
+        <p class="cap">middle truncation · JS</p>
+        <div class="box" title="quarterly-review-meeting-notes-2026-final-v3.pdf">
+          <span class="mid" data-full="quarterly-review-meeting-notes-2026-final-v3.pdf">quarterly-review-meeting-notes-2026-final-v3.pdf</span>
+        </div>
+      </div>
+      <label class="width-ctl">
+        <span class="cap2">container width</span>
+        <input type="range" min="45" max="100" step="1" value="100" aria-label="Container width" />
+      </label>
+    </div>
+  </div>
+</div>
+<style>
+.demo-truncation {
+  font-family: var(--font-sans);
+  max-width: 100%;
+}
+.demo-truncation .card {
+  width: 224px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  padding: 12px 14px;
+}
+.demo-truncation .col {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+  transition: width 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.demo-truncation .cap {
+  margin: 0 0 3px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #64748b;
+}
+.demo-truncation .box {
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #334155;
+}
+.demo-truncation .end {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.demo-truncation .clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.demo-truncation .mid {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.demo-truncation .width-ctl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1px;
+}
+.demo-truncation .cap2 {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+.demo-truncation input[type='range'] {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 14px;
+  margin: 0;
+  accent-color: #0a6cff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-truncation .col {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const col = ROOT.querySelector('.col');
+  const mid = ROOT.querySelector('.mid');
+  const range = ROOT.querySelector('input[type="range"]');
+  const FULL = mid.dataset.full;
+
+  function truncateMiddle() {
+    mid.textContent = FULL;
+    if (mid.scrollWidth <= mid.clientWidth) return;
+    let lo = 2;
+    let hi = FULL.length - 2;
+    let best = 2;
+    while (lo <= hi) {
+      const n = (lo + hi) >> 1;
+      const front = Math.ceil(n / 2);
+      const back = Math.floor(n / 2);
+      mid.textContent = FULL.slice(0, front) + '…' + FULL.slice(FULL.length - back);
+      if (mid.scrollWidth <= mid.clientWidth) {
+        best = n;
+        lo = n + 1;
+      } else {
+        hi = n - 1;
+      }
+    }
+    const front = Math.ceil(best / 2);
+    const back = Math.floor(best / 2);
+    mid.textContent = FULL.slice(0, front) + '…' + FULL.slice(FULL.length - back);
+  }
+
+  range.addEventListener('input', function () {
+    col.style.width = range.value + '%';
+    truncateMiddle();
+  });
+  col.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width') truncateMiddle();
+  });
+
+  window.requestAnimationFrame(truncateMiddle);
+})();
+</script>

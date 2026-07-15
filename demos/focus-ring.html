@@ -1,0 +1,87 @@
+<div class="demo demo-focus-ring">
+  <div class="row">
+    <input type="text" class="field ring" placeholder="Search…" aria-label="Search" />
+    <span class="check-wrap">
+      <span class="checkbox" role="checkbox" tabindex="0" aria-checked="true" aria-label="Enabled">
+        <svg aria-hidden="true" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M1.5 5.5 4 8l4.5-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="clabel">Enabled</span>
+    </span>
+    <button type="button" class="btn">Save</button>
+  </div>
+</div>
+<style>
+.demo-focus-ring {
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-sans);
+}
+.demo-focus-ring .row {
+  display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap; justify-content: center;
+}
+.demo-focus-ring .field {
+  display: block; width: 128px; box-sizing: border-box;
+  border-radius: 6px; border: 1px solid rgba(0,0,0,.15);
+  background: #fff; padding: 6px 10px;
+  font: inherit; font-size: 12px; color: #000;
+  outline: none;
+  transition: box-shadow .15s, border-color .15s;
+}
+.demo-focus-ring .field::placeholder { color: rgba(0,0,0,.4); }
+.demo-focus-ring .check-wrap { display: flex; align-items: center; gap: 6px; }
+.demo-focus-ring .checkbox {
+  display: flex; width: 15px; height: 15px; box-sizing: border-box;
+  align-items: center; justify-content: center;
+  border-radius: 4px; background: #0a6cff;
+  border: 1px solid transparent;
+  cursor: pointer; outline: none;
+  transition: box-shadow .15s, border-color .15s, background-color .15s;
+}
+.demo-focus-ring .checkbox[aria-checked="false"] {
+  background: #fff; border-color: rgba(0,0,0,.25);
+}
+.demo-focus-ring .checkbox[aria-checked="false"] svg { display: none; }
+.demo-focus-ring .clabel { font-size: 12px; color: rgba(0,0,0,.75); }
+.demo-focus-ring .btn {
+  border-radius: 6px; border: 1px solid rgba(0,0,0,.15);
+  background: #fff; padding: 6px 12px;
+  font: inherit; font-size: 12px; font-weight: 500; color: rgba(0,0,0,.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  cursor: pointer; outline: none;
+  transition: box-shadow .15s, border-color .15s;
+}
+.demo-focus-ring .btn:active { transform: scale(.97); }
+.demo-focus-ring .ring {
+  border-color: #0a6cff;
+  box-shadow: 0 0 0 2.5px rgba(10,108,255,.5), 0 0 5px 3px rgba(10,108,255,.28);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-focus-ring .field,
+  .demo-focus-ring .checkbox,
+  .demo-focus-ring .btn { transition: none; }
+  .demo-focus-ring .btn:active { transform: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const focusables = ROOT.querySelectorAll('.field, .checkbox, .btn');
+  const checkbox = ROOT.querySelector('.checkbox');
+
+  ROOT.addEventListener('focusin', function (e) {
+    focusables.forEach(function (f) { f.classList.toggle('ring', f === e.target); });
+  });
+
+  function toggleCheck() {
+    checkbox.setAttribute('aria-checked', checkbox.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+  }
+  checkbox.addEventListener('click', toggleCheck);
+  checkbox.addEventListener('keydown', function (e) {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      toggleCheck();
+    }
+  });
+})();
+</script>

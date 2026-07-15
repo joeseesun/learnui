@@ -1,0 +1,149 @@
+<div class="demo demo-token-field">
+  <div class="row">
+    <span class="lab">Tags:</span>
+    <div class="field">
+      <span class="token" role="button" tabindex="0">Design</span>
+      <span class="token is-sel" role="button" tabindex="0">Q3 Report</span>
+      <input class="input" type="text" aria-label="Add tag">
+    </div>
+  </div>
+</div>
+<style>
+.demo-token-field {
+  font-family: var(--font-sans);
+}
+.demo-token-field .row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.demo-token-field .lab {
+  font-size: 12.5px;
+  color: rgba(0,0,0,.75);
+}
+.demo-token-field .field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  width: 256px;
+  min-height: 32px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.15);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  cursor: text;
+}
+.demo-token-field .field:focus-within {
+  border-color: rgba(10,108,255,.6);
+  box-shadow: 0 0 0 3px rgba(10,108,255,.25);
+}
+.demo-token-field .token {
+  display: flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+  background: rgba(10,108,255,.15);
+  color: #0a56c9;
+  transition: background .1s, color .1s;
+}
+.demo-token-field .token.is-sel {
+  background: #0a6cff;
+  color: #fff;
+}
+.demo-token-field .input {
+  flex: 1;
+  min-width: 48px;
+  border: 0;
+  padding: 0 2px;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  color: rgba(0,0,0,.85);
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-token-field .token {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const field = ROOT.querySelector('.field');
+  const input = ROOT.querySelector('.input');
+
+  function tokens() {
+    return Array.from(field.querySelectorAll('.token'));
+  }
+  function selected() {
+    return field.querySelector('.token.is-sel');
+  }
+  function deselectAll() {
+    tokens().forEach(function (t) { t.classList.remove('is-sel'); });
+  }
+
+  // clicking a token capsule selects it; clicking it again deselects
+  field.addEventListener('click', function (e) {
+    const token = e.target.closest('.token');
+    if (token) {
+      const wasSel = token.classList.contains('is-sel');
+      deselectAll();
+      if (!wasSel) token.classList.add('is-sel');
+      input.focus();
+    } else {
+      deselectAll();
+      input.focus();
+    }
+  });
+
+  // typing a separator turns recognized text into a new token
+  function commit() {
+    const text = input.value.trim().replace(/,+$/, '');
+    if (!text) { input.value = ''; return; }
+    const token = document.createElement('span');
+    token.className = 'token';
+    token.setAttribute('role', 'button');
+    token.setAttribute('tabindex', '0');
+    token.textContent = text;
+    field.insertBefore(token, input);
+    input.value = '';
+  }
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      commit();
+    } else if (e.key === 'Backspace' && input.value === '') {
+      // native feel: first Backspace arms the last token, second deletes it
+      const sel = selected();
+      if (sel) { sel.remove(); }
+      else {
+        const all = tokens();
+        if (all.length) all[all.length - 1].classList.add('is-sel');
+      }
+      e.preventDefault();
+    } else if (e.key === 'Delete') {
+      const sel = selected();
+      if (sel) sel.remove();
+    } else if (e.key === 'Escape') {
+      deselectAll();
+    } else if (input.value !== '') {
+      deselectAll();
+    }
+  });
+
+  input.addEventListener('blur', function () {
+    commit();
+  });
+})();
+</script>

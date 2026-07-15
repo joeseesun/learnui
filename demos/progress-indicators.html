@@ -1,0 +1,152 @@
+<div class="demo demo-progress-indicators">
+  <div class="spec">
+    <span class="viz">
+      <svg class="spin" width="36" height="36" viewBox="0 0 38 38" aria-label="Loading">
+        <circle cx="19" cy="19" r="15" fill="none" stroke="#0a6cff" stroke-opacity="0.2" stroke-width="3.5"></circle>
+        <path d="M19 4a15 15 0 0 1 15 15" fill="none" stroke="#0a6cff" stroke-width="3.5" stroke-linecap="round"></path>
+      </svg>
+    </span>
+    <span class="cap">spinner</span>
+  </div>
+  <div class="spec">
+    <span class="viz">
+      <svg class="ring" width="36" height="36" viewBox="0 0 38 38" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress">
+        <circle cx="19" cy="19" r="15" fill="none" stroke="#0a6cff" stroke-opacity="0.15" stroke-width="3.5"></circle>
+        <circle class="ring-val" cx="19" cy="19" r="15" fill="none" stroke="#0a6cff" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="94.248" stroke-dashoffset="94.248" transform="rotate(-90 19 19)"></circle>
+      </svg>
+    </span>
+    <span class="cap">progress ring</span>
+  </div>
+  <div class="spec bar-spec">
+    <div class="bar-row">
+      <div class="bar-track"><div class="bar-fill"></div></div>
+      <span class="pct">0%</span>
+    </div>
+    <span class="cap">progress bar</span>
+  </div>
+</div>
+<style>
+.demo-progress-indicators {
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 100%;
+}
+.demo-progress-indicators .spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 80px;
+}
+.demo-progress-indicators .bar-spec {
+  width: 96px;
+}
+.demo-progress-indicators .viz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+}
+.demo-progress-indicators .spin {
+  animation: demo-progress-spin 900ms linear infinite;
+}
+.demo-progress-indicators .ring-val {
+  transition: stroke-dashoffset 100ms linear;
+}
+.demo-progress-indicators .bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 44px;
+}
+.demo-progress-indicators .bar-track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.12);
+}
+.demo-progress-indicators .bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: #0a6cff;
+  transition: width 100ms linear;
+}
+.demo-progress-indicators .pct {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  color: #64748b;
+  border-radius: 4px;
+  padding: 0 2px;
+  min-width: 26px;
+  text-align: right;
+}
+.demo-progress-indicators .cap {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #64748b;
+  text-align: center;
+}
+@keyframes demo-progress-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-progress-indicators .spin {
+    animation: none;
+  }
+  .demo-progress-indicators .ring-val,
+  .demo-progress-indicators .bar-fill {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const ring = ROOT.querySelector('.ring-val');
+  const ringSvg = ROOT.querySelector('.ring');
+  const fill = ROOT.querySelector('.bar-fill');
+  const pct = ROOT.querySelector('.pct');
+  const C = 94.248;
+  const DURATION = 4500;
+  const HOLD = 900;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function render(v) {
+    ring.style.strokeDashoffset = String(C * (1 - v / 100));
+    ringSvg.setAttribute('aria-valuenow', String(Math.round(v)));
+    fill.style.width = v + '%';
+    pct.textContent = Math.round(v) + '%';
+  }
+
+  if (reduced) {
+    render(65);
+    return;
+  }
+
+  let start = null;
+  function tick(now) {
+    if (start === null) start = now;
+    const t = now - start;
+    if (t <= DURATION) {
+      render((t / DURATION) * 100);
+    } else if (t <= DURATION + HOLD) {
+      render(100);
+    } else {
+      start = now;
+      render(0);
+    }
+    window.requestAnimationFrame(tick);
+  }
+  window.requestAnimationFrame(tick);
+})();
+</script>

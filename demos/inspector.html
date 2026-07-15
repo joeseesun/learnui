@@ -1,0 +1,108 @@
+<div class="demo demo-inspector">
+  <div class="win">
+    <div class="titlebar">
+      <div class="lights">
+        <span class="lt r"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="lt y"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="lt g"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+      <span class="title">Slides</span>
+    </div>
+    <div class="main">
+      <div class="canvas">
+        <div class="ph"><div class="slide"></div></div>
+      </div>
+      <div class="insp">
+        <button type="button" class="sec" aria-expanded="true"><span class="chev">⌄</span>Style</button>
+        <div class="sec-body"><div class="sec-in">
+          <div class="ctl"><p>Fill</p><div class="bar"><div class="fill"></div></div></div>
+          <div class="ctl"><p>Border</p><div class="bar"><div class="fill"></div></div></div>
+          <div class="ctl"><p>Shadow</p><div class="bar"><div class="fill"></div></div></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-inspector {
+  font-family: var(--font-sans);
+  display: flex;
+  justify-content: center;
+}
+.demo-inspector .win {
+  width: 256px; border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f6f6f7; color: rgba(0,0,0,.85);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.25), 0 8px 16px -8px rgba(0,0,0,.12);
+}
+.demo-inspector .titlebar {
+  position: relative; display: flex; align-items: center;
+  height: 36px; padding: 0 12px; flex-shrink: 0;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.demo-inspector .lights { display: flex; align-items: center; gap: 7px; }
+.demo-inspector .lt {
+  width: 12px; height: 12px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15);
+}
+.demo-inspector .lt.r { background: #ff5f57; }
+.demo-inspector .lt.y { background: #febc2e; }
+.demo-inspector .lt.g { background: #28c840; }
+.demo-inspector .lt svg { opacity: 0; transition: opacity .1s; }
+.demo-inspector .titlebar:hover .lt svg { opacity: 1; }
+.demo-inspector .title {
+  position: absolute; left: 0; right: 0; text-align: center;
+  font-size: 12px; font-weight: 600; color: rgba(0,0,0,.6);
+  pointer-events: none;
+}
+.demo-inspector .main { display: flex; overflow: hidden; }
+.demo-inspector .canvas { flex: 1; min-width: 0; padding: 12px 16px; height: 112px; box-sizing: border-box; }
+.demo-inspector .ph {
+  height: 100%; display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; background: rgba(0,0,0,.05);
+}
+.demo-inspector .slide { width: 40px; height: 40px; border-radius: 8px; background: rgba(10,108,255,.8); }
+.demo-inspector .insp {
+  width: 96px; flex-shrink: 0; box-sizing: border-box;
+  border-left: 1px solid rgba(0,0,0,.05);
+  background: rgba(0,0,0,.03);
+  border-bottom-right-radius: 9px;
+  padding: 10px 12px; overflow: hidden;
+}
+.demo-inspector .sec {
+  display: flex; align-items: center; gap: 4px;
+  border: none; background: none; font: inherit; padding: 0;
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .05em;
+  color: rgba(0,0,0,.4); cursor: pointer;
+}
+.demo-inspector .sec .chev { font-size: 9px; display: inline-block; transition: transform .2s; }
+.demo-inspector .insp.closed .sec .chev { transform: rotate(-90deg); }
+.demo-inspector .sec-body {
+  display: grid; grid-template-rows: 1fr;
+  transition: grid-template-rows .2s;
+}
+.demo-inspector .insp.closed .sec-body { grid-template-rows: 0fr; }
+.demo-inspector .sec-in { overflow: hidden; min-height: 0; }
+.demo-inspector .ctl { margin-top: 8px; }
+.demo-inspector .ctl p { margin: 0; font-size: 10.5px; font-weight: 500; color: rgba(0,0,0,.65); }
+.demo-inspector .bar { margin-top: 4px; height: 3px; border-radius: 9999px; background: rgba(0,0,0,.1); }
+.demo-inspector .fill { height: 100%; width: 50%; border-radius: 9999px; background: rgba(10,108,255,.7); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-inspector .lt svg,
+  .demo-inspector .sec .chev,
+  .demo-inspector .sec-body { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const insp = ROOT.querySelector('.insp');
+  const sec = ROOT.querySelector('.sec');
+  sec.addEventListener('click', function () {
+    const closed = insp.classList.toggle('closed');
+    sec.setAttribute('aria-expanded', String(!closed));
+  });
+})();
+</script>

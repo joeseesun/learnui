@@ -1,0 +1,243 @@
+<div class="demo demo-lightbox">
+  <div class="lb-page">
+    <p class="lb-heading">Trip photos</p>
+    <div class="lb-grid">
+      <button type="button" class="lb-thumb" aria-label="Open Dunes" data-index="0"><span class="lb-fill lb-c1"></span></button>
+      <button type="button" class="lb-thumb" aria-label="Open Reef" data-index="1"><span class="lb-fill lb-c2"></span></button>
+      <button type="button" class="lb-thumb" aria-label="Open Meadow" data-index="2"><span class="lb-fill lb-c3"></span></button>
+    </div>
+    <div class="lb-lines">
+      <div class="lb-line lb-w80"></div>
+      <div class="lb-line lb-w60"></div>
+    </div>
+  </div>
+  <div class="lb-overlay open" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button type="button" class="lb-close" aria-label="Close viewer">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+    <button type="button" class="lb-prev" aria-label="Previous photo">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+    </button>
+    <button type="button" class="lb-next" aria-label="Next photo">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+    </button>
+    <div class="lb-viewer">
+      <div class="lb-photo active"><span class="lb-fill lb-c1"></span></div>
+      <div class="lb-photo" aria-hidden="true"><span class="lb-fill lb-c2"></span></div>
+      <div class="lb-photo" aria-hidden="true"><span class="lb-fill lb-c3"></span></div>
+      <span class="lb-sr" aria-live="polite">Dunes</span>
+    </div>
+  </div>
+</div>
+<style>
+.demo-lightbox {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  height: 180px;
+  overflow: hidden;
+  background: #ffffff;
+  font-family: var(--font-sans);
+}
+.demo-lightbox .lb-page {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  padding: 16px;
+}
+.demo-lightbox .lb-heading {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  line-height: 1.3;
+  color: #94a3b8;
+}
+.demo-lightbox .lb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.demo-lightbox .lb-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+  transition: transform 150ms;
+}
+.demo-lightbox .lb-thumb:hover {
+  transform: scale(1.03);
+}
+.demo-lightbox .lb-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.demo-lightbox .lb-c1 { background: #f2b84b; }
+.demo-lightbox .lb-c2 { background: #4b9be8; }
+.demo-lightbox .lb-c3 { background: #58b887; }
+.demo-lightbox .lb-lines {
+  margin-top: 12px;
+}
+.demo-lightbox .lb-line {
+  height: 8px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+}
+.demo-lightbox .lb-line + .lb-line {
+  margin-top: 8px;
+}
+.demo-lightbox .lb-w80 { width: 80%; }
+.demo-lightbox .lb-w60 { width: 60%; }
+.demo-lightbox .lb-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms;
+}
+.demo-lightbox .lb-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.demo-lightbox .lb-close {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  display: flex;
+  padding: 6px;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  appearance: none;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+}
+.demo-lightbox .lb-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+.demo-lightbox .lb-prev,
+.demo-lightbox .lb-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  padding: 6px;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  appearance: none;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+}
+.demo-lightbox .lb-prev { left: 4px; }
+.demo-lightbox .lb-next { right: 4px; }
+.demo-lightbox .lb-prev:hover,
+.demo-lightbox .lb-next:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+.demo-lightbox .lb-viewer {
+  position: relative;
+  width: 164px;
+  height: 104px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+.demo-lightbox .lb-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 260ms ease-in-out;
+}
+.demo-lightbox .lb-photo.active {
+  opacity: 1;
+}
+.demo-lightbox .lb-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-lightbox .lb-overlay,
+  .demo-lightbox .lb-photo,
+  .demo-lightbox .lb-thumb {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  var ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  var overlay = ROOT.querySelector('.lb-overlay');
+  var photos = ROOT.querySelectorAll('.lb-photo');
+  var thumbs = ROOT.querySelectorAll('.lb-thumb');
+  var live = ROOT.querySelector('.lb-sr');
+  var NAMES = ['Dunes', 'Reef', 'Meadow'];
+  var current = 0;
+
+  function show(i) {
+    current = (i + NAMES.length) % NAMES.length;
+    for (var k = 0; k < photos.length; k++) {
+      var on = k === current;
+      photos[k].classList.toggle('active', on);
+      photos[k].setAttribute('aria-hidden', on ? 'false' : 'true');
+    }
+    live.textContent = NAMES[current];
+  }
+
+  function openAt(i) {
+    show(i);
+    overlay.classList.add('open');
+    overlay.removeAttribute('aria-hidden');
+  }
+
+  function close() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  for (var t = 0; t < thumbs.length; t++) {
+    (function (btn) {
+      btn.addEventListener('click', function () {
+        openAt(parseInt(btn.getAttribute('data-index'), 10));
+      });
+    })(thumbs[t]);
+  }
+  ROOT.querySelector('.lb-close').addEventListener('click', close);
+  ROOT.querySelector('.lb-prev').addEventListener('click', function () { show(current - 1); });
+  ROOT.querySelector('.lb-next').addEventListener('click', function () { show(current + 1); });
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) { close(); }
+  });
+  ROOT.addEventListener('keydown', function (e) {
+    if (!overlay.classList.contains('open')) { return; }
+    if (e.key === 'Escape') { close(); }
+    else if (e.key === 'ArrowLeft') { show(current - 1); }
+    else if (e.key === 'ArrowRight') { show(current + 1); }
+  });
+})();
+</script>

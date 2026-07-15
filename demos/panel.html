@@ -1,0 +1,133 @@
+<div class="demo demo-panel">
+  <div class="desktop"></div>
+  <div class="doc">
+    <div class="titlebar">
+      <div class="lights">
+        <span class="lt r"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="lt y"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="lt g"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+      <span class="title">Editor</span>
+    </div>
+    <div class="doc-body">
+      <div class="ln a"></div>
+      <div class="ln b"></div>
+    </div>
+  </div>
+  <div class="hud" role="dialog" aria-label="Colors panel">
+    <div class="hud-head"><span>Colors</span><span class="dot"></span></div>
+    <div class="swatches">
+      <span style="background:#ff5f57"></span>
+      <span style="background:#ff9f0a"></span>
+      <span style="background:#ffd60a"></span>
+      <span style="background:#28c840"></span>
+      <span style="background:#4ea1ff"></span>
+      <span style="background:#bf5af2"></span>
+    </div>
+    <div class="slider"><div class="fill"></div></div>
+  </div>
+</div>
+<style>
+.demo-panel {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  font-family: var(--font-sans);
+}
+.demo-panel .desktop {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #a7c4e2, #c6cbe8 50%, #e2c8d8);
+}
+.demo-panel .doc {
+  position: absolute; left: 16px; top: 24px;
+  width: 192px; border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f6f6f7; color: rgba(0,0,0,.85);
+  opacity: .8;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.25), 0 8px 16px -8px rgba(0,0,0,.12);
+}
+.demo-panel .titlebar {
+  position: relative; display: flex; align-items: center;
+  height: 36px; padding: 0 12px; flex-shrink: 0;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.demo-panel .lights { display: flex; align-items: center; gap: 7px; }
+.demo-panel .lt {
+  width: 12px; height: 12px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15);
+}
+.demo-panel .lt.r { background: #ff5f57; }
+.demo-panel .lt.y { background: #febc2e; }
+.demo-panel .lt.g { background: #28c840; }
+.demo-panel .lt svg { opacity: 0; transition: opacity .1s; }
+.demo-panel .titlebar:hover .lt svg { opacity: 1; }
+.demo-panel .title {
+  position: absolute; left: 0; right: 0; text-align: center;
+  font-size: 12px; font-weight: 600; color: rgba(0,0,0,.6);
+  pointer-events: none;
+}
+.demo-panel .doc-body { height: 96px; padding: 12px 16px; box-sizing: border-box; }
+.demo-panel .ln { height: 8px; border-radius: 4px; background: rgba(0,0,0,.1); }
+.demo-panel .ln.a { width: 66%; }
+.demo-panel .ln.b { width: 50%; margin-top: 8px; }
+.demo-panel .hud {
+  position: absolute; right: 16px; top: 40px;
+  width: 144px; box-sizing: border-box;
+  border-radius: 12px; border: 1px solid rgba(255,255,255,.1);
+  background: rgba(31,31,35,.8);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  padding: 12px; color: #fff;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.4);
+  cursor: grab; user-select: none; -webkit-user-select: none;
+  touch-action: none;
+}
+.demo-panel .hud.dragging { cursor: grabbing; }
+.demo-panel .hud-head { display: flex; align-items: center; justify-content: space-between; }
+.demo-panel .hud-head span { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.8); }
+.demo-panel .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.2); }
+.demo-panel .swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 10px; }
+.demo-panel .swatches span { aspect-ratio: 1; border-radius: 5px; }
+.demo-panel .slider { margin-top: 10px; height: 3px; border-radius: 9999px; background: rgba(255,255,255,.15); }
+.demo-panel .slider .fill { height: 100%; width: 66%; border-radius: 9999px; background: rgba(255,255,255,.6); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-panel .lt svg { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const hud = ROOT.querySelector('.hud');
+
+  hud.addEventListener('pointerdown', function (e) {
+    e.preventDefault();
+    const r = ROOT.getBoundingClientRect();
+    const h = hud.getBoundingClientRect();
+    const offX = e.clientX - h.left;
+    const offY = e.clientY - h.top;
+    hud.style.right = 'auto';
+    hud.style.left = (h.left - r.left) + 'px';
+    hud.style.top = (h.top - r.top) + 'px';
+    hud.classList.add('dragging');
+    hud.setPointerCapture(e.pointerId);
+
+    function move(ev) {
+      let x = ev.clientX - r.left - offX;
+      let y = ev.clientY - r.top - offY;
+      x = Math.max(0, Math.min(x, r.width - h.width));
+      y = Math.max(0, Math.min(y, r.height - h.height));
+      hud.style.left = x + 'px';
+      hud.style.top = y + 'px';
+    }
+    function up() {
+      hud.classList.remove('dragging');
+      hud.removeEventListener('pointermove', move);
+      hud.removeEventListener('pointerup', up);
+      hud.removeEventListener('pointercancel', up);
+    }
+    hud.addEventListener('pointermove', move);
+    hud.addEventListener('pointerup', up);
+    hud.addEventListener('pointercancel', up);
+  });
+})();
+</script>
