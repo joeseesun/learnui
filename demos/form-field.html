@@ -1,0 +1,125 @@
+<div class="demo demo-form-field">
+  <div class="card">
+    <div class="lbl-row">
+      <label for="ff-email">Email</label>
+      <span class="req" aria-hidden="true">*</span>
+    </div>
+    <input id="ff-email" type="email" required="" placeholder="you@company.com" aria-describedby="ff-help" autocomplete="off" />
+    <p class="help" id="ff-help">We’ll only use this to sign you in.</p>
+    <p class="error" id="ff-error" hidden="">Please enter a valid email address.</p>
+  </div>
+</div>
+<style>
+.demo-form-field {
+  font-family: var(--font-sans);
+  max-width: 100%;
+}
+.demo-form-field .card {
+  width: 224px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  padding: 14px;
+}
+.demo-form-field .lbl-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.demo-form-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+}
+.demo-form-field .req {
+  padding: 0 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ef4444;
+}
+.demo-form-field input {
+  appearance: none;
+  margin: 6px 0 0;
+  font: inherit;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 32px;
+  border-radius: 7px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  padding: 0 10px;
+  font-size: 12.5px;
+  color: #1e293b;
+  outline: none;
+  transition: box-shadow 150ms ease-out, border-color 150ms ease-out;
+}
+.demo-form-field input::placeholder {
+  color: #94a3b8;
+}
+.demo-form-field input:focus {
+  border-color: #0a6cff;
+  box-shadow: 0 0 0 3px rgba(10, 108, 255, 0.25);
+}
+.demo-form-field input.invalid,
+.demo-form-field input.invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.22);
+}
+.demo-form-field .help {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #64748b;
+}
+.demo-form-field .error {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #dc2626;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-form-field input {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const input = ROOT.querySelector('#ff-email');
+  const help = ROOT.querySelector('#ff-help');
+  const error = ROOT.querySelector('#ff-error');
+  const RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let touched = false;
+
+  function validate() {
+    const v = input.value.trim();
+    let message = '';
+    if (v === '') message = 'Email is required.';
+    else if (!RE.test(v)) message = 'Please enter a valid email address.';
+    if (message) {
+      error.textContent = message;
+      error.hidden = false;
+      help.hidden = true;
+      input.classList.add('invalid');
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', 'ff-error');
+    } else {
+      error.hidden = true;
+      help.hidden = false;
+      input.classList.remove('invalid');
+      input.removeAttribute('aria-invalid');
+      input.setAttribute('aria-describedby', 'ff-help');
+    }
+  }
+
+  input.addEventListener('blur', function () {
+    touched = true;
+    validate();
+  });
+  input.addEventListener('input', function () {
+    if (touched) validate();
+  });
+})();
+</script>

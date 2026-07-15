@@ -1,0 +1,117 @@
+<div class="demo demo-toggle-group">
+  <div role="radiogroup" aria-label="Text alignment" class="seg">
+    <button type="button" role="radio" aria-checked="false" aria-label="Left" tabindex="-1" class="seg-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H3"></path><path d="M15 12H3"></path><path d="M17 19H3"></path></svg>
+    </button>
+    <span class="divider" aria-hidden="true"></span>
+    <button type="button" role="radio" aria-checked="true" aria-label="Center" tabindex="0" class="seg-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H3"></path><path d="M17 12H7"></path><path d="M19 19H5"></path></svg>
+    </button>
+    <span class="divider" aria-hidden="true"></span>
+    <button type="button" role="radio" aria-checked="false" aria-label="Right" tabindex="-1" class="seg-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H3"></path><path d="M21 12H9"></path><path d="M21 19H7"></path></svg>
+    </button>
+  </div>
+  <p class="status">Single selection · center</p>
+</div>
+<style>
+.demo-toggle-group {
+  --d-blue: #2563eb;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+.demo-toggle-group .seg {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .05);
+}
+.demo-toggle-group .seg-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #64748b;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.demo-toggle-group .seg-btn:hover { background: #f8fafc; }
+.demo-toggle-group .seg-btn[aria-checked="true"] {
+  background: var(--d-blue);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .15);
+}
+.demo-toggle-group .seg-btn[aria-checked="true"]:hover { background: var(--d-blue); }
+.demo-toggle-group .seg-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--d-blue);
+}
+.demo-toggle-group .divider {
+  width: 1px;
+  height: 20px;
+  flex: none;
+  background: #e2e8f0;
+}
+.demo-toggle-group .status {
+  margin: 16px 0 0;
+  font-size: 10px;
+  color: #94a3b8;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-toggle-group .seg-btn { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+  const group = ROOT.querySelector('.seg');
+  const status = ROOT.querySelector('.status');
+  if (!group) return;
+  const btns = Array.prototype.slice.call(group.querySelectorAll('.seg-btn'));
+
+  function select(btn, moveFocus) {
+    btns.forEach(function (b) {
+      const on = b === btn;
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+      b.setAttribute('tabindex', on ? '0' : '-1');
+    });
+    if (status) {
+      status.textContent = 'Single selection · ' + (btn.getAttribute('aria-label') || '').toLowerCase();
+    }
+    if (moveFocus) btn.focus();
+  }
+
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () { select(btn, false); });
+  });
+
+  group.addEventListener('keydown', function (e) {
+    let i = btns.indexOf(document.activeElement);
+    if (i === -1) i = btns.findIndex(function (b) { return b.getAttribute('aria-checked') === 'true'; });
+    if (i === -1) i = 0;
+    let next = -1;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % btns.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + btns.length) % btns.length;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = btns.length - 1;
+    if (next === -1) return;
+    e.preventDefault();
+    select(btns[next], true);
+  });
+})();
+</script>

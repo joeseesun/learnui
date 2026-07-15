@@ -1,0 +1,310 @@
+<div class="demo demo-save-panel">
+  <div class="panel">
+    <div class="head">
+      <span class="doc-icon" aria-hidden="true">📄</span>
+      <div class="head-fields">
+        <div class="name-row">
+          <label class="lab" for="sv-name">Save As:</label>
+          <input class="name-input" id="sv-name" type="text" aria-label="File name" value="Untitled">
+          <button type="button" class="expand-btn" aria-expanded="false" aria-label="Toggle browser">
+            <svg aria-hidden="true" width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M1.5 3 4 5.5 6.5 3"/></svg>
+          </button>
+        </div>
+        <div class="where-row">
+          <span class="lab">Where:</span>
+          <button type="button" class="chip where-chip">
+            📁 <span class="where-name">Documents</span>
+            <svg aria-hidden="true" width="7" height="9" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="chip-arrows"><path d="M1.5 4.5 4 2l2.5 2.5M1.5 7.5 4 10l2.5-2.5"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="browser">
+      <div class="browser-clip">
+        <div class="browser-inner">
+          <div class="col"><button type="button" class="folder" data-name="Desktop">📁 Desktop</button></div>
+          <div class="col"><button type="button" class="folder is-sel" data-name="Documents">📁 Documents</button></div>
+          <div class="col"><button type="button" class="folder" data-name="Downloads">📁 Downloads</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span class="lab format-lab">Format:
+        <button type="button" class="chip format-chip">
+          <span class="format-name">Pages</span>
+          <svg aria-hidden="true" width="6" height="8" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="chip-arrows"><path d="M1.5 4.5 4 2l2.5 2.5M1.5 7.5 4 10l2.5-2.5"/></svg>
+        </button>
+      </span>
+      <div class="actions">
+        <button type="button" class="btn cancel-btn">Cancel</button>
+        <button type="button" class="btn save-btn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-save-panel {
+  font-family: var(--font-sans);
+  user-select: none;
+}
+.demo-save-panel .panel {
+  width: 256px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f2f2f3;
+  color: rgba(0,0,0,.85);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.1);
+  overflow: hidden;
+}
+.demo-save-panel .head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px 16px 12px;
+}
+.demo-save-panel .doc-icon {
+  font-size: 18px;
+  line-height: 1.3;
+}
+.demo-save-panel .head-fields {
+  flex: 1;
+  min-width: 0;
+}
+.demo-save-panel .name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.demo-save-panel .lab {
+  font-size: 11px;
+  color: rgba(0,0,0,.55);
+  white-space: nowrap;
+}
+.demo-save-panel .name-input {
+  width: 100%;
+  min-width: 0;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.15);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  font: inherit;
+  font-size: 12px;
+  color: rgba(0,0,0,.85);
+  outline: none;
+}
+.demo-save-panel .name-input:focus {
+  border-color: rgba(10,108,255,.6);
+  box-shadow: 0 0 0 3px rgba(10,108,255,.25);
+}
+.demo-save-panel button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.demo-save-panel .expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,.15);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  color: rgba(0,0,0,.6);
+  transition: background .1s;
+}
+.demo-save-panel .expand-btn:hover {
+  background: rgba(0,0,0,.05);
+}
+.demo-save-panel .expand-btn svg {
+  transition: transform .2s;
+}
+.demo-save-panel .expand-btn[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+.demo-save-panel .where-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.demo-save-panel .chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.7);
+  font-size: 11.5px;
+  color: rgba(0,0,0,.8);
+  transition: background .1s;
+}
+.demo-save-panel .chip:hover {
+  background: #fff;
+}
+.demo-save-panel .chip-arrows {
+  opacity: .5;
+}
+.demo-save-panel .browser {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .2s;
+}
+.demo-save-panel .browser.is-open {
+  grid-template-rows: 1fr;
+}
+.demo-save-panel .browser-clip {
+  overflow: hidden;
+  min-height: 0;
+}
+.demo-save-panel .browser-inner {
+  display: flex;
+  height: 80px;
+  border-top: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.6);
+}
+.demo-save-panel .col {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border-right: 1px solid rgba(0,0,0,.05);
+}
+.demo-save-panel .col:last-child {
+  border-right: 0;
+}
+.demo-save-panel .folder {
+  display: block;
+  width: 100%;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(0,0,0,.8);
+  transition: background .1s;
+}
+.demo-save-panel .folder:hover {
+  background: rgba(0,0,0,.05);
+}
+.demo-save-panel .folder.is-sel {
+  background: #0a6cff;
+  color: #fff;
+}
+.demo-save-panel .foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+}
+.demo-save-panel .format-lab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.demo-save-panel .format-chip {
+  border-color: rgba(0,0,0,.15);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  font-size: 11px;
+}
+.demo-save-panel .actions {
+  display: flex;
+  gap: 8px;
+}
+.demo-save-panel .btn {
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  transition: background .1s;
+}
+.demo-save-panel .cancel-btn {
+  border: 1px solid rgba(0,0,0,.15);
+  background: #fff;
+  color: rgba(0,0,0,.8);
+}
+.demo-save-panel .cancel-btn:hover {
+  background: rgba(0,0,0,.04);
+}
+.demo-save-panel .save-btn {
+  background: #0a6cff;
+  color: #fff;
+}
+.demo-save-panel .save-btn:hover {
+  background: #0a5ce0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-save-panel .expand-btn,
+  .demo-save-panel .expand-btn svg,
+  .demo-save-panel .chip,
+  .demo-save-panel .browser,
+  .demo-save-panel .folder,
+  .demo-save-panel .btn {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const expandBtn = ROOT.querySelector('.expand-btn');
+  const browser = ROOT.querySelector('.browser');
+  const folders = Array.from(ROOT.querySelectorAll('.folder'));
+  const whereChip = ROOT.querySelector('.where-chip');
+  const whereName = ROOT.querySelector('.where-name');
+  const formatChip = ROOT.querySelector('.format-chip');
+  const formatName = ROOT.querySelector('.format-name');
+  const saveBtn = ROOT.querySelector('.save-btn');
+
+  const locations = folders.map(function (f) { return f.dataset.name; });
+  const formats = ['Pages', 'PDF', 'Word'];
+
+  // --- the disclosure button reveals the Finder-style browser ---
+  expandBtn.addEventListener('click', function () {
+    const open = browser.classList.toggle('is-open');
+    expandBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // --- picking a folder in the browser updates the Where pop-up ---
+  function selectLocation(name) {
+    folders.forEach(function (f) { f.classList.toggle('is-sel', f.dataset.name === name); });
+    whereName.textContent = name;
+  }
+  folders.forEach(function (f) {
+    f.addEventListener('click', function () { selectLocation(f.dataset.name); });
+  });
+  whereChip.addEventListener('click', function () {
+    const next = locations[(locations.indexOf(whereName.textContent) + 1) % locations.length];
+    selectLocation(next);
+  });
+
+  // --- the format pop-up switches the allowed content type ---
+  formatChip.addEventListener('click', function () {
+    formatName.textContent = formats[(formats.indexOf(formatName.textContent) + 1) % formats.length];
+  });
+
+  // --- Save confirms briefly ---
+  saveBtn.addEventListener('click', function () {
+    if (saveBtn.dataset.busy) return;
+    saveBtn.dataset.busy = '1';
+    const original = saveBtn.textContent;
+    saveBtn.textContent = 'Saved';
+    setTimeout(function () {
+      saveBtn.textContent = original;
+      delete saveBtn.dataset.busy;
+    }, 1000);
+  });
+})();
+</script>

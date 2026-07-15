@@ -1,0 +1,80 @@
+<div class="demo demo-popover">
+  <div class="anchor">
+    <div class="pop open" role="dialog" aria-label="Now Playing">
+      <p>Now Playing</p>
+      <div class="arrow"></div>
+    </div>
+    <button type="button" class="btn" aria-haspopup="dialog" aria-expanded="true">Show Popover</button>
+  </div>
+</div>
+<style>
+.demo-popover {
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-sans);
+}
+.demo-popover .anchor { position: relative; display: inline-block; }
+.demo-popover .pop {
+  position: absolute; bottom: calc(100% + 10px); left: 50%;
+  width: 208px; box-sizing: border-box;
+  transform: translateX(-50%) scale(.95); transform-origin: bottom;
+  border-radius: 10px; border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.9);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  padding: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.25), 0 8px 16px -8px rgba(0,0,0,.12);
+  opacity: 0; pointer-events: none;
+  transition: opacity .15s, transform .15s;
+}
+.demo-popover .pop.open { opacity: 1; transform: translateX(-50%) scale(1); pointer-events: auto; }
+.demo-popover .pop p { margin: 0; font-size: 12px; font-weight: 600; color: rgba(0,0,0,.85); }
+.demo-popover .arrow {
+  position: absolute; top: 100%; left: 50%;
+  width: 14px; height: 14px; margin-top: -7px;
+  transform: translateX(-50%) rotate(45deg);
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-right: 1px solid rgba(0,0,0,.1);
+  border-bottom-right-radius: 2px;
+  background: rgba(255,255,255,.9);
+}
+.demo-popover .btn {
+  border-radius: 6px; border: 1px solid rgba(0,0,0,.15);
+  background: #fff; padding: 6px 14px;
+  font: inherit; font-size: 12.5px; font-weight: 500; color: rgba(0,0,0,.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.demo-popover .btn[aria-expanded="true"] { background: rgba(0,0,0,.05); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-popover .pop,
+  .demo-popover .btn { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const btn = ROOT.querySelector('.btn');
+  const pop = ROOT.querySelector('.pop');
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    const willOpen = !pop.classList.contains('open');
+    pop.classList.toggle('open', willOpen);
+    btn.setAttribute('aria-expanded', String(willOpen));
+  });
+
+  ROOT.addEventListener('click', function (e) {
+    if (e.target.closest('.pop')) return;
+    pop.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  });
+
+  ROOT.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      pop.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+</script>

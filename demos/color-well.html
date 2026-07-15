@@ -1,0 +1,229 @@
+<div class="demo demo-color-well">
+  <div class="col">
+    <div class="well-row">
+      <span class="label">Fill</span>
+      <div class="well">
+        <button type="button" class="swatch" aria-label="Open quick color picker" aria-expanded="true" style="background-color: #0a6cff;"><span class="swatch-ring"></span></button>
+        <button type="button" class="caret" aria-label="Open color panel" aria-expanded="true">
+          <svg width="7" height="5" viewBox="0 0 8 6" fill="currentColor" aria-hidden="true"><path d="M4 5.5 0.5 0.5h7Z"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="popover">
+      <span class="arrow" aria-hidden="true"></span>
+      <div class="panel">
+        <div class="grid" role="group" aria-label="Quick colors">
+          <button type="button" class="pick" aria-label="Pick #ff3b30" data-color="#ff3b30" style="--c: #ff3b30; background-color: #ff3b30;"></button>
+          <button type="button" class="pick" aria-label="Pick #ff9500" data-color="#ff9500" style="--c: #ff9500; background-color: #ff9500;"></button>
+          <button type="button" class="pick" aria-label="Pick #ffcc00" data-color="#ffcc00" style="--c: #ffcc00; background-color: #ffcc00;"></button>
+          <button type="button" class="pick" aria-label="Pick #28cd41" data-color="#28cd41" style="--c: #28cd41; background-color: #28cd41;"></button>
+          <button type="button" class="pick" aria-label="Pick #00c7be" data-color="#00c7be" style="--c: #00c7be; background-color: #00c7be;"></button>
+          <button type="button" class="pick selected" aria-label="Pick #0a6cff" data-color="#0a6cff" style="--c: #0a6cff; background-color: #0a6cff;"></button>
+          <button type="button" class="pick" aria-label="Pick #5856d6" data-color="#5856d6" style="--c: #5856d6; background-color: #5856d6;"></button>
+          <button type="button" class="pick" aria-label="Pick #af52de" data-color="#af52de" style="--c: #af52de; background-color: #af52de;"></button>
+          <button type="button" class="pick" aria-label="Pick #ff2d55" data-color="#ff2d55" style="--c: #ff2d55; background-color: #ff2d55;"></button>
+          <button type="button" class="pick" aria-label="Pick #a2845e" data-color="#a2845e" style="--c: #a2845e; background-color: #a2845e;"></button>
+          <button type="button" class="pick" aria-label="Pick #8e8e93" data-color="#8e8e93" style="--c: #8e8e93; background-color: #8e8e93;"></button>
+          <button type="button" class="pick" aria-label="Pick #1c1c1e" data-color="#1c1c1e" style="--c: #1c1c1e; background-color: #1c1c1e;"></button>
+        </div>
+        <div class="foot">
+          <span class="pipette" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12"></path><path d="m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z"></path><path d="m2 22 .414-.414"></path></svg>
+          </span>
+          <span class="show-colors">Show Colors…</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-color-well {
+  font-family: var(--font-sans);
+  max-width: 100%;
+}
+.demo-color-well .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.demo-color-well .well-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.demo-color-well .label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.demo-color-well .well {
+  display: flex;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
+}
+.demo-color-well .well button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  border: 0;
+  background: none;
+  cursor: default;
+  display: block;
+}
+.demo-color-well .swatch {
+  position: relative;
+  width: 32px;
+  height: 22px;
+  border-radius: 5px 0 0 5px;
+}
+.demo-color-well .swatch-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px 0 0 5px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+.demo-color-well .caret {
+  width: 18px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 5px 5px 0;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.6);
+}
+.demo-color-well .well button:active {
+  filter: brightness(0.92);
+}
+.demo-color-well .well button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(10, 108, 255, 0.35);
+  z-index: 1;
+}
+.demo-color-well .popover {
+  position: relative;
+  margin-top: 6px;
+  transition: opacity 120ms ease-out, transform 120ms ease-out, visibility 120ms;
+}
+.demo-color-well .popover.closed {
+  opacity: 0;
+  transform: scale(0.96) translateY(-3px);
+  visibility: hidden;
+  pointer-events: none;
+}
+.demo-color-well .arrow {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 2px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+.demo-color-well .panel {
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 8px;
+}
+.demo-color-well .grid {
+  display: grid;
+  grid-template-columns: repeat(6, 14px);
+  gap: 6px;
+}
+.demo-color-well .pick {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  border: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  cursor: default;
+  transition: box-shadow 100ms ease-out;
+}
+.demo-color-well .pick.selected {
+  box-shadow: 0 0 0 2px var(--c);
+}
+.demo-color-well .pick:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--c), 0 0 0 4px rgba(10, 108, 255, 0.35);
+}
+.demo-color-well .foot {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.demo-color-well .pipette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.08);
+}
+.demo-color-well .show-colors {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.65);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-color-well .popover,
+  .demo-color-well .pick {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const popover = ROOT.querySelector('.popover');
+  const swatch = ROOT.querySelector('.swatch');
+  const caret = ROOT.querySelector('.caret');
+  const picks = ROOT.querySelectorAll('.pick');
+
+  function setOpen(open) {
+    popover.classList.toggle('closed', !open);
+    swatch.setAttribute('aria-expanded', String(open));
+    caret.setAttribute('aria-expanded', String(open));
+  }
+
+  swatch.addEventListener('click', function () {
+    setOpen(popover.classList.contains('closed'));
+  });
+  caret.addEventListener('click', function () {
+    setOpen(popover.classList.contains('closed'));
+  });
+
+  picks.forEach(function (pick) {
+    pick.addEventListener('click', function () {
+      ROOT.querySelectorAll('.pick.selected').forEach(function (el) {
+        el.classList.remove('selected');
+      });
+      pick.classList.add('selected');
+      swatch.style.backgroundColor = pick.dataset.color;
+    });
+  });
+
+  ROOT.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+})();
+</script>

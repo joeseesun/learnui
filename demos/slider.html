@@ -1,0 +1,173 @@
+<div class="demo demo-slider">
+  <div class="card">
+    <span class="label">Volume</span>
+    <div class="slider" style="--val: 66.6667;">
+      <div class="track"><div class="fill"></div></div>
+      <div class="ticks" aria-hidden="true">
+        <span style="left: 0%;"></span>
+        <span style="left: 16.6667%;"></span>
+        <span style="left: 33.3333%;"></span>
+        <span style="left: 50%;"></span>
+        <span style="left: 66.6667%;"></span>
+        <span style="left: 83.3333%;"></span>
+        <span style="left: 100%;"></span>
+      </div>
+      <span class="knob" role="slider" tabindex="0" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="67"></span>
+    </div>
+  </div>
+</div>
+<style>
+.demo-slider {
+  font-family: var(--font-sans);
+  max-width: 100%;
+}
+.demo-slider .card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 12px 16px;
+}
+.demo-slider .label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.demo-slider .slider {
+  position: relative;
+  width: 176px;
+  padding: 8px 0;
+  touch-action: none;
+  cursor: default;
+}
+.demo-slider .track {
+  position: relative;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.15);
+}
+.demo-slider .fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(var(--val) * 1%);
+  border-radius: 999px;
+  background: #0a6cff;
+}
+.demo-slider .ticks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 17px;
+  height: 5px;
+}
+.demo-slider .ticks span {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.3);
+}
+.demo-slider .knob {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--val) * 1%);
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.35);
+  transition: left 100ms ease-out;
+}
+.demo-slider .slider.dragging .knob {
+  transition: none;
+}
+.demo-slider .knob:focus-visible {
+  outline: none;
+  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(10, 108, 255, 0.35);
+}
+.demo-slider .slider:not(.dragging) .fill {
+  transition: width 100ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-slider .knob,
+  .demo-slider .slider:not(.dragging) .fill {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const slider = ROOT.querySelector('.slider');
+  const knob = ROOT.querySelector('.knob');
+  const STOPS = [0, 1, 2, 3, 4, 5, 6].map(function (i) { return (i / 6) * 100; });
+  let value = STOPS[4];
+  let dragging = false;
+
+  function snap(v) {
+    let best = STOPS[0];
+    for (let i = 0; i < STOPS.length; i++) {
+      if (Math.abs(STOPS[i] - v) < Math.abs(best - v)) best = STOPS[i];
+    }
+    return best;
+  }
+
+  function render() {
+    slider.style.setProperty('--val', value);
+    knob.setAttribute('aria-valuenow', String(Math.round(value)));
+  }
+
+  function setFromPointer(e) {
+    const rect = slider.getBoundingClientRect();
+    const raw = ((e.clientX - rect.left) / rect.width) * 100;
+    value = snap(Math.min(100, Math.max(0, raw)));
+    render();
+  }
+
+  slider.addEventListener('pointerdown', function (e) {
+    dragging = true;
+    slider.classList.add('dragging');
+    try {
+      slider.setPointerCapture(e.pointerId);
+    } catch (err) {
+      /* synthetic or already-released pointers cannot be captured; dragging still works */
+    }
+    setFromPointer(e);
+    knob.focus();
+    e.preventDefault();
+  });
+  slider.addEventListener('pointermove', function (e) {
+    if (dragging) setFromPointer(e);
+  });
+  slider.addEventListener('pointerup', function () {
+    dragging = false;
+    slider.classList.remove('dragging');
+  });
+  slider.addEventListener('pointercancel', function () {
+    dragging = false;
+    slider.classList.remove('dragging');
+  });
+
+  knob.addEventListener('keydown', function (e) {
+    const step = 100 / 6;
+    let next = null;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') next = value + step;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') next = value - step;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = 100;
+    if (next === null) return;
+    e.preventDefault();
+    value = snap(Math.min(100, Math.max(0, next)));
+    render();
+  });
+
+  render();
+})();
+</script>

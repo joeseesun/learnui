@@ -1,0 +1,89 @@
+<div class="demo demo-text-scramble">
+  <div class="scr-card" aria-label="NAME THAT UI">
+    <p class="scr-line" aria-hidden="true"><span class="scr-churn">NAME THAT UI</span></p>
+  </div>
+</div>
+<style>
+.demo-text-scramble {
+  font-family: var(--font-sans);
+}
+.demo-text-scramble .scr-card {
+  width: 240px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 20px 16px;
+  cursor: pointer;
+}
+.demo-text-scramble .scr-line {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  color: #1e293b;
+  white-space: nowrap;
+}
+</style>
+<script>
+(function () {
+  var ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  var churn = ROOT.querySelector('.scr-churn');
+  var FINAL = 'NAME THAT UI';
+  var GLYPHS = '!<>-_/[]{}=+*^?#@%&ABCDEFGHKMNPRSTUVX0123456789';
+  var media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var rafId = 0;
+  var holdId = 0;
+
+  function renderFinal() {
+    churn.textContent = FINAL;
+  }
+
+  function stop() {
+    cancelAnimationFrame(rafId);
+    clearTimeout(holdId);
+  }
+
+  function play() {
+    stop();
+    if (media.matches) { renderFinal(); return; }
+    var chars = FINAL.split('');
+    var start = performance.now();
+    function frame(now) {
+      var t = now - start;
+      var done = true;
+      var out = '';
+      for (var i = 0; i < chars.length; i++) {
+        var c = chars[i];
+        if (c === ' ') { out += ' '; continue; }
+        if (t >= 450 + i * 95) {
+          out += c;
+        } else {
+          done = false;
+          out += GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length));
+        }
+      }
+      churn.textContent = out;
+      if (!done) {
+        rafId = requestAnimationFrame(frame);
+      } else {
+        renderFinal();
+        holdId = setTimeout(play, 2600);
+      }
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  ROOT.addEventListener('click', play);
+  if (media.addEventListener) {
+    media.addEventListener('change', play);
+  }
+  play();
+})();
+</script>

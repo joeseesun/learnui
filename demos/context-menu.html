@@ -1,0 +1,87 @@
+<div class="demo demo-context-menu">
+  <button type="button" class="folder" aria-label="Projects folder">
+    <svg aria-hidden="true" width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M5 8.5A2.5 2.5 0 0 1 7.5 6h6l3 3.5h10A2.5 2.5 0 0 1 29 12v13a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 5 25V8.5Z" fill="#4EA1FF" opacity="0.9"/><path d="M5 13h24v12a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 5 25V13Z" fill="#7CBBFF"/></svg>
+    <span>Projects</span>
+  </button>
+  <div class="menu" role="menu">
+    <button type="button" role="menuitem">Open<span class="kbd">⌘O</span></button>
+    <button type="button" role="menuitem" class="hl">Rename…<span class="kbd">↩</span></button>
+    <button type="button" role="menuitem">Duplicate<span class="chev">›</span></button>
+    <div class="sep" role="separator"></div>
+    <button type="button" role="menuitem">Move to Trash<span class="kbd">⌘⌫</span></button>
+  </div>
+</div>
+<style>
+.demo-context-menu {
+  position: relative;
+  min-width: 236px;
+  min-height: 158px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+  font-family: var(--font-sans);
+  color: rgba(0,0,0,.85);
+}
+.demo-context-menu .folder {
+  display: flex; width: 96px; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px; border-radius: 8px; border: none;
+  background: rgba(10,108,255,.15);
+  cursor: context-menu; font: inherit; color: inherit;
+  transition: background-color .1s;
+}
+.demo-context-menu .folder span { font-size: 11px; font-weight: 500; }
+.demo-context-menu .menu {
+  position: absolute; top: 34px; left: 118px; z-index: 10;
+  width: 160px; transform-origin: top left;
+  border-radius: 8px; border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.9);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  padding: 4px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.25), 0 8px 16px -8px rgba(0,0,0,.12);
+}
+.demo-context-menu .menu button {
+  display: flex; width: 100%; align-items: center; justify-content: space-between;
+  border: none; background: none; font: inherit;
+  font-size: 12px; color: rgba(0,0,0,.85);
+  text-align: left; padding: 3px 8px; border-radius: 5px; cursor: pointer;
+  transition: background-color .1s, color .1s;
+}
+.demo-context-menu .menu button.hl { background: #0a6cff; color: #fff; }
+.demo-context-menu .kbd { font-size: 10px; opacity: .45; }
+.demo-context-menu .chev { font-size: 13px; opacity: .55; }
+.demo-context-menu .sep { margin: 4px 8px; height: 1px; background: rgba(0,0,0,.1); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-context-menu .folder,
+  .demo-context-menu .menu button { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const menu = ROOT.querySelector('.menu');
+  const items = menu.querySelectorAll('button');
+
+  items.forEach(function (item) {
+    item.addEventListener('mouseenter', function () {
+      items.forEach(function (i) { i.classList.toggle('hl', i === item); });
+    });
+    item.addEventListener('click', function () {
+      items.forEach(function (i) { i.classList.toggle('hl', i === item); });
+    });
+  });
+
+  ROOT.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    const r = ROOT.getBoundingClientRect();
+    const mw = menu.offsetWidth;
+    const mh = menu.offsetHeight;
+    let x = e.clientX - r.left;
+    let y = e.clientY - r.top;
+    x = Math.max(0, Math.min(x, r.width - mw));
+    y = Math.max(0, Math.min(y, r.height - mh));
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+  });
+})();
+</script>

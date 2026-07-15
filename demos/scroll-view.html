@@ -1,0 +1,227 @@
+<div class="demo demo-scroll-view">
+  <div class="win">
+    <div class="titlebar">
+      <div class="tls">
+        <span class="tl tl-r"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-y"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-g"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+      <span class="title">Journal</span>
+    </div>
+    <div class="body">
+      <div class="viewport">
+        <div class="bar" style="width:40%"></div>
+        <div class="bar" style="width:77%"></div>
+        <div class="bar" style="width:59%"></div>
+        <div class="bar" style="width:41%"></div>
+        <div class="bar" style="width:78%"></div>
+        <div class="bar" style="width:60%"></div>
+        <div class="bar" style="width:42%"></div>
+        <div class="bar" style="width:79%"></div>
+        <div class="bar" style="width:61%"></div>
+        <div class="bar" style="width:43%"></div>
+        <div class="bar" style="width:80%"></div>
+        <div class="bar" style="width:62%"></div>
+        <div class="bar" style="width:44%"></div>
+        <div class="bar" style="width:81%"></div>
+        <div class="bar" style="width:63%"></div>
+        <div class="bar" style="width:45%"></div>
+        <div class="bar" style="width:82%"></div>
+        <div class="bar" style="width:64%"></div>
+      </div>
+      <div class="scroller">
+        <div class="knob"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-scroll-view {
+  font-family: var(--font-sans);
+  user-select: none;
+}
+.demo-scroll-view .win {
+  width: 240px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f6f6f7;
+  color: rgba(0,0,0,.85);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.1);
+  overflow: hidden;
+}
+.demo-scroll-view .titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+}
+.demo-scroll-view .tls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.demo-scroll-view .tl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15);
+}
+.demo-scroll-view .tl-r { background: #ff5f57; }
+.demo-scroll-view .tl-y { background: #febc2e; }
+.demo-scroll-view .tl-g { background: #28c840; }
+.demo-scroll-view .tl svg {
+  opacity: 0;
+  transition: opacity .1s;
+}
+.demo-scroll-view .tls:hover .tl svg {
+  opacity: 1;
+}
+.demo-scroll-view .title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0,0,0,.6);
+  pointer-events: none;
+}
+.demo-scroll-view .body {
+  position: relative;
+  display: flex;
+  border-top: 1px solid rgba(0,0,0,.05);
+}
+.demo-scroll-view .viewport {
+  flex: 1;
+  height: 112px;
+  overflow-y: auto;
+  padding: 12px 16px;
+  scrollbar-width: none;
+}
+.demo-scroll-view .viewport::-webkit-scrollbar {
+  display: none;
+}
+.demo-scroll-view .bar {
+  height: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: rgba(0,0,0,.1);
+}
+.demo-scroll-view .scroller {
+  position: relative;
+  width: 11px;
+  height: 112px;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(0,0,0,.05);
+  background: rgba(0,0,0,.04);
+  transition: background .25s, border-color .25s;
+}
+.demo-scroll-view .scroller.is-idle {
+  background: transparent;
+  border-color: transparent;
+}
+.demo-scroll-view .knob {
+  position: absolute;
+  right: 2px;
+  top: 10%;
+  height: 35%;
+  width: 7px;
+  border-radius: 9999px;
+  background: rgba(0,0,0,.35);
+  cursor: grab;
+  transition: opacity .25s, background .15s;
+}
+.demo-scroll-view .scroller:hover .knob,
+.demo-scroll-view .knob.is-dragging {
+  background: rgba(0,0,0,.5);
+}
+.demo-scroll-view .knob.is-dragging {
+  cursor: grabbing;
+}
+.demo-scroll-view .scroller.is-idle .knob {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-scroll-view .tl svg,
+  .demo-scroll-view .scroller,
+  .demo-scroll-view .knob {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const viewport = ROOT.querySelector('.viewport');
+  const scroller = ROOT.querySelector('.scroller');
+  const knob = ROOT.querySelector('.knob');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // the knob's length and position mirror the visible fraction of the content
+  function syncKnob() {
+    const trackH = scroller.clientHeight;
+    const ratio = viewport.clientHeight / viewport.scrollHeight;
+    const knobH = Math.max(ratio * trackH, 18);
+    const top = (viewport.scrollTop / viewport.scrollHeight) * trackH;
+    knob.style.height = knobH + 'px';
+    knob.style.top = top + 'px';
+  }
+  syncKnob();
+
+  // overlay scroller: visible while scrolling, fades away when idle
+  let idleTimer = null;
+  function poke() {
+    scroller.classList.remove('is-idle');
+    if (idleTimer) clearTimeout(idleTimer);
+    if (!reduced) {
+      idleTimer = setTimeout(function () {
+        if (!knob.classList.contains('is-dragging')) scroller.classList.add('is-idle');
+      }, 1400);
+    }
+  }
+
+  viewport.addEventListener('scroll', function () {
+    syncKnob();
+    poke();
+  });
+  scroller.addEventListener('pointerenter', poke);
+
+  // --- drag the scroller knob to scroll the document ---
+  knob.addEventListener('pointerdown', function (e) {
+    e.preventDefault();
+    knob.classList.add('is-dragging');
+    knob.setPointerCapture(e.pointerId);
+    const grabOffset = e.clientY - knob.getBoundingClientRect().top;
+    function move(ev) {
+      const trackRect = scroller.getBoundingClientRect();
+      const usable = trackRect.height - knob.offsetHeight;
+      const y = Math.min(Math.max(ev.clientY - trackRect.top - grabOffset, 0), usable);
+      viewport.scrollTop = (y / usable) * (viewport.scrollHeight - viewport.clientHeight);
+    }
+    function up() {
+      knob.classList.remove('is-dragging');
+      knob.removeEventListener('pointermove', move);
+      knob.removeEventListener('pointerup', up);
+      knob.removeEventListener('pointercancel', up);
+      poke();
+    }
+    knob.addEventListener('pointermove', move);
+    knob.addEventListener('pointerup', up);
+    knob.addEventListener('pointercancel', up);
+  });
+
+  // clicking the knob slot jumps one viewport up / down
+  scroller.addEventListener('pointerdown', function (e) {
+    if (e.target !== scroller) return;
+    const knobRect = knob.getBoundingClientRect();
+    const dir = e.clientY < knobRect.top ? -1 : 1;
+    viewport.scrollTop += dir * viewport.clientHeight * 0.9;
+  });
+})();
+</script>

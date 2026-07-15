@@ -1,0 +1,251 @@
+<div class="demo demo-popover-dropdown-tooltip">
+  <div class="row">
+    <div class="col">
+      <span class="cap">Popover</span>
+      <button type="button" class="trigger" data-trigger="popover" aria-expanded="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5H3"></path><path d="M12 19H3"></path><path d="M14 3v4"></path><path d="M16 17v4"></path><path d="M21 12h-9"></path><path d="M21 19h-5"></path><path d="M21 5h-7"></path><path d="M8 10v4"></path><path d="M8 12H3"></path></svg>
+        Filters
+      </button>
+      <div class="panel popover open" data-panel="popover">
+        <p class="panel-title">Filter projects</p>
+        <label class="check"><input type="checkbox" checked> Active only</label>
+      </div>
+    </div>
+    <div class="col">
+      <span class="cap">Dropdown</span>
+      <button type="button" class="trigger" data-trigger="dropdown" aria-expanded="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+        Actions
+      </button>
+      <div class="panel menu" data-panel="dropdown" role="menu">
+        <button type="button" role="menuitem" class="item sel">Rename</button>
+        <button type="button" role="menuitem" class="item">Duplicate</button>
+        <button type="button" role="menuitem" class="item">Archive</button>
+      </div>
+    </div>
+    <div class="col">
+      <span class="cap">Tooltip</span>
+      <button type="button" class="trigger" data-trigger="tooltip" aria-describedby="pdt-tip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+        Info
+      </button>
+      <div class="tip" data-panel="tooltip" role="tooltip" id="pdt-tip">
+        Last updated today
+        <span class="tip-arrow" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-popover-dropdown-tooltip {
+  font-family: var(--font-sans);
+}
+.demo-popover-dropdown-tooltip .row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transform: translateY(-10px);
+}
+.demo-popover-dropdown-tooltip .col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.demo-popover-dropdown-tooltip .cap {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+.demo-popover-dropdown-tooltip .trigger {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  gap: 5.5px;
+  border-radius: 6.5px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  padding: 0 9px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+.demo-popover-dropdown-tooltip .trigger:hover {
+  background: #f8fafc;
+}
+.demo-popover-dropdown-tooltip .panel {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  z-index: 10;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+  opacity: 0;
+  transform: translate(-50%, -4px);
+  pointer-events: none;
+  transition: opacity 200ms, transform 200ms;
+}
+.demo-popover-dropdown-tooltip .panel.open {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+.demo-popover-dropdown-tooltip .popover {
+  width: 160px;
+  padding: 12px;
+  transform: translate(-45%, -4px);
+}
+.demo-popover-dropdown-tooltip .popover.open {
+  transform: translate(-45%, 0);
+}
+.demo-popover-dropdown-tooltip .panel-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+}
+.demo-popover-dropdown-tooltip .check {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #475569;
+  cursor: pointer;
+}
+.demo-popover-dropdown-tooltip .check input {
+  margin: 0;
+  accent-color: #2563eb;
+}
+.demo-popover-dropdown-tooltip .menu {
+  width: 128px;
+  padding: 4px;
+}
+.demo-popover-dropdown-tooltip .item {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  border-radius: 4px;
+  padding: 4px 8px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: #334155;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+}
+.demo-popover-dropdown-tooltip .item:hover {
+  background: #eff6ff;
+}
+.demo-popover-dropdown-tooltip .item.sel {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.demo-popover-dropdown-tooltip .tip {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  z-index: 10;
+  margin-top: 8px;
+  white-space: nowrap;
+  border-radius: 6px;
+  background: #0f172a;
+  padding: 4px 8px;
+  font-size: 10px;
+  color: #ffffff;
+  box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2);
+  opacity: 0;
+  transform: translate(-50%, -4px);
+  pointer-events: none;
+  transition: opacity 150ms, transform 150ms;
+}
+.demo-popover-dropdown-tooltip .tip.open {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.demo-popover-dropdown-tooltip .tip-arrow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 1px;
+  background: #0f172a;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-popover-dropdown-tooltip .trigger,
+  .demo-popover-dropdown-tooltip .panel,
+  .demo-popover-dropdown-tooltip .tip,
+  .demo-popover-dropdown-tooltip .item {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const popoverTrigger = ROOT.querySelector('[data-trigger="popover"]');
+  const popoverPanel = ROOT.querySelector('[data-panel="popover"]');
+  const dropdownTrigger = ROOT.querySelector('[data-trigger="dropdown"]');
+  const dropdownPanel = ROOT.querySelector('[data-panel="dropdown"]');
+  const tooltipTrigger = ROOT.querySelector('[data-trigger="tooltip"]');
+  const tooltipPanel = ROOT.querySelector('[data-panel="tooltip"]');
+
+  function setOpen(trigger, panel, open) {
+    panel.classList.toggle('open', open);
+    if (trigger.hasAttribute('aria-expanded')) {
+      trigger.setAttribute('aria-expanded', String(open));
+    }
+  }
+
+  popoverTrigger.addEventListener('click', function () {
+    setOpen(popoverTrigger, popoverPanel, !popoverPanel.classList.contains('open'));
+  });
+
+  dropdownTrigger.addEventListener('click', function () {
+    setOpen(dropdownTrigger, dropdownPanel, !dropdownPanel.classList.contains('open'));
+  });
+
+  dropdownPanel.querySelectorAll('.item').forEach(function (item) {
+    item.addEventListener('click', function () {
+      dropdownPanel.querySelectorAll('.item').forEach(function (other) {
+        other.classList.toggle('sel', other === item);
+      });
+      setOpen(dropdownTrigger, dropdownPanel, false);
+    });
+  });
+
+  tooltipTrigger.addEventListener('mouseenter', function () {
+    setOpen(tooltipTrigger, tooltipPanel, true);
+  });
+  tooltipTrigger.addEventListener('mouseleave', function () {
+    setOpen(tooltipTrigger, tooltipPanel, false);
+  });
+  tooltipTrigger.addEventListener('focus', function () {
+    setOpen(tooltipTrigger, tooltipPanel, true);
+  });
+  tooltipTrigger.addEventListener('blur', function () {
+    setOpen(tooltipTrigger, tooltipPanel, false);
+  });
+
+  ROOT.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      setOpen(popoverTrigger, popoverPanel, false);
+      setOpen(dropdownTrigger, dropdownPanel, false);
+      setOpen(tooltipTrigger, tooltipPanel, false);
+    }
+  });
+})();
+</script>

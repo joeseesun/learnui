@@ -1,0 +1,76 @@
+{
+  "appkit-vs-swiftui": {
+    "slug": "appkit-vs-swiftui",
+    "kind": "Guide",
+    "title": "AppKit vs SwiftUI",
+    "subtitle": "NSButton · Button",
+    "lede": "Same pixel on screen, two real names — which one you say depends on the project",
+    "equation": {"left": "MenuBarExtra", "leftTag": "SwiftUI", "right": "NSStatusItem", "rightTag": "AppKit"},
+    "intro": [
+      "AppKit is the Mac’s original toolbox — a workshop where you pick up each part (a window, a button, a menu) and tell it exactly what to do. Its names start with NS: NSWindow, NSMenu, NSStatusItem.",
+      "SwiftUI is Apple’s newer way: instead of assembling parts, you describe the finished room — “a sidebar, then a list, then this button” — and the system builds and updates it. Same elements on screen, plainer names: Button, Menu, MenuBarExtra.",
+      "They’re not two kinds of app — one Mac app can (and usually does) mix both. Which means the thing you’re pointing at almost always has two valid names, and using the right one makes your agent dramatically more precise."
+    ],
+    "rulesTitle": "Which name do I say? — three rules",
+    "rules": [
+      {"title": "Match the project.", "body": "Files say import SwiftUI and views are structs? Use SwiftUI names. NS-classes and import AppKit? Use AppKit names."},
+      {"title": "In a mixed app, name the layer.", "body": "“The SwiftUI view inside the AppKit window”, “the NSPanel presented from my SwiftUI app.” The boundary is where agents get lost."},
+      {"title": "When unsure, give both.", "body": "“The menu bar extra (SwiftUI: MenuBarExtra / AppKit: NSStatusItem)” — the agent inspects the project and picks the right one."}
+    ],
+    "promptsTitle": "Worked prompts — paste into your agent",
+    "prompts": [
+      {"label": "SwiftUI project", "text": "In this macOS SwiftUI app, make the MenuBarExtra open a popover-style window, and keep the menu bar extra visible when the main window closes."},
+      {"label": "AppKit project", "text": "In this AppKit macOS app, update the NSStatusItem in NSStatusBar.system: its button should use a template image and show an NSMenu when clicked."},
+      {"label": "Not sure which", "text": "Fix the little app icon beside the Mac clock — the menu bar extra (SwiftUI: MenuBarExtra, AppKit: NSStatusItem). Inspect the project and change the existing implementation, don't add a second one."}
+    ],
+    "confuseTitle": "Don’t confuse them with",
+    "confuse": [
+      {"term": "UIKit", "body": "Apple's framework for iPhone and iPad — UIButton, not NSButton. Not for Mac-only apps."},
+      {"term": "Mac Catalyst", "body": "An iPad app wearing a Mac coat. It runs UIKit on the Mac; it isn't AppKit or SwiftUI."},
+      {"term": "Electron", "body": "A web page in a desktop wrapper (Chromium + Node). Its UI vocabulary is the Web tab of this site."}
+    ],
+    "faqTitle": "The questions everyone asks",
+    "faq": [
+      {"q": "Is SwiftUI replacing AppKit?", "a": "Slowly, and not yet. Apple recommends SwiftUI for new apps but still ships and documents new AppKit APIs. Practical rule: new screens in SwiftUI; reach for AppKit when the Mac-specific behavior you need isn't exposed in SwiftUI."},
+      {"q": "Can one app use both?", "a": "Yes, and most serious Mac apps do. NSViewRepresentable puts an AppKit view inside SwiftUI; NSHostingView does the reverse. That's why naming the layer you want changed matters."},
+      {"q": "Is every SwiftUI control secretly an AppKit control?", "a": "Don't assume so. Some are bridged, many aren't, and Apple treats it as an implementation detail. Treat Button and NSButton as different APIs that happen to look alike."},
+      {"q": "Are AppKit and UIKit the same thing?", "a": "No — AppKit is Mac, UIKit is iPhone/iPad. The prefix gives it away: NSButton is Mac, UIButton is iOS. Mac Catalyst is a third thing: an iPad app wearing a Mac coat."}
+    ],
+    "outro": "Every macOS entry on NameThatUI lists both names in its IN CODE table, and the Translation Table holds all 60+ mappings in one place — start from the thing you can see, take whichever name your project needs."
+  },
+  "swift-vs-electron": {
+    "slug": "swift-vs-electron",
+    "kind": "Guide",
+    "title": "Swift vs Electron",
+    "subtitle": "native · web-in-a-shell",
+    "lede": "The first fork in the road when you build a desktop app — and the vocabulary it decides.",
+    "intro": [
+      "This is the first fork in the road when you build a desktop app. Swift means building with Apple’s own materials — the app is a Mac app, and every element on this site’s macOS tab comes free and native. Electron means building a web page and shipping it inside its own private browser window — the app is really a website wearing a desktop coat, and its vocabulary is this site’s Web tab.",
+      "Neither is wrong. It decides which names your project speaks: an Electron app has no NSStatusItem inside it (Electron calls the menu bar icon a Tray), and a Swift app has no CSS."
+    ],
+    "tableTitle": "The trade, honestly",
+    "table": [
+      {"aspect": "What it is", "swift": "Apple's language + native frameworks (SwiftUI/AppKit)", "electron": "A Chromium browser + Node.js bundled around your web app"},
+      {"aspect": "Looks like a Mac app", "swift": "Yes, automatically — real menus, sheets, vibrancy", "electron": "Only if you rebuild the Mac look yourself in CSS"},
+      {"aspect": "Uses", "swift": "Mac-only apps that should feel native", "electron": "Cross-platform apps sharing one web codebase"},
+      {"aspect": "App size", "swift": "Small (uses the system's own frameworks)", "electron": "Large (ships its own browser, ~100MB+)"},
+      {"aspect": "Your skills", "swift": "Swift — new language for most web devs", "electron": "HTML/CSS/JS/React — what web devs already know"},
+      {"aspect": "Famous examples", "swift": "Things, Fantastical, Craft", "electron": "VS Code, Slack, Discord, Figma"}
+    ],
+    "ruleTitle": "Rule of thumb",
+    "rule": "Mac-only and you want it to feel like it belongs? Swift. Cross-platform, or your team lives in web tech? Electron (or its lighter cousin Tauri, which swaps the bundled browser for the system’s).",
+    "promptsTitle": "Your first prompt — pick your world",
+    "promptsIntro": "The very first message you send decides which world your agent builds in. Paste the one for your side — it sets the stack, the native details agents forget, the vocabulary, and a first milestone you can actually see:",
+    "prompts": [
+      {"label": "Starting a Swift app", "note": "Mac-only, feels native from day one", "text": "I'm starting a brand-new native macOS app. Set it up as a SwiftUI Mac app (Xcode project, macOS 14+): one main window with a NavigationSplitView sidebar, a unified toolbar, and light + dark mode from the start. Keep everything native — system fonts, system accent color, standard controls, no custom-drawn chrome. Talk to me in SwiftUI/AppKit names (window, sidebar, toolbar, sheet), never in web terms. First milestone: the empty app builds and runs with the sidebar and toolbar showing."},
+      {"label": "Starting an Electron app", "note": "Web tech, runs everywhere", "text": "I'm starting a brand-new desktop app built with web tech. Set it up as an Electron app with Vite + React + TypeScript: one BrowserWindow with titleBarStyle 'hiddenInset' on macOS so it looks clean, secure defaults (contextIsolation on, nodeIntegration off), and hot reload in dev. Talk to me in web names (components, CSS, div — and Electron's Tray for a menu bar icon), never in Swift/AppKit terms. First milestone: the window opens, shows my React page, and hot reload works."}
+    ],
+    "confuseTitle": "Don’t confuse them with",
+    "confuse": [
+      {"term": "Tauri", "body": "Electron's lightweight cousin — same web UI, much smaller app, Rust underneath."},
+      {"term": "Catalyst", "body": "An iPad app running on the Mac. Neither native-Mac nor web."},
+      {"term": "React Native", "body": "JavaScript driving native controls — mostly a mobile story, rare on desktop."}
+    ],
+    "outro": "Chose Swift? Read AppKit vs SwiftUI next. Chose Electron? Everything you build lives in the Web tab."
+  }
+}

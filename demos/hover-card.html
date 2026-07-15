@@ -1,0 +1,191 @@
+<div class="demo demo-hover-card">
+  <p class="byline">
+    Designed by
+    <button type="button" class="trigger" aria-expanded="false" aria-controls="demo-hover-card-panel">@jane</button>
+  </p>
+  <div class="wrap">
+    <div class="card" id="demo-hover-card-panel">
+      <div class="head">
+        <div class="avatar" aria-hidden="true">J</div>
+        <div class="who">
+          <p class="name">Jane Appleseed</p>
+          <p class="handle">@jane</p>
+        </div>
+      </div>
+      <p class="bio">Design systems engineer. Making interfaces easier to name and build.</p>
+      <div class="meta">
+        <span class="meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Toronto
+        </span>
+        <span class="meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          2.4k
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-hover-card {
+  --d-blue: #2563eb;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+.demo-hover-card .byline {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+.demo-hover-card .trigger {
+  display: inline;
+  margin: 0;
+  padding: 0 1px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--d-blue);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(37, 99, 235, .4);
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.demo-hover-card .trigger:focus-visible {
+  outline: 2px solid var(--d-blue);
+  outline-offset: 2px;
+}
+.demo-hover-card .wrap {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 10;
+  padding-top: 8px;
+  transform: translateX(-50%) translateY(6px) scale(.96);
+  transform-origin: top center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 300ms cubic-bezier(.23, 1, .32, 1), transform 300ms cubic-bezier(.23, 1, .32, 1), visibility 0s 300ms;
+}
+.demo-hover-card .wrap.open {
+  transform: translateX(-50%) translateY(0) scale(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 300ms cubic-bezier(.23, 1, .32, 1), transform 300ms cubic-bezier(.23, 1, .32, 1);
+}
+.demo-hover-card .card {
+  width: 256px;
+  max-width: 100%;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, .12);
+}
+.demo-hover-card .head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.demo-hover-card .avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.demo-hover-card .who { min-width: 0; }
+.demo-hover-card .name {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+.demo-hover-card .handle {
+  margin: 2px 0 0;
+  font-size: 10px;
+  color: #94a3b8;
+}
+.demo-hover-card .bio {
+  margin: 12px 0 0;
+  font-size: 11px;
+  line-height: 16px;
+  color: #475569;
+}
+.demo-hover-card .meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 10px;
+  color: #94a3b8;
+}
+.demo-hover-card .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-hover-card .wrap,
+  .demo-hover-card .wrap.open {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+  const trigger = ROOT.querySelector('.trigger');
+  const wrap = ROOT.querySelector('.wrap');
+  if (!trigger || !wrap) return;
+
+  const OPEN_DELAY = 350;
+  const CLOSE_DELAY = 300;
+  let openTimer = 0;
+  let closeTimer = 0;
+
+  function clearTimers() {
+    window.clearTimeout(openTimer);
+    window.clearTimeout(closeTimer);
+  }
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function scheduleOpen() {
+    clearTimers();
+    openTimer = window.setTimeout(function () { setOpen(true); }, OPEN_DELAY);
+  }
+  function scheduleClose() {
+    clearTimers();
+    closeTimer = window.setTimeout(function () { setOpen(false); }, CLOSE_DELAY);
+  }
+
+  trigger.addEventListener('pointerenter', scheduleOpen);
+  trigger.addEventListener('pointerleave', scheduleClose);
+  wrap.addEventListener('pointerenter', function () { clearTimers(); setOpen(true); });
+  wrap.addEventListener('pointerleave', scheduleClose);
+  trigger.addEventListener('focus', function () { clearTimers(); setOpen(true); });
+  trigger.addEventListener('blur', scheduleClose);
+  ROOT.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && wrap.classList.contains('open')) {
+      clearTimers();
+      setOpen(false);
+      trigger.focus();
+    }
+  });
+})();
+</script>

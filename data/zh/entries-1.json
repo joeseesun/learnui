@@ -1,0 +1,667 @@
+{
+ "text-scramble": {
+  "name_zh": "文本乱序（Decode 效果）",
+  "tagline_zh": "随机字符不停翻滚，最终落定成真正的文字",
+  "description_zh": "“字母一直乱换，直到拼出正确单词”就是文本乱序，也叫 decode 效果或黑客帝国（Matrix）效果 —— 每个字符先翻滚一串随机字形，再锁定到位，通常从左到右。经典工具是 GSAP 的 ScrambleTextPlugin（3.13 起免费）；手写版本就是一个 requestAnimationFrame 循环，给每个字符设一个落定死线。",
+  "aka_zh": [
+   "decode 效果",
+   "黑客帝国文字效果",
+   "乱序文字效果"
+  ],
+  "fuzzy_zh": [
+   "字母一直随机乱换，直到拼出正确单词的那个文字效果",
+   "黑客帝国那种解码文字",
+   "字母先轮着换一圈，最后才落到正确字母上",
+   "黑客风格的文字效果",
+   "乱闪的字母最后拼成一个标题"
+  ],
+  "api_notes_zh": [
+   "最经典的实现 —— 自 GSAP 3.13 起免费",
+   "手写版做法：给每个字符设一个揭晓死线，死线前一直显示随机字形",
+   "等宽/表格数字字形能防止翻滚时整行抖动",
+   "屏幕阅读器只读到最终文本，读不到翻滚的噪声"
+  ],
+  "prompt_zh": "构建一个文本乱序（decode）效果：每个字符先循环随机字形，再从左到右依次锁定为真实字符（用 GSAP ScrambleTextPlugin，或 requestAnimationFrame 循环加每字符的落定死线）。使用等宽字体或表格数字字形，保证宽度不抖动；通过 aria-label 暴露最终字符串，翻滚中的 span 设 aria-hidden；并遵守 prefers-reduced-motion，直接瞬间呈现文本。",
+  "debugPrompt_zh": "调试我的文本乱序效果（GSAP ScrambleTextPlugin / rAF 字符集循环）。逐项排除：字形宽度不一导致布局抖动（需要 monospace 或 tabular-nums）；每字符死线在重新渲染时不断重置，动画永远落不定；屏幕阅读器念出乱码（最终文本必须放在 aria-label，翻滚部分 aria-hidden）；每次状态变化都重跑效果，而不是每次挂载只跑一次；开了 reduced-motion 的用户仍看到翻滚而不是瞬间出字。症状是：",
+  "parts_zh": {
+   "glyph-churn": {
+    "name_zh": "字符翻滚（Glyph churn）",
+    "description_zh": "“其他字母都定住了，末尾还有几个随机字母在转”就是 churn —— 从乱序字符集里取出的、尚未锁定的字符。",
+    "prompt_zh": "乱序效果中的字符翻滚：仍在随机变化、还没到落定死线的字符（字符集如 \"!<>-_\\\\/[]{}\")"
+   }
+  }
+ },
+ "spring": {
+  "name_zh": "弹簧动画（Spring Animation）",
+  "tagline_zh": "基于物理的运动：冲过目标，再缓缓停稳",
+  "description_zh": "“落点之前还要弹一下”就是弹簧动画 —— 由物理参数（stiffness、damping、mass）驱动的运动，而不是时长加曲线。它的标志是过冲：元素冲过目标再回稳。弹簧还能在运动中优雅地改目标，所以手势驱动的 UI 都用它。",
+  "aka_zh": [
+   "弹簧物理",
+   "Q 弹动画",
+   "弹簧过渡"
+  ],
+  "fuzzy_zh": [
+   "那种冲过头又弹回来的动画",
+   "稍微冲过一点，然后慢慢停住",
+   "面板打开时那种果冻般的弹动",
+   "iOS 那种带弹性的移动",
+   "不讲时长、只讲刚度和阻尼的动画"
+  ],
+  "api_notes_zh": [
+   "没有 duration —— 什么时候停由物理说了算",
+   "把弹簧烘进关键点的曲线 —— 纯 CSS 实现弹簧",
+   null,
+   "Apple 平台上的同款思路"
+  ],
+  "prompt_zh": "给这个动画加上弹簧物理：用 Motion 的 transition={{ type: \"spring\", stiffness: 300, damping: 22 }}（或 react-spring）代替 duration + easing 组合 —— 元素应稍微冲过目标再停稳；增大 damping 消除晃动，增大 stiffness 更利落。纯 CSS 方案：把弹簧烘进 linear() 时间函数。",
+  "debugPrompt_zh": "调试我的弹簧动画（Motion type: \"spring\"、react-spring、CSS linear()）。逐项排除：damping 太小，晃得像果冻；stiffness 太小，动得像在水里；duration 和物理打架（弹簧自己算停稳时间）；过冲被 overflow-hidden 的父元素裁掉；打断时生硬跳变，因为弹簧从目标点重启，而不是带着当前速度重新定向。症状是：",
+  "parts_zh": {
+   "overshoot": {
+    "name_zh": "过冲（Overshoot）",
+    "description_zh": "“冲过那条线又回来”的部分就是过冲 —— damping 决定过冲能保留多少。",
+    "prompt_zh": "弹簧的过冲：停稳之前冲过静止位置的那段行程 —— 用 damping 调节（越大过冲越小）"
+   }
+  }
+ },
+ "easing": {
+  "name_zh": "缓动（Timing Function）",
+  "tagline_zh": "动画的速度曲线 —— 决定动起来是顺滑还是僵硬",
+  "description_zh": "“动画感觉很机械”几乎可以肯定是缓动的问题 —— 缓动就是时间函数，把时间映射成进度的那条曲线。linear 匀速前进；ease-out 起步快、落地软；ease-in-out 是 UI 动效默认的 S 形曲线。cubic-bezier() 里的四个数字，不过是那条图上的两个控制点。",
+  "aka_zh": [
+   "时间函数",
+   "缓动曲线",
+   "贝塞尔曲线"
+  ],
+  "fuzzy_zh": [
+   "动画感觉又僵又直，像机器人",
+   "运动过程中哪儿快哪儿慢",
+   "控制动画速度的那条曲线",
+   "让它开头快、结尾慢",
+   "动画设置里那条 S 形的图"
+  ],
+  "api_notes_zh": [
+   "ease、ease-in、ease-out、ease-in-out、linear",
+   "自定义曲线 —— 四个数字就是两个控制点",
+   "超越贝塞尔的分段曲线（弹簧、弹跳）；2023 年起进入基线",
+   null
+  ],
+  "prompt_zh": "修好我动画的缓动：把 linear/默认时间换成明确的曲线 —— UI 移动用 transition-timing-function: cubic-bezier(.4, 0, .2, 1)（起步快、落地软），进入的元素用 ease-out，离开的元素用 ease-in；界面过渡时长保持在 150–300ms，除非是 marquee 式连续滚动，否则绝不用 linear 匀速。",
+  "debugPrompt_zh": "调试我动画的手感（CSS transition-timing-function / cubic-bezier）。逐项排除：没设时间函数，回落到默认 ease；linear 匀速让 UI 动效显得机械；进入中的元素用了 ease-in（进场该用 ease-out —— 减速到位）；cubic-bezier 的 y 值超出 0–1，本该过冲却在 transition 简写里被钳掉；时长太长，曲线读起来像卡顿。症状是：",
+  "parts_zh": {
+   "timing-curve": {
+    "name_zh": "时间曲线（Timing curve）",
+    "description_zh": "“动画编辑器里那条 S 形的图”就是时间曲线本身 —— 横轴是时间，从左到右；纵轴是进度，从下到上。",
+    "prompt_zh": "缓动的时间曲线：把时间（x）映射到进度（y）的 cubic-bezier 图 —— 越陡越快，越平越慢"
+   }
+  }
+ },
+ "masonry": {
+  "name_zh": "瀑布流布局（Pinterest 网格）",
+  "tagline_zh": "高度各异的卡片紧塞进列中，行线完全错开",
+  "description_zh": "“Pinterest 那种每张卡片保持自己高度的网格”就是瀑布流布局 —— 每个新条目加入当前最短的列，于是卡片像砖块一样码紧，没有行线，底边参差错落。中文 UI 圈叫它瀑布流。今天用 CSS columns 可以在各处近似实现；原生 masonry（Grid Lanes）已在 Safari 26 落地。",
+  "aka_zh": [
+   "瀑布流布局",
+   "Pinterest 网格",
+   "砖块布局"
+  ],
+  "fuzzy_zh": [
+   "Pinterest 那种每张卡片高度都不一样的网格",
+   "照片像砖头一样码起来，没有缝隙",
+   "一列列的，卡片在行上根本不对齐",
+   "照片墙，每张图都保持自己的高度",
+   "卡片不是按行排，而是一张张补到下面去"
+  ],
+  "api_notes_zh": [
+   "今天到处都能用 —— 但条目是沿每列向下排的，不是按行横排",
+   "原生方案（Grid Lanes）：Safari 26 已支持；2026 年其他浏览器还在 flag 后面 —— 记得配 @supports",
+   "在意按行优先顺序时，用 JS 把条目分进各列的堆栈",
+   "防止卡片在降级方案里被拆到两列"
+  ],
+  "prompt_zh": "构建一个瀑布流布局（Pinterest 风格）：优先用原生 CSS —— @supports (grid-template-rows: masonry) { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: masonry; } —— 降级用 CSS 多列（columns: 3；每张卡片 break-inside: avoid）。注意降级方案里条目沿每列向下排，不是按行；如果严格要求从左到右的顺序，改用 react-masonry-css。提前占位图片宽高比，避免加载时卡片跳动。",
+  "debugPrompt_zh": "调试我的瀑布流布局（CSS columns 降级 / grid-template-rows: masonry）。逐项排除：缺了 break-inside: avoid，卡片被拆到两列；设计期望按行优先读，条目却顺着第一列往下排；浏览器不支持原生 masonry 又没写 @supports 降级，出现等高行；图片没预留 width/height，加载时整面墙重新洗牌；卡片上的 margin 和 column-gap 打架。症状是：",
+  "parts_zh": {
+   "packed-column": {
+    "name_zh": "紧凑堆叠的列（Packed column）",
+    "description_zh": "“卡片笔直往下叠，横向什么都不对齐” —— 每列各自独立紧凑堆叠，这正是全部诀窍。",
+    "prompt_zh": "瀑布墙上的一根紧凑列：条目从上到下堆叠，列间距固定，每个新条目加入当前最短的列"
+   }
+  }
+ },
+ "bento-grid": {
+  "name_zh": "便当网格（Bento Grid）",
+  "tagline_zh": "一个网格，大小不一的格子 —— 像便当盒一样紧凑分装的布局",
+  "description_zh": "“网格里好几个盒子 —— bento”就是便当网格：一个 CSS grid，卡片跨越不同数量的单元，于是一张主卡片置身小卡片之间，像日式便当盒里的隔间。Apple 的官网营销页带火了这个风格。它和普通卡片网格的区别就在跨格：至少有一张卡片占 2×2 或 2×1 个单元，而其他一切仍对齐同一套轨道和缝隙。",
+  "aka_zh": [
+   "便当盒布局",
+   "特性网格",
+   "仪表盘网格"
+  ],
+  "fuzzy_zh": [
+   "网格里好几个盒子，bento 那种",
+   "网格里大小不同的盒子",
+   "一个大盒子、周围围一圈小盒子的网格",
+   "Apple 风格的圆角卡片特性网格",
+   "由大小不一的方块拼成的仪表盘"
+  ],
+  "api_notes_zh": [
+   "正是跨格的单元让普通网格变成 bento",
+   "跨格赖以发挥的固定轨道骨架",
+   "给格子命名，省去数跨格",
+   null
+  ],
+  "prompt_zh": "构建一个 bento 网格：一个 CSS grid（display: grid; grid-template-columns: repeat(4, 1fr)；全网格统一 gap），特性卡片通过 grid-column: span 2 / grid-row: span 2 跨多个单元，所有卡片用同一个圆角半径和不透明背景，整体读起来像一个大圆角盒子里装着大小不一的隔间。",
+  "debugPrompt_zh": "调试我的 bento 网格（带跨格卡片的 CSS grid）。逐项排除：某行的跨格超出剩余列数，网格出现空洞（可考虑 grid-auto-flow: dense，注意它会让视觉顺序和 DOM 顺序不一致）；用了逐卡片 margin 而不是网格统一的 gap，缝隙宽窄不一；卡片圆角各异或背景半透明，破坏了便当盒的整体感；小屏幕上主卡片塌掉，因为 media query 里没把 span 减小。症状是：",
+  "parts_zh": {
+   "spanning-tile": {
+    "name_zh": "跨格卡片（Spanning tile）",
+    "description_zh": "“小盒子中间那个大盒子”就是跨格卡片 —— 一个普通的 grid item，被告知要占两列和/或两行。",
+    "prompt_zh": "bento 网格的跨格卡片：一个带 grid-column: span 2 和 grid-row: span 2 的 grid item，在单格卡片之间占据一个 2×2 区块"
+   },
+   "bento-gap": {
+    "name_zh": "网格间距（Gap/gutter）",
+    "description_zh": "“所有盒子之间均匀的间距”就是网格的 gap —— 一个值统管，绝不用逐卡片 margin，所以 bento 才有机器打包般的整齐感。",
+    "prompt_zh": "bento 网格的 gap：grid 容器上的单个 CSS gap 值提供所有缝隙，卡片本身不设 margin"
+   }
+  }
+ },
+ "hamburger-menu": {
+  "name_zh": "汉堡菜单（导航抽屉）",
+  "tagline_zh": "三条线的按钮，以及它滑出的导航面板",
+  "description_zh": "“用来打开菜单的三条横线”是汉堡按钮，它滑出的面板叫导航抽屉。按钮只是触发器 —— 三条叠线，通常在手机的左上角；抽屉是屏外的 <nav>，滑进来盖在页面上，底下垫一层遮罩。这个图标的亲戚们（圆点、省略号）归在 The Three Dots 条目下；本页讲的是“图标加抽屉”的导航模式本身。",
+  "aka_zh": [
+   "导航抽屉",
+   "汉堡按钮",
+   "侧边菜单",
+   "屏外菜单"
+  ],
+  "fuzzy_zh": [
+   "用来打开菜单的三条横线",
+   "三条线的侧边菜单，展开后占满整个屏幕",
+   "手机网站上的汉堡菜单",
+   "点那几根线就从旁边滑进来的菜单",
+   "顶部角落里那个几条线叠起来的按钮",
+   "装着所有页面链接的侧面板"
+  ],
+  "api_notes_zh": [
+   "开关按钮的契约",
+   "抽屉里的内容是导航",
+   "React 里常用的积木",
+   "Android/Material 对这个面板的称呼"
+  ],
+  "prompt_zh": "构建一个汉堡菜单：一个 <button aria-expanded aria-controls>，画三条叠放的线，用来开合导航抽屉 —— 一个从左侧滑入、盖在遮罩（scrim）上的屏外 <nav> 面板（shadcn Sheet side=\"left\"，Material NavigationDrawer）。打开时锁定 body 滚动，Escape 和点遮罩关闭，aria-expanded 保持同步，关闭后焦点回到按钮。",
+  "debugPrompt_zh": "调试我的汉堡菜单（aria-expanded 开关 + 屏外 <nav> 抽屉）。逐项排除：抽屉渲染在遮罩或页头下面（z 轴顺序）；抽屉打开时背后的 body 还在滚；aria-expanded 从不翻转，屏幕阅读器看到的是死按钮；关闭后焦点丢在抽屉里，没有回到按钮；translate-x 正负号反了，抽屉从错误的边滑出；桌面上菜单消失，因为开关在断点之上被隐藏，但导航链接没再出现。症状是：",
+  "parts_zh": {
+   "hamburger-button": {
+    "name_zh": "汉堡按钮（Hamburger button）",
+    "description_zh": "“三条叠线”就是汉堡按钮 —— 一个纯粹的开关，aria-expanded 跟随抽屉状态。",
+    "prompt_zh": "一个汉堡按钮：工具栏左边缘的 <button aria-expanded aria-controls> 里画三条 2px 叠线"
+   },
+   "nav-drawer": {
+    "name_zh": "导航抽屉（Navigation drawer）",
+    "description_zh": "“滑过来盖住页面的侧边菜单”就是导航抽屉 —— 屏外的 <nav> 面板，浮在遮罩之上。",
+    "prompt_zh": "一个导航抽屉：从左侧滑入、盖在遮罩上的屏外 <nav> 面板，打开期间锁定 body 滚动"
+   }
+  }
+ },
+ "lightbox": {
+  "name_zh": "灯箱（Lightbox）",
+  "tagline_zh": "点图放大、背后页面变暗的图片浮层",
+  "description_zh": "“点一下图片就放大打开，背后全变暗”就是 lightbox：叠在页面上的模态图片查看器。背后的暗层叫遮罩（scrim），放大的图片居于舞台中央，箭头负责翻阅相册。现代 lightbox 建立在原生 <dialog> 元素和它的 ::backdrop 之上。",
+  "aka_zh": [
+   "图片查看浮层",
+   "照片模态框",
+   "相册浮层"
+  ],
+  "fuzzy_zh": [
+   "点一下照片就放大打开，背景变暗",
+   "相册里那个放大图片的弹窗",
+   "点缩略图，它就放大盖在页面上",
+   "带箭头可以翻下一张的图片查看器",
+   "黑背景上那张大照片",
+   "一种放大图片的界面模式"
+  ],
+  "api_notes_zh": [
+   "现代 lightbox 的地基",
+   null,
+   null,
+   "现成的 lightbox 库"
+  ],
+  "prompt_zh": "构建一个 lightbox：点击相册缩略图，在深色 ::backdrop 遮罩上以模态 <dialog>（aria-modal）打开大图，带上一张/下一张箭头、关闭按钮，Escape 和点击背景可关闭，并配可逆的淡入淡出/缩放过渡。",
+  "debugPrompt_zh": "调试我的 lightbox（<dialog>、::backdrop、PhotoSwipe 风格的图片浮层）。逐项排除：用了 show() 而不是 showModal()，结果没有遮罩、背后页面还能滚；方向键一边翻相册一边滚页面；大图在过渡结束后才加载完，从模糊突然变清晰；关闭后焦点没回到被点的缩略图。症状是：",
+  "parts_zh": {}
+ },
+ "marquee": {
+  "name_zh": "跑马灯（Marquee）",
+  "tagline_zh": "横向自动滚动、无限循环的内容",
+  "description_zh": "“那些自己横着滚的 logo”就是跑马灯 —— 内容在水平方向上无限循环自动滚动，名字来自废弃的 <marquee> 标签。今天它用 CSS transform 在复制内容上做循环，两端用渐隐融掉。另外，Windows 把不确定进度条样式也叫 “marquee”，那是另一回事。",
+  "aka_zh": [
+   "滚动字幕条",
+   "logo 轮播带",
+   "自动滚动条带"
+  ],
+  "fuzzy_zh": [
+   "自己往一边滚的那些 logo",
+   "新闻滚动字幕",
+   "没完没了滚动的 logo 条",
+   "自己横着走过屏幕的文字",
+   "自动滑动的品牌 logo"
+  ],
+  "api_notes_zh": [
+   "现代做法：在复制一份的内容上做 transform 循环",
+   "早已废弃 —— 千万别用，但这个模式因它得名",
+   null,
+   "悬停暂停"
+  ],
+  "prompt_zh": "构建一个跑马灯：一条横向自动滚动的条带，用 CSS @keyframes translateX(-50%) 循环，内容恰好复制一份（绝不用废弃的 <marquee> 标签），两端加渐隐遮罩，hover 时用 animation-play-state 暂停，并提供 prefers-reduced-motion 下降级的静止版本。",
+  "debugPrompt_zh": "调试我的跑马灯（CSS translateX keyframe 循环、react-fast-marquee）。逐项排除：接缝处跳动，因为内容没有恰好复制一份、位移也不是恰好 -50%；在主线程上动画 left/width 而不是 transform；缺了悬停暂停（animation-play-state）；prefers-reduced-motion 下动画还在跑；从老代码片段里粘来了废弃的 <marquee> 标签。症状是：",
+  "parts_zh": {
+   "edge-fade": {
+    "name_zh": "边缘渐隐（Edge fade）",
+    "description_zh": "“logo 在条带两端慢慢化掉”就是边缘渐隐 —— 用的是 mask，不是画上去的渐变。",
+    "prompt_zh": "跑马灯的边缘渐隐：在条带容器上加 mask-image linear-gradient，让内容在两端溶掉而不是生硬裁断"
+   }
+  }
+ },
+ "pointer": {
+  "name_zh": "指针（光标）",
+  "tagline_zh": "鼠标指针的每一种形态 —— 以及它们各自的本名",
+  "description_zh": "Mac 指针的每一种形态都有本名。“上下带小横杠的文本光标”是 I-beam；链接上的小手是 pointing hand；拖拽时的禁止标志是 operation not allowed。AppKit 通过 NSCursor 设置它们，视图用 cursor rect 认领屏幕区域 —— 指针卡在错误形态时，通常就是过期的 cursor rect 惹的祸。（彩虹“海滩球”不是 NSCursor：那是 App 失去响应时系统显示的。）",
+  "aka_zh": [
+   "光标",
+   "鼠标指针",
+   "鼠标光标"
+  ],
+  "fuzzy_zh": [
+   "上下带小横杠的那个文本光标",
+   "鼠标卡在文本编辑模式出不来",
+   "箭头移到链接上就变成小手",
+   "调窗口大小时的双向箭头",
+   "拖拽复制时光标上带个加号角标",
+   "鼠标变成一个禁止驶入的标志",
+   "里面带个加号的放大镜光标"
+  ],
+  "api_notes_zh": [
+   null,
+   "文本编辑用的指针",
+   "认领一片区域；在 resetCursorRects() 里调用",
+   "macOS 15+",
+   "Web 上的同款形状：pointer、grab、not-allowed……"
+  ],
+  "prompt_zh": "用 NSCursor 设置 macOS 指针 —— 例如 NSCursor.iBeam.set() —— 或在 resetCursorRects() 里用 NSView.addCursorRect(_:cursor:) 认领区域（SwiftUI：View.pointerStyle(_:)，macOS 15+）。如果鼠标离开文本视图后指针还卡在 I-beam，那就是过期的 cursor rect 在作怪：调用 window.invalidateCursorRects(for: view) 让 rect 重建。",
+  "debugPrompt_zh": "调试我的 macOS 指针/光标（NSCursor、NSTrackingArea）。逐项排除：cursor rect 每次布局都重置，指针闪回箭头 —— 改用 tracking area 在 cursorUpdate 里驱动；push/pop 或 hide/unhide 调用不配对；转圈的彩虹海滩球说明主线程卡死，不是指针的 bug；拖拽结束后隐藏的指针没恢复。症状是：",
+  "parts_zh": {}
+ },
+ "alert": {
+  "name_zh": "提醒（Alert）",
+  "tagline_zh": "居中的小窗口：带角标的图标、一行粗体字，以及“取消/好”按钮",
+  "description_zh": "“带 App 图标和两个按钮的小警告窗”就是提醒 —— NSAlert。它显示你的 App 图标（警告时角标叠一个黄色警示三角）、一行粗体消息、较小的说明文字，以及按钮 —— 第一个添加的是蓝色默认按钮。用 runModal() 让它 App 级模态运行，或用 beginSheetModal(for:) 把它附着到单个窗口 —— 那样它会像 sheet 一样从那个窗口的标题栏滑出来。“不再询问”复选框就是它内建的 suppression button。",
+  "aka_zh": [
+   "提醒对话框",
+   "警告对话框",
+   "确认对话框",
+   "消息框",
+   "系统提示"
+  ],
+  "fuzzy_zh": [
+   "带 App 图标和黄色警告三角的弹窗",
+   "屏幕中间问“你确定吗”的小窗口，两个按钮",
+   "带“别再问我”复选框的弹窗",
+   "一行粗体大字、下面一行灰色小字的警告信息",
+   "按回车就自动按下的那个蓝色按钮",
+   "删东西之前弹出来的确认窗"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   ".warning / .informational / .critical",
+   "改为附着到单个窗口"
+  ],
+  "prompt_zh": "用 NSAlert 显示一个原生 macOS 提醒（SwiftUI：.alert）：messageText 是那行粗体摘要，informativeText 是较小的解释文字。用 addButton(withTitle:) 添加按钮 —— 第一个会成为蓝色默认按钮，响应回车键；标题为 Cancel 的按钮响应 Escape。设置 showsSuppressionButton = true 显示“不再询问”复选框，结束后读取 suppressionButton.state。",
+  "debugPrompt_zh": "调试我的 macOS 提醒（NSAlert、SwiftUI View.alert）。逐项排除：没在主线程上弹出；本想用 beginSheetModal(for:) 附着到单个窗口，runModal 却把整个 App 卡住；回车默认按钮是添加的第一个按钮，而不是你以为的那个；抑制复选框的状态从没写入 defaults 持久化。症状是：",
+  "parts_zh": {
+   "badged-app-icon": {
+    "name_zh": "带角标的 App 图标（Badged app icon）",
+    "description_zh": "“App 图标上的黄色三角”就是提醒图标 —— 你的 App 图标，当 alertStyle 是 .warning 或 .critical 时叠上警示角标。",
+    "prompt_zh": "NSAlert 的图标 —— 带黄色警示三角角标的 App 图标（NSAlert.icon，alertStyle .warning）"
+   },
+   "message-text": {
+    "name_zh": "消息文本（Message text）",
+    "description_zh": "“那行粗体字”就是 messageText —— 一句话摘要；当提醒要求做决定时，措辞写成一个问题。",
+    "prompt_zh": "NSAlert 的粗体标题行（NSAlert.messageText）"
+   },
+   "informative-text": {
+    "name_zh": "说明文本（Informative text）",
+    "description_zh": "“粗体行下面的灰色小字”就是 informativeText —— 用一句话把后果讲清楚。",
+    "prompt_zh": "NSAlert 的较小解释文字（NSAlert.informativeText）"
+   },
+   "suppression-checkbox": {
+    "name_zh": "“不再询问”复选框（Suppression checkbox）",
+    "description_zh": "“别再问我”那个复选框就是 suppression button —— 用 showsSuppressionButton 开启，提醒返回后读取 suppressionButton.state。",
+    "prompt_zh": "NSAlert 的“不再询问”复选框（showsSuppressionButton = true，读取 suppressionButton.state）"
+   },
+   "default-button": {
+    "name_zh": "默认按钮（Default button）",
+    "description_zh": "“那个蓝色按钮”就是默认按钮 —— 添加到提醒上的第一个按钮；它获得强调色，也响应回车键。",
+    "prompt_zh": "NSAlert 的蓝色默认按钮 —— 第一个 addButton(withTitle:)，键等价是回车"
+   }
+  }
+ },
+ "slider": {
+  "name_zh": "滑块（Slider）",
+  "tagline_zh": "沿轨道拖动的圆钮，用来在一个范围里取值",
+  "description_zh": "“沿着一条线拖的那个圆点”就是滑块 —— NSSlider。圆圈是滑钮（knob），凹槽是轨道（track），滑钮之前的前段染成强调色。连续滑块可以在范围内取任意值；加上刻度线（下面那些小线）和 allowsTickMarkValuesOnly，滑钮就只在固定挡位之间吸附 —— 系统设置里的“按键重复”滑块就是经典的带刻度款。",
+  "aka_zh": [
+   "滑块控件",
+   "进度拖条",
+   "轨道条",
+   "范围控件"
+  ],
+  "fuzzy_zh": [
+   "左右拖着改数值的那个圆点",
+   "音量那种一条线上带圆钮的控件",
+   "上面有个圆圈可以滑来滑去的条",
+   "滑块下面那些会吸附的小刻度线",
+   "滑块线上蓝色填满的那段",
+   "在最小最大值之间拖来选数的那个东西"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   "吸附到刻度",
+   ".below / .above",
+   "拖动过程中就触发，而不是松手才触发"
+  ],
+  "prompt_zh": "使用原生 macOS 滑块 —— NSSlider（SwiftUI：Slider(value:in:step:)）：水平线性样式、圆形滑钮，轨道前段染成强调色。离散取值时，在下方加刻度线：numberOfTickMarks 配 tickMarkPosition = .below，并用 allowsTickMarkValuesOnly = true 让滑钮吸附到刻度。设 isContinuous = true，让值在拖动过程中持续更新。",
+  "debugPrompt_zh": "调试我的 macOS 滑块（NSSlider、SwiftUI Slider）。逐项排除：isContinuous 开着，action 每像素狂发（或想要实时更新却没开）；allowsTickMarkValuesOnly 把值吸附到意料之外的刻度；值绑定在拖拽中回写，和手势打架；AppKit 里方向是按 frame 形状推断的，没有显式设置。症状是：",
+  "parts_zh": {
+   "knob": {
+    "name_zh": "滑钮（Knob/thumb）",
+    "description_zh": "“你拖的那个圆点”就是滑钮 —— AppKit 叫它 knob；Web 上同一个东西叫 thumb。",
+    "prompt_zh": "NSSlider 上可拖动的圆形滑钮（Web 称之为 thumb）"
+   },
+   "filled-track": {
+    "name_zh": "已填充轨道（Filled track）",
+    "description_zh": "“滑钮之前线上蓝色的那段”就是轨道的已填充侧 —— 它显示值在范围内走了多远。",
+    "prompt_zh": "滑块轨道从最小值到滑钮的染色前段（SwiftUI：Slider 配 .tint）"
+   },
+   "track": {
+    "name_zh": "轨道（Track）",
+    "description_zh": "“圆点滑行的那条凹槽”就是轨道 —— 从头到尾的整个范围。",
+    "prompt_zh": "线性 NSSlider 上滑钮通行的整条全宽凹槽"
+   },
+   "tick-marks": {
+    "name_zh": "刻度线（Tick marks）",
+    "description_zh": "“滑块下面的小线”就是刻度线 —— 配上 allowsTickMarkValuesOnly，滑钮只落在刻度上。",
+    "prompt_zh": "NSSlider 下方的刻度线（numberOfTickMarks，tickMarkPosition = .below），用 allowsTickMarkValuesOnly 吸附"
+   }
+  }
+ },
+ "color-well": {
+  "name_zh": "颜色井（Color Well）",
+  "tagline_zh": "显示当前颜色的小色块按钮，点开就是取色器",
+  "description_zh": "“显示当前颜色的小方块”就是颜色井 —— NSColorWell。自 macOS 13 起有三种样式：minimal（只有色块）、default 和 expanded —— 现代款，旁边带一个尖角按钮。点击展开式颜色井会打开一个快速弹层，里面有一板色样和一根吸管；尖角按钮打开完整颜色面板。能吸取屏幕任意像素的吸管是独立的一次调用 API：NSColorSampler。",
+  "aka_zh": [
+   "取色器按钮",
+   "色块控件",
+   "选色器",
+   "颜色选择器"
+  ],
+  "fuzzy_zh": [
+   "显示当前颜色的小方块",
+   "点一下就打开取色器的色块",
+   "从屏幕上吸取颜色的吸管",
+   "旁边带个小箭头的彩色小方块",
+   "弹出来的那板彩色小方格",
+   "设置里选颜色用的控件"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   ".minimal / .default / .expanded（macOS 13+）",
+   null,
+   "独立的吸管工具",
+   null
+  ],
+  "prompt_zh": "添加原生 macOS 颜色井 —— NSColorWell（SwiftUI：ColorPicker）。现代的两段式控件用 colorWellStyle = .expanded：点击色块打开带吸管的快速色板弹层，点击尖角按钮打开完整的 NSColorPanel。要独立的屏幕取色吸管，用 NSColorSampler().show { color in … }。",
+  "debugPrompt_zh": "调试我的 macOS 颜色井（NSColorWell、SwiftUI ColorPicker）。逐项排除：共享的 NSColorPanel 服务全 App 所有颜色井，两个井互相抢；连续更新狂发 target action，而不是关闭时才提交；没有“屏幕录制”权限，吸管失效；sRGB 和 Display P3 色彩空间混用导致颜色偏移。症状是：",
+  "parts_zh": {
+   "swatch": {
+    "name_zh": "色样（Color swatch）",
+    "description_zh": "“那块有颜色的区域本身”就是色样 —— 它始终显示颜色井的当前颜色，也是打开快速取色器的点击目标。",
+    "prompt_zh": "NSColorWell 上显示当前颜色的色样区域（NSColorWell.color）"
+   },
+   "panel-button": {
+    "name_zh": "颜色面板按钮（Color-panel button）",
+    "description_zh": "“色样旁边的小箭头段”就是 expanded 样式加上的专用按钮 —— 它打开完整颜色面板。",
+    "prompt_zh": "附着在 expanded 样式 NSColorWell 上的尖角按钮（colorWellStyle = .expanded），用于打开 NSColorPanel"
+   },
+   "quick-color-popover": {
+    "name_zh": "快速取色弹层（Quick color popover）",
+    "description_zh": "“弹出来的那板彩色方格”就是 expanded 样式的快速取色器 —— 色样便于快速选择，不用开完整面板。",
+    "prompt_zh": "expanded NSColorWell 在色块被点击时显示的快速色板弹层"
+   },
+   "eyedropper": {
+    "name_zh": "吸管（Eyedropper/color sampler）",
+    "description_zh": "“能从屏幕任何地方取色的吸管”就是系统颜色采样器 —— 一次调用：NSColorSampler().show { color in … }。",
+    "prompt_zh": "从屏幕取色的系统吸管（NSColorSampler().show { color in … }）"
+   }
+  }
+ },
+ "form-field": {
+  "name_zh": "表单字段（Form Field）",
+  "tagline_zh": "带标签输入框的每个部分 —— 标签、占位文本、辅助文本和那行红色错误信息",
+  "description_zh": "“框里一打字就消失的灰字”是占位文本（placeholder）—— 表单字段的五个部分各有本名，这只是其一。框上面的词是标签（<label for>），小红星是必填标记，下面的灰色小字是辅助文本，取代它的红字是校验信息。把它们接好线（for/id、aria-describedby、aria-invalid），字段才不只服务明眼人，屏幕阅读器也能用。",
+  "aka_zh": [
+   "文本框",
+   "输入框",
+   "表单输入项",
+   "表单控件"
+  ],
+  "fuzzy_zh": [
+   "框里那个一打字就消失的灰字",
+   "标签旁边的小红星",
+   "输入框下面的灰色小字",
+   "字段下面那行红色错误提示",
+   "文本框上面的那个词",
+   "空输入框里的提示文字"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   "把辅助/错误文本关联到输入框",
+   null,
+   "只在交互之后才判定无效",
+   null
+  ],
+  "prompt_zh": "构建完整结构的表单字段：输入框上方放真正的 <label for>（点击它聚焦字段），placeholder 只作提示 —— 绝不当标签用，下方辅助文本用 aria-describedby 关联，必填用 required 属性加视觉星号标出。输入无效时设 aria-invalid=\"true\"，用 :user-invalid 画红色状态，并把 aria-describedby 指向错误信息。",
+  "debugPrompt_zh": "调试我的表单字段（label for/id、aria-describedby、placeholder）。逐项排除：placeholder 干了标签的活，敲第一个键就消失；label 没关联，点击不能聚焦输入框；错误文本没通过 aria-describedby 关联，屏幕阅读器永远读不到；自动填充的黄/蓝底色覆盖你的样式（-webkit-autofill）。症状是：",
+  "parts_zh": {
+   "field-label": {
+    "name_zh": "标签（Label）",
+    "description_zh": "“框上面的那个词”就是标签 —— 一个真正的 <label>，通过 for/id 绑到输入框，点击它会聚焦字段。",
+    "prompt_zh": "输入框上方真正的 <label for> 元素，通过 for/id 绑定"
+   },
+   "required-indicator": {
+    "name_zh": "必填标记（Required indicator）",
+    "description_zh": "“小红星”标记必填字段 —— 星号只是装饰；真正起作用的是输入框上的 required 属性。",
+    "prompt_zh": "标签旁的必填星号，由输入框上的 required 属性支撑"
+   },
+   "placeholder": {
+    "name_zh": "占位文本（Placeholder）",
+    "description_zh": "“框里一打字就消失的灰字”就是占位文本 —— 一个示例或提示，永远代替不了标签。",
+    "prompt_zh": "输入框内的占位提示（placeholder 属性，用 ::placeholder 设置样式），仅作提示"
+   },
+   "helper-text": {
+    "name_zh": "辅助文本（Helper text）",
+    "description_zh": "“字段下面的灰色小字”就是辅助文本 —— 用 aria-describedby 关联到输入框，屏幕阅读器才会念出来。",
+    "prompt_zh": "输入框下方的辅助/提示文本，用 aria-describedby 关联"
+   },
+   "error-message": {
+    "name_zh": "错误信息（Error message）",
+    "description_zh": "“框下面的红字”就是校验信息 —— 红色边框（aria-invalid、:user-invalid）要配一条字段能引用的信息。",
+    "prompt_zh": "字段下方的内联校验错误：输入框设 aria-invalid=\"true\"、红色边框，错误信息用 aria-describedby 关联"
+   }
+  }
+ },
+ "truncation": {
+  "name_zh": "文本截断（省略号与行数截断）",
+  "tagline_zh": "用 … 把文本截短 —— 在行尾、在 N 行之后，或者在中间",
+  "description_zh": "“被三个点切断的文字”就是截断，那些点叫省略号（…，一个字符 —— 不是三个句号）。行尾截断用 text-overflow: ellipsis；N 行后切断叫行数截断（line clamp）；长文件名中间的点是中间截断 —— macOS 原生支持，Web 上要用 JS。别把它和 ⋯ 溢出菜单按钮搞混：同样的点，完全不同的活。",
+  "aka_zh": [
+   "省略号",
+   "文本溢出",
+   "行数截断",
+   "多行截断的文本",
+   "截断的文本"
+  ],
+  "fuzzy_zh": [
+   "文字被切掉，后面跟三个点",
+   "只显示两行，然后点点点",
+   "长文件名中间几个点",
+   "标题一行就切断，别换行",
+   "文字在边缘淡出，不用点",
+   "标题太长，框里放不下"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   "单行省略号必需",
+   "中间截断在 macOS 上是原生能力",
+   "淡出效果的替代方案"
+  ],
+  "prompt_zh": "用 CSS 截断文本。单行：overflow: hidden; white-space: nowrap; text-overflow: ellipsis。多行：display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden（不带前缀的 line-clamp 在各浏览器还不稳）。保留扩展名的中间截断在 Web 上要用 JS —— macOS 上是 lineBreakMode = .byTruncatingMiddle。想要柔和淡出而不是点点点，用 mask-image: linear-gradient(to right, black 70%, transparent)。",
+  "debugPrompt_zh": "调试我的文本截断（text-overflow ellipsis、line-clamp）。逐项排除：省略号需要 overflow hidden、white-space nowrap 和真实宽度约束三者齐备 —— flex 行里要给收缩子项加 min-width: 0，这是经典坑；多行截断需要 -webkit-line-clamp 配 -webkit-box；中间截断（文件名）需要 JS，CSS 做不到；全文无从查看，因为没有 title/tooltip 展示。症状是：",
+  "parts_zh": {
+   "end-ellipsis": {
+    "name_zh": "行尾省略号（End ellipsis）",
+    "description_zh": "“行尾的点点点” —— 只有和 overflow: hidden、white-space: nowrap 一起才生效。",
+    "prompt_zh": "单行截断：overflow: hidden; white-space: nowrap; text-overflow: ellipsis"
+   },
+   "line-clamp": {
+    "name_zh": "行数截断（Line clamp）",
+    "description_zh": "“显示两行就切断”就是行数截断 —— 省略号落在允许的最后一行末尾。",
+    "prompt_zh": "多行截断：display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden"
+   },
+   "middle-truncation": {
+    "name_zh": "中间截断（Middle truncation）",
+    "description_zh": "“长文件名中间的点”让两头都可读 —— macOS 原生支持（.byTruncatingMiddle）；Web 上要用 JS。",
+    "prompt_zh": "中间截断，保留开头和文件扩展名可见（macOS：lineBreakMode = .byTruncatingMiddle；Web：JS 字符串切片）"
+   },
+   "fade-out": {
+    "name_zh": "淡出截断（Fade-out/柔和截断）",
+    "description_zh": "“文字在边缘淡出而不是用点” —— 用透明度遮罩做的柔和截断，常见于卡片和代码预览。",
+    "prompt_zh": "淡出截断：在不换行、overflow-hidden 的一行上加 mask-image: linear-gradient(to right, black 70%, transparent)"
+   }
+  }
+ },
+ "drag-and-drop": {
+  "name_zh": "拖放（Drag & Drop）",
+  "tagline_zh": "拖拽交互周边的抓手、手柄、预览和落点提示",
+  "description_zh": "拖放让人直接移动或放置对象。抓手告诉你从哪儿拿，拖拽预览跟着指针走，插入线或高亮目标在松手前预告落点。选择框调整手柄是选中对象周边的相关控件：它们调整大小，而不是移动位置。",
+  "aka_zh": [
+   "拖放",
+   "拖放交互",
+   "直接操控",
+   "可排序拖拽"
+  ],
+  "fuzzy_zh": [
+   "那种 3x3 或 2x2 的小点阵",
+   "你知道的，角上那些小方块",
+   "指示会落到哪里的那条线",
+   "旁边那个终端整个被高亮",
+   "那个终端有一半被高亮",
+   "跟着指针走的那个半透明残影"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   "已废弃；改用 live region 播报拖拽状态和放置结果",
+   null
+  ],
+  "prompt_zh": "用 HTML draggable、ondragover 和 ondrop（或 @dnd-kit/core）构建拖放交互：显示拖拽手柄，适用时显示选择框调整手柄，给出拖拽预览，松手前显示插入线或高亮放置目标。不要用废弃的 aria-grabbed；通过 ARIA live region 播报拿起的内容、可用目的地和放置结果。",
+  "debugPrompt_zh": "调试我的拖放（HTML draggable、ondragover/ondrop、dnd-kit）。逐项排除：drop 从不触发，因为 dragover 没调 preventDefault —— 这是经典坑；进入子元素时 dragleave 也触发，高亮闪烁 —— 维护一个 enter/leave 计数器；setDragImage 被忽略，因为残影元素不在 DOM 里；触屏设备毫无反应，因为原生 HTML5 DnD 没有触摸事件 —— 换用 pointer 驱动的库。症状是：",
+  "parts_zh": {
+   "drag-handle": {
+    "name_zh": "拖拽手柄（Drag handle/grip）",
+    "description_zh": "“那种 3x3 或 2x2 的点阵”就是拖拽手柄，也叫抓手（grip/grabber）。",
+    "prompt_zh": "可拖条目上的拖拽手柄/抓手（HTML draggable=\"true\" 或 @dnd-kit/core listeners）：一个紧凑的 3×3 或 2×2 点阵，清楚标出抓握位置"
+   },
+   "resize-handles": {
+    "name_zh": "选择框调整手柄（Selection resize handles）",
+    "description_zh": "“你知道的，角上那些小方块”就是选中对象四周的调整手柄。",
+    "prompt_zh": "用 pointer events 实现的选择框调整手柄：选中对象边角上的小方块控件，只调整大小，不当拖拽手柄用"
+   },
+   "drop-indicator": {
+    "name_zh": "放置指示线（Drop indicator/insertion line）",
+    "description_zh": "“指示落点的线”就是放置指示线，常画成条目之间的插入线。",
+    "prompt_zh": "ondragover 期间的放置指示线：在拖拽条目将要落下的确切位置，于条目之间画一条清晰可见的插入线"
+   },
+   "drop-target-highlight": {
+    "name_zh": "放置目标高亮（Drop-target highlight）",
+    "description_zh": "“旁边那个终端整个被高亮”说的就是目标区域上的放置高亮。",
+    "prompt_zh": "ondragover 期间的放置目标高亮：在条目落下前，把整个有效目的地或其精确的拆分区域染色"
+   },
+   "drag-preview": {
+    "name_zh": "拖拽预览（Ghost 残影）",
+    "description_zh": "拖拽过程中跟着指针的半透明副本就是拖拽预览，常叫 ghost（残影）。",
+    "prompt_zh": "拖拽预览/残影（DataTransfer.setDragImage()）：一张轻量半透明的被拖条目图像，跟着指针走，又不遮挡放置提示"
+   }
+  }
+ },
+ "divider": {
+  "name_zh": "分隔线：Divider、Separator 与 Rule",
+  "tagline_zh": "同一条细线，可以是话题转折、控件分隔，也可以只是装饰",
+  "description_zh": "水平标线（horizontal rule）标记内容中的话题转换，所以 HTML 给了它语义化的 <hr> 元素。分隔符（separator）划分控件组或界面区域，没有原生语义元素可用时，用 role=\"separator\"。如果这条线只是视觉样式，那它就是 CSS border，不该被当成元素念出来。SwiftUI Divider 和 AppKit 的 separator 菜单项是 macOS 上眼熟的亲戚。",
+  "aka_zh": [
+   "分隔符",
+   "标线",
+   "水平标线",
+   "视觉分隔线"
+  ],
+  "fuzzy_zh": [
+   "那些分隔线之间",
+   "那条线上面",
+   "那几个区块之间的一条竖线",
+   "标题和下载按钮之间那条分隔线",
+   "要不加一条竖的分隔线",
+   "横线那玩意儿"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   "纯装饰",
+   null,
+   null
+  ],
+  "prompt_zh": "选对 Divider、Separator 或 Rule：内容中的语义性话题转折用 HTML <hr>；控件组之间的结构边界用 role=\"separator\"；纯装饰的线用 CSS border，如 border-block-start。macOS 上，视觉分隔用 SwiftUI Divider，菜单项分组之间用 NSMenuItem.separator()。",
+  "debugPrompt_zh": "调试我的分隔线（hr、role=separator、border 工具类）。逐项排除：分数缩放级别下 1px 边框取整不同，细线变两条或消失；装饰性分隔线仍被屏幕阅读器念出来 —— 装饰的要 aria-hidden，语义的要 role=separator；flex 父级把想要固定交叉轴尺寸的分隔线拉伸；margin 折叠吃掉 hr 周围的空间。症状是：",
+  "parts_zh": {
+   "thematic-break": {
+    "name_zh": "主题性分隔（Thematic break/水平标线）",
+    "description_zh": "“那条线上面”可能指水平标线：<hr>，标记内容区块之间真正的话题转换。",
+    "prompt_zh": "用 HTML <hr> 做语义化主题分隔：两个内容区块之间的水平标线，前后主题或场景发生转换"
+   },
+   "semantic-separator": {
+    "name_zh": "语义分隔符（Semantic separator）",
+    "description_zh": "“区块之间的竖线”在划分不同区域或控件组时，就是语义分隔符。",
+    "prompt_zh": "两组控件或界面区域之间带 role=\"separator\" 的结构分隔符，垂直时加 aria-orientation=\"vertical\""
+   },
+   "decorative-border": {
+    "name_zh": "装饰性 CSS 边框（Decorative CSS border）",
+    "description_zh": "“要不加条竖线”可能只是装饰；不传达结构时，用不带 separator 语义的 CSS border。",
+    "prompt_zh": "纯装饰分隔线，用 CSS border 画，如 border-block-start 或 border-inline-start，不用 <hr> 元素，也不要 separator 角色"
+   },
+   "macos-separators": {
+    "name_zh": "macOS 的 Divider 与分隔菜单项（macOS divider and separator item）",
+    "description_zh": "macOS 界面里，SwiftUI 把视觉分隔线叫 Divider，而菜单命令组之间的线是 NSMenuItem 的 separator item。",
+    "prompt_zh": "macOS 原生亲戚：视图区域之间的 SwiftUI Divider，或专用于菜单命令分组之间的 NSMenuItem.separator()"
+   }
+  }
+ }
+}

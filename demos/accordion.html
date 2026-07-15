@@ -1,0 +1,128 @@
+<div class="demo demo-accordion">
+  <div class="acc">
+    <div class="item open">
+      <button type="button" class="head" aria-expanded="true">
+        What is a component?
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <div class="body">
+        <div class="clip">
+          <p class="text">A reusable piece of interface with its own structure and behavior.</p>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <button type="button" class="head" aria-expanded="false">
+        What is a design token?
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <div class="body">
+        <div class="clip">
+          <p class="text">A named value for color, spacing, type, or another design decision.</p>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <button type="button" class="head" aria-expanded="false">
+        Why name patterns?
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <div class="body">
+        <div class="clip">
+          <p class="text">Shared names make design and implementation prompts precise.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-accordion {
+  font-family: var(--font-sans);
+  width: 100%;
+  max-width: 320px;
+}
+.demo-accordion .acc {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.demo-accordion .item {
+  border-bottom: 1px solid #f1f5f9;
+}
+.demo-accordion .item:last-child {
+  border-bottom: 0;
+}
+.demo-accordion .head {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  padding: 12px 16px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+.demo-accordion .head:hover {
+  background: #f8fafc;
+}
+.demo-accordion .chev {
+  flex: none;
+  color: #94a3b8;
+  transform: rotate(0deg);
+  transition: transform 300ms;
+}
+.demo-accordion .item.open .chev {
+  transform: rotate(180deg);
+}
+.demo-accordion .body {
+  position: relative;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease-out;
+}
+.demo-accordion .item.open .body {
+  grid-template-rows: 1fr;
+}
+.demo-accordion .clip {
+  overflow: hidden;
+  min-height: 0;
+}
+.demo-accordion .text {
+  margin: 0;
+  padding: 0 16px 12px;
+  font-size: 11px;
+  line-height: 16px;
+  color: #64748b;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-accordion .head,
+  .demo-accordion .chev,
+  .demo-accordion .body {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  ROOT.querySelectorAll('.item').forEach(function (item) {
+    const head = item.querySelector('.head');
+    head.addEventListener('click', function () {
+      const open = item.classList.toggle('open');
+      head.setAttribute('aria-expanded', String(open));
+    });
+  });
+})();
+</script>

@@ -1,0 +1,12 @@
+# OS/editor junk
+.DS_Store
+
+# original-site reference material (not for publication)
+reference/
+
+# build output (deployed artifact; regenerate with build.py)
+site/
+
+# python
+__pycache__/
+*.pyc

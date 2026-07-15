@@ -1,0 +1,167 @@
+<div class="demo demo-combo-button">
+  <div class="wrap">
+    <div class="split">
+      <button type="button" class="primary">Save</button>
+      <button type="button" class="arrow" aria-expanded="true" aria-label="More save actions">
+        <svg aria-hidden="true" width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M1.5 3 4 5.5 6.5 3"/></svg>
+      </button>
+    </div>
+    <div class="menu is-open">
+      <button type="button" class="item">Save As…</button>
+      <button type="button" class="item">Save All</button>
+      <button type="button" class="item">Export…</button>
+    </div>
+  </div>
+</div>
+<style>
+.demo-combo-button {
+  font-family: var(--font-sans);
+}
+.demo-combo-button .wrap {
+  position: relative;
+  transform: translateY(-18px);
+}
+.demo-combo-button button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.demo-combo-button .split {
+  display: flex;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  overflow: hidden;
+}
+.demo-combo-button .primary {
+  padding: 6px 14px;
+  background: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(0,0,0,.8);
+  transition: background .1s;
+}
+.demo-combo-button .primary:hover {
+  background: rgba(0,0,0,.05);
+}
+.demo-combo-button .primary.is-flash {
+  color: #0a56c9;
+}
+.demo-combo-button .arrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  border-left: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+  color: rgba(0,0,0,.6);
+  transition: background .1s;
+}
+.demo-combo-button .arrow:hover {
+  background: rgba(0,0,0,.05);
+}
+.demo-combo-button .arrow[aria-expanded="true"] {
+  background: rgba(0,0,0,.1);
+}
+.demo-combo-button .menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 5px);
+  z-index: 10;
+  width: 160px;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08);
+  transform-origin: top right;
+  transform: scale(.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .15s, opacity .15s;
+}
+.demo-combo-button .menu.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.demo-combo-button .item {
+  display: block;
+  width: 100%;
+  padding: 3px 8px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 12px;
+  color: rgba(0,0,0,.85);
+  transition: background .1s, color .1s;
+}
+.demo-combo-button .item:hover {
+  background: #0a6cff;
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-combo-button .primary,
+  .demo-combo-button .arrow,
+  .demo-combo-button .menu,
+  .demo-combo-button .item {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const primary = ROOT.querySelector('.primary');
+  const arrow = ROOT.querySelector('.arrow');
+  const menu = ROOT.querySelector('.menu');
+  const items = Array.from(ROOT.querySelectorAll('.item'));
+
+  function openMenu() {
+    menu.classList.add('is-open');
+    arrow.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu() {
+    menu.classList.remove('is-open');
+    arrow.setAttribute('aria-expanded', 'false');
+  }
+
+  // the arrow region opens related actions; the main region acts directly
+  arrow.addEventListener('click', function () {
+    if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
+  });
+
+  let flashTimer = null;
+  function flash(text) {
+    primary.textContent = text;
+    primary.classList.add('is-flash');
+    if (flashTimer) clearTimeout(flashTimer);
+    flashTimer = setTimeout(function () {
+      primary.textContent = 'Save';
+      primary.classList.remove('is-flash');
+    }, 1000);
+  }
+
+  primary.addEventListener('click', function () {
+    flash('✓ Saved');
+  });
+
+  items.forEach(function (item) {
+    item.addEventListener('click', function () {
+      closeMenu();
+      flash('✓ ' + item.textContent.replace('…', ''));
+    });
+  });
+
+  document.addEventListener('pointerdown', function (e) {
+    if (!ROOT.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
+</script>

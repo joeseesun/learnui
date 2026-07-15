@@ -1,0 +1,601 @@
+{
+ "skeleton-spinner": {
+  "name_zh": "骨架屏 Skeleton vs. 旋转指示器 Spinner",
+  "tagline_zh": "两种加载指示器：一个给布局可预期的内容占位，一个应付时长未知的等待",
+  "description_zh": "骨架屏（Skeleton）预览尚未到达的内容的几何结构，减少布局偏移，让可预期的页面感觉更快。旋转指示器（Spinner）用于表达时长未知的等待：最终形态未知，或操作与具体布局无关。无论哪种，结果或错误状态出来后都不该继续留着。",
+  "aka_zh": [
+   "骨架屏",
+   "占位加载块",
+   "加载转圈",
+   "转圈动画"
+  ],
+  "fuzzy_zh": [
+   "内容加载时那些灰色的块块",
+   "一闪一闪的灰色假卡片占位",
+   "等待时那个转圈的圆",
+   "数据来之前先摆着的假文字行",
+   "空白区域里的加载动画"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "把加载区域标记为 aria-busy=\"true\"；如果最终卡片布局已知，用骨架屏（Skeleton），在等待数据期间保持原有的几何结构；如果等待过程没有明确的内容形态，用带 role=\"status\" 的旋转指示器（Spinner）；无论哪种，加载完成后都要替换掉。",
+  "debugPrompt_zh": "调试我的骨架屏/旋转指示器（加载占位）。排查：加载时间不到 200ms 时骨架屏一闪而过——加出现延迟；微光扫过动画（shimmer）无限循环，因为错误状态一直没替换它；骨架形状与真实内容不符，替换时造成布局偏移（layout shift）；几十个占位同时动导致滚动卡顿。症状：",
+  "parts_zh": {
+   "skeleton-block": {
+    "name_zh": "骨架块",
+    "description_zh": "「代替卡片或图片的那个灰色形状」就是骨架块。",
+    "prompt_zh": "一个 shadcn/ui Skeleton 骨架块，与最终内容的几何结构完全一致，防止布局偏移"
+   },
+   "skeleton-line": {
+    "name_zh": "骨架文本行",
+    "description_zh": "「文字位置上的那条灰色假行」就是骨架文本行。",
+    "prompt_zh": "一个 shadcn/ui Skeleton 骨架文本行，宽度错落有致，贴近最终文案的排版"
+   },
+   "shimmer-sweep": {
+    "name_zh": "微光扫过（Shimmer）",
+    "description_zh": "「在占位块上扫过去的那道小亮光」就是微光扫过动画。",
+    "prompt_zh": "一个用 CSS @keyframes 实现的微妙微光扫过动画，在 aria-busy 为 true 期间持续扫过骨架块"
+   },
+   "spinner-track": {
+    "name_zh": "旋转指示器的轨道与弧段",
+    "description_zh": "「那个淡淡的圆圈和绕着它转的深色小段」就是旋转指示器的轨道和活动弧段。",
+    "prompt_zh": "一个 role=\"status\" 的不确定进度旋转指示器：低调的圆形轨道，加一条对比鲜明的旋转弧段"
+   }
+  }
+ },
+ "combobox": {
+  "name_zh": "组合框 Combobox（自动补全 / 输入联想）",
+  "tagline_zh": "一个文本输入框，配一个按输入过滤、可供选择的建议列表",
+  "description_zh": "组合框把可编辑的文本框和匹配值的弹出列表合在一起。输入会收窄选项，方向键移动活动选项，Enter 确认。与普通下拉选择不同，它可以支持搜索或自由输入，取决于产品规则。",
+  "aka_zh": [
+   "自动补全",
+   "输入联想",
+   "可搜索下拉",
+   "可编辑下拉框"
+  ],
+  "fuzzy_zh": [
+   "边打字边给建议的输入框",
+   "能搜索的下拉框",
+   "下面跟着匹配结果的文本框",
+   "能打字过滤的下拉选择",
+   "会自动补全的地址栏"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   "原生但功能有限的替代方案"
+  ],
+  "prompt_zh": "构建一个带标签的组合框（Combobox）：输入框用 role=\"combobox\"，受控的建议弹层用 role=\"listbox\"。保持 aria-expanded 和 aria-controls 同步，给每个结果 role=\"option\"；DOM 焦点留在输入框里，用 aria-activedescendant 指示高亮项；支持方向键、Enter、Escape，挂载时不要自动聚焦。",
+  "debugPrompt_zh": "调试我的组合框（role=combobox、aria-activedescendant、cmdk/Radix）。排查：blur 时列表先关闭，选项的点击还没落上——在 pointerdown 里处理选中，或检查 relatedTarget；过滤条件变化后高亮索引没有重置；aria-activedescendant 指向已被过滤掉的 option id；移动端键盘盖住列表，因为没有东西把输入框滚进可视区。症状：",
+  "parts_zh": {
+   "combobox-input": {
+    "name_zh": "组合框输入框",
+    "description_zh": "「我往里打字、能搜索的那个下拉框」就是组合框输入框。",
+    "prompt_zh": "role=\"combobox\" 的文本输入框，控制建议弹层并持有 DOM 焦点"
+   },
+   "listbox-popup": {
+    "name_zh": "列表弹层（Listbox）",
+    "description_zh": "「输入框下面那排匹配结果」就是列表弹层。",
+    "prompt_zh": "role=\"listbox\" 的建议弹层，锚定在组合框输入框正下方"
+   },
+   "active-option": {
+    "name_zh": "活动选项",
+    "description_zh": "「我按方向键时高亮的那条结果」就是活动选项。",
+    "prompt_zh": "由 aria-activedescendant 指示的活动选项，视觉上明显高亮，DOM 焦点始终留在组合框输入框里"
+   },
+   "selected-option-checkmark": {
+    "name_zh": "已选项对勾",
+    "description_zh": "「我已经选中的那项旁边的对勾」就是已选项指示。",
+    "prompt_zh": "组合框列表中 aria-selected=\"true\" 的 role=\"option\" 旁边的对勾"
+   }
+  }
+ },
+ "command-palette": {
+  "name_zh": "命令面板 Command Palette",
+  "tagline_zh": "键盘优先的可搜索启动器，用来执行操作和跳转导航",
+  "description_zh": "命令面板是键盘优先的浮层，在一个地方搜索操作、页面和对象。通常用 ⌘K 或 Ctrl+K 打开，一次高亮一条结果，Enter 执行选中命令。它比组合框更宽：启动的是五花八门的命令，而不是给某个字段选一个值。",
+  "aka_zh": [
+   "命令菜单",
+   "快捷操作",
+   "启动器",
+   "命令栏"
+  ],
+  "fuzzy_zh": [
+   "按 ⌘K 弹出的那个菜单",
+   "能搜索应用操作的列表",
+   "屏幕中间的快速启动器",
+   "用键盘想去哪就去哪的弹窗",
+   "VS Code 那种命令搜索",
+   "⌘K 弹窗"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 shadcn/ui 的 Command 组件加一个命令面板，放在 role=\"dialog\" 里，用 ⌘K 或 Ctrl+K 打开。随用户输入过滤操作，支持方向键选择和 Enter 执行，关闭后把焦点还给触发它的控件。",
+  "debugPrompt_zh": "调试我的命令面板（cmdk、Dialog + Command）。排查：⌘/Ctrl+K 监听器挂错了作用域，或被浏览器吃掉；上次打开时的过滤状态还留着——打开时要重置；焦点逃出 dialog，因为焦点陷阱忽略了 portal 渲染的内容；IME 输入法组词期间触发了 keydown（检查 isComposing）；面板被更高的层叠上下文压在下面。症状：",
+  "parts_zh": {
+   "command-input": {
+    "name_zh": "命令输入框",
+    "description_zh": "「⌘K 菜单顶部的搜索框」就是命令输入框。",
+    "prompt_zh": "命令面板顶部的 shadcn/ui CommandInput，随用户输入过滤命令"
+   },
+   "command-group": {
+    "name_zh": "命令分组",
+    "description_zh": "「把同类操作归在一起、带小标题的分区」就是命令分组。",
+    "prompt_zh": "一个 shadcn/ui CommandGroup，低调的小标题下面是一组相关命令项"
+   },
+   "active-command": {
+    "name_zh": "活动命令",
+    "description_zh": "「高亮显示、按 Enter 就会执行的那条结果」就是活动命令。",
+    "prompt_zh": "活动的 shadcn/ui CommandItem，整行选中高亮，表明 Enter 将执行什么"
+   },
+   "command-shortcut": {
+    "name_zh": "命令快捷键",
+    "description_zh": "「操作项右边对齐的那几个 ⌘ 字母」就是命令快捷键。",
+    "prompt_zh": "shadcn/ui CommandShortcut，对齐在命令项的末尾边缘"
+   }
+  }
+ },
+ "accordion": {
+  "name_zh": "手风琴 Accordion（披露式展开 Disclosure）",
+  "tagline_zh": "堆叠的分区，点标题即可展开或收起对应内容",
+  "description_zh": "手风琴是一摞垂直堆叠的标题，各自披露或隐藏对应内容。打开一个分区会在原地展开，把下面的分区往下推；允许同时开一个还是多个，取决于具体模式。原生 details 和 summary 元素自带基本的披露语义。",
+  "aka_zh": [
+   "披露展开",
+   "可展开分区",
+   "折叠面板",
+   "展开器"
+  ],
+  "fuzzy_zh": [
+   "点开行能展开看更多的列表",
+   "能展开收起的分区",
+   "问题能点开看答案的 FAQ",
+   "一排带小箭头的堆叠面板",
+   "一打开就把下面内容顶下去的分区"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   "把多个 details 元素编成一组，同时只开一个",
+   null
+  ],
+  "prompt_zh": "用 <details> 和 <summary> 元素构建手风琴。同一时刻只允许展开一个分区时，给成组的 <details> 元素相同的 name；保留原生键盘行为；给展开的面板加动画，但不要画蛇添足地加 aria-expanded——只有完全自研的披露原语才需要 aria-expanded。",
+  "debugPrompt_zh": "调试我的手风琴（details/summary、Radix Accordion）。排查：height: auto 没法做动画——改用 grid-template-rows 从 0fr 到 1fr 的动画，或用 interpolate-size；single 和 multiple 类型弄混，本只想开一个面板却开了两个；自定义图标旁边还渲染着默认的披露标记；焦点落进已关闭的面板，因为内容是用 opacity 而不是 display 隐藏的。症状：",
+  "parts_zh": {
+   "disclosure-trigger": {
+    "name_zh": "披露触发器",
+    "description_zh": "「FAQ 里点开答案的那个问题」就是披露触发器。",
+    "prompt_zh": "<summary> 披露触发器，铺满手风琴的标题行"
+   },
+   "disclosure-indicator": {
+    "name_zh": "披露指示符",
+    "description_zh": "「行展开时会转动的小箭头」就是披露指示符。",
+    "prompt_zh": "<summary>::marker 披露指示符，在关闭和打开状态之间旋转"
+   },
+   "disclosure-panel": {
+    "name_zh": "披露面板",
+    "description_zh": "「一展开就把下面内容全顶下去的答案区」就是披露面板。",
+    "prompt_zh": "<details> 披露面板，在它的 summary 标题正下方展开"
+   }
+  }
+ },
+ "tabs": {
+  "name_zh": "标签页 Tabs",
+  "tagline_zh": "一排标签，切换同一块共享内容区",
+  "description_zh": "标签页把平级的视图组织进同一块共享区域，任何时刻恰好一个标签、一个面板处于活动状态。选中的标签有持续的视觉标识（常见是下划线），键盘用户用方向键在标签列表间移动。标签页适合紧密相关的视图，不适合有先后顺序的流程。",
+  "aka_zh": [
+   "标签页界面",
+   "标签列表",
+   "标签栏"
+  ],
+  "fuzzy_zh": [
+   "那排能切换下面面板的标签",
+   "当前项底下有条线的切换标签",
+   "点了就能换视图的标题",
+   "内容上方那个横向切换器",
+   "页面里长得像浏览器标签页的导航"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "构建无障碍的标签页：一个 role=\"tablist\"，其中一个 role=\"tab\" 标记 aria-selected=\"true\"，对应的 role=\"tabpanel\" 用 aria-controls 和 aria-labelledby 互相连接。只有活动标签保持 tabindex=\"0\"，用左右方向键在标签间移动，切换共享面板但不离开页面。",
+  "debugPrompt_zh": "调试我的标签页（role=tablist/tab/tabpanel、roving tabindex）。排查：每个标签都进了 Tab 键序，而不是用单一 roving tabindex 加方向键移动；面板缺少 aria-labelledby 反向引用；窗口缩放时活动指示器不动，因为位置只量了一次；切换后面板状态丢失，因为非活动面板被卸载了，本该只是隐藏。症状：",
+  "parts_zh": {
+   "tab-list": {
+    "name_zh": "标签列表",
+    "description_zh": "「那整排用来切换视图的标签」就是标签列表。",
+    "prompt_zh": "role=\"tablist\" 的一行，装着平级的标签，作为一个键盘导航单元"
+   },
+   "active-tab-indicator": {
+    "name_zh": "活动标签指示器",
+    "description_zh": "「选中标签下面那条会移动的线」就是活动标签指示器。",
+    "prompt_zh": "aria-selected=\"true\" 的 role=\"tab\" 下方的活动标签指示器，在标签间平滑移动"
+   },
+   "tab-panel": {
+    "name_zh": "标签面板",
+    "description_zh": "「标签下面那块会跟着变的内容区」就是标签面板。",
+    "prompt_zh": "role=\"tabpanel\" 内容区，通过 aria-labelledby 与选中标签相连"
+   }
+  }
+ },
+ "badge-chip-pill": {
+  "name_zh": "徽标 Badge vs. 碎片 Chip vs. 胶囊 Pill vs. 标签 Tag",
+  "tagline_zh": "同样是小标签，靠含义、形状和可交互性来区分",
+  "description_zh": "徽标（Badge）是挂在另一个对象上的小计数或状态记号。Chip 是紧凑的可交互标记，可以被选中、编辑或移除；胶囊（Pill）描述的是外形，不是严格的行为定义。标签（Tag）通常是不可交互的分类元数据。所以该按用途选词，而不是只看圆角。",
+  "aka_zh": [
+   "标记 token",
+   "菱形小标签 lozenge",
+   "胶囊形标签"
+  ],
+  "fuzzy_zh": [
+   "图标上那个带数字的小气泡",
+   "带个 × 的圆角小标签",
+   "胶囊形状的状态标签",
+   "卡片上的分类小标签",
+   "能删掉的筛选气泡",
+   "图标上的小红点"
+  ],
+  "api_notes_zh": [
+   null,
+   "用于可删除或可选中的 chip",
+   null
+  ],
+  "prompt_zh": "未读数用 Badge（徽标），当前生效的筛选用可关闭的 Chip，短状态文字用全圆角的 Pill（胶囊），分类元数据用 Tag（标签）。不可交互的标签用 shadcn/ui Badge；纯图标的删除按钮要给 aria-label。",
+  "debugPrompt_zh": "调试我的 Badge/Chip/Pill。排查：计数没有封顶，撑爆布局——超过 99 显示 99+；胶囊文字从中间换行——缺 white-space: nowrap；chip 的删除点击区域远小于 24px，点不中；深色模式下低对比度填充看不清，因为配色没有成对地做主题适配。症状：",
+  "parts_zh": {
+   "badge-anchor": {
+    "name_zh": "徽标锚点",
+    "description_zh": "「数字小气泡趴在上面的那个图标」就是徽标锚点。",
+    "prompt_zh": "shadcn/ui Badge 的锚点：紧凑计数叠在父图标的上角"
+   },
+   "badge-count": {
+    "name_zh": "徽标计数",
+    "description_zh": "「红气泡里的小数字」就是徽标计数。",
+    "prompt_zh": "shadcn/ui Badge 里的紧凑计数：一位数用圆形，多位数用胶囊形"
+   },
+   "chip-remove-button": {
+    "name_zh": "Chip 删除按钮",
+    "description_zh": "「筛选胶囊里那个小 ×」就是 chip 的删除按钮。",
+    "prompt_zh": "可关闭 chip 里末尾的 <button aria-label> 删除操作"
+   },
+   "selected-chip-state": {
+    "name_zh": "Chip 选中态",
+    "description_zh": "「点过之后一直实心填充的那个筛选胶囊」就是 chip 的选中态。",
+    "prompt_zh": "可交互 chip 的 aria-pressed 选中态，用持续的实心填充样式"
+   }
+  }
+ },
+ "breadcrumbs": {
+  "name_zh": "面包屑导航 Breadcrumbs",
+  "tagline_zh": "一条从当前页面回溯到各级上级的层级路径",
+  "description_zh": "面包屑导航显示当前页在层级中的位置，并提供直达各级上级的链接。最后一项是当前位置，不是链接；分隔符只是装饰。路径很深时可以把中间层级折进省略号，但根层级和当前页不能藏。",
+  "aka_zh": [
+   "面包屑路径",
+   "路径导航",
+   "层级路径"
+  ],
+  "fuzzy_zh": [
+   "「首页 / 栏目 / 当前页」那样的链接",
+   "页面标题上面那条路径",
+   "显示你在网站哪个位置的链接",
+   "像文件夹路径那样的导航",
+   "页面名之间夹着小箭头的那一行"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "在 <nav aria-label=\"Breadcrumb\"> 里加面包屑导航：每个上级都做成链接，最后一项标 aria-current=\"page\"。空间紧张时把价值低的中间层级收进省略号，但当前页要始终可见。",
+  "debugPrompt_zh": "调试我的面包屑导航（nav aria-label=breadcrumb、aria-current=page）。排查：分隔符直接写进了标记里，屏幕阅读器会把每个斜杠都念出来——应该用 CSS 伪元素画；最后一项漏了 aria-current；路径太长时该折叠中间层级，而不是折成两行；当前页被渲染成了指向自己的链接。症状：",
+  "parts_zh": {
+   "breadcrumb-separator": {
+    "name_zh": "面包屑分隔符",
+    "description_zh": "「页面名之间的小斜杠或小箭头」就是面包屑分隔符。",
+    "prompt_zh": "层级链接之间的装饰性面包屑分隔符，标 aria-hidden=\"true\""
+   },
+   "current-page-crumb": {
+    "name_zh": "当前页面包屑",
+    "description_zh": "「最后一个不是链接的页面名」就是当前页面包屑。",
+    "prompt_zh": "最后一项面包屑标 aria-current=\"page\"，样式是当前位置而非链接"
+   },
+   "collapsed-ancestors": {
+    "name_zh": "折叠的上级",
+    "description_zh": "「把路径中间藏起来的三个点」就是被折叠的上级。",
+    "prompt_zh": "一个 BreadcrumbEllipsis，代替价值低的中间上级，根层级和当前页保持可见"
+   }
+  }
+ },
+ "sticky-fixed": {
+  "name_zh": "粘性定位 Sticky vs. 固定定位 Fixed",
+  "tagline_zh": "两种让元素保持可见的定位方式，包含块各不相同",
+  "description_zh": "sticky 元素先参与正常布局，滚动到达它的偏移值后，就钉在所属滚动区域内。fixed 元素从一开始就不在正常流里，锚定在视口（或带变换的包含块）上。表格和分区头部通常该用 sticky；常驻视口的控件才用 fixed。",
+  "aka_zh": [
+   "吸顶头部",
+   "固定头部",
+   "钉住的元素"
+  ],
+  "fuzzy_zh": [
+   "面板滚动时一直不动的头部",
+   "钉在屏幕顶上的那条栏",
+   "先跟着滚、滚到位就粘住的元素",
+   "滚动时一直让这个可见",
+   "固定在角落的悬浮按钮"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "分区头部用 position: sticky 加 top: 0：它先正常滚动，到达最近滚动容器的顶部后就停在那里。position: fixed 只留给必须锚定在视口、不受任何滚动容器影响的 UI。",
+  "debugPrompt_zh": "调试我的 sticky/fixed 定位。排查：sticky 完全无效，因为祖先有 overflow: hidden/auto/scroll——经典坑；sticky 没设 top/bottom 偏移，永远不会触发；fixed 在带 transform/filter 的祖先里表现得像 absolute；元素切到 fixed 时内容跳动，因为没有占位保留它的高度。症状：",
+  "parts_zh": {
+   "sticky-threshold": {
+    "name_zh": "吸顶阈值",
+    "description_zh": "「头部停止滚动、粘住不动的那个点」就是吸顶阈值。",
+    "prompt_zh": "CSS top 偏移值，定义 position: sticky 元素开始钉住的阈值"
+   },
+   "scroll-container": {
+    "name_zh": "吸顶滚动容器",
+    "description_zh": "「把吸顶头部困在里面的那个面板」就是它的滚动容器。",
+    "prompt_zh": "最近的滚动容器，限定 position: sticky 元素的活动范围"
+   }
+  }
+ },
+ "focus-ring-web": {
+  "name_zh": "焦点环 Focus Ring（:focus-visible）",
+  "tagline_zh": "感知键盘操作的轮廓线，标识当前活动的控件",
+  "description_zh": "焦点环标识出将接收下一次键盘操作的元素。:focus 伪类匹配任何获得焦点的元素；:focus-visible 则让浏览器只在输入方式或控件需要时（最典型的就是键盘导航）才显示强指示。永远不要移除默认轮廓却不提供同样醒目的替代。",
+  "aka_zh": [
+   "焦点指示器",
+   "键盘焦点轮廓",
+   "焦点光晕"
+  ],
+  "fuzzy_zh": [
+   "按 Tab 后按钮外面那圈线",
+   "选中控件上的蓝色圆环",
+   "键盘导航时的高亮",
+   "显示哪个按钮有焦点的那圈边框",
+   "不该每次鼠标点击都出现的那圈环"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 :focus-visible 给键盘焦点环做样式，不要全局禁用浏览器默认轮廓。焦点环要高对比、与控件明显错开；:focus 只用于无论焦点来自键盘还是指针都必须生效的样式。",
+  "debugPrompt_zh": "调试我的焦点环（outline、:focus-visible）。排查：全局 outline: none 把所有键盘导航焦点都干掉了；本意是 :focus-visible 却用了 :focus，鼠标点击也出现焦点环；焦点环被 overflow: hidden 的祖先裁掉——改用 outline-offset 或内侧 box-shadow；box-shadow 焦点环在同色背景上看不见；用 .focus() 编程聚焦时不显示焦点环，需要 focus-visible 相关选项。症状：",
+  "parts_zh": {
+   "focus-outline": {
+    "name_zh": "焦点轮廓",
+    "description_zh": "「按 Tab 后按钮周围那圈蓝线」就是焦点轮廓。",
+    "prompt_zh": ":focus-visible 控件周围一圈高对比的 CSS outline"
+   },
+   "outline-offset": {
+    "name_zh": "轮廓偏移",
+    "description_zh": "「控件和焦点线之间那条小缝隙」就是轮廓偏移。",
+    "prompt_zh": "CSS outline-offset，在 :focus-visible 焦点环和控件边缘之间留出可见缝隙"
+   }
+  }
+ },
+ "empty-state": {
+  "name_zh": "空状态 Empty State",
+  "tagline_zh": "视图还没有内容时，给出有目的的引导",
+  "description_zh": "没有内容可显示时——无论首次使用、过滤之后，还是内容被删光——空状态就代替内容视图出场。它不带责备地解释现状，并给出最有用的下一步操作。空状态是被设计出来的产品状态，不只是留白，也不是错误消息。",
+  "aka_zh": [
+   "空白状态",
+   "零状态",
+   "首次使用状态",
+   "无结果状态"
+  ],
+  "fuzzy_zh": [
+   "什么都没有时显示的那个界面",
+   "用户还没创建第一项内容前的面板",
+   "带个按钮的「没有结果」提示",
+   "空列表里的说明文字",
+   "与其摆个空白框，不如显示点什么"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   "用于动态产生的无结果消息"
+  ],
+  "prompt_zh": "把空状态做成一个带标签的 <section>：一个简洁图标、一句解释为什么是空的话、一个能解决问题的主动作。动态产生的无结果状态，用 role=\"status\" 播报消息，但不移动焦点。",
+  "debugPrompt_zh": "调试我的空状态。排查：数据到达前空状态一闪而过——加载中和真空共用一个布尔值；出错时渲染成空状态而不是错误状态；行动号召按钮键盘到不了；真实内容替换空状态时布局跳动，因为没预留高度。症状：",
+  "parts_zh": {
+   "state-illustration": {
+    "name_zh": "状态插画",
+    "description_zh": "「那张安静的插画，告诉你这块空地是干嘛的」就是状态插画。",
+    "prompt_zh": "一张 aria-hidden=\"true\" 的空状态插画，烘托「没有内容」的状态，但不充当标签"
+   },
+   "recovery-action": {
+    "name_zh": "恢复操作",
+    "description_zh": "「带我走出空白屏的那个按钮」就是恢复操作。",
+    "prompt_zh": "空状态里的主要 <button> 恢复操作，解决视图为空的问题"
+   }
+  }
+ },
+ "hover-card": {
+  "name_zh": "悬停卡片 Hover Card",
+  "tagline_zh": "悬停或聚焦某个参照物时浮现的富内容、非模态预览",
+  "description_zh": "悬停卡片是与人、地点或链接对象关联的富内容预览。它比工具提示信息量大，可以放被动展示的元数据或少量操作，同时底下的页面照常可用。开关延迟必须设计得当，让指针能从触发器移进卡片而不闪烁。",
+  "aka_zh": [
+   "悬停预览",
+   "资料预览",
+   "预览卡片"
+  ],
+  "fuzzy_zh": [
+   "悬停用户名时弹出的资料预览",
+   "链接上浮出来的富内容弹窗",
+   "悬停时出来的用户小卡片",
+   "带头像和详细信息的工具提示",
+   "打开主页前先看到的预览"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 Radix HoverCard 加一个悬停卡片，预览链接对应的资料（头像加简介）。悬停和键盘聚焦都能触发，短暂延迟后显示；指针移进卡片时保持打开；退出时 opacity 和 transform 过渡平滑反向播放。",
+  "debugPrompt_zh": "调试我的悬停卡片（Radix HoverCard、mouseenter/mouseleave）。排查：指针从触发器移向卡片的途中卡片就关了——需要悬停意图延迟或安全多边形（safe-polygon）；触屏设备上没有悬停所以永远打不开——提供点按/聚焦路径；开关延迟调得太短，指针一扫而过就闪烁；卡片被另一个层叠上下文压在下面。症状：",
+  "parts_zh": {
+   "preview-trigger": {
+    "name_zh": "预览触发器",
+    "description_zh": "「我一悬停就弹出卡片的那个用户名」就是预览触发器。",
+    "prompt_zh": "Radix HoverCardTrigger 参照物，悬停和键盘聚焦都能唤出预览"
+   },
+   "preview-content": {
+    "name_zh": "预览内容",
+    "description_zh": "「那个内容更丰富的小资料弹窗」就是预览内容。",
+    "prompt_zh": "Radix HoverCardContent 预览面板，被动展示的详情比工具提示更丰富"
+   }
+  }
+ },
+ "switch-checkbox-radio": {
+  "name_zh": "开关 Switch vs. 复选框 Checkbox vs. 单选按钮 Radio",
+  "tagline_zh": "三种控件：管开/关的设置、各自独立的多选、组内只能选一个",
+  "description_zh": "开关控制二元设置，并传达「改动立即生效」——比如打开通知。复选框代表一个独立的表单值，可以等保存或提交才生效，且能同时选中多个。单选按钮组成一个有名字的组，选中一个就清掉其他。",
+  "aka_zh": [
+   "拨动开关",
+   "勾选框",
+   "单选钮",
+   "选项按钮"
+  ],
+  "fuzzy_zh": [
+   "左右滑来开关的那个控件",
+   "带对勾的方框",
+   "只能选一个的圆圈",
+   "一拨就立刻生效的设置",
+   "能选好几个 vs. 只能选一个"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "开/关二元设置用 <input type=\"checkbox\" role=\"switch\">；各自独立的勾选项用原生 <input type=\"checkbox\">；只能选一个时用同名的一组 <input type=\"radio\">。每个控件都要有可见、可点的标签，选中状态通过原生控件暴露。",
+  "debugPrompt_zh": "调试我的开关/复选框/单选按钮。排查：控件视觉上翻转了但状态没更新——受控 input 没写 onChange；点标签不切换，因为缺 for/id 关联；单选按钮不成组，因为 name 属性不一致；复选框的半选（indeterminate）状态丢了——它只能用 JS 设置，标记里写不了。症状：",
+  "parts_zh": {
+   "switch-thumb": {
+    "name_zh": "开关滑钮",
+    "description_zh": "「左右滑动的那个小圆钮」就是开关滑钮。",
+    "prompt_zh": "role=\"switch\" 控件里的圆形滑钮，打开时滑向选中一侧"
+   },
+   "switch-track": {
+    "name_zh": "开关轨道",
+    "description_zh": "「滑动圆钮后面那条胶囊形的槽」就是开关轨道。",
+    "prompt_zh": "role=\"switch\" 滑钮后面的胶囊形轨道，随选中状态改变填充色"
+   },
+   "checkbox-checkmark": {
+    "name_zh": "复选框对勾",
+    "description_zh": "「方框里出现的那个勾」就是复选框对勾。",
+    "prompt_zh": "选中的 <input type=\"checkbox\"> 里的原生对勾"
+   },
+   "radio-selection-dot": {
+    "name_zh": "单选圆点",
+    "description_zh": "「选中圆圈里那个实心点」就是单选圆点。",
+    "prompt_zh": "同名组里选中的 <input type=\"radio\"> 中央的选中圆点"
+   }
+  }
+ },
+ "toggle-group": {
+  "name_zh": "切换组 Toggle Group（分段控件 Segmented Control）",
+  "tagline_zh": "连成一排的紧凑选项，其中一项保持选中",
+  "description_zh": "切换组是一排紧凑的相关按钮，整体当一个选择控件用。单选形态下常叫分段控件，适合立即切换视图或模式。和标签页不同，它改变的是设置或呈现方式，而不是给不同的内容面板贴标签。",
+  "aka_zh": [
+   "分段控件",
+   "按钮组",
+   "视图切换器",
+   "分段按钮"
+  ],
+  "fuzzy_zh": [
+   "连成一排、总有一个保持选中的按钮",
+   "一小条分段的视图切换器",
+   "切换列表/网格的那组胶囊按钮",
+   "一个圆角控件里装着三个选项",
+   "网页上 iOS 风格的分段按钮"
+  ],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "prompt_zh": "用 Radix ToggleGroup 构建一个持久单选的切换组。外观上把相连的按钮呈现为一个分段控件；语义上整组暴露为 role=\"radiogroup\"，各项为 role=\"radio\" 并带 aria-checked 状态；支持方向键在分段间移动。",
+  "debugPrompt_zh": "调试我的切换组（aria-pressed、Radix ToggleGroup）。排查：single 和 multiple 语义搞混——一个像单选按钮组，一个像复选框组；按下态看不出来，因为只有颜色变化、且对比不够；取消选中最后一项导致没有选中项，而设计上必须总有一项开着；方向键失灵，因为没实现 roving focus。症状：",
+  "parts_zh": {
+   "selected-toggle": {
+    "name_zh": "选中的切换项",
+    "description_zh": "「组里那个一直实心填充的按钮」就是选中的切换项。",
+    "prompt_zh": "role=\"radio\" 且 aria-checked=\"true\" 的切换项，用持续的选中填充样式"
+   },
+   "segment-divider": {
+    "name_zh": "分段分隔线",
+    "description_zh": "「胶囊里两个选项之间的那条小竖线」就是分段分隔线。",
+    "prompt_zh": "连成一体的控件里，相邻 Radix ToggleGroup 项之间的分隔线"
+   }
+  }
+ },
+ "menu-bar-extra": {
+  "name_zh": "菜单栏附加项 Menu Bar Extra（状态项 Status Item）",
+  "tagline_zh": "住在 macOS 菜单栏右侧的那个图标",
+  "description_zh": "菜单栏附加项是 macOS 菜单栏右侧、时钟旁边的小图标——Wi-Fi、电池和第三方应用都住在这。AppKit 里它是 NSStatusItem，SwiftUI 把整套东西叫 MenuBarExtra。点击其中一个，它的按钮就进入高亮状态：一层浅色圆角底，在菜单或弹出窗口打开期间一直显示，菜单关闭后淡出。",
+  "aka_zh": [
+   "状态项",
+   "菜单栏图标",
+   "菜单栏应用",
+   "状态栏项",
+   "托盘图标（Windows 说法）"
+  ],
+  "fuzzy_zh": [
+   "Mac 菜单栏右上角的那个图标",
+   "点菜单栏图标时它后面那层浅色底",
+   "菜单栏图标的菜单打开时的高亮状态",
+   "Mac 上时钟旁边的小图标",
+   "Mac 上的系统托盘图标",
+   "屏幕顶上带下拉菜单的应用图标"
+  ],
+  "api_notes_zh": [
+   null,
+   "macOS 13+",
+   "创建它的方法",
+   "菜单打开期间图标背后的浅色圆角底"
+  ],
+  "prompt_zh": "加一个菜单栏附加项——macOS 菜单栏里的 NSStatusItem（SwiftUI 用 MenuBarExtra）。它的菜单或弹出窗口打开期间，状态项的按钮必须显示高亮状态：浅色圆角底（NSStatusBarButton.isHighlighted），和系统菜单栏图标一模一样。",
+  "debugPrompt_zh": "调试我的 macOS 菜单栏附加项（NSStatusItem、SwiftUI MenuBarExtra）。排查：状态项被释放，因为没有对象持有它；图标在深色菜单栏下不变色，因为图像没标记为 template；菜单栏空间不够时状态项被悄悄隐藏；手动管理 isHighlighted 导致按钮高亮卡住不消失；MenuBarExtra 的 window 样式和 menu 样式行为不一致。症状：",
+  "parts_zh": {
+   "template-icon": {
+    "name_zh": "模板图标（Template Icon）",
+    "description_zh": "「会自己变色的单色图标」就是模板图标。",
+    "prompt_zh": "一个 NSImage.isTemplate 菜单栏图标，macOS 会自动适配浅色/深色菜单栏重新着色"
+   },
+   "highlighted-state": {
+    "name_zh": "高亮状态",
+    "description_zh": "「菜单栏图标背后那个会变亮的东西」就是状态按钮的高亮状态。",
+    "prompt_zh": "NSStatusBarButton.isHighlighted 状态：菜单栏图标背后的浅色圆角底，在其界面打开期间一直显示"
+   },
+   "attached-surface": {
+    "name_zh": "附着的菜单或弹出窗口",
+    "description_zh": "「真正弹出来的那个菜单栏窗口」就是状态项附着的菜单或弹出窗口。",
+    "prompt_zh": "NSStatusItem.menu 或附着的 NSPopover，在状态项正下方打开"
+   }
+  }
+ }
+}

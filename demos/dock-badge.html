@@ -1,0 +1,45 @@
+<div class="demo demo-dock-badge">
+  <div class="dock">
+    <div class="icon i1"><span class="badge">3</span></div>
+    <div class="icon i2"></div>
+    <div class="icon i3"></div>
+    <div class="icon i4"></div>
+  </div>
+</div>
+<style>
+.demo-dock-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+}
+.demo-dock-badge .dock {
+  display: flex; align-items: flex-end; gap: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.4);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  padding: 8px 12px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.1);
+}
+.demo-dock-badge .icon {
+  position: relative;
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+}
+.demo-dock-badge .i1 { background: linear-gradient(135deg, #5ac8fa, #0a6cff); }
+.demo-dock-badge .i2 { background: linear-gradient(135deg, #34d058, #1d9c46); }
+.demo-dock-badge .i3 { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+.demo-dock-badge .i4 { background: linear-gradient(135deg, #fbbf24, #f97316); }
+.demo-dock-badge .badge {
+  position: absolute; right: -6px; top: -6px;
+  display: flex; height: 18px; min-width: 18px; box-sizing: border-box;
+  align-items: center; justify-content: center;
+  border-radius: 9999px; background: #ff3b30;
+  padding: 0 4px;
+  font-size: 10.5px; font-weight: 600; line-height: 1; color: #fff;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+</style>

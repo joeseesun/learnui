@@ -1,0 +1,137 @@
+<div class="demo demo-bento-grid">
+  <div class="ben-card">
+    <div class="ben-grid">
+      <div class="ben-tile ben-hero">
+        <div class="ben-hero-top">
+          <p class="ben-label">Revenue</p>
+          <p class="ben-value-lg">$48.2k</p>
+        </div>
+        <svg viewBox="0 0 84 30" class="ben-spark" aria-hidden="true"><polyline points="0,26 12,20 24,23 36,14 48,17 60,8 72,12 84,4" fill="none" stroke="#0a6cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+      </div>
+      <div class="ben-tile">
+        <p class="ben-label">Users</p>
+        <p class="ben-value">2.4k</p>
+      </div>
+      <div class="ben-tile">
+        <p class="ben-label">Growth</p>
+        <p class="ben-value ben-up">↑ 12%</p>
+      </div>
+      <div class="ben-tile ben-wide">
+        <div class="ben-avatars" aria-hidden="true">
+          <span class="ben-avatar ben-a1"></span>
+          <span class="ben-avatar ben-a2"></span>
+          <span class="ben-avatar ben-a3"></span>
+        </div>
+        <p class="ben-note">+9 signups today</p>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-bento-grid {
+  font-family: var(--font-sans);
+}
+.demo-bento-grid .ben-card {
+  width: 240px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 12px;
+}
+.demo-bento-grid .ben-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, 46px);
+  gap: 8px;
+}
+.demo-bento-grid .ben-tile {
+  box-sizing: border-box;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 8px;
+  transition: transform 150ms, box-shadow 150ms;
+}
+.demo-bento-grid .ben-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+.demo-bento-grid .ben-hero {
+  grid-column: span 2;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.demo-bento-grid .ben-wide {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.demo-bento-grid .ben-label {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #94a3b8;
+}
+.demo-bento-grid .ben-value-lg {
+  margin: 2px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+  color: #334155;
+}
+.demo-bento-grid .ben-value {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #334155;
+}
+.demo-bento-grid .ben-up {
+  color: #10b981;
+}
+.demo-bento-grid .ben-spark {
+  display: block;
+  width: 100%;
+  height: 36px;
+  margin-top: 6px;
+}
+.demo-bento-grid .ben-avatars {
+  display: flex;
+  flex-shrink: 0;
+}
+.demo-bento-grid .ben-avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 2px #f1f5f9;
+}
+.demo-bento-grid .ben-avatar + .ben-avatar {
+  margin-left: -4px;
+}
+.demo-bento-grid .ben-a1 { background: linear-gradient(to bottom right, #fcd34d, #fb7185); }
+.demo-bento-grid .ben-a2 { background: linear-gradient(to bottom right, #67e8f9, #6366f1); }
+.demo-bento-grid .ben-a3 { background: linear-gradient(to bottom right, #bef264, #14b8a6); }
+.demo-bento-grid .ben-note {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.3;
+  color: #64748b;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-bento-grid .ben-tile {
+    transition: none;
+  }
+  .demo-bento-grid .ben-tile:hover {
+    transform: none;
+  }
+}
+</style>

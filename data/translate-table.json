@@ -1,0 +1,319 @@
+[
+ {
+  "thing": "Alert",
+  "appkit": "NSAlert",
+  "swiftui": ".alert(…) or AlertScene"
+ },
+ {
+  "thing": "Alternating row backgrounds",
+  "appkit": "NSTableView.usesAlternatingRowBackgroundColors",
+  "swiftui": ".alternatingRowBackgrounds(_:)"
+ },
+ {
+  "thing": "App menu bar",
+  "appkit": "NSApplication.mainMenu",
+  "swiftui": ".commands { … }"
+ },
+ {
+  "thing": "Button",
+  "appkit": "NSButton",
+  "swiftui": "Button"
+ },
+ {
+  "thing": "Checkbox",
+  "appkit": "NSButton with switch type",
+  "swiftui": "Toggle + .toggleStyle(.checkbox)"
+ },
+ {
+  "thing": "Color well / color picker",
+  "appkit": "NSColorWell + NSColorPanel",
+  "swiftui": "ColorPicker"
+ },
+ {
+  "thing": "Command group",
+  "appkit": "inserted NSMenuItems",
+  "swiftui": "CommandGroup"
+ },
+ {
+  "thing": "Confirmation dialog",
+  "appkit": "NSAlert",
+  "swiftui": ".confirmationDialog(…)"
+ },
+ {
+  "thing": "Context menu",
+  "appkit": "NSView.menu / NSMenu",
+  "swiftui": ".contextMenu { … }"
+ },
+ {
+  "thing": "Date picker",
+  "appkit": "NSDatePicker",
+  "swiftui": "DatePicker"
+ },
+ {
+  "thing": "Dialog icon",
+  "appkit": "NSAlert.icon",
+  "swiftui": ".dialogIcon(_:)"
+ },
+ {
+  "thing": "Disclosure control",
+  "appkit": "NSButton.BezelStyle.disclosure / NSOutlineView",
+  "swiftui": "DisclosureGroup"
+ },
+ {
+  "thing": "Inspector",
+  "note": "AppKit uses several context-dependent counterparts",
+  "appkit": "NSSplitViewItem.Behavior.inspector / NSInspectorBar / NSPanel",
+  "swiftui": ".inspector(…)"
+ },
+ {
+  "thing": "Navigation stack (approximate)",
+  "note": "No direct AppKit equivalent",
+  "appkit": "NSPageController",
+  "swiftui": "NavigationStack"
+ },
+ {
+  "thing": "“Don’t show again” checkbox",
+  "appkit": "NSAlert.showsSuppressionButton",
+  "swiftui": ".dialogSuppressionToggle(…)"
+ },
+ {
+  "thing": "Gauge / level indicator",
+  "appkit": "NSLevelIndicator",
+  "swiftui": "Gauge"
+ },
+ {
+  "thing": "Help button/link",
+  "appkit": "NSHelpManager + NSButton",
+  "swiftui": "HelpLink"
+ },
+ {
+  "thing": "Hierarchical table row",
+  "appkit": "NSOutlineView row",
+  "swiftui": "DisclosureTableRow"
+ },
+ {
+  "thing": "List",
+  "appkit": "NSTableView",
+  "swiftui": "List"
+ },
+ {
+  "thing": "Menu",
+  "appkit": "NSMenu",
+  "swiftui": "Menu"
+ },
+ {
+  "thing": "Menu bar extra / status item",
+  "appkit": "NSStatusItem",
+  "swiftui": "MenuBarExtra"
+ },
+ {
+  "thing": "Menu indicator arrow",
+  "appkit": "NSPopUpButtonCell.arrowPosition",
+  "swiftui": ".menuIndicator(_:)"
+ },
+ {
+  "thing": "Menu item keyboard equivalent",
+  "appkit": "NSMenuItem.keyEquivalent",
+  "swiftui": ".keyboardShortcut(_:)"
+ },
+ {
+  "thing": "Menu separator",
+  "appkit": "NSMenuItem.separator()",
+  "swiftui": "Divider inside a menu"
+ },
+ {
+  "thing": "Menu-style status item",
+  "appkit": "NSStatusItem + NSMenu",
+  "swiftui": "MenuBarExtra + .menuBarExtraStyle(.menu)"
+ },
+ {
+  "thing": "Multi-window scene",
+  "appkit": "NSWindowController instances",
+  "swiftui": "WindowGroup"
+ },
+ {
+  "thing": "Navigation split view",
+  "appkit": "NSSplitViewController",
+  "swiftui": "NavigationSplitView"
+ },
+ {
+  "thing": "Open/import panel",
+  "appkit": "NSOpenPanel",
+  "swiftui": ".fileImporter(…)"
+ },
+ {
+  "thing": "Outline / source list",
+  "appkit": "NSOutlineView",
+  "swiftui": "OutlineGroup or hierarchical List"
+ },
+ {
+  "thing": "Palette picker",
+  "appkit": "NSMatrix or NSSegmentedControl",
+  "swiftui": "Picker + .pickerStyle(.palette)"
+ },
+ {
+  "thing": "Paste button",
+  "appkit": "NSButton + NSPasteboard",
+  "swiftui": "PasteButton"
+ },
+ {
+  "thing": "Pop-up button",
+  "appkit": "NSPopUpButton with pullsDown = false",
+  "swiftui": "Picker + .pickerStyle(.menu)"
+ },
+ {
+  "thing": "Popover",
+  "appkit": "NSPopover",
+  "swiftui": ".popover(…)"
+ },
+ {
+  "thing": "Progress bar / spinner",
+  "appkit": "NSProgressIndicator",
+  "swiftui": "ProgressView"
+ },
+ {
+  "thing": "Pull-down button",
+  "appkit": "NSPopUpButton with pullsDown = true",
+  "swiftui": "Menu + .menuStyle(.button)"
+ },
+ {
+  "thing": "Radio group",
+  "appkit": "grouped radio-type NSButtons",
+  "swiftui": "Picker + .pickerStyle(.radioGroup)"
+ },
+ {
+  "thing": "Rename button",
+  "appkit": "NSButton / responder-chain rename action",
+  "swiftui": "RenameButton"
+ },
+ {
+  "thing": "Resizable split view",
+  "appkit": "NSSplitView",
+  "swiftui": "HSplitView / VSplitView"
+ },
+ {
+  "thing": "Save/export panel",
+  "appkit": "NSSavePanel",
+  "swiftui": ".fileExporter(…)"
+ },
+ {
+  "thing": "Search field",
+  "appkit": "NSSearchField",
+  "swiftui": ".searchable(…)"
+ },
+ {
+  "thing": "Segmented control",
+  "appkit": "NSSegmentedControl",
+  "swiftui": "Picker + .pickerStyle(.segmented)"
+ },
+ {
+  "thing": "Settings window",
+  "appkit": "preferences NSWindowController",
+  "swiftui": "Settings"
+ },
+ {
+  "thing": "Share button / share picker",
+  "appkit": "NSSharingServicePicker",
+  "swiftui": "ShareLink"
+ },
+ {
+  "thing": "Sheet",
+  "appkit": "NSWindow.beginSheet",
+  "swiftui": ".sheet(…)"
+ },
+ {
+  "thing": "Sidebar toggle",
+  "appkit": "NSSplitViewController.toggleSidebar(_:)",
+  "swiftui": "SidebarCommands / system toolbar item"
+ },
+ {
+  "thing": "Single window",
+  "appkit": "NSWindow",
+  "swiftui": "Window"
+ },
+ {
+  "thing": "Slider",
+  "appkit": "NSSlider",
+  "swiftui": "Slider"
+ },
+ {
+  "thing": "Stepper",
+  "appkit": "NSStepper",
+  "swiftui": "Stepper"
+ },
+ {
+  "thing": "Switch",
+  "appkit": "NSSwitch",
+  "swiftui": "Toggle + .toggleStyle(.switch)"
+ },
+ {
+  "thing": "Tab view",
+  "appkit": "NSTabViewController / NSTabView",
+  "swiftui": "TabView + Tab"
+ },
+ {
+  "thing": "Table",
+  "appkit": "NSTableView",
+  "swiftui": "Table"
+ },
+ {
+  "thing": "Table column",
+  "appkit": "NSTableColumn",
+  "swiftui": "TableColumn"
+ },
+ {
+  "thing": "Table header strip",
+  "appkit": "NSTableHeaderView",
+  "swiftui": ".tableColumnHeaders(_:)"
+ },
+ {
+  "thing": "Table row",
+  "appkit": "NSTableRowView",
+  "swiftui": "TableRow"
+ },
+ {
+  "thing": "Toolbar",
+  "appkit": "NSToolbar",
+  "swiftui": ".toolbar { … }"
+ },
+ {
+  "thing": "Toolbar customization palette",
+  "appkit": "NSToolbar customization",
+  "swiftui": ".toolbar(id:content:)"
+ },
+ {
+  "thing": "Toolbar item",
+  "appkit": "NSToolbarItem",
+  "swiftui": "ToolbarItem"
+ },
+ {
+  "thing": "Toolbar item group",
+  "appkit": "NSToolbarItemGroup",
+  "swiftui": "ToolbarItemGroup"
+ },
+ {
+  "thing": "Toolbar overflow menu",
+  "appkit": "NSToolbar overflow menu",
+  "swiftui": ".toolbarOverflowMenu { … }"
+ },
+ {
+  "thing": "Top-level command menu",
+  "appkit": "top-level NSMenuItem + NSMenu",
+  "swiftui": "CommandMenu"
+ },
+ {
+  "thing": "Utility window / tool palette",
+  "appkit": "NSPanel",
+  "swiftui": "UtilityWindow"
+ },
+ {
+  "thing": "Web link",
+  "appkit": "link-style NSTextField + NSWorkspace",
+  "swiftui": "Link"
+ },
+ {
+  "thing": "Window-style status item",
+  "appkit": "NSStatusItem + NSPopover or panel",
+  "swiftui": "MenuBarExtra + .menuBarExtraStyle(.window)"
+ }
+]

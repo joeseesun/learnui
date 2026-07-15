@@ -1,0 +1,164 @@
+<div class="demo demo-tabs">
+  <div class="card">
+    <div class="tablist" role="tablist" aria-label="Dashboard sections">
+      <button type="button" class="tab active" role="tab" aria-selected="true" data-tab="overview">
+        Overview
+        <span class="bar" aria-hidden="true"></span>
+      </button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-tab="insights">
+        Insights
+        <span class="bar" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="panel" role="tabpanel" data-panel="overview">
+      <p class="cap">Weekly activity</p>
+      <p class="big">1,248</p>
+      <p class="delta">+12% from last week</p>
+    </div>
+    <div class="panel" role="tabpanel" data-panel="insights" hidden>
+      <p class="cap">Top insight</p>
+      <p class="big">3.2&times;</p>
+      <p class="delta">More signups on Tuesdays</p>
+    </div>
+  </div>
+</div>
+<style>
+.demo-tabs {
+  font-family: var(--font-sans);
+  width: 100%;
+  max-width: 300px;
+}
+.demo-tabs .card {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.demo-tabs .tablist {
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 2px 2px 0 0;
+}
+.demo-tabs .tab {
+  position: relative;
+  border: 0;
+  background: transparent;
+  padding: 0 12px 8px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 150ms;
+}
+.demo-tabs .tab:first-child {
+  padding-left: 12px;
+}
+.demo-tabs .tab:hover {
+  color: #334155;
+}
+.demo-tabs .tab.active {
+  color: #2563eb;
+}
+.demo-tabs .bar {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 999px;
+  background: #2563eb;
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition: opacity 200ms, transform 200ms;
+}
+.demo-tabs .tab.active .bar {
+  opacity: 1;
+  transform: scaleX(1);
+}
+.demo-tabs .panel {
+  position: relative;
+  padding-top: 12px;
+  border-radius: 0 0 6px 6px;
+}
+.demo-tabs .panel[hidden] {
+  display: none;
+}
+.demo-tabs .panel.show {
+  animation: demo-tabs-in 180ms ease-out;
+}
+.demo-tabs .cap {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+.demo-tabs .big {
+  margin: 4px 0 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+}
+.demo-tabs .delta {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #059669;
+}
+@keyframes demo-tabs-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-tabs .tab,
+  .demo-tabs .bar {
+    transition: none;
+  }
+  .demo-tabs .panel.show {
+    animation: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const tabs = Array.prototype.slice.call(ROOT.querySelectorAll('.tab'));
+  const panels = Array.prototype.slice.call(ROOT.querySelectorAll('.panel'));
+
+  function activate(name) {
+    tabs.forEach(function (tab) {
+      const on = tab.dataset.tab === name;
+      tab.classList.toggle('active', on);
+      tab.setAttribute('aria-selected', String(on));
+    });
+    panels.forEach(function (panel) {
+      const on = panel.dataset.panel === name;
+      panel.hidden = !on;
+      panel.classList.toggle('show', on);
+    });
+  }
+
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener('click', function () {
+      activate(tab.dataset.tab);
+    });
+    tab.addEventListener('keydown', function (event) {
+      let next = -1;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+      if (next !== -1) {
+        event.preventDefault();
+        tabs[next].focus();
+        activate(tabs[next].dataset.tab);
+      }
+    });
+  });
+})();
+</script>

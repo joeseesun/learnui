@@ -1,0 +1,268 @@
+<div class="demo demo-split-view">
+  <div class="win">
+    <div class="titlebar">
+      <div class="tls">
+        <span class="tl tl-r"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-y"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-g"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+      <span class="tracking-sep"><span class="tracking-sep-line"></span></span>
+      <span class="title">Mail</span>
+    </div>
+    <div class="body">
+      <div class="sidebar">
+        <button type="button" class="side-item is-sel" data-name="Inbox">Inbox</button>
+        <button type="button" class="side-item" data-name="Sent">Sent</button>
+        <button type="button" class="side-item" data-name="Drafts">Drafts</button>
+      </div>
+      <div class="divider" role="separator" aria-orientation="vertical" title="Drag to resize, double-click to collapse">
+        <span class="divider-line"></span>
+      </div>
+      <div class="pane">
+        <p class="pane-title">Inbox</p>
+        <div class="bar" style="width:75%"></div>
+        <div class="bar" style="width:50%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-split-view {
+  font-family: var(--font-sans);
+  user-select: none;
+}
+.demo-split-view .win {
+  width: 256px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f6f6f7;
+  color: rgba(0,0,0,.85);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.1);
+  overflow: visible;
+}
+.demo-split-view .titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px 10px 0 0;
+}
+.demo-split-view .tls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.demo-split-view .tl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15);
+}
+.demo-split-view .tl-r { background: #ff5f57; }
+.demo-split-view .tl-y { background: #febc2e; }
+.demo-split-view .tl-g { background: #28c840; }
+.demo-split-view .tl svg {
+  opacity: 0;
+  transition: opacity .1s;
+}
+.demo-split-view .tls:hover .tl svg {
+  opacity: 1;
+}
+.demo-split-view .tracking-sep {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 97px;
+  display: flex;
+  align-items: center;
+  transition: left .3s, opacity .2s;
+}
+.demo-split-view .win.no-anim .tracking-sep {
+  transition: none;
+}
+.demo-split-view .win.is-collapsed .tracking-sep {
+  opacity: 0;
+}
+.demo-split-view .tracking-sep-line {
+  display: block;
+  width: 1px;
+  height: 20px;
+  background: rgba(0,0,0,.15);
+}
+.demo-split-view .title {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0,0,0,.6);
+}
+.demo-split-view .body {
+  position: relative;
+  display: flex;
+  height: 112px;
+  border-top: 1px solid rgba(0,0,0,.05);
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+.demo-split-view .sidebar {
+  flex-shrink: 0;
+  width: 36%;
+  padding: 10px 12px;
+  background: rgba(0,0,0,.045);
+  border-radius: 0 0 0 10px;
+  overflow: hidden;
+  transition: width .3s, padding .3s;
+}
+.demo-split-view .win.no-anim .sidebar {
+  transition: none;
+}
+.demo-split-view .win.is-collapsed .sidebar {
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.demo-split-view button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.demo-split-view .side-item {
+  display: block;
+  width: 100%;
+  margin-bottom: 2px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-align: left;
+  color: rgba(0,0,0,.6);
+  transition: background .1s;
+}
+.demo-split-view .side-item:hover {
+  background: rgba(0,0,0,.06);
+}
+.demo-split-view .side-item.is-sel {
+  background: rgba(0,0,0,.1);
+  color: rgba(0,0,0,.85);
+}
+.demo-split-view .divider {
+  position: relative;
+  width: 9px;
+  flex-shrink: 0;
+  cursor: col-resize;
+}
+.demo-split-view .divider-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.12);
+  transition: background .15s;
+}
+.demo-split-view .divider:hover .divider-line,
+.demo-split-view .divider.is-active .divider-line {
+  background: rgba(10,108,255,.7);
+}
+.demo-split-view .pane {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 16px;
+}
+.demo-split-view .pane-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+.demo-split-view .bar {
+  height: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  background: rgba(0,0,0,.1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-split-view .tl svg,
+  .demo-split-view .tracking-sep,
+  .demo-split-view .sidebar,
+  .demo-split-view .side-item,
+  .demo-split-view .divider-line {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const win = ROOT.querySelector('.win');
+  const body = ROOT.querySelector('.body');
+  const sidebar = ROOT.querySelector('.sidebar');
+  const divider = ROOT.querySelector('.divider');
+  const sep = ROOT.querySelector('.tracking-sep');
+  const paneTitle = ROOT.querySelector('.pane-title');
+  const items = Array.from(ROOT.querySelectorAll('.side-item'));
+
+  // keep the toolbar's tracking separator exactly above the divider
+  function layoutSep() {
+    sep.style.left = (sidebar.offsetWidth + divider.offsetWidth / 2) + 'px';
+  }
+  layoutSep();
+
+  // --- drag the split-view divider to resize the panes ---
+  divider.addEventListener('pointerdown', function (e) {
+    e.preventDefault();
+    if (win.classList.contains('is-collapsed')) return;
+    win.classList.add('no-anim');
+    divider.classList.add('is-active');
+    divider.setPointerCapture(e.pointerId);
+    const bodyLeft = body.getBoundingClientRect().left;
+    function move(ev) {
+      const x = Math.min(Math.max(ev.clientX - bodyLeft, 44), 150);
+      sidebar.style.width = x + 'px';
+      layoutSep();
+    }
+    function up() {
+      win.classList.remove('no-anim');
+      divider.classList.remove('is-active');
+      divider.removeEventListener('pointermove', move);
+      divider.removeEventListener('pointerup', up);
+      divider.removeEventListener('pointercancel', up);
+    }
+    divider.addEventListener('pointermove', move);
+    divider.addEventListener('pointerup', up);
+    divider.addEventListener('pointercancel', up);
+  });
+
+  // --- double-click the divider to collapse / restore the sidebar ---
+  let savedWidth = '';
+  divider.addEventListener('dblclick', function () {
+    if (win.classList.contains('is-collapsed')) {
+      win.classList.remove('is-collapsed');
+      sidebar.style.width = savedWidth || '36%';
+    } else {
+      savedWidth = sidebar.style.width || '36%';
+      win.classList.add('is-collapsed');
+    }
+    // let the width transition settle before measuring
+    setTimeout(layoutSep, 320);
+  });
+
+  // --- click a sidebar item to select its pane ---
+  items.forEach(function (item) {
+    item.addEventListener('click', function () {
+      items.forEach(function (it) { it.classList.toggle('is-sel', it === item); });
+      paneTitle.textContent = item.dataset.name;
+    });
+  });
+})();
+</script>

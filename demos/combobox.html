@@ -1,0 +1,222 @@
+<div class="demo demo-combobox">
+  <div class="field">
+    <label class="label" for="demo-combobox-input">Favorite fruit</label>
+    <div class="input-wrap">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+      <input id="demo-combobox-input" class="input" type="text" role="combobox" aria-expanded="true" aria-controls="demo-combobox-list" aria-autocomplete="list" placeholder="Search fruit…" value="ap" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="listbox" id="demo-combobox-list" role="listbox" aria-label="Fruit options">
+      <button type="button" class="option selected active" role="option" aria-selected="true">Apple<svg class="check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button>
+      <button type="button" class="option" role="option" aria-selected="false">Apricot<svg class="check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button>
+    </div>
+  </div>
+</div>
+<style>
+.demo-combobox {
+  font-family: var(--font-sans);
+  width: 100%;
+  max-width: 256px;
+}
+.demo-combobox .label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+}
+.demo-combobox .input-wrap {
+  position: relative;
+  border-radius: 8px;
+}
+.demo-combobox .search-icon {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+.demo-combobox .input {
+  box-sizing: border-box;
+  height: 36px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 0 12px 0 32px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.demo-combobox .input::placeholder {
+  color: #94a3b8;
+}
+.demo-combobox .input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+.demo-combobox .listbox {
+  position: relative;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 4px;
+  box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+}
+.demo-combobox .listbox[hidden] {
+  display: none;
+}
+.demo-combobox .option {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 6px 8px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #475569;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+}
+.demo-combobox .option:hover {
+  background: #f8fafc;
+}
+.demo-combobox .option.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.demo-combobox .option .check {
+  display: none;
+  border-radius: 2px;
+}
+.demo-combobox .option.selected .check {
+  display: block;
+}
+.demo-combobox .empty {
+  margin: 0;
+  padding: 6px 8px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-combobox .input,
+  .demo-combobox .option {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const FRUITS = ['Apple', 'Apricot', 'Banana', 'Cherry', 'Kiwi', 'Mango', 'Melon', 'Orange', 'Peach', 'Pear', 'Plum', 'Strawberry'];
+  const CHECK_SVG = '<svg class="check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
+
+  const input = ROOT.querySelector('.input');
+  const listbox = ROOT.querySelector('.listbox');
+
+  let selected = 'Apple';
+  let matches = [];
+  let activeIndex = -1;
+
+  function render() {
+    const query = input.value.trim().toLowerCase();
+    matches = FRUITS.filter(function (fruit) {
+      return fruit.toLowerCase().indexOf(query) !== -1;
+    });
+    if (activeIndex >= matches.length) activeIndex = matches.length - 1;
+    listbox.textContent = '';
+    if (matches.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'empty';
+      empty.textContent = 'No matching fruit';
+      listbox.appendChild(empty);
+      return;
+    }
+    matches.forEach(function (fruit, index) {
+      const option = document.createElement('button');
+      option.type = 'button';
+      option.className = 'option';
+      option.setAttribute('role', 'option');
+      option.setAttribute('aria-selected', String(fruit === selected));
+      if (fruit === selected) option.classList.add('selected');
+      if (index === activeIndex) option.classList.add('active');
+      option.textContent = fruit;
+      option.insertAdjacentHTML('beforeend', CHECK_SVG);
+      option.addEventListener('click', function () {
+        commit(fruit);
+      });
+      listbox.appendChild(option);
+    });
+  }
+
+  function open() {
+    listbox.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+  }
+
+  function close() {
+    listbox.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+  }
+
+  function commit(fruit) {
+    selected = fruit;
+    input.value = fruit;
+    activeIndex = -1;
+    render();
+    close();
+  }
+
+  input.addEventListener('input', function () {
+    activeIndex = 0;
+    render();
+    open();
+  });
+
+  input.addEventListener('focus', function () {
+    activeIndex = 0;
+    render();
+    open();
+  });
+
+  input.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (listbox.hidden) open();
+      if (matches.length > 0) {
+        activeIndex = (activeIndex + 1) % matches.length;
+        render();
+      }
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (matches.length > 0) {
+        activeIndex = (activeIndex - 1 + matches.length) % matches.length;
+        render();
+      }
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      if (!listbox.hidden && activeIndex >= 0 && matches[activeIndex]) {
+        commit(matches[activeIndex]);
+      }
+    } else if (event.key === 'Escape') {
+      input.value = selected;
+      activeIndex = -1;
+      render();
+      close();
+    }
+  });
+
+  activeIndex = 0;
+  render();
+  open();
+})();
+</script>

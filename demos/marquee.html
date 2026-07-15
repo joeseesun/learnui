@@ -1,0 +1,81 @@
+<div class="demo demo-marquee">
+  <div class="mar-card">
+    <div class="mar-viewport" role="marquee" aria-label="Partner logos, scrolling automatically">
+      <div class="mar-track">
+        <div class="mar-group" aria-hidden="true">
+          <span class="mar-logo"><span class="mar-glyph">▲</span>Vertex</span>
+          <span class="mar-logo"><span class="mar-glyph">●</span>Orbit</span>
+          <span class="mar-logo"><span class="mar-glyph">■</span>Quadra</span>
+          <span class="mar-logo"><span class="mar-glyph">✦</span>Nova</span>
+          <span class="mar-logo"><span class="mar-glyph">◆</span>Prism</span>
+          <span class="mar-logo"><span class="mar-glyph">⬢</span>Hexal</span>
+        </div>
+        <div class="mar-group" aria-hidden="true">
+          <span class="mar-logo"><span class="mar-glyph">▲</span>Vertex</span>
+          <span class="mar-logo"><span class="mar-glyph">●</span>Orbit</span>
+          <span class="mar-logo"><span class="mar-glyph">■</span>Quadra</span>
+          <span class="mar-logo"><span class="mar-glyph">✦</span>Nova</span>
+          <span class="mar-logo"><span class="mar-glyph">◆</span>Prism</span>
+          <span class="mar-logo"><span class="mar-glyph">⬢</span>Hexal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-marquee {
+  font-family: var(--font-sans);
+}
+.demo-marquee .mar-card {
+  width: 240px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 12px 16px;
+}
+.demo-marquee .mar-viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
+}
+.demo-marquee .mar-track {
+  display: flex;
+  width: max-content;
+  animation: demo-marquee-scroll 16s linear infinite;
+}
+.demo-marquee .mar-viewport:hover .mar-track {
+  animation-play-state: paused;
+}
+.demo-marquee .mar-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.demo-marquee .mar-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 16px;
+  white-space: nowrap;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #94a3b8;
+}
+.demo-marquee .mar-glyph {
+  font-size: 10px;
+}
+@keyframes demo-marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-marquee .mar-track {
+    animation: none;
+  }
+}
+</style>

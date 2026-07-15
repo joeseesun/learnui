@@ -1,0 +1,95 @@
+<div class="demo demo-toolbar">
+  <div class="win">
+    <div class="titlebar">
+      <div class="tl">
+        <span class="tl-btn tl-close"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="tl-btn tl-min"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="tl-btn tl-zoom"><svg class="glyph" aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+      <span class="win-title">Notes</span>
+      <div class="items">
+        <button type="button" class="item item-new"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="item-label">New</span></button>
+        <button type="button" class="item item-icon" aria-label="List view"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 4.5h10M3 8h7M3 11.5h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="item item-icon" aria-label="Back and forward"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6.5 3.5 3 8l3.5 4.5M9.5 3.5 13 8l-3.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="item item-more" aria-label="More toolbar items" aria-haspopup="true" aria-expanded="false">»</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="line w-66"></div>
+      <div class="line w-50"></div>
+      <div class="line w-60"></div>
+    </div>
+    <div class="menu" role="menu">
+      <button type="button" role="menuitem" class="menu-item">Icon and Text</button>
+      <button type="button" role="menuitem" class="menu-item">Icon Only</button>
+      <div class="menu-sep" role="separator"></div>
+      <button type="button" role="menuitem" class="menu-item">Customize Toolbar…</button>
+    </div>
+  </div>
+</div>
+<style>
+.demo-toolbar { font-family: var(--font-sans); }
+.demo-toolbar, .demo-toolbar * { box-sizing: border-box; }
+.demo-toolbar .win { position: relative; width: 256px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,.1); background: #f6f6f7; color: rgba(0,0,0,.85); box-shadow: 0 24px 50px -12px rgba(0,0,0,.25), 0 4px 12px rgba(0,0,0,.08); }
+.demo-toolbar .titlebar { position: relative; display: flex; align-items: center; height: 36px; padding: 0 12px; border-bottom: 1px solid rgba(0,0,0,.05); }
+.demo-toolbar .tl { display: flex; align-items: center; gap: 7px; }
+.demo-toolbar .tl-btn { display: flex; align-items: center; justify-content: center; width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15); }
+.demo-toolbar .tl-close { background: #ff5f57; }
+.demo-toolbar .tl-min { background: #febc2e; }
+.demo-toolbar .tl-zoom { background: #28c840; }
+.demo-toolbar .glyph { opacity: 0; transition: opacity .1s; }
+.demo-toolbar .tl:hover .glyph { opacity: 1; }
+.demo-toolbar .win-title { margin-left: 6px; font-size: 12px; font-weight: 600; color: rgba(0,0,0,.6); }
+.demo-toolbar .items { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.demo-toolbar .item { display: flex; align-items: center; justify-content: center; gap: 4px; height: 24px; margin: 0; padding: 0 4px; border: 0; border-radius: 6px; background: none; font: inherit; color: rgba(0,0,0,.55); cursor: default; transition: background-color .1s, color .1s; }
+.demo-toolbar .item:hover { background: rgba(0,0,0,.05); }
+.demo-toolbar .item:active { background: rgba(0,0,0,.1); }
+.demo-toolbar .item:focus-visible { outline: 2px solid rgba(10,108,255,.6); outline-offset: 1px; }
+.demo-toolbar .item-icon { width: 24px; }
+.demo-toolbar .item-label { font-size: 10.5px; font-weight: 500; }
+.demo-toolbar .item-more { width: 24px; font-size: 14px; font-weight: 600; color: rgba(0,0,0,.5); }
+.demo-toolbar .content { position: relative; height: 96px; padding: 12px 16px; }
+.demo-toolbar .content::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(0,0,0,.05); }
+.demo-toolbar .line { height: 8px; border-radius: 4px; background: rgba(0,0,0,.1); margin-top: 8px; }
+.demo-toolbar .line:first-child { margin-top: 0; }
+.demo-toolbar .w-66 { width: 66%; }
+.demo-toolbar .w-50 { width: 50%; }
+.demo-toolbar .w-60 { width: 60%; }
+.demo-toolbar .menu { position: absolute; top: 32px; right: 8px; z-index: 5; min-width: 148px; padding: 4px; border: 1px solid rgba(0,0,0,.1); border-radius: 8px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.18); opacity: 0; transform: translateY(-3px); pointer-events: none; transition: opacity .15s, transform .15s cubic-bezier(.23,1,.32,1); }
+.demo-toolbar .menu.is-open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.demo-toolbar .menu-item { display: block; width: 100%; margin: 0; border: 0; background: none; font: inherit; font-size: 11px; text-align: left; color: rgba(0,0,0,.8); padding: 4px 8px; border-radius: 5px; cursor: default; }
+.demo-toolbar .menu-item:hover { background: rgba(0,0,0,.05); }
+.demo-toolbar .menu-item:focus-visible { outline: 2px solid rgba(10,108,255,.6); outline-offset: -1px; }
+.demo-toolbar .menu-sep { height: 1px; margin: 4px 6px; background: rgba(0,0,0,.08); }
+@media (prefers-reduced-motion: reduce) {
+  .demo-toolbar .glyph,
+  .demo-toolbar .item,
+  .demo-toolbar .menu { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const more = ROOT.querySelector('.item-more');
+  const menu = ROOT.querySelector('.menu');
+  const content = ROOT.querySelector('.content');
+  const addBtn = ROOT.querySelector('.item-new');
+  function setMenu(open) {
+    menu.classList.toggle('is-open', open);
+    more.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  more.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setMenu(!menu.classList.contains('is-open'));
+  });
+  menu.addEventListener('click', function (e) { e.stopPropagation(); setMenu(false); });
+  ROOT.addEventListener('click', function () { setMenu(false); });
+  ROOT.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  addBtn.addEventListener('click', function () {
+    const lines = content.querySelectorAll('.line');
+    if (lines.length >= 4) return;
+    const clone = lines[0].cloneNode(false);
+    content.appendChild(clone);
+  });
+})();
+</script>

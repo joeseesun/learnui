@@ -1,0 +1,64 @@
+<div class="demo demo-segmented-control">
+  <div class="seg" role="tablist" aria-label="Time range">
+    <span class="seg-pill" aria-hidden="true"></span>
+    <button type="button" class="seg-btn" role="tab" aria-selected="false">Day</button>
+    <button type="button" class="seg-btn is-selected" role="tab" aria-selected="true">Week</button>
+    <button type="button" class="seg-btn" role="tab" aria-selected="false">Month</button>
+    <button type="button" class="seg-btn" role="tab" aria-selected="false">Year</button>
+  </div>
+</div>
+<style>
+.demo-segmented-control { font-family: var(--font-sans); }
+.demo-segmented-control, .demo-segmented-control * { box-sizing: border-box; }
+.demo-segmented-control .seg { position: relative; display: flex; padding: 2px; border-radius: 9px; background: rgba(0,0,0,.06); }
+.demo-segmented-control .seg-pill { position: absolute; top: 2px; bottom: 2px; left: 0; width: 62px; border-radius: 7px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 0 0 .5px rgba(0,0,0,.04); transition: transform .18s cubic-bezier(.23,1,.32,1), width .18s cubic-bezier(.23,1,.32,1); }
+.demo-segmented-control .seg-btn { position: relative; z-index: 1; margin: 0; border: 0; background: none; font: inherit; font-size: 12px; font-weight: 500; color: rgba(0,0,0,.6); padding: 5px 14px; border-radius: 7px; cursor: default; transition: color .15s; }
+.demo-segmented-control .seg-btn:hover { color: rgba(0,0,0,.85); }
+.demo-segmented-control .seg-btn.is-selected { color: #000; }
+.demo-segmented-control .seg-btn:focus-visible { outline: 2px solid rgba(10,108,255,.6); outline-offset: 1px; }
+.demo-segmented-control .seg-btn::before { content: ""; position: absolute; top: 5px; bottom: 5px; left: -.5px; width: 1px; background: rgba(0,0,0,.1); opacity: 0; transition: opacity .15s; }
+.demo-segmented-control .seg-btn + .seg-btn::before { opacity: 1; }
+.demo-segmented-control .seg-btn.is-selected::before,
+.demo-segmented-control .seg-btn.is-selected + .seg-btn::before { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .demo-segmented-control .seg-pill,
+  .demo-segmented-control .seg-btn,
+  .demo-segmented-control .seg-btn::before { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const pill = ROOT.querySelector('.seg-pill');
+  const btns = Array.from(ROOT.querySelectorAll('.seg-btn'));
+  function movePill(btn) {
+    if (!btn) return;
+    pill.style.width = btn.offsetWidth + 'px';
+    pill.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+  }
+  function select(btn, focus) {
+    btns.forEach(function (b) {
+      const on = b === btn;
+      b.classList.toggle('is-selected', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    movePill(btn);
+    if (focus) btn.focus();
+  }
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { select(b, false); });
+  });
+  ROOT.querySelector('.seg').addEventListener('keydown', function (e) {
+    const i = btns.indexOf(document.activeElement);
+    if (i < 0) return;
+    let n = null;
+    if (e.key === 'ArrowRight') n = (i + 1) % btns.length;
+    else if (e.key === 'ArrowLeft') n = (i - 1 + btns.length) % btns.length;
+    if (n !== null) { e.preventDefault(); select(btns[n], true); }
+  });
+  function sync() { movePill(ROOT.querySelector('.seg-btn.is-selected')); }
+  requestAnimationFrame(sync);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+  window.addEventListener('resize', sync);
+})();
+</script>

@@ -1,0 +1,204 @@
+<div class="demo demo-column-view">
+  <div class="win">
+    <div class="titlebar">
+      <div class="tls">
+        <span class="tl tl-r"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5m0-5l-5 5" stroke="#7d0b04" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-y"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M1.2 4h5.6" stroke="#985712" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span class="tl tl-g"><svg aria-hidden="true" width="7" height="7" viewBox="0 0 8 8"><path d="M2 4.6L4.6 2v2.6H2Zm4-1.2L3.4 6V3.4H6Z" fill="#0b650d" transform="rotate(90 4 4)"/></svg></span>
+      </div>
+      <span class="title">Files</span>
+    </div>
+    <div class="cols"></div>
+  </div>
+</div>
+<style>
+.demo-column-view {
+  font-family: var(--font-sans);
+  user-select: none;
+}
+.demo-column-view .win {
+  width: 256px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f6f6f7;
+  color: rgba(0,0,0,.85);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.1);
+  overflow: hidden;
+}
+.demo-column-view .titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.demo-column-view .tls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.demo-column-view .tl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15);
+}
+.demo-column-view .tl-r { background: #ff5f57; }
+.demo-column-view .tl-y { background: #febc2e; }
+.demo-column-view .tl-g { background: #28c840; }
+.demo-column-view .tl svg {
+  opacity: 0;
+  transition: opacity .1s;
+}
+.demo-column-view .tls:hover .tl svg {
+  opacity: 1;
+}
+.demo-column-view .title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0,0,0,.6);
+  pointer-events: none;
+}
+.demo-column-view .cols {
+  display: flex;
+  height: 96px;
+}
+.demo-column-view .col {
+  width: 33.3333%;
+  flex-shrink: 0;
+  padding: 4px 0;
+  border-right: 1px solid rgba(0,0,0,.05);
+  overflow: hidden;
+}
+.demo-column-view .col:last-child {
+  border-right: 0;
+}
+.demo-column-view .brow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 11.5px;
+  text-align: left;
+  color: rgba(0,0,0,.75);
+  cursor: pointer;
+  transition: background .1s;
+}
+.demo-column-view .brow:hover {
+  background: rgba(0,0,0,.05);
+}
+.demo-column-view .brow.is-anc {
+  background: rgba(0,0,0,.1);
+  color: rgba(0,0,0,.8);
+}
+.demo-column-view .brow.is-sel {
+  background: #0a6cff;
+  color: #fff;
+}
+.demo-column-view .brow-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.demo-column-view .brow-label .icon {
+  font-size: 12px;
+}
+.demo-column-view .brow-chevron {
+  flex-shrink: 0;
+  opacity: .6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-column-view .tl svg,
+  .demo-column-view .brow {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  const colsEl = ROOT.querySelector('.cols');
+
+  const TREE = [
+    { name: 'Projects', children: [
+      { name: 'NameThat', children: [ { name: 'research' }, { name: 'content' } ] },
+      { name: 'FowlVoice', children: [ { name: 'drafts' }, { name: 'builds' } ] }
+    ] },
+    { name: 'Archive', children: [
+      { name: '2024', children: [ { name: 'old-assets' }, { name: 'backups' } ] },
+      { name: '2025', children: [ { name: 'q1' }, { name: 'q2' } ] }
+    ] }
+  ];
+  const CHEVRON = '<svg aria-hidden="true" class="brow-chevron" width="7" height="9" viewBox="0 0 8 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 1.5 6 5 2 8.5"/></svg>';
+
+  // the selected path: one highlighted ancestor row per column
+  let path = [0, 0]; // Projects > NameThat
+
+  function columnsFor(pathArr) {
+    const cols = [TREE];
+    for (let d = 0; d < pathArr.length; d++) {
+      const item = cols[d][pathArr[d]];
+      if (item && item.children) cols.push(item.children); else break;
+    }
+    return cols;
+  }
+
+  function render() {
+    const cols = columnsFor(path);
+    const lastSel = path.length - 1;
+    colsEl.innerHTML = '';
+    for (let c = 0; c < Math.max(cols.length, 3) && c < 3; c++) {
+      const colEl = document.createElement('div');
+      colEl.className = 'col';
+      const list = cols[c] || [];
+      list.forEach(function (item, i) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'brow';
+        if (path[c] === i) btn.classList.add(c === lastSel ? 'is-sel' : 'is-anc');
+        btn.dataset.col = c;
+        btn.dataset.idx = i;
+        const label = document.createElement('span');
+        label.className = 'brow-label';
+        label.innerHTML = '<span class="icon" aria-hidden="true">📁</span>';
+        label.appendChild(document.createTextNode(item.name));
+        btn.appendChild(label);
+        if (item.children) btn.insertAdjacentHTML('beforeend', CHEVRON);
+        colEl.appendChild(btn);
+      });
+      colsEl.appendChild(colEl);
+    }
+  }
+  render();
+
+  // selecting a branch row reveals its children in the next column
+  colsEl.addEventListener('click', function (e) {
+    const btn = e.target.closest('.brow');
+    if (!btn) return;
+    const c = Number(btn.dataset.col);
+    const i = Number(btn.dataset.idx);
+    path = path.slice(0, c);
+    path[c] = i;
+    render();
+  });
+})();
+</script>

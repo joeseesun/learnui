@@ -1,0 +1,191 @@
+<div class="demo demo-spring">
+  <div class="spr-card">
+    <div class="spr-rows">
+      <div class="spr-track">
+        <span class="spr-mark spr-mark-start" aria-hidden="true"></span>
+        <span class="spr-mark spr-mark-end" aria-hidden="true"></span>
+        <span class="spr-ball spr-ball-ease"></span>
+      </div>
+      <div class="spr-track">
+        <span class="spr-mark spr-mark-start" aria-hidden="true"></span>
+        <span class="spr-mark spr-mark-end" aria-hidden="true"></span>
+        <span class="spr-ball spr-ball-spring"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-spring {
+  font-family: var(--font-sans);
+}
+.demo-spring .spr-card {
+  width: 240px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 12px;
+  cursor: pointer;
+}
+.demo-spring .spr-rows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+.demo-spring .spr-track {
+  position: relative;
+  width: 186px;
+  max-width: 100%;
+  height: 16px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+}
+.demo-spring .spr-mark {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 0;
+  border-left: 1px dashed rgba(148, 163, 184, 0.7);
+}
+.demo-spring .spr-mark-start {
+  left: 28px;
+}
+.demo-spring .spr-mark-end {
+  left: 156px;
+}
+.demo-spring .spr-ball {
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #0a6cff;
+  transform: translateY(-50%);
+}
+</style>
+<script>
+(function () {
+  var ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  var easeBall = ROOT.querySelector('.spr-ball-ease');
+  var springBall = ROOT.querySelector('.spr-ball-spring');
+  var TRAVEL = 128; // start marker 28px -> target marker 156px, ball anchored at left:22px
+  var DURATION = 900;
+  var HOLD = 800;
+  var media = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // cubic-bezier(0, 0, 0.58, 1) — the ease-out comparison row
+  function cubicBezier(p1x, p1y, p2x, p2y) {
+    var cx = 3 * p1x, bx = 3 * (p2x - p1x) - cx, ax = 1 - cx - bx;
+    var cy = 3 * p1y, by = 3 * (p2y - p1y) - cy, ay = 1 - cy - by;
+    function x(t) { return ((ax * t + bx) * t + cx) * t; }
+    function y(t) { return ((ay * t + by) * t + cy) * t; }
+    function dx(t) { return (3 * ax * t + 2 * bx) * t + cx; }
+    return function (xVal) {
+      var t = xVal, i, err, d;
+      for (i = 0; i < 6; i++) {
+        err = x(t) - xVal;
+        if (Math.abs(err) < 1e-5) return y(t);
+        d = dx(t);
+        if (Math.abs(d) < 1e-5) break;
+        t -= err / d;
+      }
+      var lo = 0, hi = 1;
+      t = xVal;
+      while (hi - lo > 1e-5) {
+        if (x(t) < xVal) { lo = t; } else { hi = t; }
+        t = (lo + hi) / 2;
+      }
+      return y(t);
+    };
+  }
+  var easeOut = cubicBezier(0, 0, 0.58, 1);
+
+  // spring row: semi-implicit Euler, stiffness 170 / damping 13.5 (~15% overshoot)
+  var K = 170, C = 13.5;
+  var sx = 0, sv = 0, sTarget = 1;
+  var phase = 'forward'; // forward -> holdEnd -> back -> holdStart
+  var phaseStart = 0;
+  var last = 0;
+  var rafId = 0;
+
+  function render(easeP) {
+    easeBall.style.transform = 'translateX(' + (easeP * TRAVEL).toFixed(2) + 'px) translateY(-50%)';
+    springBall.style.transform = 'translateX(' + (sx * TRAVEL).toFixed(2) + 'px) translateY(-50%)';
+  }
+
+  function springSettled() {
+    return Math.abs(sx - sTarget) < 0.0015 && Math.abs(sv) < 0.02;
+  }
+
+  function frame(now) {
+    rafId = requestAnimationFrame(frame);
+    var dt = Math.min((now - last) / 1000, 0.032);
+    last = now;
+    var t = now - phaseStart;
+    if (phase === 'forward' || phase === 'back') {
+      var target = phase === 'forward' ? 1 : 0;
+      sTarget = target;
+      var raw = Math.min(t / DURATION, 1);
+      var b = easeOut(raw);
+      var easeP = target === 1 ? b : 1 - b;
+      var steps = Math.max(1, Math.ceil(dt / (1 / 240)));
+      var h = dt / steps;
+      for (var i = 0; i < steps; i++) {
+        sv += (-K * (sx - sTarget) - C * sv) * h;
+        sx += sv * h;
+      }
+      if (raw >= 1 && springSettled()) {
+        sx = sTarget;
+        sv = 0;
+        phase = phase === 'forward' ? 'holdEnd' : 'holdStart';
+        phaseStart = now;
+      }
+      render(easeP);
+    } else {
+      var held = phase === 'holdEnd' ? 1 : 0;
+      sx = held;
+      sv = 0;
+      render(held);
+      if (t >= HOLD) {
+        phase = phase === 'holdEnd' ? 'back' : 'forward';
+        phaseStart = now;
+      }
+    }
+  }
+
+  function start() {
+    cancelAnimationFrame(rafId);
+    sx = 0;
+    sv = 0;
+    sTarget = 1;
+    phase = 'forward';
+    phaseStart = performance.now();
+    last = phaseStart;
+    render(0);
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function stopAtEnd() {
+    cancelAnimationFrame(rafId);
+    sTarget = 1;
+    sx = 1;
+    sv = 0;
+    render(1);
+  }
+
+  ROOT.addEventListener('click', function () {
+    if (!media.matches) { start(); }
+  });
+  if (media.addEventListener) {
+    media.addEventListener('change', function () {
+      if (media.matches) { stopAtEnd(); } else { start(); }
+    });
+  }
+  if (media.matches) { stopAtEnd(); } else { start(); }
+})();
+</script>
