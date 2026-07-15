@@ -1,0 +1,344 @@
+<div class="demo demo-style-swiss-style">
+  <div class="player">
+    <div class="art">
+      <span class="disc"></span>
+      <span class="reg"></span>
+      <span class="bars"><i style="height:24px"></i><i style="height:40px"></i><i style="height:56px"></i></span>
+      <span class="rule"></span>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="3" height="14"/><path d="M20 5 L9.5 12 L20 19 Z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4 L21 12 L7 20 Z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16" y="5" width="3" height="14"/><path d="M4 5 L14.5 12 L4 19 Z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9.5v5h4l5 4.5v-14l-5 4.5H3z"/><rect x="15" y="8" width="2.5" height="8"/><rect x="19" y="6" width="2.5" height="12"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Swiss Style —— 数学网格 + 中性 grotesk + 左对齐 + 黑白一点红 ===== */
+.demo-style-swiss-style {
+  font-family: var(--font-sans, "Helvetica Neue", Helvetica, Arial, sans-serif);
+  max-width: 100%;
+}
+.demo-style-swiss-style .player {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #ffffff;           /* 纸白地 */
+  border: 2px solid #111111;     /* 海报边框，直角 */
+  border-radius: 0;
+  box-shadow: none;              /* 瑞士风格无投影 */
+}
+.demo-style-swiss-style .player::before { /* 8px 基线网格（可见的纪律） */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg,
+    rgba(17, 17, 17, .05) 0 1px, transparent 1px 8px);
+  pointer-events: none;
+}
+/* ---- 封面：瑞士海报构图 —— 栏参考线、红圆、黑柱、底规线 ---- */
+.demo-style-swiss-style .art {
+  position: relative;
+  height: 112px;
+  background-image: repeating-linear-gradient(90deg,
+    rgba(17, 17, 17, .07) 0 1px, transparent 1px 40px); /* 竖向栏参考线 */
+}
+.demo-style-swiss-style .disc {  /* 唯一强调色：瑞士红 */
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e30613;
+}
+.demo-style-swiss-style .reg {   /* 黑色校准方块 */
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 10px;
+  height: 10px;
+  background: #111111;
+}
+.demo-style-swiss-style .bars {  /* 站在底规线上的黑柱（客观数据感） */
+  position: absolute;
+  right: 16px;
+  bottom: 2px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+.demo-style-swiss-style .bars i {
+  display: block;
+  width: 10px;
+  background: #111111;
+}
+.demo-style-swiss-style .rule {  /* 底规线 */
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #111111;
+}
+/* ---- 文字：大标题左对齐、右侧参差；层级只靠字号字重 ---- */
+.demo-style-swiss-style .meta {
+  padding: 12px 16px 0;
+}
+.demo-style-swiss-style .title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;      /* 紧排标题 */
+  color: #111111;
+  text-align: left;
+}
+.demo-style-swiss-style .artist {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #555555;
+}
+.demo-style-swiss-style .artist::before { /* 红色记号方块 */
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  background: #e30613;
+}
+/* ---- 进度：发丝轨道 + 红色直角进度 ---- */
+.demo-style-swiss-style .progress {
+  padding: 14px 16px 0;
+}
+.demo-style-swiss-style .track {
+  height: 2px;
+  background: rgba(17, 17, 17, .16);
+}
+.demo-style-swiss-style .bar {
+  height: 100%;
+  background: #e30613;
+  border-radius: 0;
+}
+.demo-style-swiss-style .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  font-variant-numeric: tabular-nums;
+  color: #111111;
+}
+/* ---- 控制：方形色块按钮，沿左轴排开，底边对齐 ---- */
+.demo-style-swiss-style .controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 0 16px;
+}
+.demo-style-swiss-style .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  background: #111111;
+  border: 2px solid #111111;
+  border-radius: 0;              /* 直角，无胶囊 */
+  transition: none;              /* 瑞士风格不做缓动表演 */
+}
+.demo-style-swiss-style .play {  /* 层级靠颜色和尺寸，不靠装饰 */
+  width: 48px;
+  height: 48px;
+  background: #e30613;
+  border-color: #e30613;
+}
+.demo-style-swiss-style .cbtn:hover {  /* 瞬时反色 */
+  background: #ffffff;
+  color: #111111;
+}
+.demo-style-swiss-style .play:hover {
+  background: #ffffff;
+  color: #e30613;
+}
+.demo-style-swiss-style .cbtn:focus-visible {
+  outline: 2px solid #e30613;
+  outline-offset: 2px;
+}
+.demo-style-swiss-style .play:focus-visible {
+  outline-color: #111111;
+}
+.demo-style-swiss-style .play .i-pause { display: none; }
+.demo-style-swiss-style .play.playing .i-play { display: none; }
+.demo-style-swiss-style .play.playing .i-pause { display: block; }
+/* ---- 音量：同款发丝轨道，黑色填充 ---- */
+.demo-style-swiss-style .volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 0 16px 16px;
+}
+.demo-style-swiss-style .vicon {
+  display: flex;
+  flex: none;
+  color: #111111;
+}
+.demo-style-swiss-style .vtrack {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgba(17, 17, 17, .16);
+  cursor: pointer;
+}
+.demo-style-swiss-style .vtrack::before { /* 扩大点击热区 */
+  content: "";
+  position: absolute;
+  inset: -8px -2px;
+}
+.demo-style-swiss-style .vfill {
+  height: 100%;
+  background: #111111;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-swiss-style .cbtn {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30; // 全程秒数
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31; // 与初始 width:31% 对应
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) { // 减少动态效果：瞬移
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth; // 强制重排，让瞬移先生效
+    bar.style.transition = 'width ' + remain + 's linear'; // 匀速，瑞士风格不用缓动
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent()); // 暂停：保持当前进度
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0; // 播完后再次播放从头开始
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() { // prev/next：归零重播
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) { // 点击设置音量
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  // 舞台自适应：首页卡片舞台较矮时整体等比缩小，保证不溢出
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement; // .fragment 容器
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

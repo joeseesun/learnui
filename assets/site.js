@@ -11,8 +11,17 @@
 
   /* ---------- language mode ---------- */
   var MODE_KEY = "ntui-lang-mode";
+  // 首次访问（无本地偏好）按浏览器语言决定：中文环境 → 纯中文，其他 → 纯英文。
+  // 与 <head> 内联探测脚本保持一致；用户手动切换后才写 localStorage。
+  function detectMode() {
+    var langs = navigator.languages || [navigator.language || ""];
+    for (var i = 0; i < langs.length; i++) {
+      if (/^zh/i.test(langs[i])) return "zh";
+    }
+    return "en";
+  }
   function mode() {
-    try { return localStorage.getItem(MODE_KEY) || "bilingual"; } catch (e) { return "bilingual"; }
+    try { return localStorage.getItem(MODE_KEY) || detectMode(); } catch (e) { return detectMode(); }
   }
   function applyMode(m) {
     document.documentElement.setAttribute("data-lang-mode", m);

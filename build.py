@@ -8,6 +8,7 @@ SITE_URL = "https://learnui.qiaomu.ai"
 SITE_NAME = "Learn UI Name"
 UMAMI_ID = "481306cd-4dad-4677-8456-f31490684e78"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee"}
+STYLE_NEW_SLUGS = {"swiss-style","bauhaus","memphis","vaporwave","art-deco","cyberpunk","pixel-art","corporate-memphis","material-design","terminal-hacker"}
 
 def load(p):
     with open(os.path.join(ROOT, p), encoding="utf-8") as f:
@@ -160,6 +161,18 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path=""):
 <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/geist-vf.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+// 首开按浏览器语言选模式（中文环境→纯中文，其他→纯英文）；用户手动切换后持久化。
+// 放在样式表前执行，避免语言模式闪烁；JS 禁用时保持 HTML 上的 bilingual 回退。
+(function(){{try{{
+  var m=localStorage.getItem("ntui-lang-mode");
+  if(m!=="bilingual"&&m!=="zh"&&m!=="en"){{
+    var ls=navigator.languages||[navigator.language||""];m="en";
+    for(var i=0;i<ls.length;i++){{if(/^zh/i.test(ls[i])){{m="zh";break}}}}
+  }}
+  document.documentElement.setAttribute("data-lang-mode",m);
+}}catch(e){{}}}})();
+</script>
 <link rel="stylesheet" href="/assets/site.css">
 <script defer src="https://umami.qiaomu.ai/script.js" data-website-id="{UMAMI_ID}" data-domains="learnui.qiaomu.ai"></script>
 </head>
@@ -563,11 +576,12 @@ def style_card(s):
     z = style_zh(s)
     hay = " ".join([s.get("name") or "", z.get("name_zh") or "", s.get("tagline") or "", z.get("tagline_zh") or ""] +
                    (s.get("aliases") or []) + (z.get("aliases_zh") or [])).lower()
+    new = f'<span class="tag tag-new">{esc(UI["newBadge"])}</span>' if s["slug"] in STYLE_NEW_SLUGS else ""
     return f'''<a class="style-card" data-search="{esc(hay)}" href="{style_url(s)}">
  {stage("style-" + s["slug"])}
  <div class="card-meta">
   <h3 class="card-name">
-   <span class="lang-en">{esc(s["name"])}</span>
+   <span class="lang-en">{esc(s["name"])}{new}</span>
    <span class="lang-zh card-name-zh">{esc(z.get("name_zh", ""))}</span>
   </h3>
   {bi(first_para(s.get("tagline", "")), first_para(z.get("tagline_zh", "")), "p", "card-tag")}

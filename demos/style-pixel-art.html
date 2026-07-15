@@ -1,0 +1,433 @@
+<div class="demo demo-style-pixel-art">
+  <div class="player">
+    <div class="art"><canvas class="scene" width="64" height="24" aria-hidden="true"></canvas></div>
+    <div class="meta">
+      <div class="title">Midnight Drive<span class="cursor" aria-hidden="true"></span></div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="2" width="2" height="8"/><polygon points="10,1 10,11 8,11 8,9 6,9 6,7 4,7 4,5 6,5 6,3 8,3 8,1"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><polygon points="3,1 3,11 5,11 5,9 7,9 7,7 9,7 9,5 7,5 7,3 5,3 5,1"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="3" height="8"/><rect x="7" y="2" width="3" height="8"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><polygon points="2,1 2,11 4,11 4,9 6,9 6,7 8,7 8,5 6,5 6,3 4,3 4,1"/><rect x="9" y="2" width="2" height="8"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><polygon points="1,4 3,4 3,3 4,3 4,2 6,2 6,10 4,10 4,9 3,9 3,8 1,8"/><rect x="8" y="4" width="1" height="4"/><rect x="10" y="3" width="1" height="6"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Pixel Art —— 8/16-bit 游戏 UI：硬边像素、固定色板、游戏铬件 ===== */
+.demo-style-pixel-art {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-style-pixel-art .player {
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 0; /* 方角：像素面板没有圆角 */
+  background: #1a1c2c; /* RPG 对话框：深色底 + 白描边 */
+  border: 3px solid #f4f4f4;
+  box-shadow:
+    0 0 0 3px #1a1c2c,               /* 外圈深色描线，构成双层边框 */
+    8px 8px 0 rgba(26, 28, 44, .28); /* 硬偏移投影，零模糊 */
+  color: #f4f4f4;
+}
+/* ---- 封面：64x24 手绘像素场景，最近邻放大 ---- */
+.demo-style-pixel-art .art {
+  font-size: 0;
+  border-bottom: 3px solid #f4f4f4; /* 对话框分隔线 */
+}
+.demo-style-pixel-art .scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated; /* defining：放大只见硬边阶梯 */
+}
+/* ---- 标题：JS 渲染成 3x5 像素字体；无 JS 时退化为等宽大写 ---- */
+.demo-style-pixel-art .meta {
+  padding: 12px 16px 4px;
+}
+.demo-style-pixel-art .title {
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: #ffcd75;
+  text-shadow: 2px 2px 0 #000000; /* 硬偏移投影字，零模糊 */
+}
+.demo-style-pixel-art .artist {
+  margin-top: 7px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: #94b0c2;
+  text-shadow: 2px 2px 0 #000000;
+}
+.demo-style-pixel-art .px-on {
+  font-size: 0; /* 隐藏原始文本（仍在 DOM 中供读屏），只留像素画布 */
+  text-shadow: none;
+}
+.demo-style-pixel-art .title.px-on {
+  display: flex;
+  align-items: center;
+}
+.demo-style-pixel-art .pxtext {
+  display: block;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+.demo-style-pixel-art .cursor {
+  display: none;
+}
+.demo-style-pixel-art .px-on .cursor { /* RPG 输入光标：闪烁的实心方块 */
+  display: block;
+  flex: none;
+  width: 9px;
+  height: 15px;
+  margin-left: 8px;
+  background: #ffcd75;
+  animation: pxblink 1.06s steps(1) infinite;
+}
+@keyframes pxblink { /* 两帧闪烁：steps(1)，绝不渐变 */
+  50% { opacity: 0; }
+}
+/* ---- 进度：分段 HP 血条 ---- */
+.demo-style-pixel-art .progress {
+  padding: 10px 16px 0;
+}
+.demo-style-pixel-art .track {
+  position: relative;
+  height: 14px;
+  background: #1a1c2c;
+  border: 2px solid #f4f4f4;
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, .5);
+}
+.demo-style-pixel-art .bar {
+  height: 100%;
+  background-color: #38b764;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 10px, #1a1c2c 10px 12px), /* 2px 深色缝切段 */
+    linear-gradient(180deg, #a7f070 0 3px, rgba(0, 0, 0, 0) 3px);           /* 顶部浅色高光行 */
+}
+.demo-style-pixel-art .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: #94b0c2;
+  text-shadow: 1px 1px 0 #000000;
+}
+/* ---- 控制按钮：斜面硬边方块，按下塌进自己的阴影 ---- */
+.demo-style-pixel-art .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+.demo-style-pixel-art .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #f4f4f4;
+  background: #5d275d;
+  border: 2px solid #f4f4f4;
+  border-radius: 0;
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, .35),   /* 右下暗边 */
+    inset 3px 3px 0 rgba(255, 255, 255, .22), /* 左上亮边 —— 像素斜面 */
+    4px 4px 0 #0e101c;                      /* 硬投影 */
+  transition: transform .06s steps(2), box-shadow .06s steps(2);
+}
+.demo-style-pixel-art .prev,
+.demo-style-pixel-art .next {
+  width: 36px;
+  height: 36px;
+}
+.demo-style-pixel-art .play {
+  width: 52px;
+  height: 52px;
+  background: #b13e53;
+}
+.demo-style-pixel-art .cbtn:hover {
+  filter: brightness(1.2);
+}
+.demo-style-pixel-art .cbtn:active {
+  transform: translate(4px, 4px); /* 按进硬阴影 */
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, .35),
+    inset 3px 3px 0 rgba(255, 255, 255, .22);
+}
+.demo-style-pixel-art .cbtn:focus-visible {
+  outline: 2px solid #ffcd75;
+  outline-offset: 2px;
+}
+.demo-style-pixel-art .play .i-pause { display: none; }
+.demo-style-pixel-art .play.playing .i-play { display: none; }
+.demo-style-pixel-art .play.playing .i-pause { display: block; }
+.demo-style-pixel-art .play:not(.playing) .i-play { /* 待机时三角闪烁：PRESS START */
+  animation: pxblink 1.06s steps(1) infinite;
+}
+/* ---- 音量：同款分段条，红色系 ---- */
+.demo-style-pixel-art .volume {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  padding: 0 16px 16px;
+}
+.demo-style-pixel-art .vicon {
+  display: flex;
+  flex: none;
+  color: #94b0c2;
+}
+.demo-style-pixel-art .vtrack {
+  position: relative;
+  flex: 1;
+  height: 12px;
+  cursor: pointer;
+  background: #1a1c2c;
+  border: 2px solid #f4f4f4;
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, .5);
+}
+.demo-style-pixel-art .vtrack::before { /* 扩大点击热区 */
+  content: "";
+  position: absolute;
+  inset: -7px -3px;
+}
+.demo-style-pixel-art .vfill {
+  height: 100%;
+  background-color: #b13e53;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 8px, #1a1c2c 8px 10px),
+    linear-gradient(180deg, #ef7d57 0 3px, rgba(0, 0, 0, 0) 3px);
+}
+/* ---- 动效兜底：停掉闪烁与按压位移 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-pixel-art .cbtn {
+    transition: none;
+  }
+  .demo-style-pixel-art .cbtn:active {
+    transform: none;
+  }
+  .demo-style-pixel-art .play:not(.playing) .i-play,
+  .demo-style-pixel-art .px-on .cursor {
+    animation: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---- 封面：手绘 64x24 像素场景（7 色固定色板），最近邻放大 ---- */
+  const PAL = { '.': '#1a1c2c', p: '#5d275d', r: '#b13e53', o: '#ef7d57', y: '#ffcd75', c: '#94b0c2', w: '#f4f4f4' };
+  const MAP = [
+    "......s..............c......................s.............c.....",
+    "............c....................s.................c............",
+    "...s......................c....................s................",
+    ".................c.....................c....................s...",
+    ".........s...................yyyyyy.................c...........",
+    "...........................yyyyyyyyyy...........................",
+    "..............c...........yyyyyyyyyyyy..........................",
+    ".........................yyyyyyyyyyyyyy.........................",
+    "........................yyyyyyyyyyyyyyyy........................",
+    ".....s..................yyyyyyyyyyyyyyyy................c.......",
+    "........................oooooooooooooooo........................",
+    ".........................oooooooooooooo.........................",
+    "..........................oooooooooooo..........................",
+    "...........................oooooooooo...........................",
+    ".............................oooooo.............................",
+    "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+    "ppppppppppppppppppppppppppopopopopopoppppppppppppppppppppppppppp",
+    "ppppppppppppppppppppppppppprprprprprpppppppppppppppppppppppppppp",
+    "ppppppppppppppppppppppppppopopopopopoppppppppppppppppppppppppppp",
+    "ppppppppppppppppppppppppppprprprprprpppppppppppppppppppppppppppp",
+    "ppppppppppppppppppppppppppppopopopoppppppppppppppppppppppppppppp",
+    "ppppppppppppppppppppppppppppprprprpppppppppppppppppppppppppppppp",
+    "ppppppppppppppppppppppppppppppopoppppppppppppppppppppppppppppppp",
+    "ppppppppppppppppppppppppppppppprpppppppppppppppppppppppppppppppp"
+  ];
+  const scene = ROOT.querySelector('.scene');
+  const sctx = scene.getContext('2d');
+  sctx.imageSmoothingEnabled = false;
+  function drawScene(on) { // 's' = 两帧闪烁的星星
+    for (let y = 0; y < MAP.length; y++) {
+      const row = MAP[y];
+      for (let x = 0; x < row.length; x++) {
+        const ch = row[x];
+        sctx.fillStyle = ch === 's' ? (on ? PAL.w : PAL.p) : PAL[ch];
+        sctx.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+  drawScene(true);
+  let twinkle = true;
+  const timer = setInterval(function () {
+    if (reduced.matches) { drawScene(true); clearInterval(timer); return; }
+    twinkle = !twinkle;
+    drawScene(twinkle);
+  }, 560);
+
+  /* ---- 3x5 像素字体：把标题/歌手渲染成位图字形（无外部字体） ---- */
+  const FONT = {
+    A: [2, 5, 7, 5, 5], C: [3, 4, 4, 4, 3], D: [6, 5, 5, 5, 6], E: [7, 4, 6, 4, 7],
+    G: [3, 4, 5, 5, 3], H: [5, 5, 7, 5, 5], I: [7, 2, 2, 2, 7], M: [5, 7, 7, 5, 5],
+    N: [5, 7, 5, 5, 5], O: [2, 5, 5, 5, 2], R: [6, 5, 6, 5, 5], S: [3, 4, 2, 1, 6],
+    T: [7, 2, 2, 2, 2], V: [5, 5, 5, 5, 2], ' ': [0, 0, 0, 0, 0]
+  };
+  function pixelText(el, scale, color) {
+    if (!el) return;
+    const label = el.textContent.trim().toUpperCase();
+    const cv = document.createElement('canvas');
+    cv.className = 'pxtext';
+    cv.setAttribute('aria-hidden', 'true');
+    cv.width = label.length * 4;
+    cv.height = 6;
+    const cx = cv.getContext('2d');
+    for (let pass = 0; pass < 2; pass++) { // 先画 1px 硬投影，再画字形
+      cx.fillStyle = pass ? color : '#000000';
+      for (let i = 0; i < label.length; i++) {
+        const g = FONT[label[i]] || FONT[' '];
+        for (let r = 0; r < 5; r++) {
+          for (let c = 0; c < 3; c++) {
+            if ((g[r] >> (2 - c)) & 1) {
+              cx.fillRect(i * 4 + c + (pass ? 0 : 1), r + (pass ? 0 : 1), 1, 1);
+            }
+          }
+        }
+      }
+    }
+    cv.style.width = cv.width * scale + 'px';
+    cv.style.height = cv.height * scale + 'px';
+    el.classList.add('px-on');
+    el.insertBefore(cv, el.firstChild);
+  }
+  pixelText(ROOT.querySelector('.title'), 3, '#ffcd75');
+  pixelText(ROOT.querySelector('.artist'), 2, '#94b0c2');
+
+  /* ---- 播放器交互（与其它风格标本同一契约） ---- */
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30; // 全程秒数
+
+  let playing = false;
+  let progress = 31; // 与初始 width:31% 对应
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) { // 减少动态效果：瞬移
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth; // 强制重排，让瞬移先生效
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent()); // 暂停：保持当前进度
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0; // 播完后再次播放从头开始
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() { // prev/next：归零重播
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) { // 点击设置音量
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  // 舞台自适应：首页卡片舞台较矮时整体等比缩小，保证不溢出
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement; // .fragment 容器
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

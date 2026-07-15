@@ -1,0 +1,424 @@
+<div class="demo demo-style-art-deco">
+  <div class="player">
+    <div class="art">
+      <div class="sun"></div>
+      <div class="skyline"></div>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4.5" y="5" width="2.6" height="14"/><path d="M20 5.6v12.8c0 .95-1.05 1.52-1.85 1L9.6 13.1a1.25 1.25 0 0 1 0-2.15l8.55-6.35c.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 5.6v12.8c0 .95 1.05 1.52 1.85 1l9.7-6.4a1.25 1.25 0 0 0 0-2.1l-9.7-6.3c-.8-.52-1.85.05-1.85 1z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.6" y="5" width="3.4" height="14"/><rect x="14" y="5" width="3.4" height="14"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16.9" y="5" width="2.6" height="14"/><path d="M4 5.6v12.8c0 .95 1.05 1.52 1.85 1l8.55-6.3a1.25 1.25 0 0 1 0-2.15L5.85 4.6c-.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.2v5.6c0 .66.54 1.2 1.2 1.2h2.6l3.9 3.3c.62.52 1.55.06 1.55-.75V5.45c0-.8-.93-1.27-1.55-.75L7.8 8H5.2c-.66 0-1.2.54-1.2 1.2z"/><path d="M15.6 9.3a4.1 4.1 0 0 1 0 5.4M18 7a7.4 7.4 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Art Deco (1920s–30s) —— 黑漆底 + 描金双线框 + 镜像对称 + 太阳放射纹 + 阶梯收分 ===== */
+.demo-style-art-deco {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-style-art-deco .player {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  border: 2px solid #c9a227; /* 外层金描边 */
+  background: linear-gradient(180deg, #101014 0%, #0b0b0e 100%); /* 黑漆底 */
+  box-shadow:
+    inset 0 0 0 5px #0b0b0e,            /* 黑间隔 */
+    inset 0 0 0 6px rgba(201, 162, 39, .9), /* 内层 1px 细金线 —— 成对边框线 */
+    0 14px 30px rgba(0, 0, 0, .45);
+}
+/* 顶部 / 底部居中菱形饰件 —— 严格镜像对称 */
+.demo-style-art-deco .player::before,
+.demo-style-art-deco .player::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #0b0b0e;
+  border: 1.5px solid #c9a227;
+  z-index: 3;
+}
+.demo-style-art-deco .player::before { top: -6.5px; }
+.demo-style-art-deco .player::after { bottom: -6.5px; }
+/* ---- 封面：夜空 + 太阳放射纹 + 阶梯摩天楼剪影 ---- */
+.demo-style-art-deco .art {
+  position: relative;
+  height: 112px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(201, 162, 39, .5);
+  background:
+    radial-gradient(1.5px 1.5px at 18% 20%, rgba(240, 220, 154, .55), transparent 62%),
+    radial-gradient(1.2px 1.2px at 38% 12%, rgba(240, 220, 154, .4), transparent 62%),
+    radial-gradient(1.5px 1.5px at 82% 18%, rgba(240, 220, 154, .55), transparent 62%),
+    radial-gradient(1.2px 1.2px at 63% 10%, rgba(240, 220, 154, .4), transparent 62%),
+    linear-gradient(180deg, #0d0d12 0%, #101014 62%, #0b0b0e 100%);
+}
+.demo-style-art-deco .art::before { /* 太阳放射纹：金光芒自底部中点辐射 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(from -90deg at 50% 112%,
+    rgba(201, 162, 39, .4) 0deg 1.6deg,
+    transparent 1.6deg 10deg);
+}
+.demo-style-art-deco .sun { /* 落日金盘 + 细环，悬在楼群之后 */
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 62px;
+  height: 62px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 36%,
+    #f0dc9a 0%, #e6c766 34%, #c9a227 68%, #9c7f22 100%);
+  box-shadow:
+    0 0 0 2.5px rgba(11, 11, 14, .92),
+    0 0 0 3.5px rgba(201, 162, 39, .85),
+    0 0 22px rgba(201, 162, 39, .4);
+}
+.demo-style-art-deco .skyline { /* 对称阶梯收分（ziggurat）天际线剪影 */
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42px;
+  background: rgba(201, 162, 39, .55); /* 描金屋脊线（被 ::before 暗剪影压住，只露 1.5px） */
+  clip-path: polygon(
+    0% 100%, 0% 58%, 10% 58%, 10% 44%, 20% 44%, 20% 58%,
+    26% 58%, 26% 36%, 34% 36%, 34% 48%, 40% 48%,
+    40% 24%, 44% 24%, 44% 12%, 47% 12%, 47% 4%,
+    53% 4%, 53% 12%, 56% 12%, 56% 24%, 60% 24%,
+    60% 48%, 66% 48%, 66% 36%, 74% 36%, 74% 58%,
+    80% 58%, 80% 44%, 90% 44%, 90% 58%, 100% 58%, 100% 100%
+  );
+}
+.demo-style-art-deco .skyline::before { /* 暗色楼体，下移 1.5px 让屋脊露出金线 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateY(1.5px);
+  background: linear-gradient(180deg, #1b1b24 0%, #08080a 32%);
+  clip-path: polygon(
+    0% 100%, 0% 58%, 10% 58%, 10% 44%, 20% 44%, 20% 58%,
+    26% 58%, 26% 36%, 34% 36%, 34% 48%, 40% 48%,
+    40% 24%, 44% 24%, 44% 12%, 47% 12%, 47% 4%,
+    53% 4%, 53% 12%, 56% 12%, 56% 24%, 60% 24%,
+    60% 48%, 66% 48%, 66% 36%, 74% 36%, 74% 58%,
+    80% 58%, 80% 44%, 90% 44%, 90% 58%, 100% 58%, 100% 100%
+  );
+}
+.demo-style-art-deco .skyline::after { /* 塔冠上的翡翠窗 —— 宝石色点缀 */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #2e9d78;
+}
+/* ---- 文字：描金全大写题字，居中铭文 ---- */
+.demo-style-art-deco .meta {
+  padding: 11px 20px 0;
+  text-align: center;
+}
+.demo-style-art-deco .title {
+  font-family: Didot, "Bodoni MT", "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  text-indent: .22em; /* 补偿末字 tracking，保持视觉居中 */
+  background: linear-gradient(180deg, #f0dc9a 0%, #e6c766 30%, #c9a227 62%, #9c7f22 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.demo-style-art-deco .artist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 6px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  color: rgba(201, 162, 39, .72);
+}
+.demo-style-art-deco .artist::before,
+.demo-style-art-deco .artist::after { /* 左右对称的细金线 */
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, .65));
+}
+.demo-style-art-deco .artist::after {
+  background: linear-gradient(90deg, rgba(201, 162, 39, .65), transparent);
+}
+/* ---- 进度：描金黑轨 + 渐变金条 + 菱形端帽 ---- */
+.demo-style-art-deco .progress {
+  padding: 10px 20px 0;
+}
+.demo-style-art-deco .track {
+  position: relative;
+  height: 10px;
+  background: #08080a;
+  border: 1px solid rgba(201, 162, 39, .85);
+  box-shadow:
+    inset 0 0 0 2px #0b0b0e,
+    inset 0 0 0 3px rgba(201, 162, 39, .3);
+}
+.demo-style-art-deco .bar {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(180deg, #f0dc9a 0%, #c9a227 58%, #9c7f22 100%);
+  box-shadow: 0 0 8px rgba(201, 162, 39, .45);
+}
+.demo-style-art-deco .bar::after { /* 菱形端帽 */
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translateY(-50%) rotate(45deg);
+  background: #f0dc9a;
+  border: 1px solid #9c7f22;
+}
+.demo-style-art-deco .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  color: rgba(201, 162, 39, .62);
+}
+/* ---- 控制：八边形描金按钮（切角几何） ---- */
+.demo-style-art-deco .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 13px;
+}
+.demo-style-art-deco .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #e6c766;
+  background: linear-gradient(180deg, #15151c 0%, #0b0b0e 100%);
+  border: 1.5px solid #c9a227;
+  border-radius: 0;
+  clip-path: polygon(20% 0, 80% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 80%, 0 20%);
+  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .12s ease;
+}
+.demo-style-art-deco .prev,
+.demo-style-art-deco .next {
+  width: 34px;
+  height: 34px;
+}
+.demo-style-art-deco .play {
+  width: 48px;
+  height: 48px;
+}
+.demo-style-art-deco .play::before { /* 内层细八边形 —— 成对边框线 */
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(201, 162, 39, .6);
+  clip-path: polygon(20% 0, 80% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 80%, 0 20%);
+  pointer-events: none;
+}
+.demo-style-art-deco .cbtn:hover,
+.demo-style-art-deco .cbtn:focus-visible {
+  color: #0b0b0e;
+  background: linear-gradient(180deg, #f0dc9a 0%, #c9a227 100%);
+  border-color: #f0dc9a;
+}
+.demo-style-art-deco .cbtn:focus-visible {
+  outline: none;
+}
+.demo-style-art-deco .cbtn:active {
+  transform: translateY(1px);
+}
+.demo-style-art-deco .play .i-pause { display: none; }
+.demo-style-art-deco .play.playing .i-play { display: none; }
+.demo-style-art-deco .play.playing .i-pause { display: block; }
+/* ---- 音量：描金黑轨 + 斜纹金填充 ---- */
+.demo-style-art-deco .volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 0 20px 16px;
+}
+.demo-style-art-deco .vicon {
+  display: flex;
+  flex: none;
+  color: rgba(201, 162, 39, .85);
+}
+.demo-style-art-deco .vtrack {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  cursor: pointer;
+  background: #08080a;
+  border: 1px solid rgba(201, 162, 39, .85);
+}
+.demo-style-art-deco .vtrack::before { /* 扩大点击热区 */
+  content: "";
+  position: absolute;
+  inset: -8px -4px;
+}
+.demo-style-art-deco .vfill {
+  height: 100%;
+  background:
+    repeating-linear-gradient(45deg, rgba(11, 11, 14, .38) 0 2px, transparent 2px 6px), /* 人字斜纹 */
+    linear-gradient(180deg, #f0dc9a 0%, #c9a227 60%, #9c7f22 100%);
+}
+/* ---- 动效兜底 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-art-deco .cbtn {
+    transition: none;
+  }
+  .demo-style-art-deco .cbtn:active {
+    transform: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30; // 全程秒数
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31; // 与初始 width:31% 对应
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) { // 减少动态效果：瞬移
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth; // 强制重排，让瞬移先生效
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent()); // 暂停：保持当前进度
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0; // 播完后再次播放从头开始
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() { // prev/next：归零重播
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) { // 点击设置音量
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  // 舞台自适应：首页卡片舞台较矮时整体等比缩小，保证不溢出
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement; // .fragment 容器
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>
