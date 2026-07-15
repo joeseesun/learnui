@@ -6,6 +6,8 @@ var PAGES = "learnui-pages-" + VERSION;
 var PRECACHE = [
   "/",
   "/styles/",
+  "/quiz/",
+  "/assets/quiz.js",
   "/manifest.webmanifest",
   "/assets/site.css",
   "/assets/site.js",
