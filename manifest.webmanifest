@@ -1,0 +1,16 @@
+{
+  "name": "Learn UI Name · 界面叫啥",
+  "short_name": "Learn UI Name",
+  "description": "The visual dictionary of UI — bilingual. See it, name it, prompt with it. UI 视觉词典（中英对照）。",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

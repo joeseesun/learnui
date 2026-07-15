@@ -1,0 +1,249 @@
+<div class="demo demo-style-web-brutalism">
+  <div class="player">
+    <div class="art"><span class="ascii">   .    *      .        *      .    *
+   __        _..._        __
+__/  \______/     \______/  \____</span><span class="cap">MIDNIGHT_DRIVE.GIF 240X80 14KB</span></div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist"><span class="link">Neon Coast</span> <span class="status">[ stopped ]</span></div>
+    </div>
+    <div class="progress">
+      <hr>
+      <div class="track"><div class="bar"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">prev</button>
+      <button class="cbtn play" type="button" aria-label="Play">play</button>
+      <button class="cbtn next" type="button" aria-label="Next">next</button>
+      <hr>
+    </div>
+    <div class="volume">
+      <span class="vicon">Vol:</span>
+      <div class="vtrack"><div class="vfill"></div></div>
+      <span class="vpct">70%</span>
+    </div>
+  </div>
+</div>
+<style>
+/* Web Brutalism — browser-default materials restated, nothing decorated.
+   Times serif, default-blue underlined link, UA-style outset buttons,
+   inset <hr> bevels, 1px solid boxes, ASCII art. No radius/shadow/gradient. */
+.demo-style-web-brutalism {
+  width: 272px;
+  max-width: 100%;
+}
+.demo-style-web-brutalism .player {
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+  line-height: 1.3;
+  padding: 6px 8px 8px;
+}
+/* ---- album art: an ASCII "image" with its filename, like a document figure ---- */
+.demo-style-web-brutalism .art {
+  border: 1px solid #000;
+  padding: 3px 4px 2px;
+  margin-bottom: 5px;
+}
+.demo-style-web-brutalism .ascii {
+  display: block;
+  font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+  font-size: 9px;
+  line-height: 1.15;
+  white-space: pre;
+}
+.demo-style-web-brutalism .cap {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+  font-size: 9px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+/* ---- meta: bold serif title + default-blue underlined link + mono status ---- */
+.demo-style-web-brutalism .meta { margin-bottom: 5px; }
+.demo-style-web-brutalism .title {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.25;
+}
+.demo-style-web-brutalism .artist { font-size: 13px; }
+.demo-style-web-brutalism .link {
+  color: #0000ee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.demo-style-web-brutalism .status {
+  font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+  font-size: 10px;
+}
+/* ---- exposed structure: classic UA <hr> bevel ---- */
+.demo-style-web-brutalism hr {
+  height: 0;
+  margin: 4px 0;
+  color: gray;
+  border-style: inset;
+  border-width: 1px;
+}
+/* ---- progress: 1px box, solid fill, serif timestamps ---- */
+.demo-style-web-brutalism .progress { margin-bottom: 5px; }
+.demo-style-web-brutalism .track {
+  border: 1px solid #000;
+  height: 8px;
+  background: #fff;
+}
+.demo-style-web-brutalism .bar {
+  height: 100%;
+  width: 31%;
+  background: #000;
+}
+.demo-style-web-brutalism .times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  line-height: 1.2;
+  margin-top: 1px;
+}
+/* ---- controls: unstyled-look default form buttons (outset -> inset on press) ---- */
+/* site.css has a global .controls{flex;gap;margin-top} — restate block layout here */
+.demo-style-web-brutalism .controls {
+  display: block;
+  margin: 0;
+}
+.demo-style-web-brutalism .cbtn {
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.3;
+  color: #000;
+  background: #efefef;
+  border: 2px outset #efefef;
+  padding: 1px 10px;
+  margin: 0 4px 0 0;
+}
+.demo-style-web-brutalism .cbtn:active { border-style: inset; }
+.demo-style-web-brutalism .play { min-width: 58px; }
+/* ---- volume: form-label text + 1px box + mono readout ---- */
+.demo-style-web-brutalism .volume {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.demo-style-web-brutalism .vicon { font-size: 12px; }
+.demo-style-web-brutalism .vtrack {
+  flex: 1;
+  border: 1px solid #000;
+  height: 7px;
+  background: #fff;
+}
+.demo-style-web-brutalism .vfill {
+  height: 100%;
+  width: 70%;
+  background: #000;
+}
+.demo-style-web-brutalism .vpct {
+  font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+  font-size: 10px;
+  min-width: 26px;
+  text-align: right;
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const status = ROOT.querySelector('.status');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const vpct = ROOT.querySelector('.vpct');
+
+  const START_PCT = 31;              // 1:12 of 3:48, matches the static markup
+  const RATE = (100 - START_PCT) / 30; // 31% -> 100% in about 30s
+  const RM = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let pct = START_PCT;
+  let playing = false;
+  let rafId = null;
+  let lastT = 0;
+
+  function render() {
+    bar.style.width = pct + '%';
+  }
+
+  function setState(label, btnLabel) {
+    status.textContent = '[ ' + label + ' ]';
+    playBtn.textContent = btnLabel;
+  }
+
+  function tick(t) {
+    if (!playing) return;
+    const dt = (t - lastT) / 1000;
+    lastT = t;
+    pct += RATE * dt;
+    if (pct >= 100) {
+      pct = 100;
+      playing = false;
+      rafId = null;
+      render();
+      setState('ended', 'play');
+      return;
+    }
+    render();
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function start() {
+    if (pct >= 100) pct = 0;
+    playing = true;
+    setState('playing', 'pause');
+    if (RM.matches) {          // reduced motion: jump, don't animate
+      pct = 100;
+      playing = false;
+      render();
+      setState('ended', 'play');
+      return;
+    }
+    lastT = performance.now();
+    if (rafId === null) rafId = requestAnimationFrame(tick);
+  }
+
+  function pause() {
+    playing = false;
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    setState('paused', 'play');
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) pause(); else start();
+  });
+
+  function restart() {
+    pct = 0;
+    render();
+    if (playing) {
+      lastT = performance.now(); // keep the loop running from zero
+    } else {
+      start();                   // "重播": begin playing from zero
+    }
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const rect = vtrack.getBoundingClientRect();
+    let v = (e.clientX - rect.left) / rect.width;
+    v = Math.max(0, Math.min(1, v));
+    vfill.style.width = (v * 100) + '%';
+    vpct.textContent = Math.round(v * 100) + '%';
+  });
+
+  render();
+})();
+</script>

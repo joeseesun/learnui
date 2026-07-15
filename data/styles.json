@@ -1,0 +1,1517 @@
+[
+  {
+    "slug": "skeuomorphism",
+    "name": "Skeuomorphism",
+    "order": 1,
+    "tagline": "Skeuomorphism carries real-world materials and objects into digital UI: controls are rendered as if physically made of something — glossy plastic, brushed metal, leather, paper — with the lighting, texture, and affordances of the real thing. A skeuomorphic app teaches itself: a page that looks tearable invites turning, a raised glossy button invites pressing. It peaked in early iOS and Mac OS X, and was largely displaced by flat design around 2013.",
+    "scope": "Scope: This entry covers the visual style. The interaction-metaphor sense (a 'trash can' you drag files to) is the same idea one level up, and NN/g treats both together — but the atlas signals below are about pixels, not metaphors.",
+    "aliases": [
+      "the app looks like a real leather notebook",
+      "buttons that look like physical shiny buttons you could press",
+      "old iphone apps with stitching and paper textures",
+      "the calculator that looks like a real calculator",
+      "realistic textures like wood and metal in the interface"
+    ],
+    "confusedWith": {
+      "slug": "neumorphism",
+      "name": "Neumorphism",
+      "because": "This is skeuomorphism because surfaces imitate REAL, nameable materials — leather, paper, metal — with rich lighting, texture, and object metaphors.",
+      "wouldBecomeIf": "It would become neumorphism if every material and texture vanished and all controls were instead extruded from one continuous matte surface with soft dual shadows."
+    },
+    "signals": [
+      {
+        "id": "real-materials",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Simulated real materials",
+        "description": "Surfaces look made of something physical — leather, paper, linen, brushed metal, green felt — usually with visible texture or grain."
+      },
+      {
+        "id": "dimensional-lighting",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Physical lighting model",
+        "description": "Gloss highlights, bevels, and inner shadows imply a light source: buttons bulge outward, fields sink inward, edges catch light."
+      },
+      {
+        "id": "object-metaphor",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Real-object metaphors",
+        "description": "The UI is drawn AS the object it replaces: a notepad with ruled paper, a bookshelf of covers, a dial you rotate."
+      },
+      {
+        "id": "crafted-details",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Crafted physical details",
+        "description": "Stitching, torn-paper edges, embossed or letterpress text, rivets — ornamental traces of how the 'real' object would be manufactured."
+      },
+      {
+        "id": "gradient-controls",
+        "facet": "depth",
+        "role": "supporting",
+        "name": "Glossy gradient controls",
+        "description": "Buttons and bars carry vertical gradients with a specular top highlight — the 'gel' or 'aqua' look of pressable plastic."
+      },
+      {
+        "id": "palette",
+        "facet": "color",
+        "role": "variable",
+        "name": "Palette follows the material",
+        "description": "Color comes from the simulated material (tan leather, grey linen), so almost any palette can be skeuomorphic."
+      },
+      {
+        "id": "flat-fills",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Flat unshaded fills",
+        "description": "Large flat single-color surfaces with no lighting break the illusion — that's the doorway to Flat Design."
+      }
+    ],
+    "code": [
+      {
+        "title": "Raised glossy control: top highlight + drop shadow",
+        "language": "css",
+        "code": "background: linear-gradient(#fdfdfd, #d8d8d8); box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 1px 2px rgba(0,0,0,.35);"
+      },
+      {
+        "title": "Recessed field: inner shadow sinks it into the surface",
+        "language": "css",
+        "code": "box-shadow: inset 0 2px 4px rgba(0,0,0,.35); background: #f3efe6;"
+      },
+      {
+        "title": "Letterpress/embossed text on light materials",
+        "language": "css",
+        "code": "text-shadow: 0 1px 0 rgba(255,255,255,.6);"
+      }
+    ],
+    "brief": "Create the surface using skeuomorphism. Defining signals: controls rendered as simulated physical materials (e.g. leather, paper, brushed metal) with visible texture; a consistent lighting model — gloss highlights on raised elements, inner shadows on recessed fields; real-object metaphors for whole surfaces (a notepad drawn as ruled paper); crafted physical details like stitching or embossed text. Keep the specific material palette and density flexible. Use layered gradients with specular highlights, inset box-shadows for recessed fields, and subtle texture images or noise. Do not drift into neumorphism: the decisive difference is that skeuomorphic surfaces imitate real nameable materials, not one uniform soft-extruded surface. Preserve readable text contrast on textured backgrounds, visible controls and focus states, and reduced-motion support.",
+    "accessibility": "Text over textures (leather, linen, wood) needs a measured 4.5:1 contrast against the BUSIEST region of the texture, not its average color.\n\nDecorative bevels and gloss must not be the only pressed/unpressed signal — pair states with a color or content change.\n\nHeavy texture images add page weight; ship them compressed and let the UI stand without them.",
+    "origin": "As old as the GUI itself (the 1980s desktop metaphor), but the style label usually points at Apple's 2007–2012 era — iOS's leather calendars, felt Game Center, and reel-to-reel Podcasts app under Scott Forstall — ended publicly by iOS 7's flat redesign in 2013.",
+    "seeAlso": [
+      {
+        "slug": "styles/neumorphism",
+        "name": "Neumorphism"
+      },
+      {
+        "slug": "styles/flat-design",
+        "name": "Flat Design"
+      },
+      {
+        "slug": "styles/frutiger-aero",
+        "name": "Frutiger Aero"
+      },
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K Digital Aesthetic"
+      },
+      {
+        "slug": "styles/aqua",
+        "name": "Aqua"
+      }
+    ]
+  },
+  {
+    "slug": "neumorphism",
+    "name": "Neumorphism",
+    "order": 2,
+    "tagline": "Neumorphism renders every control as if extruded from, or pressed into, the page itself: background and controls share one matte color, and shape comes entirely from a pair of soft shadows — light from the top-left, dark toward the bottom-right. Nothing has a border and nothing floats; the whole interface reads as one continuous molded surface. It photographs beautifully and tests poorly: the same softness that makes it distinctive erases the contrast real controls need.",
+    "scope": "Scope: Covers the 2019–2021 'Soft UI' trend look. Its 3D-clay sibling with thicker, toy-like inflation is usually called claymorphism and is a separate (future) entry.",
+    "aliases": [
+      "soft buttons pushed out of the background",
+      "everything looks like its molded from the same clay-ish surface",
+      "the pillowy embossed buttons with two shadows",
+      "controls that look stamped into the page",
+      "that soft grey dashboard where buttons have no borders"
+    ],
+    "confusedWith": {
+      "slug": "skeuomorphism",
+      "name": "Skeuomorphism",
+      "because": "This is neumorphism because the controls and the background are one material-less matte surface, shaped only by soft dual shadows.",
+      "wouldBecomeIf": "It would become skeuomorphism if surfaces started imitating real nameable materials — leather grain, glossy plastic, brushed metal — with textures and object metaphors."
+    },
+    "signals": [
+      {
+        "id": "single-surface",
+        "facet": "surface",
+        "role": "defining",
+        "name": "One continuous surface",
+        "description": "Controls and background share the SAME matte color — elements aren't placed on the page, they're molded from it."
+      },
+      {
+        "id": "dual-shadows",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Dual soft shadows",
+        "description": "Every raised element carries two blurred shadows: a light one up-left and a dark one down-right, as if lit from one soft corner light."
+      },
+      {
+        "id": "pressed-inset",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Pressed (inset) states",
+        "description": "Inputs and active states invert the shadow pair inward, so the element looks pressed INTO the surface rather than raised from it."
+      },
+      {
+        "id": "borderless-low-contrast",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "No borders, whisper contrast",
+        "description": "Edges exist only where the shadows fade — no outlines, no strong fills; the whole UI sits within a narrow band of one hue."
+      },
+      {
+        "id": "soft-radii",
+        "facet": "geometry",
+        "role": "supporting",
+        "name": "Generous rounded corners",
+        "description": "Large, soft radii everywhere — crisp corners would break the molded illusion."
+      },
+      {
+        "id": "hue",
+        "facet": "color",
+        "role": "variable",
+        "name": "Any single base hue",
+        "description": "Classically a pale grey-blue (#e0e5ec), but the effect works on any light, low-saturation base; one saturated accent may survive for the primary action."
+      },
+      {
+        "id": "textures-images",
+        "facet": "imagery",
+        "role": "avoid",
+        "name": "Textures and materials",
+        "description": "Leather, paper, or gloss would reintroduce skeuomorphism — neumorphic surfaces are matte, uniform, and material-less."
+      }
+    ],
+    "code": [
+      {
+        "title": "Raised element on the classic base hue",
+        "language": "css",
+        "code": "background:#e0e5ec; box-shadow:-6px -6px 12px rgba(255,255,255,.85), 6px 6px 12px rgba(163,177,198,.6); border-radius:16px;"
+      },
+      {
+        "title": "Pressed / input inset state",
+        "language": "css",
+        "code": "box-shadow: inset -4px -4px 8px rgba(255,255,255,.75), inset 4px 4px 8px rgba(163,177,198,.55);"
+      }
+    ],
+    "brief": "Create the surface using neumorphism (Soft UI). Defining signals: controls share the background's exact matte color; raised elements get dual soft shadows (light top-left, dark bottom-right); pressed/input states invert the shadows inward (inset); no borders anywhere; generous rounded corners. Keep the base hue flexible (classically a pale grey-blue like #e0e5ec) and allow one saturated accent for the primary action. Use CSS box-shadow pairs, e.g. raised: box-shadow: -6px -6px 12px rgba(255,255,255,.85), 6px 6px 12px rgba(163,177,198,.6); pressed: the same pair with inset. Do not drift into skeuomorphism; the decisive difference is that neumorphic surfaces are one uniform material-less matte — no textures, gloss, or imitated materials. Preserve readable text contrast, a visible non-shadow cue for focus and states (WCAG non-text contrast will fail on shadows alone), and reduced-motion support.",
+    "accessibility": "The style's signature IS a WCAG problem: shadow-only boundaries rarely reach the 3:1 non-text contrast minimum — add a real focus ring and at least one non-shadow state cue (color, icon, label).\n\nDisabled vs enabled vs pressed all look similar in pure neumorphism; users with low vision may not find the controls at all. NN/g and the coining authors themselves warn against shipping it for functional UI.\n\nIf you keep it, reserve it for large decorative containers and give interactive elements stronger contrast than the style would like.",
+    "origin": "A Dribbble-era trend: Alexander Plyuto's 2019 'Skeuomorph Mobile Banking' shots went viral, Jason Kelley's comment coined the name, and Michal Malewicz's 2019–2020 articles defined and then warned about it. It stayed mostly a concept-shot style — few shipping products survived its accessibility costs.",
+    "seeAlso": [
+      {
+        "slug": "styles/skeuomorphism",
+        "name": "Skeuomorphism"
+      },
+      {
+        "slug": "styles/claymorphism",
+        "name": "Claymorphism"
+      },
+      {
+        "slug": "styles/glassmorphism",
+        "name": "Glassmorphism"
+      },
+      {
+        "slug": "styles/neobrutalism",
+        "name": "Neobrutalism"
+      }
+    ]
+  },
+  {
+    "slug": "glassmorphism",
+    "name": "Glassmorphism",
+    "order": 3,
+    "tagline": "Glassmorphism builds interfaces from translucent, frosted panels: the background — usually something vivid — blurs through each surface, a thin light border catches the 'edge' of the glass, and layers stack with soft shadows to sell the depth. The style lives or dies by its backdrop: over a plain background the glass reads as plain grey; over a colorful gradient it glows.",
+    "scope": "Scope: Covers the generic frosted-glass content style. Apple's system-wide adaptive material is Liquid Glass (its own entry), and the older macOS behind-window blur is vibrancy — a UI term, not a style.",
+    "aliases": [
+      "frosted cards over colorful wallpaper",
+      "the see-through blurry card effect",
+      "panels that blur whatever is behind them",
+      "milky transparent cards with a thin light border",
+      "that translucent dashboard look with a gradient background"
+    ],
+    "confusedWith": {
+      "slug": "liquid-glass",
+      "name": "Liquid Glass",
+      "because": "This is glassmorphism because the frosted treatment is a generic decorative skin — content cards, dashboards, whole panels can all be glass over a wallpaper you chose.",
+      "wouldBecomeIf": "It would become Liquid Glass if the glass were reserved for the CONTROL layer — bars, buttons, navigation floating above app content — using Apple's adaptive material that lenses and re-tints from whatever scrolls beneath it."
+    },
+    "signals": [
+      {
+        "id": "frosted-panel",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Frosted translucent panels",
+        "description": "Surfaces are semi-transparent with a strong background blur — content behind is visible but softened, like frosted glass."
+      },
+      {
+        "id": "vivid-backdrop",
+        "facet": "color",
+        "role": "defining",
+        "name": "Vivid backdrop showing through",
+        "description": "A colorful gradient, photo, or aurora sits behind the glass; its color bleeds through every panel and IS most of the palette."
+      },
+      {
+        "id": "glass-edge",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Thin light edge",
+        "description": "A 1px semi-transparent white border (often brighter on top) catches the rim of each panel, separating glass from glass."
+      },
+      {
+        "id": "layered-depth",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Layered floating depth",
+        "description": "Panels float above the backdrop and above each other with soft, wide shadows — the stack of sheets is part of the look."
+      },
+      {
+        "id": "white-ink",
+        "facet": "typography",
+        "role": "supporting",
+        "name": "Light ink on glass",
+        "description": "Text and icons are usually white or near-white with slight transparency steps for hierarchy."
+      },
+      {
+        "id": "backdrop-content",
+        "facet": "imagery",
+        "role": "variable",
+        "name": "What the backdrop is",
+        "description": "Gradient mesh, aurora, photography, or brand color field — any vivid, soft backdrop works; the glass recipe stays the same."
+      },
+      {
+        "id": "opaque-panels",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Opaque or unblurred panels",
+        "description": "Solid cards (or transparency without blur) lose the frosted read — transparency alone is just low opacity, not glass."
+      }
+    ],
+    "code": [
+      {
+        "title": "The core glass panel recipe",
+        "language": "css",
+        "code": "background: rgba(255,255,255,.12); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.25); border-radius: 16px;"
+      },
+      {
+        "title": "Fallback: without blur support, go near-opaque",
+        "language": "css",
+        "code": "@supports not (backdrop-filter: blur(1px)) { background: rgba(30,30,40,.85); }"
+      },
+      {
+        "title": "System material ≈ frosted panel (see also Liquid Glass)",
+        "language": "swiftui",
+        "code": ".background(.ultraThinMaterial)"
+      }
+    ],
+    "brief": "Create the surface using glassmorphism. Defining signals: semi-transparent panels with a strong backdrop blur; a vivid gradient or photographic backdrop whose color bleeds through every panel; a thin 1px semi-transparent white border on each panel edge; layered floating depth with soft wide shadows. Keep the backdrop's specific colors and imagery flexible. Use CSS backdrop-filter: blur(16px) with background: rgba(255,255,255,0.12) (or a dark equivalent) and border: 1px solid rgba(255,255,255,0.25). Do not drift into Apple's Liquid Glass; the decisive difference is that glassmorphism is a decorative skin for any surface including content cards, while Liquid Glass reserves glass for the floating control layer above content. Preserve readable text over every region the backdrop can produce (add a contrast scrim if needed), visible controls and focus states, and reduced-motion/reduced-transparency fallbacks.",
+    "accessibility": "Text contrast over glass is unstable: the backdrop moves and varies, so measure against the worst region or add a translucent contrast scrim behind text.\n\nHonor prefers-reduced-transparency (and OS 'Reduce transparency') with near-opaque fallbacks.\n\nbackdrop-filter is expensive on low-end devices; the layout must survive its absence — never hide content behind a failed blur.",
+    "origin": "The effect is decades old — Windows Vista's Aero glass (2006), iOS 7's blur layers (2013), macOS vibrancy — but the style label dates to Michal Malewicz's 2020 article, after the look spread through Dribbble and Big Sur-era redesigns.",
+    "seeAlso": [
+      {
+        "slug": "styles/liquid-glass",
+        "name": "Liquid Glass"
+      },
+      {
+        "slug": "styles/windows-aero",
+        "name": "Windows Aero"
+      },
+      {
+        "slug": "styles/claymorphism",
+        "name": "Claymorphism"
+      },
+      {
+        "slug": "styles/neumorphism",
+        "name": "Neumorphism"
+      },
+      {
+        "slug": "styles/frutiger-aero",
+        "name": "Frutiger Aero"
+      },
+      {
+        "slug": "macos/vibrancy",
+        "name": "Visual Effect Material (Vibrancy)"
+      },
+      {
+        "slug": "web/scrim",
+        "name": "Scrim (Backdrop / Overlay)"
+      }
+    ]
+  },
+  {
+    "slug": "liquid-glass",
+    "name": "Liquid Glass",
+    "order": 4,
+    "tagline": "Liquid Glass is Apple's adaptive material for controls and navigation: toolbars, tab bars, buttons, and sliders render as lens-like glass that floats in its own layer above app content, refracting what scrolls beneath and re-tinting itself for legibility in light and dark contexts. It is functional, not decorative — Apple applies it to the control layer and keeps content itself opaque. Capsule shapes and concentric corner radii are part of the geometry.",
+    "scope": "Scope: 'SwiftUI style' is not a style — SwiftUI is Apple's UI framework. Apps built with it currently LOOK like Liquid Glass; before 2025 they had the flatter platform-native Apple look, and early Mac OS X's candy-and-pinstripes look was Aqua. If someone says 'make it look like SwiftUI', they usually mean this entry.",
+    "aliases": [
+      "the new apple design where buttons look like water drops",
+      "the swiftui look",
+      "ios buttons that look like real glass and bend whats behind them",
+      "apple's new transparent bubbly toolbar style",
+      "the glass tab bar that floats over the app content"
+    ],
+    "confusedWith": {
+      "slug": "glassmorphism",
+      "name": "Glassmorphism",
+      "because": "This is Liquid Glass because the glass is a functional system material reserved for controls and navigation floating above opaque content, adapting its own tint for legibility.",
+      "wouldBecomeIf": "It would become glassmorphism if the frosted treatment spread to the content itself — translucent cards over a decorative wallpaper, blur as a skin rather than a control layer."
+    },
+    "signals": [
+      {
+        "id": "control-layer",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Glass = the control layer",
+        "description": "Only controls and navigation are glass — bars, buttons, sliders float above the app; the content beneath stays opaque and full-contrast."
+      },
+      {
+        "id": "lensing",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Lensing, not just blur",
+        "description": "The material behaves like a real lens: it bends and concentrates light from what's beneath, with bright edge highlights — richer than a flat frosted blur."
+      },
+      {
+        "id": "adaptive-tint",
+        "facet": "color",
+        "role": "defining",
+        "name": "Adaptive self-tinting",
+        "description": "The glass continuously re-tints from the content scrolling under it and flips between light and dark appearance on its own to stay legible."
+      },
+      {
+        "id": "capsule-concentric",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Capsule and concentric geometry",
+        "description": "Controls tend to capsules; nested corners share a common center (concentric radii), so the glass shapes sit optically flush inside their containers."
+      },
+      {
+        "id": "morphing-controls",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Controls morph fluidly",
+        "description": "Glass elements merge, split, and reshape as context changes — a tab bar shrinking on scroll, a button expanding into a menu."
+      },
+      {
+        "id": "platform-scope",
+        "facet": "imagery",
+        "role": "variable",
+        "name": "Underlying content",
+        "description": "Anything can sit beneath the glass — photos, maps, lists; the material adapts to it rather than requiring a curated backdrop."
+      },
+      {
+        "id": "glass-content",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Glass content cards",
+        "description": "Making content itself translucent — glass cards on glass backgrounds — is exactly what Apple's guidance avoids; that's generic glassmorphism, and it costs legibility."
+      }
+    ],
+    "code": [
+      {
+        "title": "The real material — standard toolbars/tab bars adopt it automatically",
+        "language": "swiftui",
+        "code": ".glassEffect(.regular, in: .capsule)"
+      },
+      {
+        "title": "Lets neighboring glass controls merge and morph together",
+        "language": "swiftui",
+        "code": "GlassEffectContainer { … }"
+      },
+      {
+        "title": "Web approximation: lens-ish capsule (no true refraction)",
+        "language": "css",
+        "code": "backdrop-filter: blur(14px) saturate(1.6); background: rgba(255,255,255,.08); box-shadow: inset 0 1px 1px rgba(255,255,255,.35), inset 0 -1px 1px rgba(255,255,255,.12); border-radius: 999px;"
+      }
+    ],
+    "brief": "Create the surface in the spirit of Apple's Liquid Glass. Defining signals: glass is reserved for the floating control layer (toolbars, tab bars, buttons) above opaque content; the material lenses what's beneath it — blur plus refraction-like edge highlights, not flat frost; controls adapt their tint to stay legible over changing content; capsule shapes with concentric corner radii. Keep the underlying content unrestricted. On Apple platforms use the real APIs — SwiftUI .glassEffect(), glassEffect(.regular, in: .capsule), and standard bars get it automatically; on the web approximate with backdrop-filter: blur + saturate, layered inner highlights, and capsule radii. Do not drift into generic glassmorphism; the decisive difference is that content never becomes glass — only controls float as glass above it. Preserve legibility over every content region (the real material self-adapts — your approximation must too), visible focus states, and honor Reduce Transparency / Reduce Motion.",
+    "accessibility": "Apple's material self-adjusts for legibility — a hand-rolled web imitation does not; test text over the worst content that can scroll beneath and add contrast treatment.\n\nHonor Reduce Transparency (near-opaque fallback) and Reduce Motion (disable morphing).\n\nNever place critical text directly on imitation glass without a measured 4.5:1 against live worst-case backgrounds.",
+    "origin": "Introduced by Apple at WWDC 2025 as the first unified design language across iPhone, iPad, Mac, Watch, and TV — Apple credits visionOS's glass optics as the inspiration, and ships it as a system material with SwiftUI/UIKit/AppKit APIs rather than a mere visual theme.",
+    "seeAlso": [
+      {
+        "slug": "styles/glassmorphism",
+        "name": "Glassmorphism"
+      },
+      {
+        "slug": "styles/aqua",
+        "name": "Aqua"
+      },
+      {
+        "slug": "macos/vibrancy",
+        "name": "Visual Effect Material (Vibrancy)"
+      },
+      {
+        "slug": "macos/toolbar",
+        "name": "Toolbar (Unified Title Bar)"
+      },
+      {
+        "slug": "macos/sheet",
+        "name": "Sheet"
+      }
+    ]
+  },
+  {
+    "slug": "web-brutalism",
+    "name": "Web Brutalism",
+    "order": 5,
+    "tagline": "Web Brutalism treats the browser's own materials as the finished surface: default or system fonts, unstyled-looking links, visible document structure, plain borders and horizontal rules, and density over polish. Nothing pretends to be anything else — no gradients imitating glass, no shadows imitating depth. At its best it's honest and fast (Craigslist, Hacker News, early-web personal sites); at its worst the label gets stretched over anything unpolished.",
+    "scope": "Scope: Distinct from architectural Brutalism (exposed concrete and mass — the analogy's source), and from Neobrutalism (a styled, saturated, thick-border graphic look that is anything but default). The nostalgic table-and-GIF personal-site look is Vernacular Web, a separate (future) entry.",
+    "aliases": [
+      "ugly raw html website",
+      "site that looks like no css was written",
+      "just times new roman and blue links",
+      "the bare-bones craigslist look",
+      "web page that shows its structure with no decoration"
+    ],
+    "confusedWith": {
+      "slug": "neobrutalism",
+      "name": "Neobrutalism",
+      "because": "This is Web Brutalism because the page is genuinely built from browser defaults — system type, blue links, bare structure, no decorative rendering at all.",
+      "wouldBecomeIf": "It would become Neobrutalism if the rawness were styled: saturated color blocks, thick uniform black borders, hard offset shadows, and chunky display type — a designed graphic language, not defaults."
+    },
+    "signals": [
+      {
+        "id": "browser-defaults",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Browser-default materials",
+        "description": "Times/system serif or monospace, default-blue underlined links, visited-purple — the stack looks unstyled even when it's deliberate."
+      },
+      {
+        "id": "exposed-structure",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Exposed document structure",
+        "description": "The page reads as a document: headings, lists, tables, and <hr> dividers in source order — structure IS the layout."
+      },
+      {
+        "id": "no-decoration",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Zero decorative rendering",
+        "description": "No shadows, gradients, rounded corners, or imitation materials; at most 1px solid borders. Flat white (or single-color) ground."
+      },
+      {
+        "id": "utility-density",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Utility-first density",
+        "description": "Information is packed tight and loads instantly — the aesthetic argument is speed and honesty, not beauty."
+      },
+      {
+        "id": "mono-accents",
+        "facet": "typography",
+        "role": "variable",
+        "name": "Monospace / all-caps accents",
+        "description": "Many brutalist sites swap to monospace or shouting caps for flavor; others stay pure serif. Both count."
+      },
+      {
+        "id": "styled-rawness",
+        "facet": "color",
+        "role": "avoid",
+        "name": "Styled 'rawness'",
+        "description": "Saturated color blocks, thick designed borders, and hard offset shadows are a costume of rawness — that's Neobrutalism."
+      }
+    ],
+    "code": [
+      {
+        "title": "The materials ARE the elements",
+        "language": "html",
+        "code": "<h1>, <hr>, <table>, <ul> with UA default styles"
+      },
+      {
+        "title": "If you must write CSS, restate the defaults",
+        "language": "css",
+        "code": "font-family: 'Times New Roman', serif; a { color: #0000ee; } a:visited { color: #551a8b; }"
+      }
+    ],
+    "brief": "Create the page using strict Web Brutalism. Defining signals: browser-default materials (Times/system serif or monospace, default-blue underlined links); exposed document structure — headings, lists, tables, horizontal rules in source order; zero decorative rendering (no shadows, gradients, or rounded corners; at most 1px solid borders on a plain ground); utility-first density that loads instantly. Keep monospace vs serif and all-caps accents flexible. Use semantic HTML with minimal CSS — default UA styles are the design; resist resets that soften them. Do not drift into Neobrutalism; the decisive difference is that nothing here is styled to look raw — saturated blocks, thick designed borders, and offset shadows would make it a graphic costume. Preserve readable text sizes, focus visibility, and honest link affordances (underlines stay).",
+    "accessibility": "Brutalism is accidentally accessible — semantic structure, honest links, no contrast-eating decoration — as long as text sizes stay readable and density leaves tap targets big enough.\n\nDefault-blue on white passes contrast; keep the default focus outline (removing it would be the one truly anti-brutalist move).\n\nDense tables need proper headers/scope for screen readers — visual rawness doesn't excuse structural rawness.",
+    "origin": "Named by analogy to architecture's béton brut ('raw concrete'); the web usage spread in the mid-2010s through Pascal Deville's brutalistwebsites.com and essays like Smashing Magazine's 'split personality of brutalist web development', as a reaction against the sameness of polished startup sites.",
+    "seeAlso": [
+      {
+        "slug": "styles/neobrutalism",
+        "name": "Neobrutalism"
+      },
+      {
+        "slug": "styles/minimalism",
+        "name": "Minimalism"
+      },
+      {
+        "slug": "styles/vernacular-web",
+        "name": "Vernacular Web"
+      },
+      {
+        "slug": "web/form-field",
+        "name": "Form Field"
+      },
+      {
+        "slug": "web/focus-ring-web",
+        "name": "Focus Ring (:focus-visible)"
+      }
+    ]
+  },
+  {
+    "slug": "neobrutalism",
+    "name": "Neobrutalism",
+    "order": 6,
+    "tagline": "Neobrutalism is a designed graphic language: flat, saturated color blocks outlined in thick black strokes, with hard offset shadows — solid black rectangles displaced a few pixels, no blur — and chunky display type. Elements read like stickers or risograph prints; pressing a button often physically 'pushes' it into its shadow. Despite the name it is the opposite of raw: every border and shadow is a deliberate illustration choice.",
+    "scope": "Scope: Takes brutalism's name but not its method — see Web Brutalism for the genuinely-raw sibling, and architectural Brutalism (exposed concrete) for where the word started. Memphis-style geometric confetti often decorates neobrutalist pages but is its own movement.",
+    "aliases": [
+      "bright blocks with black outlines and hard shadows",
+      "buttons with the thick black border and the solid shadow that doesn't blur",
+      "that yellow and black sticker-looking website style",
+      "cartoonish chunky ui with bold borders",
+      "the gumroad-looking bold flat style"
+    ],
+    "confusedWith": {
+      "slug": "web-brutalism",
+      "name": "Web Brutalism",
+      "because": "This is Neobrutalism because the rawness is a designed costume: uniform thick borders, hard offset shadows, and saturated blocks are deliberate graphic choices.",
+      "wouldBecomeIf": "It would become Web Brutalism if the styling were removed rather than exaggerated — browser-default type, plain blue links, bare structure, and no decorative rendering at all."
+    },
+    "signals": [
+      {
+        "id": "thick-outlines",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Thick black outlines",
+        "description": "Every element — cards, buttons, inputs, even images — wears a uniform 2–3px solid black border, like an inked comic panel."
+      },
+      {
+        "id": "hard-shadows",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Hard offset shadows",
+        "description": "Shadows are solid black shapes displaced down-right with ZERO blur — graphic depth, not simulated lighting. Pressing collapses the offset."
+      },
+      {
+        "id": "saturated-blocks",
+        "facet": "color",
+        "role": "defining",
+        "name": "Saturated flat color blocks",
+        "description": "Unapologetic fills — yellow, hot pink, lime, cyan — laid flat next to each other on a cream or white ground; no gradients."
+      },
+      {
+        "id": "chunky-type",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Chunky display type",
+        "description": "Bold, blocky grotesks or display faces, often oversized; body text stays plain so the headings can shout."
+      },
+      {
+        "id": "sticker-shapes",
+        "facet": "imagery",
+        "role": "supporting",
+        "name": "Sticker shapes and doodles",
+        "description": "Stars, blobby badges, arrows, and squiggles with the same black outlines, scattered like stickers."
+      },
+      {
+        "id": "press-interaction",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Push-into-shadow presses",
+        "description": "Hover/active states translate the element toward its shadow, as if pressing a physical sticker flat."
+      },
+      {
+        "id": "palette-choice",
+        "facet": "color",
+        "role": "variable",
+        "name": "Which loud palette",
+        "description": "Yellow-black is the cliché but any high-saturation set works; the borders and shadows carry the style, not one specific hue."
+      },
+      {
+        "id": "soft-rendering",
+        "facet": "depth",
+        "role": "avoid",
+        "name": "Soft rendering",
+        "description": "Blurred shadows, gradients, or translucency dissolve the inked-print effect instantly — softness is the enemy."
+      }
+    ],
+    "code": [
+      {
+        "title": "The signature card/button construction",
+        "language": "css",
+        "code": "border: 2px solid #000; box-shadow: 4px 4px 0 #000; border-radius: 8px;"
+      },
+      {
+        "title": "Press-into-shadow interaction",
+        "language": "css",
+        "code": ":active { transform: translate(4px,4px); box-shadow: none; }"
+      },
+      {
+        "title": "Same construction as utilities",
+        "language": "tailwind",
+        "code": "border-2 border-black shadow-[4px_4px_0_#000] active:translate-x-1 active:translate-y-1 active:shadow-none"
+      }
+    ],
+    "brief": "Create the surface using Neobrutalism. Defining signals: a uniform 2–3px solid black border on every element; hard offset shadows — solid black, displaced ~4px down-right, zero blur (box-shadow: 4px 4px 0 #000); flat saturated color blocks (e.g. yellow, hot pink, lime) on a cream or white ground with no gradients; bold chunky display type for headings. Keep the specific palette and any sticker doodads flexible. Active states translate the element into its shadow (transform: translate(4px,4px) with the shadow removed). Do not drift into Web Brutalism; the decisive difference is that this look is heavily styled — removing the borders, shadows, and color in favor of browser defaults would make it brutalist proper. Preserve 4.5:1 text contrast on every colored block (black text on saturated fills usually passes; white on yellow never does), visible focus indicators distinct from the decorative borders, and reduced-motion support for press animations.",
+    "accessibility": "Saturated fills need checked text contrast: black ink on yellow/lime passes easily; white ink on yellow, pink, or cyan usually fails 4.5:1.\n\nThe decorative black borders look like focus rings — give keyboard focus a distinct, higher-visibility indicator (e.g. an offset outline in a reserved color).\n\nNN/g's caution: the loudness taxes readability at length — keep body text plain and reserve the shout for structure and actions.",
+    "origin": "Emerged around 2020–2022 in product marketing and portfolio sites (Gumroad's 2021 redesign is the era's poster child), catalogued by NN/g in 2023 as a reaction to soft, same-looking SaaS design — flat design turned up to eleven with comic-book construction.",
+    "seeAlso": [
+      {
+        "slug": "styles/web-brutalism",
+        "name": "Web Brutalism"
+      },
+      {
+        "slug": "styles/neumorphism",
+        "name": "Neumorphism"
+      },
+      {
+        "slug": "styles/flat-design",
+        "name": "Flat Design"
+      },
+      {
+        "slug": "styles/claymorphism",
+        "name": "Claymorphism"
+      },
+      {
+        "slug": "web/badge-chip-pill",
+        "name": "Badge vs. Chip vs. Pill vs. Tag"
+      }
+    ]
+  },
+  {
+    "slug": "y2k",
+    "name": "Y2K Digital Aesthetic",
+    "order": 7,
+    "tagline": "The Y2K digital aesthetic is millennium-turn techno-optimism rendered literally: liquid chrome and brushed metal, glossy gel and plastic surfaces, iridescent blue-silver palettes, orbs and blobs, wide techno type, and rendered 3D everything. It's the look of a future imagined through new consumer tech — translucent iMacs, early CGI, rave flyers, and 'cyber' branding — shiny, synthetic, and unembarrassed.",
+    "scope": "Scope: Covers the digital/graphic look, not Y2K fashion. The darker neon-grid retro strain is Synthwave/Retrofuturism (future entries); the glossy NATURE-infused successor is Frutiger Aero, its own entry and this one's closest neighbor.",
+    "aliases": [
+      "chrome bubblegum millennium interface",
+      "shiny metallic text with lens flares like old cd covers",
+      "the silver and electric blue futuristic 2000s look",
+      "glossy plastic bubble buttons like early mac",
+      "that iridescent chrome sticker rave flyer style"
+    ],
+    "confusedWith": {
+      "slug": "frutiger-aero",
+      "name": "Frutiger Aero",
+      "because": "This is Y2K because the optimism is synthetic — chrome, gel plastic, iridescent blue-silver, techno type; the future is machines and cyberspace.",
+      "wouldBecomeIf": "It would become Frutiger Aero if the gloss stayed but nature flooded in — blue skies, water, grass, and bubbles fused with clean humanist type into eco-tech Web 2.0 optimism."
+    },
+    "signals": [
+      {
+        "id": "chrome-metal",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Liquid chrome and metal",
+        "description": "Mirror-finish chrome, brushed steel, and silver gradients — type and frames rendered as if machined and polished."
+      },
+      {
+        "id": "gel-gloss",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Gel and glossy plastic",
+        "description": "Translucent candy-like buttons and blobs with strong specular highlights — the Aqua-era 'you want to lick it' gloss."
+      },
+      {
+        "id": "iridescent-palette",
+        "facet": "color",
+        "role": "defining",
+        "name": "Iridescent blue-silver palette",
+        "description": "Electric blue, silver, white, and holographic cyan-magenta shifts — cool synthetic color, rarely earthy."
+      },
+      {
+        "id": "techno-type",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Wide techno type",
+        "description": "Extended, rounded or squared techno faces (Eurostile-flavored), often italicized, outlined, or chromed."
+      },
+      {
+        "id": "orbs-blobs",
+        "facet": "imagery",
+        "role": "supporting",
+        "name": "Orbs, blobs, and wireframes",
+        "description": "Rendered spheres, liquid blobs, globes, wireframe grids, and lens flares floating as decoration."
+      },
+      {
+        "id": "pixel-cyber",
+        "facet": "imagery",
+        "role": "variable",
+        "name": "Pixel/cyber garnish",
+        "description": "Tiny pixel fonts, scanlines, and 'cyber' interface chrome appear in some strains and not others."
+      },
+      {
+        "id": "nature-imagery",
+        "facet": "imagery",
+        "role": "avoid",
+        "name": "Nature imagery",
+        "description": "Grass, water, fish, and sky shift the mood from synthetic futurism to eco-tech — that's Frutiger Aero territory."
+      }
+    ],
+    "code": [
+      {
+        "title": "Chrome bar: hard mid-stop fakes the mirror horizon",
+        "language": "css",
+        "code": "background: linear-gradient(180deg,#fdfdfd 0%,#c9cdd4 45%,#8f96a3 50%,#e8ebf0 100%);"
+      },
+      {
+        "title": "Gel button: candy gloss cap on a saturated pill",
+        "language": "css",
+        "code": "background: radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 45%), #2f7df6; border-radius:999px;"
+      },
+      {
+        "title": "Chromed display type from the chrome gradient",
+        "language": "css",
+        "code": "background-clip: text; color: transparent;"
+      }
+    ],
+    "brief": "Create the piece using the Y2K digital aesthetic. Defining signals: liquid-chrome/metallic surfaces (silver gradient fills with mirror highlights); glossy translucent gel buttons and blobs with strong specular top highlights; an iridescent electric-blue/silver/white palette with occasional holographic cyan-magenta shifts; wide techno display type (Eurostile-flavored, often italic or chromed). Supporting garnish to use sparingly: rendered orbs, globes, wireframe grids, lens flares, tiny pixel-font labels. Keep the exact palette temperature and garnish density flexible. Use layered CSS gradients for chrome (alternating light/dark stops), radial-gradient highlights for gel, and background-clip: text for chromed type. Do not drift into Frutiger Aero; the decisive difference is that Y2K's optimism is synthetic — no grass, water, sky, or nature photography. Preserve readable text (chrome type needs a dark backing or outline to hit 4.5:1), visible focus states, and reduced-motion support for any shine sweeps.",
+    "accessibility": "Chrome-gradient text is decorative at heart: back it with a solid dark plate or duplicate it as real high-contrast text — the gradient's mid-greys fail 4.5:1 on their own.\n\nSpecular gloss steals contrast from labels on gel buttons; keep label ink dark/white against the button's DARKEST region.\n\nLens flares and shine sweeps are motion garnish — disable under prefers-reduced-motion.",
+    "origin": "Roughly 1997–2004: Apple's translucent iMac G3 and Aqua, PlayStation-era CGI, Designers Republic-style rave graphics, and dot-com 'cyber' branding. Rediscovered and named by 2010s–2020s internet archaeology (CARI et al.) and the fashion/graphics revival that followed.",
+    "seeAlso": [
+      {
+        "slug": "styles/frutiger-aero",
+        "name": "Frutiger Aero"
+      },
+      {
+        "slug": "styles/aqua",
+        "name": "Aqua"
+      },
+      {
+        "slug": "styles/vernacular-web",
+        "name": "Vernacular Web"
+      },
+      {
+        "slug": "styles/skeuomorphism",
+        "name": "Skeuomorphism"
+      },
+      {
+        "slug": "styles/glassmorphism",
+        "name": "Glassmorphism"
+      }
+    ]
+  },
+  {
+    "slug": "frutiger-aero",
+    "name": "Frutiger Aero",
+    "order": 8,
+    "tagline": "Frutiger Aero is the glossy, nature-infused optimism of roughly 2004–2013: bright blue skies and water, green grass, bubbles, fish, and light rays fused with translucent glass panels, aqua buttons, and clean humanist type. Technology presents itself as fresh, ecological, and frictionless — the future as a sunny day. It's the era of Windows Vista/7 wallpapers, glossy media players, and Web 2.0 product sites.",
+    "scope": "Scope: Windows Aero is Microsoft's vendor design language of the same era — an ingredient and namesake, not an exact alias. The synthetic chrome-and-cyber look that PRECEDED it is Y2K, this entry's closest neighbor.",
+    "aliases": [
+      "glossy grass bubbles old windows future",
+      "the blue sky and green grass wallpaper vibe with shiny buttons",
+      "water droplets and fish and glassy interfaces from 2008",
+      "that clean glossy nature-tech look like old windows",
+      "bubbles floating over a bright blue gradient"
+    ],
+    "confusedWith": {
+      "slug": "y2k",
+      "name": "Y2K Digital Aesthetic",
+      "because": "This is Frutiger Aero because the gloss is in service of nature-tech optimism — skies, water, grass, and bubbles behind clean humanist type.",
+      "wouldBecomeIf": "It would become Y2K if the nature drained out and the surfaces turned synthetic — chrome, gel plastic, iridescent blue-silver, and wide techno type."
+    },
+    "signals": [
+      {
+        "id": "nature-tech",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Nature fused with tech",
+        "description": "Skies, water, grass, leaves, fish, and bubbles as the ambient world the UI floats in — ecology as a tech promise."
+      },
+      {
+        "id": "aero-glass",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Glossy glass and aqua surfaces",
+        "description": "Translucent panels and buttons with strong curved specular highlights — wet, light-filled gloss rather than matte frost."
+      },
+      {
+        "id": "sky-palette",
+        "facet": "color",
+        "role": "defining",
+        "name": "Sky-blue / grass-green palette",
+        "description": "Luminous cyan-blues and fresh greens with white light — bright, clean, and warm-lit, never murky."
+      },
+      {
+        "id": "humanist-type",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Clean humanist sans type",
+        "description": "Friendly rounded-humanist sans-serifs (the Frutiger/Segoe flavor) in white or sky-dark blue — clarity, not techno styling."
+      },
+      {
+        "id": "light-effects",
+        "facet": "depth",
+        "role": "supporting",
+        "name": "Bokeh, rays, and sheen",
+        "description": "Soft light circles, sun rays through water, and diagonal sheen sweeps give everything a freshly-washed sparkle."
+      },
+      {
+        "id": "subject-matter",
+        "facet": "imagery",
+        "role": "variable",
+        "name": "Which slice of nature",
+        "description": "Underwater scenes, meadows, droplets on leaves, goldfish, wind turbines — any fresh, sunlit nature reads as the style."
+      },
+      {
+        "id": "chrome-cyber",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Chrome and cyber styling",
+        "description": "Mirror chrome, techno type, and wireframe grids pull the mood back to synthetic Y2K futurism."
+      }
+    ],
+    "code": [
+      {
+        "title": "The sky-over-grass world gradient",
+        "language": "css",
+        "code": "background: linear-gradient(180deg,#8fd3ff 0%,#3fa9f5 45%,#8fd948 82%,#4a9e2e 100%);"
+      },
+      {
+        "title": "Aqua gloss cap: a hard 50% stop splits shine from body",
+        "language": "css",
+        "code": "background: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.06) 48%, rgba(255,255,255,0) 52%, rgba(255,255,255,.25)); border-radius: 999px;"
+      },
+      {
+        "title": "A soap-bubble / droplet highlight",
+        "language": "css",
+        "code": "background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.9), rgba(255,255,255,.08) 55%, rgba(255,255,255,.35));"
+      }
+    ],
+    "brief": "Create the piece using Frutiger Aero. Defining signals: nature imagery fused with technology (blue sky, water, grass, bubbles, light rays) as the ambient backdrop; glossy translucent 'aqua' surfaces with curved specular highlights; a luminous sky-blue and grass-green palette full of white light; clean humanist sans-serif type (Frutiger/Segoe flavor). Supporting: bokeh circles, sun rays, diagonal sheen sweeps. Keep the specific slice of nature (underwater, meadow, droplets) flexible. Use layered radial/linear gradients for the sky and gloss caps, rgba white overlays for sheen, and generous rounded panels. Do not drift into Y2K; the decisive difference is nature — if chrome, techno type, or cyber grids replace the skies and grass, you've crossed over. Preserve 4.5:1 text contrast over photographic backgrounds (back text with a panel), visible focus states, and reduced-motion support for sheen and bubble effects.",
+    "accessibility": "White type straight on sky/grass photography fails contrast in bright regions — put text on a translucent panel with a measured 4.5:1.\n\nGloss highlights across a control's top half can wash out its label; keep the label's zone below the sheen or darken the plate behind it.\n\nBubbles, rays, and sheen sweeps are ambience — never meaning — and stop under prefers-reduced-motion.",
+    "origin": "Roughly 2004–2013 across consumer tech (Windows Vista/7 era, glossy device UIs, Wii-era menus, Web 2.0 branding). Named retroactively around 2017 by CARI's cataloguers, after Adrian Frutiger's humanist typefaces plus Windows Aero; the nostalgia wave made the label mainstream in the 2020s.",
+    "seeAlso": [
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K Digital Aesthetic"
+      },
+      {
+        "slug": "styles/windows-aero",
+        "name": "Windows Aero"
+      },
+      {
+        "slug": "styles/glassmorphism",
+        "name": "Glassmorphism"
+      },
+      {
+        "slug": "styles/skeuomorphism",
+        "name": "Skeuomorphism"
+      },
+      {
+        "slug": "macos/vibrancy",
+        "name": "Visual Effect Material (Vibrancy)"
+      }
+    ]
+  },
+  {
+    "slug": "flat-design",
+    "name": "Flat Design",
+    "order": 9,
+    "tagline": "Flat Design renders the interface as pure 2D: surfaces are solid color fills, icons are simple geometric glyphs, and nothing pretends to be lit, embossed, or made of a material. Hierarchy comes from color, size, and typography instead of shadows and bevels. It became the dominant look around 2012–2013 (Windows 8's Metro, then iOS 7) as the direct rejection of skeuomorphism's gloss and texture.",
+    "scope": "Scope: This entry covers strict flat rendering. 'Flat 2.0' — flat surfaces with a few functional shadows reintroduced (Material Design's elevation is the systematic version) — is the common modern compromise, not a separate entry.",
+    "aliases": [
+      "everything is just solid colors with no shadows",
+      "buttons that are plain rectangles of color",
+      "the ios 7 look when everything went flat",
+      "icons that are simple white shapes on colored squares",
+      "no gradients no textures just clean color blocks",
+      "the design style that killed the glossy buttons"
+    ],
+    "confusedWith": {
+      "slug": "skeuomorphism",
+      "name": "Skeuomorphism",
+      "because": "This is Flat Design because surfaces are unshaded solid fills and icons are abstract glyphs — nothing imitates a physical object or material.",
+      "wouldBecomeIf": "It would become skeuomorphism if the fills grew gloss, texture, and lighting until controls read as physical things you could touch."
+    },
+    "signals": [
+      {
+        "id": "solid-fills",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Solid 2D color fills",
+        "description": "Every surface is one flat color — no gradients, no gloss, no texture, no material of any kind."
+      },
+      {
+        "id": "no-depth",
+        "facet": "depth",
+        "role": "defining",
+        "name": "No simulated depth",
+        "description": "No drop shadows, bevels, or highlights; elements sit on one plane and edges are drawn by color change alone."
+      },
+      {
+        "id": "glyph-icons",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Simple glyph icons",
+        "description": "Icons are reduced to minimal geometric silhouettes — a single-color shape reads as the whole object."
+      },
+      {
+        "id": "color-hierarchy",
+        "facet": "color",
+        "role": "defining",
+        "name": "Color carries the hierarchy",
+        "description": "Bright, often saturated block colors distinguish actions and regions — color does the job shadows used to do."
+      },
+      {
+        "id": "type-does-work",
+        "facet": "typography",
+        "role": "supporting",
+        "name": "Typography does the structure",
+        "description": "Clean sans-serif type in strong size steps separates levels of content where boxes and bevels used to."
+      },
+      {
+        "id": "density",
+        "facet": "layout",
+        "role": "variable",
+        "name": "Density is free",
+        "description": "Flat governs RENDERING only — a flat UI can be a sparse landing page or a dense dashboard."
+      },
+      {
+        "id": "gloss-textures",
+        "facet": "depth",
+        "role": "avoid",
+        "name": "Gloss, gradients, textures",
+        "description": "A specular highlight or leather texture breaks the style — that's the doorway back to skeuomorphism."
+      }
+    ],
+    "code": [
+      {
+        "title": "A flat button: one fill, no lighting anywhere",
+        "language": "css",
+        "code": "background: #2f80ed; border: none; border-radius: 4px; box-shadow: none;"
+      },
+      {
+        "title": "The un-skeuomorphing checklist — nothing simulates light",
+        "language": "css",
+        "code": "filter: none; background-image: none; text-shadow: none;"
+      },
+      {
+        "title": "State changes by color swap, not elevation",
+        "language": "tailwind",
+        "code": "bg-sky-600 text-white rounded shadow-none hover:bg-sky-700"
+      }
+    ],
+    "brief": "Create the surface using flat design. Defining signals: every surface a solid single-color fill — zero gradients, gloss, or texture; no simulated depth — no drop shadows, bevels, or specular highlights, edges drawn by color change alone; icons as simple one-color geometric glyphs; hierarchy carried by color blocks, size, and clean sans-serif type. Keep the palette and density flexible — flat can be sparse or dense. In CSS this means background-color instead of background-image gradients, border: none or 1px solid, box-shadow: none. Do not drift into skeuomorphism: the decisive difference is that nothing imitates a lit physical material. Preserve 4.5:1 text contrast, and make interactive elements identifiable without shadows — clear color affordance, visible hover/pressed states, and visible focus rings.",
+    "accessibility": "NN/g measured the cost: flat UIs with weak signifiers make users uncertain what is clickable — give buttons and links unmistakable color affordance, not just proximity.\n\nWith shadows gone, color is doing double duty — check 4.5:1 contrast for text AND 3:1 for the boundaries of controls against their background.\n\nNever remove focus outlines to keep things 'clean'; a flat UI without focus rings is unusable by keyboard.",
+    "origin": "Rose to prominence around 2012: Microsoft's Metro language (Windows Phone 7 in 2010, Windows 8 in 2012) proved it at OS scale, and Apple's iOS 7 redesign in 2013 ended the skeuomorphic era for good. NN/g traces the deeper roots to Swiss/International typographic style.",
+    "seeAlso": [
+      {
+        "slug": "styles/skeuomorphism",
+        "name": "Skeuomorphism"
+      },
+      {
+        "slug": "styles/minimalism",
+        "name": "Minimalism"
+      },
+      {
+        "slug": "styles/neobrutalism",
+        "name": "Neobrutalism"
+      }
+    ]
+  },
+  {
+    "slug": "minimalism",
+    "name": "Minimalism",
+    "order": 10,
+    "tagline": "Minimalism governs what is ON the screen, not how it's drawn: strip the interface to the fewest elements that still do the job, then let generous negative space and one or two dramatic typographic moments carry the composition. NN/g's study of 112 minimalist sites found the recurring traits — flat-ish surfaces, limited or monochrome palettes, restricted element counts, negative space, and large type as the hero.",
+    "scope": "Scope: Minimalism and Flat Design are different axes: flat governs rendering, minimalism governs content, features, and layout. A UI can be flat but crowded, or minimalist while still using depth and shadow.",
+    "aliases": [
+      "the page with almost nothing on it",
+      "huge empty space and one button",
+      "giant headline and tons of white space",
+      "the apple style page with one product and nothing else",
+      "a website that is basically just text and air",
+      "everything unnecessary removed until only the message is left"
+    ],
+    "confusedWith": {
+      "slug": "flat-design",
+      "name": "Flat Design",
+      "because": "This is minimalism because the content itself is reduced — few elements, vast negative space, one dramatic headline — whatever the rendering.",
+      "wouldBecomeIf": "It would be merely Flat Design if the screen filled up with content again and only the unshaded 2D rendering remained."
+    },
+    "signals": [
+      {
+        "id": "negative-space",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Negative space as material",
+        "description": "Emptiness is deliberate and generous — content floats in air, and the space around a thing is what makes it matter."
+      },
+      {
+        "id": "restricted-elements",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Restricted element count",
+        "description": "Few things on screen, and every one earns its place: one nav, one message, one action — decoration is deleted, not restyled."
+      },
+      {
+        "id": "limited-palette",
+        "facet": "color",
+        "role": "defining",
+        "name": "Limited or monochrome palette",
+        "description": "One or two hues at most, often just black/white/grey with a single accent — color restraint is part of the restraint."
+      },
+      {
+        "id": "dramatic-type",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Dramatic typography",
+        "description": "With imagery and ornament gone, type goes big: an oversized headline is usually the loudest element on the page."
+      },
+      {
+        "id": "flat-tendency",
+        "facet": "depth",
+        "role": "variable",
+        "name": "Rendering is free",
+        "description": "Most minimalist sites render flat, but shadow and depth are allowed — minimalism constrains WHAT is shown, not HOW it's lit."
+      },
+      {
+        "id": "crowding",
+        "facet": "layout",
+        "role": "avoid",
+        "name": "Crowding and ornament",
+        "description": "A second competing message, decorative flourishes, or a dense widget wall breaks the style regardless of how flat it looks."
+      }
+    ],
+    "code": [
+      {
+        "title": "A narrow measure floating in deliberate emptiness",
+        "language": "css",
+        "code": "max-width: 34rem; margin-inline: auto; padding-block: clamp(4rem, 18vh, 10rem);"
+      },
+      {
+        "title": "The dramatic headline as the composition's hero",
+        "language": "css",
+        "code": "font-size: clamp(2.5rem, 8vw, 6rem); letter-spacing: -0.03em; line-height: 1.05;"
+      }
+    ],
+    "brief": "Create the surface using minimalism. Defining signals: the fewest elements that still do the job — one navigation, one message, one primary action, decoration deleted; generous negative space around everything (think 40 to 60 percent of the viewport empty); a limited palette — near-monochrome with at most one accent color; one dramatic typographic moment, an oversized headline that is the loudest thing on screen. Rendering is flexible — flat fills or subtle shadows both fit. Do not confuse this with flat design: minimalism constrains content and layout, not rendering — if you add content back until the page is busy, it stops being minimalist no matter how flat it is. Preserve discoverability: core actions must stay visible, never hidden behind mystery-meat icons to keep the page empty, and text keeps 4.5:1 contrast even in grey-on-white palettes.",
+    "accessibility": "Light-grey-on-white is the classic minimalist contrast failure — measure text at 4.5:1, muted palettes included.\n\nDon't purge affordances along with the decoration: hiding navigation or labels to preserve emptiness trades clutter for mystery.\n\nHuge display type needs responsive clamping — a 96px headline that fits a desktop can wrap into an unreadable wall on a phone.",
+    "origin": "The reduction ethos of mid-century movements (Bauhaus, Swiss typography, 'less is more') applied to interfaces; on the web it became the dominant 'serious brand' register through the 2010s, with Apple's product pages as the most-copied specimen. NN/g's definitional study is from 2015.",
+    "seeAlso": [
+      {
+        "slug": "styles/flat-design",
+        "name": "Flat Design"
+      },
+      {
+        "slug": "styles/web-brutalism",
+        "name": "Web Brutalism"
+      }
+    ]
+  },
+  {
+    "slug": "claymorphism",
+    "name": "Claymorphism",
+    "order": 11,
+    "tagline": "Claymorphism makes UI elements look molded from soft modeling clay: fat rounded corners, a light pastel fill, and the signature construction — two inner shadows (a bright one catching the top edge, a darker one shading the bottom) plus one soft outer drop shadow that floats the object above the page. Each element is independently colored and clearly separate from the background, usually paired with chunky 3D 'clay' illustrations.",
+    "scope": "Scope: This entry covers the UI treatment. The matching 3D character-illustration style (inflated Blender people with smooth plastic skin) travels with it but is an illustration fashion, not an interface style.",
+    "aliases": [
+      "puffy 3d buttons that look like play-doh",
+      "the cards look inflated like balloons",
+      "cute squishy looking interface",
+      "rounded blobby buttons with soft insides",
+      "the 3d clay illustration style dashboards",
+      "everything looks like soft rubber toys"
+    ],
+    "confusedWith": {
+      "slug": "neumorphism",
+      "name": "Neumorphism",
+      "because": "This is claymorphism because each puffy element is independently colored and FLOATS above the background on a real drop shadow.",
+      "wouldBecomeIf": "It would become neumorphism if every element took the background's exact color and sat flush in the surface, with only dual light/dark shadows implying shape — molded from one continuous material instead of placed on it."
+    },
+    "signals": [
+      {
+        "id": "inflated-volume",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Two inner shadows + one outer",
+        "description": "The signature recipe: a light inner shadow on top, a darker inner shadow at the bottom, and a soft drop shadow below — the surface reads as inflated, not carved."
+      },
+      {
+        "id": "big-radius",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Oversized corner radii",
+        "description": "Corners are dramatically round — radii around a third of the element's height — so every shape reads as a soft blob, never a card with rounded corners."
+      },
+      {
+        "id": "floating-objects",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Independently colored, floating objects",
+        "description": "Each element has its own fill distinct from the background and visibly floats above it — nothing is extruded from the page itself."
+      },
+      {
+        "id": "pastel-palette",
+        "facet": "color",
+        "role": "supporting",
+        "name": "Light pastel palette",
+        "description": "Milky lavenders, mints, corals, and creams — the shadows need light fills to read as volume, and the toy-like mood needs the softness."
+      },
+      {
+        "id": "clay-illustration",
+        "facet": "imagery",
+        "role": "supporting",
+        "name": "3D clay illustration",
+        "description": "Inflated, smooth 3D characters and objects usually accompany the controls and set the overall toy-world tone."
+      },
+      {
+        "id": "same-color-surface",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Element same color as background",
+        "description": "If the object's fill matches the page and only shadows imply its shape, you've slid into neumorphism — clay objects are their own color."
+      }
+    ],
+    "code": [
+      {
+        "title": "The full clay recipe: one outer + two inner shadows",
+        "language": "css",
+        "code": "border-radius: 26px; background: #f4e7fd; box-shadow: 0 20px 36px rgba(120,90,180,.22), inset 0 -8px 14px rgba(120,90,180,.18), inset 0 6px 12px rgba(255,255,255,.65);"
+      },
+      {
+        "title": "Pressing squashes the clay: outer shadow shrinks, top light inverts",
+        "language": "css",
+        "code": "active: box-shadow: 0 8px 16px rgba(120,90,180,.2), inset 0 -4px 8px rgba(120,90,180,.22), inset 0 10px 14px rgba(120,90,180,.12);"
+      },
+      {
+        "title": "Arbitrary shadow value carries all three layers",
+        "language": "tailwind",
+        "code": "rounded-[26px] bg-violet-100 shadow-[0_20px_36px_rgba(120,90,180,.22),inset_0_-8px_14px_rgba(120,90,180,.18),inset_0_6px_12px_rgba(255,255,255,.65)]"
+      }
+    ],
+    "brief": "Create the surface using claymorphism. Defining signals: the clay shadow recipe on cards and buttons — two inner shadows (light at top, darker at bottom) plus one soft outer drop shadow, e.g. box-shadow: 0 24px 40px rgba(x,.18), inset 0 -8px 16px rgba(x,.15), inset 0 8px 16px rgba(255,255,255,.55); oversized corner radii (border-radius roughly 26px on a 56px control); each element independently colored in light pastels, clearly floating above a soft tinted background; chunky friendly type. Keep the exact hues and illustration flexible. Do not drift into neumorphism: the decisive difference is that clay objects have their own color and a visible drop shadow — never the background's color with shadows alone implying shape. Preserve 4.5:1 text contrast on pastel fills, pressed/hover states that deepen the inner shadows rather than removing them, and visible focus rings.",
+    "accessibility": "Pastel-on-pastel is the trap: white or cream text on mint/lavender fills usually fails 4.5:1 — darken the text, not the toy palette.\n\nThe soft shadows are decorative, not state — pair pressed/selected with a color or content change, not shadow depth alone.\n\nTriple-layer shadows on many elements can shimmer on scroll in low-power mode; keep the recipe to key surfaces.",
+    "origin": "Named in 2021 by Michal Malewicz as the friendlier successor to neumorphism, riding the wave of soft-3D illustration in fintech and edtech marketing; the recipe (two inner shadows + one outer, oversized radii) comes from his original article.",
+    "seeAlso": [
+      {
+        "slug": "styles/neumorphism",
+        "name": "Neumorphism"
+      },
+      {
+        "slug": "styles/neobrutalism",
+        "name": "Neobrutalism"
+      },
+      {
+        "slug": "styles/glassmorphism",
+        "name": "Glassmorphism"
+      }
+    ]
+  },
+  {
+    "slug": "vernacular-web",
+    "name": "Vernacular Web",
+    "order": 12,
+    "tagline": "The Vernacular Web is the folk architecture of the early web: personal homepages built by amateurs from collected materials — tiled star backgrounds, animated sparkle and flame GIFs, rainbow divider rules, 'welcome to my home page' banners, visitor counters, guestbook links, under-construction signs, and webring badges. It is decorative, personal, and sincere: every ornament was chosen because its owner loved it, not because a system prescribed it.",
+    "scope": "Scope: This entry covers the genuine 90s amateur look and its faithful revivals. Ironic, deliberately-broken 'ugly on purpose' design is a different move (Internet Ugly, in research), and raw exposed structure is Web Brutalism.",
+    "aliases": [
+      "the old geocities page with sparkly gifs",
+      "under construction sign and a visitor counter",
+      "tiled star background with rainbow divider lines",
+      "blinking new sign and a guestbook link",
+      "the 90s personal homepage look",
+      "welcome to my home page with animated flames"
+    ],
+    "confusedWith": {
+      "slug": "web-brutalism",
+      "name": "Web Brutalism",
+      "because": "This is the Vernacular Web because the page is DECORATED with love — wallpaper, sparkles, badges, a counter — by an amateur showing off their collection.",
+      "wouldBecomeIf": "It would become web brutalism if all decoration were stripped and the bare HTML skeleton — default type, blue links, no ornament — were exposed as a deliberate designer statement."
+    },
+    "signals": [
+      {
+        "id": "tiled-background",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Tiled background texture",
+        "description": "A small image repeated edge to edge — starry night sky, clouds, marble — behind everything; the page has wallpaper, not a background color."
+      },
+      {
+        "id": "gif-ornaments",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Animated GIF ornaments",
+        "description": "Twinkling sparkles, spinning @ signs, flaming rules, the striped UNDER CONSTRUCTION sign — small looping animations used as pure decoration."
+      },
+      {
+        "id": "collected-badges",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Collected badges and counters",
+        "description": "A visitor counter, 'sign my guestbook', webring prev/next buttons, 'best viewed in Netscape' badges — trophies of participation, stacked at the page's foot."
+      },
+      {
+        "id": "rainbow-defaults",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Default type, loud accents",
+        "description": "System serif or Comic Sans over the wallpaper, centered, with rainbow horizontal rules and multicolored or blinking emphasis — typography as celebration, not system."
+      },
+      {
+        "id": "centered-column",
+        "facet": "layout",
+        "role": "supporting",
+        "name": "One centered column",
+        "description": "Everything center-aligned down one narrow column, section by section, the way <center> made easy."
+      },
+      {
+        "id": "midi-mood",
+        "facet": "motion",
+        "role": "variable",
+        "name": "Ambient extras",
+        "description": "Autoplaying MIDI, cursor trails, scrolling marquees — beloved extras that vary page to page."
+      },
+      {
+        "id": "knowing-irony",
+        "facet": "imagery",
+        "role": "avoid",
+        "name": "Knowing irony or rawness",
+        "description": "The moment the decoration is a deliberate statement about design itself — exposed structure, ugly-on-purpose — it stops being vernacular and becomes brutalism or anti-design."
+      }
+    ],
+    "code": [
+      {
+        "title": "Wallpaper + the centered column — half the look in one rule",
+        "language": "css",
+        "code": "background: #000 url('stars.gif') repeat; text-align: center; font-family: 'Times New Roman', serif;"
+      },
+      {
+        "title": "The rainbow divider rule between sections",
+        "language": "css",
+        "code": "background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, magenta); height: 4px;"
+      },
+      {
+        "title": "The blinking NEW! — gate it behind prefers-reduced-motion",
+        "language": "css",
+        "code": "@keyframes blink { 50% { visibility: hidden; } } .new { animation: blink 1s steps(1) infinite; }"
+      }
+    ],
+    "brief": "Create the surface in the Vernacular Web style — a sincere 90s GeoCities-era personal homepage, not a parody. Defining signals: a tiled repeating background image (starry sky reads instantly); animated GIF-style ornaments — twinkling sparkles, a striped under-construction badge; a centered single column of system serif type with a rainbow-gradient horizontal rule between sections; the collected-participation footer — visitor counter in green LED digits on black, 'sign my guestbook' link, webring badge, 'best viewed at 800x600' line. Loud colored or blinking emphasis text is period-correct. Keep the specific ornaments flexible — the mood is a proud amateur's decorated scrapbook. Do not drift into web brutalism: this page is ornamented with love, never stripped bare as a statement. Preserve legibility (solid or high-contrast panels behind text over busy wallpaper), respect prefers-reduced-motion by pausing blinks and twinkles, and keep counters and badges decorative, not functional claims.",
+    "accessibility": "Text directly over a busy tiled background is unreadable — put body copy on a solid panel, and save the wallpaper for the margins.\n\nBlinking and twinkling must pause under prefers-reduced-motion, and nothing should blink faster than 3 times per second (WCAG seizure threshold).\n\nRainbow and neon text colors rarely hit 4.5:1 on dark wallpaper — reserve them for decoration, keep content text plain and high-contrast.",
+    "origin": "The mid-1990s free-hosting web — GeoCities, Angelfire, Tripod — where millions of first-time authors decorated pages from shared GIF collections. Olia Lialina documented and named the culture in 'A Vernacular Web' (2005) and, with Dragan Espenschied, preserved a terabyte of GeoCities before its 2009 shutdown.",
+    "seeAlso": [
+      {
+        "slug": "styles/web-brutalism",
+        "name": "Web Brutalism"
+      },
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K Digital Aesthetic"
+      }
+    ]
+  },
+  {
+    "slug": "aqua",
+    "name": "Aqua",
+    "order": 13,
+    "tagline": "Aqua is the design language Mac OS X launched with in 2000: controls rendered as translucent candy gel — deep specular highlights over luminous water-blue — on pinstriped surfaces, with gumdrop red/yellow/green window controls, soft drop shadows layering the windows, and fluid animation everywhere (the default button literally pulsed, and windows poured into the Dock through the genie effect). Apple pitched it as an interface with the fluidity and depth of water.",
+    "scope": "Scope: This entry covers the original 2000s-era Aqua (Mac OS X 10.0 through roughly Tiger). Later macOS flattened and frosted the language step by step — don't blend brushed-metal-era, Yosemite, or today's macOS into it; Apple's current glass language is Liquid Glass.",
+    "aliases": [
+      "the old mac buttons that looked like blue candy",
+      "gel buttons you wanted to lick",
+      "pinstripe windows from early mac os x",
+      "the gumdrop red yellow green window buttons",
+      "glossy blue scroll bars on old macs",
+      "the save button that pulsed like it was breathing"
+    ],
+    "confusedWith": {
+      "slug": "y2k",
+      "name": "Y2K Digital Aesthetic",
+      "because": "This is Aqua because it's one vendor's complete, systematic OS language — the same gel buttons, pinstripes, and gumdrops on every Mac.",
+      "wouldBecomeIf": "It would be just Y2K if it were the era's freelance futurism — liquid chrome, lens flares, techno type — without Apple's specific system behind it. (Aqua is the OS-shaped island inside the Y2K sea.)"
+    },
+    "signals": [
+      {
+        "id": "candy-gel",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Candy-gel controls",
+        "description": "Buttons and scrollbar thumbs look like translucent gel drops: a bright specular highlight across the top, an inner glow beneath, and color that seems lit from inside."
+      },
+      {
+        "id": "pinstripe-surface",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Pinstriped surfaces",
+        "description": "Window backgrounds and title bars carry fine alternating light stripes — the signature Aqua wallpaper-of-the-chrome."
+      },
+      {
+        "id": "gumdrop-controls",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Gumdrop window controls",
+        "description": "The close/minimize/zoom trio as glossy red, yellow, and green candy spheres in the title bar's top-left corner."
+      },
+      {
+        "id": "water-blue",
+        "facet": "color",
+        "role": "defining",
+        "name": "Luminous water blue",
+        "description": "The palette centers on Aqua's namesake: saturated, water-lit blue for default buttons, selection, scrollbars, and progress."
+      },
+      {
+        "id": "fluid-motion",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Fluid, liquid motion",
+        "description": "The default button pulses like breathing, and windows minimize through the liquid genie effect — motion sells the water metaphor."
+      },
+      {
+        "id": "layered-shadows",
+        "facet": "depth",
+        "role": "supporting",
+        "name": "Soft window shadows",
+        "description": "Deep, soft drop shadows float windows in real layers over the desktop — depth Mac OS 9 never had."
+      },
+      {
+        "id": "flat-translucency",
+        "facet": "depth",
+        "role": "avoid",
+        "name": "Flat frosted translucency",
+        "description": "A blurred panel without the gel gloss is a different, later idea — that's glassmorphism/vibrancy territory, not Aqua."
+      }
+    ],
+    "code": [
+      {
+        "title": "The gel button: specular top, inner glow, pill geometry",
+        "language": "css",
+        "code": "background: radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 50%), linear-gradient(180deg, #6aa6f8 0%, #1862d8 55%, #0c4cc0 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,.6), inset 0 -3px 6px rgba(255,255,255,.35), 0 1px 3px rgba(0,30,90,.4); border-radius: 999px;"
+      },
+      {
+        "title": "Pinstripes for window chrome and backgrounds",
+        "language": "css",
+        "code": "background: repeating-linear-gradient(180deg, #f2f4f7 0 2px, #e7eaef 2px 4px);"
+      },
+      {
+        "title": "The breathing default button — gate behind prefers-reduced-motion",
+        "language": "css",
+        "code": "@keyframes aqua-pulse { 50% { filter: brightness(1.18) saturate(1.15); } } animation: aqua-pulse 1.8s ease-in-out infinite;"
+      }
+    ],
+    "brief": "Create the surface using Apple's original Aqua (early Mac OS X) design language. Defining signals: candy-gel controls — luminous water-blue fills with a bright specular highlight across the top half and an inner glow, e.g. layered radial-gradient highlight over linear-gradient(#5f9ff5, #1862d8); fine pinstriped window surfaces (repeating-linear-gradient, ~1px stripes at low contrast); gumdrop red/yellow/green window controls as glossy spheres, top-left; the default button gently pulsing (a slow glow loop, disabled under prefers-reduced-motion); soft deep window shadows. Keep layout and density flexible — this is chrome and controls, not a layout system. Do not drift into generic glassmorphism: Aqua's material is glossy opaque gel on pinstripes, not blurred frosted panels. Preserve 4.5:1 text contrast on gel fills (white text with a subtle down-shadow is period-correct), full keyboard focus states, and reduced-motion alternatives for the pulse.",
+    "accessibility": "White label text on mid-blue gel hovers near the contrast line — keep the gel's center dark enough for 4.5:1, as Apple's own dark-bottom gradient did.\n\nThe pulsing default button is motion with no information — pause it under prefers-reduced-motion and never make the pulse the only 'default action' cue.\n\nPinstripes behind small text add visual noise; drop the stripe contrast (2 to 3 percent) or mask them behind content panels.",
+    "origin": "Introduced by Steve Jobs at Macworld San Francisco, January 2000, alongside Mac OS X's public debut; shipped in Mac OS X 10.0 (2001) and defined the Mac's look for the decade, its gel gloss echoing the era's translucent iMac hardware.",
+    "seeAlso": [
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K Digital Aesthetic"
+      },
+      {
+        "slug": "styles/windows-aero",
+        "name": "Windows Aero"
+      },
+      {
+        "slug": "styles/skeuomorphism",
+        "name": "Skeuomorphism"
+      },
+      {
+        "slug": "styles/liquid-glass",
+        "name": "Liquid Glass"
+      },
+      {
+        "slug": "macos/traffic-lights",
+        "name": "Traffic Lights (Window Controls)"
+      }
+    ]
+  },
+  {
+    "slug": "windows-aero",
+    "name": "Windows Aero",
+    "order": 14,
+    "tagline": "Windows Aero is Microsoft's Vista and Windows 7 desktop language: window FRAMES rendered as transparent blurred glass with specular light sweeps, so the desktop glows through every title bar; luminous color gradients; caption buttons that light up under the cursor (the red close glow); shimmering green progress bars; and smooth window motion like Flip 3D and the minimize animation. Microsoft's launch messaging named the glass, the reflections, and the animation as the product.",
+    "scope": "Scope: This entry covers Microsoft's actual OS chrome (Vista 2006 to Windows 7, retired by Windows 8's flat Metro). The broader glossy eco-tech mood of the same years — sky, grass, water imagery — is Frutiger Aero, a retrospective label that borrowed Aero's name.",
+    "aliases": [
+      "the see-through window borders in windows 7",
+      "frosted glass titlebars from vista",
+      "the close button that glows red when you hover it",
+      "windows with transparent blurry frames",
+      "the glassy taskbar with reflections",
+      "the green shimmering progress bar from windows 7"
+    ],
+    "confusedWith": {
+      "slug": "frutiger-aero",
+      "name": "Frutiger Aero",
+      "because": "This is Windows Aero because it's the OS chrome itself — glass window frames, glowing caption buttons, luminous progress bars, shipped by Microsoft.",
+      "wouldBecomeIf": "It would become Frutiger Aero if you meant the whole era's optimistic eco-tech MOOD — glossy nature wallpapers, water droplets, skies — which surrounded the chrome but isn't the chrome."
+    },
+    "signals": [
+      {
+        "id": "glass-frame",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Transparent blurred window frame",
+        "description": "The title bar and window border are real translucent glass — the wallpaper and windows behind blur through them, while the window's content area stays opaque."
+      },
+      {
+        "id": "specular-sweeps",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Specular sweeps and reflections",
+        "description": "Diagonal light streaks cross the glass and controls, as if the chrome were polished — reflection is part of the material, not an accent."
+      },
+      {
+        "id": "hover-glow",
+        "facet": "color",
+        "role": "defining",
+        "name": "Glowing hot controls",
+        "description": "Controls light up under the cursor: the close button floods red, min/max glow blue, buttons gain a luminous halo — glow is the hover language."
+      },
+      {
+        "id": "luminous-gradients",
+        "facet": "color",
+        "role": "defining",
+        "name": "Luminous depth gradients",
+        "description": "Blues and greens that glow as if backlit — the shimmering green progress bar and pearlescent button fills, never flat color."
+      },
+      {
+        "id": "window-motion",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Smooth window choreography",
+        "description": "Windows animate open, minimize with a swoop, and stack in Flip 3D — composited motion was the point of the new rendering engine."
+      },
+      {
+        "id": "rounded-chrome",
+        "facet": "geometry",
+        "role": "supporting",
+        "name": "Softly rounded chrome",
+        "description": "Window corners and buttons are gently rounded with 1px bright edge highlights lining the glass."
+      },
+      {
+        "id": "nature-imagery",
+        "facet": "imagery",
+        "role": "avoid",
+        "name": "Nature imagery as requirement",
+        "description": "Grass, sky, and fish belong to the era's mood, not the OS chrome — needing them means you're describing Frutiger Aero."
+      }
+    ],
+    "code": [
+      {
+        "title": "The glass frame: tinted blur + double bright edge",
+        "language": "css",
+        "code": "background: rgba(190, 215, 240, .35); backdrop-filter: blur(12px) saturate(1.3); border: 1px solid rgba(255,255,255,.6); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35), 0 8px 24px rgba(0,20,60,.35);"
+      },
+      {
+        "title": "The signature red close-button glow",
+        "language": "css",
+        "code": ".close:hover { background: radial-gradient(circle at 50% 40%, #ff9d8a, #e81123 70%); box-shadow: 0 0 10px rgba(232,17,35,.7); }"
+      },
+      {
+        "title": "The Windows 7 progress shimmer — pause under prefers-reduced-motion",
+        "language": "css",
+        "code": "background: linear-gradient(180deg,#8ef08e,#1fbf3a 45%,#0f9e2c); overlay: a 30%-wide white gradient strip animated left→right every 2s;"
+      }
+    ],
+    "brief": "Create the surface using Windows Aero (Vista/7) styling. Defining signals: the window frame as transparent blurred glass — title bar and border show the scene behind them (backdrop-filter: blur(12px) saturate(1.3) on a rgba white/blue tint) while the content area stays opaque; diagonal specular light sweeps across the glass (a rotated linear-gradient white streak at low opacity); caption buttons that GLOW on hover — close floods red with a soft outer halo; luminous gradients for accents, like the shimmering green progress bar (gradient + a slow-moving highlight); 1px bright inner edge lining every glass pane; softly rounded chrome corners. Keep wallpaper and layout flexible — the glass needs something colorful behind it to read. Do not drift into Frutiger Aero: no nature imagery is required — this is the chrome language, not the era's mood board. Preserve title text legibility over unpredictable wallpapers (Aero drew a soft glow behind window titles — replicate it), 4.5:1 contrast for content text, hover glows paired with visible focus states, and reduced-motion alternatives for shimmer and window animation.",
+    "accessibility": "Glass over an unknown wallpaper makes title text unpredictable — Aero itself painted a soft white glow behind captions; do the same or guarantee a dark tint.\n\nHover glow is invisible to keyboard users — every glowing control needs an equally visible :focus-visible treatment.\n\nbackdrop-filter over animated content is expensive; on low-power devices provide a solid fallback (Vista itself shipped 'Aero Basic' for exactly this).",
+    "origin": "Shipped with Windows Vista in 2006 (premium editions) as the flagship of the Desktop Window Manager's new composited rendering, refined and default in Windows 7 (2009); Windows 8 (2012) removed the glass for flat Metro chrome.",
+    "seeAlso": [
+      {
+        "slug": "styles/frutiger-aero",
+        "name": "Frutiger Aero"
+      },
+      {
+        "slug": "styles/glassmorphism",
+        "name": "Glassmorphism"
+      },
+      {
+        "slug": "styles/aqua",
+        "name": "Aqua"
+      }
+    ]
+  }
+]

@@ -1,0 +1,444 @@
+<div class="demo demo-style-frutiger-aero">
+  <div class="player">
+    <div class="art">
+      <svg class="fish-far" viewBox="0 0 64 40" aria-hidden="true">
+        <path d="M50 20 L62 11 L58.5 20 L62 29 Z"/>
+        <ellipse cx="29" cy="20" rx="21" ry="12"/>
+      </svg>
+      <svg class="fish" viewBox="0 0 64 40" aria-hidden="true">
+        <defs>
+          <linearGradient id="fa-fishg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd76a"/>
+            <stop offset=".45" stop-color="#ff9d2e"/>
+            <stop offset="1" stop-color="#e05e10"/>
+          </linearGradient>
+        </defs>
+        <path d="M49 20 L63 8.5 L58.5 20 L63 31.5 Z" fill="url(#fa-fishg)" opacity=".92"/>
+        <path d="M21 9.5 Q30 2 41 8 Q30 7.5 21 9.5 Z" fill="#ffb84d"/>
+        <ellipse cx="29" cy="20" rx="22" ry="13" fill="url(#fa-fishg)"/>
+        <ellipse cx="29" cy="13.5" rx="15" ry="4" fill="rgba(255,255,255,.38)"/>
+        <path d="M30 27 Q36 31 41 28 Q36 28.5 30 27 Z" fill="#ff8a1f"/>
+        <circle cx="13.5" cy="17" r="2.7" fill="#20303c"/>
+        <circle cx="14.4" cy="16.1" r=".9" fill="#fff"/>
+        <path d="M13 25.5 Q9.5 21 13 16.5" fill="none" stroke="rgba(120,50,0,.35)" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <span class="bubble b1"></span>
+      <span class="bubble b2"></span>
+      <span class="bubble b3"></span>
+      <span class="bubble b4"></span>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.8 5h2.5v14H6.8z"/><path d="M19.2 5.4v13.2L9.7 12z"/></svg></button>
+      <button class="cbtn play" type="button" aria-label="Play" aria-pressed="false"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19.2 12z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.3v14H7zM13.7 5H17v14h-3.3z"/></svg></button>
+      <button class="cbtn next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 5h2.5v14h-2.5z"/><path d="M4.8 5.4v13.2l9.5-6.6z"/></svg></button>
+    </div>
+    <div class="volume">
+      <span class="vicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.4v5.2h3.4L13 19V5L7.4 9.4z" fill="currentColor"/><path d="M15.6 9.4a3.8 3.8 0 010 5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.9 7.2a7 7 0 010 9.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+      <div class="vtrack"><div class="vfill"></div></div>
+    </div>
+    <span class="pbubble p1"></span>
+    <span class="pbubble p2"></span>
+    <span class="pbubble p3"></span>
+  </div>
+</div>
+<style>
+.demo-style-frutiger-aero {
+  width: 280px;
+  max-width: 100%;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  line-height: 1.3;
+}
+/* the sky-over-grass world the player floats in, with bokeh light circles */
+.demo-style-frutiger-aero .player {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 11px 12px 12px;
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 22px;
+  background:
+    radial-gradient(135% 65% at 50% -22%, rgba(255,255,255,.6), rgba(255,255,255,0) 62%) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.62), rgba(255,255,255,0) 68%) 6% 12% / 48px 48px no-repeat,
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.5), rgba(255,255,255,0) 68%) 90% 6% / 66px 66px no-repeat,
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.42), rgba(255,255,255,0) 70%) 80% 42% / 38px 38px no-repeat,
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.46), rgba(255,255,255,0) 70%) 2% 58% / 60px 60px no-repeat,
+    linear-gradient(180deg, #8fd3ff 0%, #3fa9f5 42%, #2a8ad8 66%, #8fd948 88%, #4a9e2e 100%);
+  box-shadow:
+    0 18px 38px -12px rgba(18, 82, 148, .55),
+    0 4px 12px rgba(18, 82, 148, .28),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(255,255,255,.3);
+}
+/* sun glow + soft rays */
+.demo-style-frutiger-aero .player::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 86% -8%, rgba(255,255,255,.85), rgba(255,255,255,0) 42%),
+    conic-gradient(from 198deg at 86% -8%, rgba(255,255,255,0) 0deg, rgba(255,255,255,.2) 7deg, rgba(255,255,255,0) 15deg, rgba(255,255,255,0) 25deg, rgba(255,255,255,.15) 32deg, rgba(255,255,255,0) 40deg, rgba(255,255,255,0) 52deg, rgba(255,255,255,.12) 60deg, rgba(255,255,255,0) 68deg);
+}
+/* diagonal sheen sweep across the whole panel */
+.demo-style-frutiger-aero .player::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 46%;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.14) 38%, rgba(255,255,255,.3) 50%, rgba(255,255,255,.14) 62%, rgba(255,255,255,0) 100%);
+  transform: translateX(-170%) skewX(-12deg);
+  animation: fa-sheen 9s ease-in-out infinite;
+}
+@keyframes fa-sheen {
+  0%, 52% { transform: translateX(-170%) skewX(-12deg); }
+  86%, 100% { transform: translateX(380%) skewX(-12deg); }
+}
+/* cover: sunlit water with a goldfish and rising bubbles */
+.demo-style-frutiger-aero .art {
+  position: relative;
+  height: 84px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 82% -10%, rgba(255,255,250,.98), rgba(255,255,235,.55) 28%, rgba(255,255,255,0) 54%),
+    conic-gradient(from 190deg at 82% -10%, rgba(255,255,255,0) 0deg, rgba(255,255,255,.45) 6deg, rgba(255,255,255,0) 13deg, rgba(255,255,255,0) 22deg, rgba(255,255,255,.34) 28deg, rgba(255,255,255,0) 35deg, rgba(255,255,255,0) 46deg, rgba(255,255,255,.26) 53deg, rgba(255,255,255,0) 60deg),
+    linear-gradient(180deg, #b9e9ff 0%, #5fbdf0 46%, #1778c8 100%);
+  box-shadow: inset 0 2px 10px rgba(0, 42, 92, .4), inset 0 -1px 0 rgba(255,255,255,.35), 0 1px 0 rgba(255,255,255,.45);
+}
+.demo-style-frutiger-aero .fish {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 56px;
+  height: auto;
+  transform: translateY(-50%);
+  filter: drop-shadow(0 2px 3px rgba(0, 40, 90, .35));
+  animation: fa-swim 5.5s ease-in-out infinite alternate;
+}
+@keyframes fa-swim {
+  from { transform: translateY(-54%) translateX(3px) rotate(-3deg); }
+  to { transform: translateY(-46%) translateX(-4px) rotate(3deg); }
+}
+.demo-style-frutiger-aero .fish-far {
+  position: absolute;
+  left: 18px;
+  top: 16%;
+  width: 24px;
+  height: auto;
+  fill: rgba(6, 60, 110, .35);
+}
+.demo-style-frutiger-aero .bubble {
+  position: absolute;
+  bottom: -26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.95) 0 7%, rgba(255,255,255,.22) 24%, rgba(255,255,255,.05) 48%, rgba(255,255,255,.3) 66%, rgba(255,255,255,.05) 72%, rgba(255,255,255,0) 76%);
+  box-shadow: inset 0 0 5px rgba(255,255,255,.55), 0 1px 3px rgba(0, 50, 110, .18);
+  animation: fa-rise 7s linear infinite;
+}
+.demo-style-frutiger-aero .b1 { left: 12%; width: 15px; height: 15px; }
+.demo-style-frutiger-aero .b2 { left: 24%; width: 9px; height: 9px; animation-duration: 6s; animation-delay: 2.2s; }
+.demo-style-frutiger-aero .b3 { left: 38%; width: 19px; height: 19px; animation-duration: 8.5s; animation-delay: 4.1s; }
+.demo-style-frutiger-aero .b4 { left: 62%; width: 11px; height: 11px; animation-duration: 6.8s; animation-delay: 1.2s; }
+@keyframes fa-rise {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  8% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(-128px) translateX(6px); opacity: 0; }
+}
+/* stray bubbles drifting up the panel, behind the glass content */
+.demo-style-frutiger-aero .pbubble {
+  position: absolute;
+  bottom: -30px;
+  z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.95) 0 7%, rgba(255,255,255,.22) 24%, rgba(255,255,255,.05) 48%, rgba(255,255,255,.3) 66%, rgba(255,255,255,.05) 72%, rgba(255,255,255,0) 76%);
+  box-shadow: inset 0 0 6px rgba(255,255,255,.5), 0 1px 4px rgba(0, 50, 110, .15);
+  animation: fa-rise-panel 11s linear infinite;
+}
+.demo-style-frutiger-aero .p1 { left: 6%; width: 20px; height: 20px; }
+.demo-style-frutiger-aero .p2 { left: 76%; width: 13px; height: 13px; animation-duration: 9s; animation-delay: 3.5s; }
+.demo-style-frutiger-aero .p3 { left: 62%; width: 26px; height: 26px; animation-duration: 13s; animation-delay: 6s; }
+@keyframes fa-rise-panel {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: .9; }
+  80% { opacity: .9; }
+  100% { transform: translateY(-190px) translateX(-8px); opacity: 0; }
+}
+/* glass chip behind text keeps contrast over the sky */
+.demo-style-frutiger-aero .meta {
+  position: relative;
+  z-index: 2;
+  padding: 5px 10px 6px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 11px;
+  background: linear-gradient(180deg, rgba(4, 56, 106, .42), rgba(4, 48, 96, .5));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 1px 3px rgba(0, 50, 110, .2);
+}
+.demo-style-frutiger-aero .title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 40, 90, .55);
+}
+.demo-style-frutiger-aero .artist {
+  margin-top: 1px;
+  font-size: 10.5px;
+  color: rgba(230, 246, 255, .95);
+  text-shadow: 0 1px 2px rgba(0, 40, 90, .5);
+}
+.demo-style-frutiger-aero .progress {
+  position: relative;
+  z-index: 2;
+  padding: 0 2px;
+}
+/* inset groove with a glossy green aqua fill */
+.demo-style-frutiger-aero .track {
+  height: 11px;
+  padding: 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(2, 44, 92, .55), rgba(8, 64, 120, .35));
+  box-shadow: inset 0 1px 3px rgba(0, 30, 70, .55), 0 1px 0 rgba(255,255,255,.5);
+}
+.demo-style-frutiger-aero .bar {
+  width: 31%;
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.22) 46%, rgba(255,255,255,0) 54%, rgba(255,255,255,.4)),
+    linear-gradient(180deg, #b9f472 0%, #5ccb23 50%, #2f9a10 100%);
+  box-shadow: 0 0 7px rgba(150, 240, 110, .85), inset 0 0 2px rgba(255,255,255,.7);
+}
+.demo-style-frutiger-aero .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 40, 90, .6);
+}
+.demo-style-frutiger-aero .controls {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+/* glossy aqua orb buttons: curved specular cap + bounce light */
+.demo-style-frutiger-aero .cbtn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 999px;
+  cursor: pointer;
+  color: #fff;
+  background:
+    radial-gradient(circle at 34% 26%, rgba(255,255,255,.95) 0, rgba(255,255,255,.3) 40%, rgba(255,255,255,0) 58%),
+    linear-gradient(180deg, #a8e4ff 0%, #38a5e8 46%, #0d6cba 54%, #0a5aa2 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.9),
+    inset 0 -4px 6px rgba(0, 42, 96, .45),
+    0 3px 7px rgba(0, 48, 108, .4);
+  transition: filter 150ms ease, transform 100ms ease, box-shadow 150ms ease;
+}
+.demo-style-frutiger-aero .cbtn::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 4%;
+  height: 46%;
+  border-radius: 999px 999px 60% 60% / 100% 100% 70% 70%;
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.08));
+  pointer-events: none;
+}
+.demo-style-frutiger-aero .cbtn:hover { filter: brightness(1.09) saturate(1.08); }
+.demo-style-frutiger-aero .cbtn:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.9), inset 0 -3px 5px rgba(0, 42, 96, .45), 0 1px 3px rgba(0, 48, 108, .4);
+}
+.demo-style-frutiger-aero .cbtn:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.9),
+    inset 0 -4px 6px rgba(0, 42, 96, .45),
+    0 3px 7px rgba(0, 48, 108, .4),
+    0 0 0 2px #fff,
+    0 0 0 4px #0d6cba;
+}
+.demo-style-frutiger-aero .cbtn svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 1px rgba(0, 40, 90, .45));
+}
+.demo-style-frutiger-aero .play {
+  width: 46px;
+  height: 46px;
+  background:
+    radial-gradient(circle at 34% 26%, rgba(255,255,255,.95) 0, rgba(255,255,255,.32) 40%, rgba(255,255,255,0) 58%),
+    linear-gradient(180deg, #d9ffab 0%, #63d327 46%, #2f9a10 54%, #1f7c08 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.95),
+    inset 0 -5px 7px rgba(10, 70, 0, .45),
+    0 4px 9px rgba(20, 90, 20, .42),
+    0 0 10px rgba(140, 235, 110, .5);
+}
+.demo-style-frutiger-aero .play svg { width: 19px; height: 19px; }
+.demo-style-frutiger-aero .play .i-pause { display: none; }
+.demo-style-frutiger-aero .player.is-playing .play .i-play { display: none; }
+.demo-style-frutiger-aero .player.is-playing .play .i-pause { display: block; }
+.demo-style-frutiger-aero .volume {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 2px;
+}
+.demo-style-frutiger-aero .vicon {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  color: #fff;
+  filter: drop-shadow(0 1px 1px rgba(0, 40, 90, .5));
+}
+.demo-style-frutiger-aero .vicon svg { width: 15px; height: 15px; }
+.demo-style-frutiger-aero .vtrack {
+  flex: 1;
+  height: 9px;
+  padding: 2px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(180deg, rgba(2, 44, 92, .5), rgba(8, 64, 120, .3));
+  box-shadow: inset 0 1px 3px rgba(0, 30, 70, .5), 0 1px 0 rgba(255,255,255,.45);
+}
+.demo-style-frutiger-aero .vfill {
+  width: 70%;
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.25) 46%, rgba(255,255,255,0) 54%, rgba(255,255,255,.4)),
+    linear-gradient(180deg, #aee6ff 0%, #3aa7e8 50%, #0e6cba 100%);
+  box-shadow: 0 0 6px rgba(150, 220, 255, .8), inset 0 0 2px rgba(255,255,255,.7);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-frutiger-aero .player::after,
+  .demo-style-frutiger-aero .bubble,
+  .demo-style-frutiger-aero .pbubble,
+  .demo-style-frutiger-aero .fish { animation: none; }
+  .demo-style-frutiger-aero .cbtn,
+  .demo-style-frutiger-aero .bar,
+  .demo-style-frutiger-aero .vfill { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  /* shrink to fit whatever stage the fragment lands in */
+  function fit() {
+    ROOT.style.transform = '';
+    const host = ROOT.parentElement;
+    if (!host) return;
+    const r = ROOT.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    const s = Math.min(1, host.clientWidth / r.width, host.clientHeight / r.height);
+    if (s < 1) ROOT.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+
+  const player = ROOT.querySelector('.player');
+  const bar = ROOT.querySelector('.bar');
+  const track = ROOT.querySelector('.track');
+  const playBtn = ROOT.querySelector('.play');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const FULL = 30; /* seconds for 0 -> 100% */
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let playing = false;
+
+  function pct() {
+    const cw = track.clientWidth - 4; /* groove padding */
+    return cw > 0 ? (parseFloat(getComputedStyle(bar).width) / cw) * 100 : 0;
+  }
+  function setPlaying(on) {
+    playing = on;
+    player.classList.toggle('is-playing', on);
+    playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
+  }
+  function runTo100() {
+    const from = pct();
+    if (reduced) {
+      bar.style.transition = 'none';
+      bar.style.width = '100%';
+      setPlaying(false);
+      return;
+    }
+    const secs = Math.max(0, ((100 - from) / 100) * FULL);
+    bar.style.transition = 'width ' + secs + 's linear';
+    void bar.offsetWidth;
+    bar.style.width = '100%';
+  }
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      const p = pct();
+      bar.style.transition = 'none';
+      bar.style.width = p + '%';
+      setPlaying(false);
+    } else {
+      if (pct() >= 99.5) {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        void bar.offsetWidth;
+      }
+      setPlaying(true);
+      runTo100();
+    }
+  });
+  function restart() {
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    void bar.offsetWidth;
+    if (playing) runTo100();
+  }
+  ROOT.querySelector('.prev').addEventListener('click', restart);
+  ROOT.querySelector('.next').addEventListener('click', restart);
+  bar.addEventListener('transitionend', function () {
+    if (pct() >= 99.5) setPlaying(false);
+  });
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+    vfill.style.width = (p * 100) + '%';
+  });
+})();
+</script>

@@ -1,0 +1,400 @@
+<div class="demo demo-style-skeuomorphism">
+  <div class="player">
+    <div class="art">
+      <span class="rivet r-tl"></span><span class="rivet r-tr"></span>
+      <span class="rivet r-bl"></span><span class="rivet r-br"></span>
+      <svg class="reel" viewBox="0 0 72 72" aria-hidden="true">
+        <defs>
+          <radialGradient id="skVinyl" cx="50%" cy="42%" r="65%">
+            <stop offset="0%" stop-color="#4c4c50"/>
+            <stop offset="55%" stop-color="#26262a"/>
+            <stop offset="100%" stop-color="#101013"/>
+          </radialGradient>
+          <radialGradient id="skLabel" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" stop-color="#e8c98c"/>
+            <stop offset="100%" stop-color="#b98d4a"/>
+          </radialGradient>
+        </defs>
+        <circle cx="36" cy="36" r="33" fill="url(#skVinyl)"/>
+        <circle cx="36" cy="36" r="28" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+        <circle cx="36" cy="36" r="24" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+        <circle cx="36" cy="36" r="20" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+        <circle cx="36" cy="36" r="12.5" fill="url(#skLabel)"/>
+        <circle cx="36" cy="36" r="2.4" fill="#1b1b1e"/>
+        <ellipse cx="25" cy="22" rx="15" ry="7" fill="rgba(255,255,255,.10)" transform="rotate(-32 25 22)"/>
+      </svg>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5h2.8v13H6zM19 5.8v12.4c0 .9-1 1.5-1.8 1L8.4 13a1.2 1.2 0 0 1 0-2l8.8-6.2c.8-.5 1.8.1 1.8 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play" aria-pressed="false">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.6v12.8c0 1 1.1 1.6 2 1.1l10-6.4c.8-.5.8-1.7 0-2.2l-10-6.4c-.9-.5-2 .1-2 1.1z"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 5.5h3.4v13H7.2zM13.4 5.5h3.4v13h-3.4z"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.2 5.5H18v13h-2.8zM5 5.8v12.4c0 .9 1 1.5 1.8 1l8.8-6.2c.8-.5.8-1.5 0-2L6.8 4.8c-.8-.5-1.8.1-1.8 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 9.2v5.6h3.4l4.3 3.7V5.5L6.9 9.2H3.5z"/><path d="M14.8 9.2a4.6 4.6 0 0 1 0 5.6M17 6.9a8 8 0 0 1 0 10.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill"><span class="vknob"></span></div></div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-style-skeuomorphism {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+/* --- 机身：拉丝铝外壳（iTunes MiniPlayer / iOS 6 时代） --- */
+.demo-style-skeuomorphism .player {
+  position: relative;
+  width: 284px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border-radius: 16px;
+  border: 1px solid #8f8f96;
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  column-gap: 13px;
+  row-gap: 8px;
+  align-content: center;
+  background:
+    /* 拉丝：细密水平丝纹 */
+    repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, rgba(0,0,0,.04) 1px 2px, transparent 2px 3px),
+    /* 顶光金属渐变 */
+    linear-gradient(180deg, #f2f2f4 0%, #d7d7db 34%, #b8b8be 72%, #cfcfd4 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(0,0,0,.22),
+    0 12px 24px rgba(20,20,30,.32),
+    0 2px 6px rgba(20,20,30,.22);
+}
+/* 机身边缘斜面反光 */
+.demo-style-skeuomorphism .player::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 14px;
+  border-top: 1px solid rgba(255,255,255,.8);
+  border-bottom: 1px solid rgba(0,0,0,.12);
+  pointer-events: none;
+}
+/* --- 封面：缝线皮革贴片 + 铆钉 + 黑胶 --- */
+.demo-style-skeuomorphism .art {
+  position: relative;
+  grid-row: 1 / 5;
+  align-self: center;
+  width: 82px;
+  height: 82px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 2px, rgba(0,0,0,.03) 2px 4px),
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.14), transparent 55%),
+    linear-gradient(160deg, #8a5a33 0%, #6d4526 48%, #54331b 100%);
+  box-shadow:
+    inset 0 2px 5px rgba(0,0,0,.55),
+    inset 0 -1px 2px rgba(255,255,255,.15),
+    0 1px 0 rgba(255,255,255,.75);
+}
+/* 缝线（虚线仿双针脚） */
+.demo-style-skeuomorphism .art::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 6px;
+  border: 1.5px dashed rgba(240,214,170,.55);
+  box-shadow: 0 1px 0 rgba(0,0,0,.35), inset 0 1px 0 rgba(0,0,0,.25);
+  pointer-events: none;
+}
+.demo-style-skeuomorphism .reel {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-shadow: 0 3px 7px rgba(0,0,0,.6), inset 0 1px 1px rgba(255,255,255,.25);
+}
+.demo-style-skeuomorphism .rivet {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #fbfbfb 0%, #b9b9c0 45%, #6f6f77 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.55), inset 0 -1px 1px rgba(0,0,0,.35);
+  z-index: 2;
+}
+.demo-style-skeuomorphism .r-tl { top: 2px; left: 2px; }
+.demo-style-skeuomorphism .r-tr { top: 2px; right: 2px; }
+.demo-style-skeuomorphism .r-bl { bottom: 2px; left: 2px; }
+.demo-style-skeuomorphism .r-br { bottom: 2px; right: 2px; }
+/* --- 文字：金属上的 letterpress 凹刻 --- */
+.demo-style-skeuomorphism .meta { align-self: end; }
+.demo-style-skeuomorphism .title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #34343a;
+  text-shadow: 0 1px 0 rgba(255,255,255,.85);
+  letter-spacing: .2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-style-skeuomorphism .artist {
+  margin-top: 1px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #5c5c63;
+  text-shadow: 0 1px 0 rgba(255,255,255,.7);
+}
+/* --- 进度：内凹 LED 屏槽 --- */
+.demo-style-skeuomorphism .progress { align-self: center; }
+.demo-style-skeuomorphism .track {
+  height: 13px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #26262b 0%, #3a3a41 100%);
+  box-shadow:
+    inset 0 2px 5px rgba(0,0,0,.75),
+    inset 0 -1px 1px rgba(255,255,255,.14),
+    0 1px 0 rgba(255,255,255,.8);
+  overflow: hidden;
+}
+.demo-style-skeuomorphism .bar {
+  height: 100%;
+  width: 31%;
+  border-radius: 6px 0 0 6px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.08) 42%, rgba(0,0,0,.18) 100%),
+    linear-gradient(180deg, #7fd06a 0%, #4fa845 55%, #3c8a36 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 0 7px rgba(110,210,90,.55);
+}
+.demo-style-skeuomorphism .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #54545b;
+  text-shadow: 0 1px 0 rgba(255,255,255,.7);
+}
+/* --- 按钮：凝胶塑料键，凸起可按压 --- */
+.demo-style-skeuomorphism .controls {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.demo-style-skeuomorphism .cbtn {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #75757c;
+  color: #3d3d44;
+  background:
+    radial-gradient(circle at 50% 26%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 46%),
+    linear-gradient(180deg, #fcfcfd 0%, #dcdce0 48%, #b3b3ba 52%, #cfcfd5 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -2px 3px rgba(0,0,0,.14),
+    0 3px 5px rgba(20,20,30,.35),
+    0 1px 1px rgba(20,20,30,.25);
+}
+.demo-style-skeuomorphism .cbtn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.75));
+}
+.demo-style-skeuomorphism .cbtn.play {
+  width: 44px;
+  height: 44px;
+  color: #2e4a28;
+  border-color: #5e6b58;
+  background:
+    radial-gradient(circle at 50% 26%, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 48%),
+    linear-gradient(180deg, #eef3e6 0%, #cfe0bd 48%, #a9c48e 52%, #c4d8ac 100%);
+}
+.demo-style-skeuomorphism .cbtn.play svg { width: 19px; height: 19px; }
+.demo-style-skeuomorphism .cbtn:active,
+.demo-style-skeuomorphism .cbtn.play[aria-pressed="true"] {
+  background:
+    radial-gradient(circle at 50% 70%, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 50%),
+    linear-gradient(180deg, #a9a9b0 0%, #c6c6cc 52%, #dcdce0 100%);
+  box-shadow:
+    inset 0 3px 6px rgba(0,0,0,.32),
+    inset 0 -1px 1px rgba(255,255,255,.35),
+    0 1px 1px rgba(20,20,30,.2);
+}
+.demo-style-skeuomorphism .cbtn.play[aria-pressed="true"] {
+  background:
+    radial-gradient(circle at 50% 70%, rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 50%),
+    linear-gradient(180deg, #93b27d 0%, #b3cfa0 52%, #cfe0bd 100%);
+}
+.demo-style-skeuomorphism .cbtn:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 0 0 2px #f4f4f6, 0 0 0 4px #5b7dbb,
+    0 3px 5px rgba(20,20,30,.35);
+}
+.demo-style-skeuomorphism .ic-pause { display: none; }
+.demo-style-skeuomorphism .play[aria-pressed="true"] .ic-play { display: none; }
+.demo-style-skeuomorphism .play[aria-pressed="true"] .ic-pause { display: block; }
+/* --- 音量：内凹轨道 + 金属滑帽 --- */
+.demo-style-skeuomorphism .volume {
+  align-self: start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-style-skeuomorphism .vicon {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  color: #55555c;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.7));
+}
+.demo-style-skeuomorphism .vicon svg { width: 14px; height: 14px; }
+.demo-style-skeuomorphism .vtrack {
+  position: relative;
+  flex: 1;
+  height: 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #26262b 0%, #3d3d44 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,.7),
+    inset 0 -1px 1px rgba(255,255,255,.14),
+    0 1px 0 rgba(255,255,255,.8);
+}
+.demo-style-skeuomorphism .vfill {
+  position: relative;
+  height: 100%;
+  width: 70%;
+  border-radius: 5px 0 0 5px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.06) 45%, rgba(0,0,0,.16) 100%),
+    linear-gradient(180deg, #9ec3e8 0%, #6f9fd2 55%, #5580b4 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+}
+.demo-style-skeuomorphism .vknob {
+  position: absolute;
+  right: -9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #707078;
+  background:
+    radial-gradient(circle at 36% 28%, #ffffff 0%, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 50% 50%, #eaeaee 0%, #c2c2c9 58%, #96969e 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -2px 3px rgba(0,0,0,.22),
+    0 2px 4px rgba(20,20,30,.45);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-skeuomorphism .bar,
+  .demo-style-skeuomorphism .cbtn {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const play = ROOT.querySelector('.play');
+  const prev = ROOT.querySelector('.prev');
+  const next = ROOT.querySelector('.next');
+  const bar = ROOT.querySelector('.bar');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  if (!play || !bar || !vtrack || !vfill) return;
+
+  const DURATION = 30000; /* 31% -> 100% 约 30s */
+  const START = 31;
+  const RATE = (100 - START) / DURATION; /* 每毫秒推进的百分比 */
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let playing = false;
+  let shown = START;   /* 当前显示的百分比 */
+  let fromP = START;   /* 本次动画起点百分比 */
+  let t0 = 0;          /* 本次动画起始时刻 */
+  let raf = 0;
+
+  function render(p) {
+    shown = p;
+    bar.style.width = p + '%';
+  }
+  function stop() {
+    playing = false;
+    cancelAnimationFrame(raf);
+    play.setAttribute('aria-pressed', 'false');
+    play.setAttribute('aria-label', 'Play');
+  }
+  function frame(now) {
+    if (!playing) return;
+    if (!t0) t0 = now;
+    const p = Math.min(100, fromP + (now - t0) * RATE);
+    render(p);
+    if (p < 100 && playing) {
+      raf = requestAnimationFrame(frame);
+    } else {
+      stop();
+    }
+  }
+  function start() {
+    if (shown >= 100) render(START);
+    playing = true;
+    fromP = shown;
+    t0 = 0;
+    play.setAttribute('aria-pressed', 'true');
+    play.setAttribute('aria-label', 'Pause');
+    if (reduced) { render(100); stop(); return; }
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(frame);
+  }
+  function restart() {
+    cancelAnimationFrame(raf);
+    render(0);
+    start();
+  }
+
+  play.addEventListener('click', function () {
+    if (playing) { stop(); } else { start(); }
+  });
+  if (prev) prev.addEventListener('click', restart);
+  if (next) next.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100));
+    vfill.style.width = pct + '%';
+  });
+})();
+</script>

@@ -1,0 +1,364 @@
+<div class="demo demo-style-glassmorphism">
+  <div class="player">
+    <div class="art"></div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 6h2.4v12H7zM18.5 6l-9.5 6 9.5 6z"/></svg></button>
+      <button class="cbtn play" type="button" aria-label="Play" aria-pressed="false"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.5v11l9-5.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.5 6h3.2v12H7.5zM13.3 6h3.2v12h-3.2z"/></svg></button>
+      <button class="cbtn next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.6 6H17v12h-2.4zM5.5 6l9.5 6-9.5 6z"/></svg></button>
+    </div>
+    <div class="volume">
+      <span class="vicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.4l4.6 3.8V5.7L7.4 9.5H4z" fill="currentColor"/><path d="M14.8 9.2a4.4 4.4 0 0 1 0 5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      <div class="vtrack"><div class="vfill"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ---------- vivid wallpaper backdrop (the palette source) ---------- */
+.demo-style-glassmorphism {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  position: relative;
+  box-sizing: border-box;
+  width: 288px;
+  max-width: 100%;
+  padding: 10px;
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(170px 140px at 28% 22%, rgba(56, 189, 248, .9), rgba(56, 189, 248, 0) 72%),
+    radial-gradient(190px 160px at 76% 68%, rgba(251, 146, 60, .9), rgba(251, 146, 60, 0) 72%),
+    radial-gradient(150px 130px at 14% 82%, rgba(52, 211, 153, .7), rgba(52, 211, 153, 0) 70%),
+    radial-gradient(130px 110px at 88% 12%, rgba(253, 224, 71, .75), rgba(253, 224, 71, 0) 70%),
+    linear-gradient(135deg, #6366f1 0%, #a855f7 35%, #ec4899 68%, #fb923c 100%);
+  box-shadow: 0 10px 30px rgba(76, 29, 149, .35);
+}
+.demo-style-glassmorphism::before { /* soft light bloom, top-left */
+  content: "";
+  position: absolute;
+  left: -34px;
+  top: -44px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 70%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+/* ---------- frosted glass panel ---------- */
+.demo-style-glassmorphism .player {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  grid-template-areas:
+    "art meta"
+    "progress progress"
+    "controls controls"
+    "volume volume";
+  column-gap: 10px;
+  row-gap: 7px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .34) 0%, rgba(255, 255, 255, .2) 48%, rgba(255, 255, 255, .12) 100%);
+  border: 1px solid rgba(255, 255, 255, .5);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  box-shadow:
+    0 14px 30px rgba(30, 10, 60, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .6),
+    inset 0 -1px 0 rgba(255, 255, 255, .1);
+}
+/* ---------- album art: tiny sunset under glass gloss ---------- */
+.demo-style-glassmorphism .art {
+  grid-area: art;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .45);
+  background: linear-gradient(180deg, #312e81 0%, #6d28d9 42%, #db2777 72%, #fb923c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), 0 4px 10px rgba(30, 10, 60, .3);
+}
+.demo-style-glassmorphism .art::before { /* setting sun */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff7ed, #fdba74 55%, #f97316 100%);
+  box-shadow: 0 0 8px rgba(253, 186, 116, .9);
+}
+.demo-style-glassmorphism .art::after { /* horizon line + diagonal gloss */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 57%, rgba(49, 46, 129, .55) 58%, rgba(49, 46, 129, .55) 61%, rgba(255, 255, 255, 0) 62%),
+    linear-gradient(115deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .12) 28%, rgba(255, 255, 255, 0) 46%);
+}
+/* ---------- white ink on glass ---------- */
+.demo-style-glassmorphism .meta {
+  grid-area: meta;
+  align-self: center;
+  min-width: 0;
+}
+.demo-style-glassmorphism .title {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: .01em;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(40, 10, 60, .45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-style-glassmorphism .artist {
+  margin-top: 1px;
+  font-size: 10.5px;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, .85);
+  text-shadow: 0 1px 2px rgba(40, 10, 60, .4);
+}
+/* ---------- progress ---------- */
+.demo-style-glassmorphism .progress { grid-area: progress; }
+.demo-style-glassmorphism .track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 12px;
+}
+.demo-style-glassmorphism .track::before { /* groove */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .28);
+  box-shadow: inset 0 1px 1px rgba(30, 10, 60, .18), inset 0 -1px 0 rgba(255, 255, 255, .3);
+}
+.demo-style-glassmorphism .bar {
+  position: relative;
+  width: 31%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, .85), #fff);
+  box-shadow: 0 0 6px rgba(255, 255, 255, .55), 0 1px 2px rgba(30, 10, 60, .2);
+}
+.demo-style-glassmorphism .times {
+  margin-top: 3px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 8.5px;
+  line-height: 1.1;
+  color: rgba(255, 255, 255, .82);
+  text-shadow: 0 1px 2px rgba(40, 10, 60, .4);
+}
+/* ---------- glass control buttons ---------- */
+.demo-style-glassmorphism .controls {
+  grid-area: controls;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0; /* defeat the global .controls rule in site.css */
+}
+.demo-style-glassmorphism .cbtn {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  color: rgba(255, 255, 255, .92);
+  background: linear-gradient(160deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, .1));
+  border: 1px solid rgba(255, 255, 255, .4);
+  box-shadow: 0 4px 10px rgba(30, 10, 60, .25), inset 0 1px 0 rgba(255, 255, 255, .5);
+  transition: background-color 150ms ease, transform 100ms ease, box-shadow 150ms ease;
+}
+.demo-style-glassmorphism .cbtn svg { display: block; width: 13px; height: 13px; }
+.demo-style-glassmorphism .cbtn:hover {
+  background: linear-gradient(160deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .18));
+}
+.demo-style-glassmorphism .cbtn:active { transform: scale(.93); }
+.demo-style-glassmorphism .cbtn:focus-visible {
+  outline: none;
+  box-shadow: 0 4px 10px rgba(30, 10, 60, .25), inset 0 1px 0 rgba(255, 255, 255, .5), 0 0 0 2px rgba(255, 255, 255, .7);
+}
+.demo-style-glassmorphism .play {
+  width: 36px;
+  height: 36px;
+  color: #7c3aed;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .96), rgba(255, 255, 255, .76));
+  border-color: rgba(255, 255, 255, .85);
+  box-shadow: 0 6px 14px rgba(30, 10, 60, .32), inset 0 1px 0 #fff;
+}
+.demo-style-glassmorphism .play svg { width: 15px; height: 15px; }
+.demo-style-glassmorphism .play:hover { background: #fff; }
+.demo-style-glassmorphism .play .i-pause { display: none; }
+/* ---------- volume ---------- */
+.demo-style-glassmorphism .volume {
+  grid-area: volume;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-style-glassmorphism .vicon {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, .9);
+}
+.demo-style-glassmorphism .vicon svg { display: block; width: 12px; height: 12px; }
+.demo-style-glassmorphism .vtrack {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 14px;
+  cursor: pointer;
+}
+.demo-style-glassmorphism .vtrack::before { /* groove */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .28);
+  box-shadow: inset 0 1px 1px rgba(30, 10, 60, .18), inset 0 -1px 0 rgba(255, 255, 255, .3);
+}
+.demo-style-glassmorphism .vfill {
+  position: relative;
+  width: 70%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, .85), #fff);
+  box-shadow: 0 0 6px rgba(255, 255, 255, .45);
+}
+.demo-style-glassmorphism .vfill::after { /* knob */
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, #e9e4f5);
+  box-shadow: 0 1px 3px rgba(30, 10, 60, .4), 0 0 4px rgba(255, 255, 255, .5);
+}
+/* ---------- fallback: glass must survive without blur ---------- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .demo-style-glassmorphism .player {
+    background: linear-gradient(135deg, rgba(66, 40, 112, .94), rgba(46, 26, 86, .94));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-glassmorphism .cbtn { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const bar = ROOT.querySelector('.bar');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const iconPlay = playBtn.querySelector('.i-play');
+  const iconPause = playBtn.querySelector('.i-pause');
+
+  const START = 31;          // initial progress %
+  const DURATION = 30000;    // ms from START to 100
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let progress = START;
+  let playing = false;
+  let last = null;
+  let raf = 0;
+
+  function render() { bar.style.width = progress + '%'; }
+
+  function icons() {
+    iconPlay.style.display = playing ? 'none' : 'block';
+    iconPause.style.display = playing ? 'block' : 'none';
+    playBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  }
+
+  function tick(now) {
+    if (last === null) last = now;
+    const dt = now - last;
+    last = now;
+    progress = Math.min(100, progress + dt * (100 - START) / DURATION);
+    render();
+    if (playing && progress < 100) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      playing = false;
+      icons();
+    }
+  }
+
+  function start() {
+    if (progress >= 100) { progress = 0; render(); }
+    if (reduceMotion.matches) { // no animation: jump to the end
+      progress = 100;
+      render();
+      playing = false;
+      icons();
+      return;
+    }
+    playing = true;
+    icons();
+    last = null;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    playing = false;
+    icons();
+    cancelAnimationFrame(raf);
+  }
+
+  function replay() {
+    progress = 0;
+    render();
+    start();
+  }
+
+  playBtn.addEventListener('click', function () { playing ? stop() : start(); });
+  prevBtn.addEventListener('click', replay);
+  nextBtn.addEventListener('click', replay);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+    vfill.style.width = (pct * 100) + '%';
+  });
+
+  render();
+  icons();
+})();
+</script>

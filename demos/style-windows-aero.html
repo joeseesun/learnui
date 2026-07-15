@@ -1,0 +1,495 @@
+<div class="demo demo-style-windows-aero">
+  <div class="player">
+    <div class="chrome">
+      <span class="wtitle">Now Playing</span>
+      <div class="caps">
+        <button class="cap cap-min" type="button" aria-label="Minimize"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15.5h12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+        <button class="cap cap-max" type="button" aria-label="Maximize"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+        <button class="cap cap-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+    <div class="art"></div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5h2.8v13H6z"/><path d="M19.5 5.5v13L9.8 12z"/></svg></button>
+      <button class="cbtn play" type="button" aria-label="Play" aria-pressed="false"><svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13l10-6.5z"/></svg><svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.5h3.2v13H7.5zM13.3 5.5h3.2v13h-3.2z"/></svg></button>
+      <button class="cbtn next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.2 5.5H18v13h-2.8z"/><path d="M4.5 5.5v13l9.7-6.5z"/></svg></button>
+    </div>
+    <div class="volume">
+      <span class="vicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.2v5.6h3.4L12 18.6V5.4L7.4 9.2H4z"/><path d="M14.8 9.4a3.6 3.6 0 0 1 0 5.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16.9 7.2a6.4 6.4 0 0 1 0 9.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      <div class="vtrack" role="slider" tabindex="0" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70"><div class="vfill"></div></div>
+    </div>
+  </div>
+  <div class="taskbar" aria-hidden="true"><span class="orb"></span></div>
+</div>
+<style>
+/* ---------- desktop: Win7 aurora wallpaper (glass needs color behind it) ---------- */
+.demo-style-windows-aero {
+  container-type: size;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 140px;
+  overflow: hidden;
+  font-family: var(--font-sans, "Segoe UI", Tahoma, sans-serif);
+  background:
+    radial-gradient(130% 110% at 50% 42%, transparent 56%, rgba(2, 14, 44, .42)),
+    radial-gradient(90% 70% at 82% 6%, rgba(190, 235, 255, .65), transparent 52%),
+    radial-gradient(60% 45% at 36% 28%, rgba(120, 205, 255, .38), transparent 65%),
+    radial-gradient(80% 62% at 10% 90%, rgba(70, 225, 160, .52), transparent 58%),
+    radial-gradient(88% 66% at 90% 96%, rgba(40, 130, 235, .55), transparent 60%),
+    linear-gradient(158deg, #0a2f6e 0%, #13529c 36%, #1c80c2 63%, #2bb7a4 100%);
+}
+/* ---------- the glass window (transparent blurred frame) ---------- */
+.demo-style-windows-aero .player {
+  position: relative;
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  column-gap: 12px;
+  row-gap: 13px;
+  width: 284px;
+  max-width: calc(100% - 16px);
+  padding: 0 17px 21px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, .55);
+  background: linear-gradient(180deg, rgba(226, 240, 252, .42), rgba(175, 205, 235, .26));
+  -webkit-backdrop-filter: blur(14px) saturate(1.45);
+  backdrop-filter: blur(14px) saturate(1.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .65),
+    inset 0 0 0 1px rgba(255, 255, 255, .25),
+    0 0 0 1px rgba(8, 28, 60, .28),
+    0 18px 42px rgba(0, 16, 52, .48),
+    0 3px 10px rgba(0, 16, 52, .28);
+  overflow: hidden;
+  animation: waero-open .5s cubic-bezier(.18, .9, .26, 1.06) both;
+}
+.demo-style-windows-aero .player > * { position: relative; z-index: 1; }
+/* opaque client area plate (content area stays solid in Aero) */
+.demo-style-windows-aero .player::before {
+  content: "";
+  position: absolute;
+  top: 31px; left: 9px; right: 9px; bottom: 9px;
+  z-index: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(94, 118, 140, .38);
+  background: linear-gradient(180deg, #f7fafd 0%, #e9eff6 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), 0 1px 2px rgba(10, 30, 60, .1);
+}
+/* diagonal specular light sweeps across the polished glass */
+.demo-style-windows-aero .player::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, transparent 4%, rgba(255, 255, 255, .3) 11%, rgba(255, 255, 255, .06) 19%, transparent 26%),
+    linear-gradient(112deg, transparent 58%, rgba(255, 255, 255, .13) 64%, rgba(255, 255, 255, .02) 70%, transparent 75%);
+}
+/* ---------- title bar + caption buttons ---------- */
+.demo-style-windows-aero .chrome {
+  grid-column: 1 / -1;
+  height: 31px;
+  margin: 0 -17px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .1) 62%, rgba(255, 255, 255, 0));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(255, 255, 255, .14);
+}
+/* Aero paints a soft glow behind window captions to keep them legible over glass */
+.demo-style-windows-aero .wtitle {
+  align-self: center;
+  margin-left: 13px;
+  font-size: 12px;
+  color: #14273c;
+  letter-spacing: .01em;
+  text-shadow: 0 0 5px rgba(255, 255, 255, .95), 0 0 10px rgba(255, 255, 255, .8), 0 1px 1px rgba(255, 255, 255, .9);
+}
+.demo-style-windows-aero .caps {
+  display: flex;
+  margin-right: 11px;
+}
+.demo-style-windows-aero .cap {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 17px;
+  padding: 0;
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .5);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(140, 175, 210, .28));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), 0 1px 2px rgba(0, 20, 50, .25);
+  transition: box-shadow .16s ease, background .16s ease;
+}
+.demo-style-windows-aero .cap + .cap { margin-left: -1px; }
+.demo-style-windows-aero .cap:first-child { border-radius: 0 0 0 5px; }
+.demo-style-windows-aero .cap:last-child { border-radius: 0 0 5px 0; }
+.demo-style-windows-aero .cap svg { width: 10px; height: 10px; filter: drop-shadow(0 1px 1px rgba(0, 20, 50, .6)); }
+.demo-style-windows-aero .cap:hover, .demo-style-windows-aero .cap:focus-visible { z-index: 2; }
+.demo-style-windows-aero .cap-min:hover, .demo-style-windows-aero .cap-max:hover,
+.demo-style-windows-aero .cap-min:focus-visible, .demo-style-windows-aero .cap-max:focus-visible {
+  background: radial-gradient(120% 150% at 50% 20%, rgba(215, 240, 255, .95), rgba(90, 165, 240, .75) 60%, rgba(40, 110, 210, .7));
+  box-shadow: 0 0 12px rgba(110, 180, 255, .95), 0 0 3px rgba(160, 210, 255, .9), inset 0 1px 0 rgba(255, 255, 255, .7);
+}
+.demo-style-windows-aero .cap-close {
+  background: linear-gradient(180deg, rgba(255, 214, 202, .42), rgba(196, 92, 70, .32));
+}
+/* the signature red close-button glow */
+.demo-style-windows-aero .cap-close:hover, .demo-style-windows-aero .cap-close:focus-visible {
+  border-color: rgba(255, 190, 170, .85);
+  background: radial-gradient(120% 160% at 50% 18%, #ffd9c9 0%, #f78a68 34%, #e83a1f 62%, #b01a0c 100%);
+  box-shadow: 0 0 14px rgba(244, 80, 40, .95), 0 0 4px rgba(255, 140, 110, .9), inset 0 1px 0 rgba(255, 255, 255, .75);
+}
+.demo-style-windows-aero .cap:focus-visible {
+  outline: 1.5px solid rgba(200, 230, 255, .95);
+  outline-offset: 1px;
+}
+/* ---------- album art: glossy aurora orb ---------- */
+.demo-style-windows-aero .art {
+  width: 58px;
+  height: 58px;
+  border-radius: 4px;
+  border: 1px solid rgba(18, 48, 88, .55);
+  background:
+    radial-gradient(42% 34% at 30% 24%, rgba(255, 255, 255, .95), transparent 62%),
+    radial-gradient(85% 80% at 78% 22%, rgba(140, 215, 255, .85), transparent 60%),
+    radial-gradient(95% 85% at 18% 88%, #1fd0a2 0%, transparent 62%),
+    radial-gradient(90% 90% at 82% 88%, #1a3f9e 0%, transparent 68%),
+    linear-gradient(150deg, #6ec8f5 0%, #2a6fd0 48%, #142f7d 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35), inset 0 1px 0 rgba(255, 255, 255, .55), 0 2px 5px rgba(15, 40, 80, .35);
+  overflow: hidden;
+}
+.demo-style-windows-aero .art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, .06) 52%, rgba(10, 30, 70, .14));
+}
+/* ---------- track meta ---------- */
+.demo-style-windows-aero .meta { align-self: center; min-width: 0; }
+.demo-style-windows-aero .title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #16304b;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-style-windows-aero .artist { margin-top: 3px; font-size: 11px; color: #51667e; }
+/* ---------- the shimmering green Win7 progress bar ---------- */
+.demo-style-windows-aero .progress { grid-column: 1 / -1; }
+.demo-style-windows-aero .track {
+  height: 13px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #9fb0c1;
+  background: linear-gradient(180deg, #cfd9e3 0%, #e8eef4 55%, #f4f8fb 100%);
+  box-shadow: inset 0 1px 3px rgba(15, 40, 70, .28), 0 1px 0 rgba(255, 255, 255, .8);
+}
+.demo-style-windows-aero .bar {
+  position: relative;
+  height: 100%;
+  width: 31%;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #d2f9d2 0%, #74e074 30%, #25c841 52%, #0fa02e 82%, #0c8a26 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), inset 0 -1px 1px rgba(0, 80, 25, .45), inset 1px 0 0 rgba(255, 255, 255, .4), 0 0 8px rgba(38, 200, 70, .75);
+  overflow: hidden;
+}
+.demo-style-windows-aero .bar::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 34%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .75) 50%, transparent);
+  animation: waero-shimmer 2.4s linear infinite;
+}
+.demo-style-windows-aero .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  color: #55697f;
+}
+/* ---------- transport controls: pearlescent glass orbs that glow on hover ---------- */
+.demo-style-windows-aero .controls {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 1px 0;
+}
+.demo-style-windows-aero .cbtn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  color: #0e3a63;
+  border: 1px solid #5d84a8;
+  background:
+    radial-gradient(130% 105% at 50% 0%, rgba(255, 255, 255, .98) 0%, rgba(255, 255, 255, .55) 38%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, #ffffff 0%, #d9eaf7 44%, #a9cbe8 52%, #c9e0f2 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .95),
+    inset 0 -4px 7px rgba(70, 120, 175, .38),
+    0 2px 5px rgba(12, 38, 72, .38);
+  transition: box-shadow .18s ease, background .18s ease, transform .06s ease;
+}
+.demo-style-windows-aero .cbtn.play { width: 46px; height: 46px; }
+.demo-style-windows-aero .cbtn svg { width: 15px; height: 15px; fill: currentColor; }
+.demo-style-windows-aero .cbtn.play svg { width: 19px; height: 19px; }
+.demo-style-windows-aero .cbtn:hover, .demo-style-windows-aero .cbtn:focus-visible {
+  color: #093056;
+  background:
+    radial-gradient(130% 105% at 50% 0%, #ffffff 0%, rgba(230, 245, 255, .7) 40%, rgba(190, 225, 255, .15) 62%),
+    linear-gradient(180deg, #ffffff 0%, #d4edff 42%, #8ec7f2 52%, #bfe2fa 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 -4px 7px rgba(60, 130, 200, .45),
+    0 2px 5px rgba(12, 38, 72, .35),
+    0 0 16px rgba(95, 175, 255, .95),
+    0 0 4px rgba(140, 200, 255, .9);
+}
+.demo-style-windows-aero .cbtn:focus-visible {
+  outline: 1.5px solid rgba(120, 195, 255, .95);
+  outline-offset: 2px;
+}
+.demo-style-windows-aero .cbtn:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 6px rgba(20, 60, 110, .5),
+    0 1px 2px rgba(12, 38, 72, .3),
+    0 0 12px rgba(95, 175, 255, .8);
+}
+.demo-style-windows-aero .cbtn .ic-pause { display: none; }
+.demo-style-windows-aero .player.playing .cbtn.play .ic-play { display: none; }
+.demo-style-windows-aero .player.playing .cbtn.play .ic-pause { display: block; }
+/* ---------- volume: glassy groove + luminous fill + pearl thumb ---------- */
+.demo-style-windows-aero .volume {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 2px;
+}
+.demo-style-windows-aero .vicon { display: block; width: 15px; height: 15px; flex: none; color: #3c5871; }
+.demo-style-windows-aero .vicon svg { width: 100%; height: 100%; fill: currentColor; }
+.demo-style-windows-aero .vtrack {
+  position: relative;
+  flex: 1;
+  height: 7px;
+  cursor: pointer;
+  border-radius: 99px;
+  border: 1px solid #97a9bc;
+  background: linear-gradient(180deg, #c3d0dc, #e9f0f6);
+  box-shadow: inset 0 1px 2px rgba(15, 40, 70, .3), 0 1px 0 rgba(255, 255, 255, .8);
+}
+.demo-style-windows-aero .vtrack:focus-visible {
+  outline: 1.5px solid rgba(120, 195, 255, .95);
+  outline-offset: 2px;
+}
+.demo-style-windows-aero .vfill {
+  position: relative;
+  height: 100%;
+  width: 70%;
+  border-radius: 99px;
+  background: linear-gradient(180deg, #cdeaff 0%, #58b6f2 42%, #1c87da 78%, #0f6cb8 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .75), 0 0 7px rgba(60, 160, 240, .8);
+  transition: width .12s ease;
+}
+.demo-style-windows-aero .vfill::after {
+  content: "";
+  position: absolute;
+  right: -6px; top: 50%;
+  transform: translateY(-50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 1px solid #5d84a8;
+  background: radial-gradient(circle at 35% 28%, #ffffff, #d7e9f6 55%, #a9cbe6);
+  box-shadow: 0 1px 3px rgba(10, 35, 70, .45), inset 0 1px 1px rgba(255, 255, 255, .9);
+}
+/* ---------- glass taskbar + start orb (full stage only) ---------- */
+.demo-style-windows-aero .taskbar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 26px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, .55);
+  background: linear-gradient(180deg, rgba(215, 235, 250, .5) 0%, rgba(60, 100, 150, .42) 48%, rgba(15, 35, 70, .55) 52%, rgba(8, 22, 48, .6) 100%);
+  -webkit-backdrop-filter: blur(8px) saturate(1.35);
+  backdrop-filter: blur(8px) saturate(1.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), 0 -6px 18px rgba(0, 18, 55, .3);
+}
+.demo-style-windows-aero .orb {
+  margin-left: 11px;
+  width: 21px; height: 21px;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .65);
+  background:
+    radial-gradient(circle at 34% 26%, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, .25) 34%, transparent 55%),
+    conic-gradient(#f65314 0 25%, #7cbb00 0 50%, #00a1f1 0 75%, #ffbb00 0);
+  box-shadow: 0 0 10px rgba(130, 205, 255, .85), inset 0 -3px 6px rgba(0, 25, 65, .5), inset 0 2px 3px rgba(255, 255, 255, .5);
+}
+/* ---------- window choreography ---------- */
+@keyframes waero-open {
+  from { opacity: 0; transform: scale(.94) translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes waero-shimmer {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(420%); }
+}
+/* ---------- compact layout for the small hub stage ---------- */
+@container (max-height: 240px) {
+  .demo-style-windows-aero .player {
+    grid-template-columns: 36px 1fr;
+    column-gap: 9px;
+    row-gap: 4px;
+    width: 260px;
+    padding: 0 12px 8px;
+    border-radius: 8px;
+  }
+  .demo-style-windows-aero .player::before { top: 20px; left: 7px; right: 7px; bottom: 6px; }
+  .demo-style-windows-aero .chrome { height: 20px; margin: 0 -12px; }
+  .demo-style-windows-aero .wtitle { display: none; }
+  .demo-style-windows-aero .caps { margin-right: 8px; }
+  .demo-style-windows-aero .cap { width: 21px; height: 13px; }
+  .demo-style-windows-aero .cap svg { width: 8px; height: 8px; }
+  .demo-style-windows-aero .art { width: 36px; height: 36px; }
+  .demo-style-windows-aero .title { font-size: 11px; }
+  .demo-style-windows-aero .artist { font-size: 9px; margin-top: 1px; }
+  .demo-style-windows-aero .track { height: 8px; }
+  .demo-style-windows-aero .times { font-size: 8px; margin-top: 2px; }
+  .demo-style-windows-aero .controls { gap: 10px; padding: 0; }
+  .demo-style-windows-aero .cbtn { width: 24px; height: 24px; }
+  .demo-style-windows-aero .cbtn.play { width: 30px; height: 30px; }
+  .demo-style-windows-aero .cbtn svg { width: 10px; height: 10px; }
+  .demo-style-windows-aero .cbtn.play svg { width: 13px; height: 13px; }
+  .demo-style-windows-aero .volume { gap: 6px; }
+  .demo-style-windows-aero .vtrack { height: 5px; }
+  .demo-style-windows-aero .vicon { width: 11px; height: 11px; }
+  .demo-style-windows-aero .vfill::after { width: 8px; height: 8px; right: -4px; }
+  .demo-style-windows-aero .taskbar { display: none; }
+}
+/* ---------- reduced motion: no entrance, no shimmer, progress jumps ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-windows-aero .player { animation: none; }
+  .demo-style-windows-aero .bar::after { display: none; }
+  .demo-style-windows-aero .cbtn,
+  .demo-style-windows-aero .cap,
+  .demo-style-windows-aero .vfill { transition: none; }
+}
+</style>
+<script>
+(function () {
+  var ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+  var player = ROOT.querySelector('.player');
+  var bar = ROOT.querySelector('.bar');
+  var playBtn = ROOT.querySelector('.cbtn.play');
+  var prevBtn = ROOT.querySelector('.cbtn.prev');
+  var nextBtn = ROOT.querySelector('.cbtn.next');
+  var vtrack = ROOT.querySelector('.vtrack');
+  var vfill = ROOT.querySelector('.vfill');
+  if (!player || !bar || !playBtn || !vtrack || !vfill) return;
+
+  var reduced = false;
+  try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  var DURATION = 30000; /* 0 -> 100% in ~30s */
+  var progress = 0.31;
+  var playing = false;
+  var rafId = null;
+  var lastTs = null;
+
+  function render() { bar.style.width = (progress * 100).toFixed(2) + '%'; }
+
+  function setPlaying(on) {
+    playing = on;
+    player.classList.toggle('playing', on);
+    playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
+  }
+
+  function stopLoop() {
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    lastTs = null;
+  }
+
+  function tick(ts) {
+    if (!playing) { stopLoop(); return; }
+    if (lastTs === null) lastTs = ts;
+    progress = Math.min(1, progress + (ts - lastTs) / DURATION);
+    lastTs = ts;
+    render();
+    if (progress >= 1) { setPlaying(false); stopLoop(); return; }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function play() {
+    if (progress >= 1) progress = 0; /* replay after the track finished */
+    if (reduced) { progress = 1; render(); setPlaying(true); return; } /* jump, no animation */
+    setPlaying(true);
+    stopLoop();
+    rafId = requestAnimationFrame(tick);
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) { setPlaying(false); stopLoop(); } else { play(); }
+  });
+
+  function restart() {
+    stopLoop();
+    progress = 0;
+    render();
+    if (reduced) { setPlaying(false); return; }
+    setPlaying(true);
+    rafId = requestAnimationFrame(tick);
+  }
+  if (prevBtn) prevBtn.addEventListener('click', restart);
+  if (nextBtn) nextBtn.addEventListener('click', restart);
+
+  function setVolume(v) {
+    v = Math.min(1, Math.max(0, v));
+    vfill.style.width = (v * 100).toFixed(1) + '%';
+    vtrack.setAttribute('aria-valuenow', String(Math.round(v * 100)));
+  }
+  vtrack.addEventListener('click', function (e) {
+    var r = vtrack.getBoundingClientRect();
+    if (r.width > 0) setVolume((e.clientX - r.left) / r.width);
+  });
+  vtrack.addEventListener('keydown', function (e) {
+    var now = parseFloat(vtrack.getAttribute('aria-valuenow')) || 0;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { setVolume((now - 10) / 100); e.preventDefault(); }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { setVolume((now + 10) / 100); e.preventDefault(); }
+  });
+
+  render();
+  setPlaying(false);
+  setVolume(0.7);
+})();
+</script>

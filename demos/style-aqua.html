@@ -1,0 +1,384 @@
+<div class="demo demo-style-aqua">
+  <div class="player">
+    <div class="titlebar">
+      <span class="gum r"></span><span class="gum y"></span><span class="gum g"></span>
+    </div>
+    <div class="body">
+      <div class="row-top">
+        <div class="art">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+        </div>
+        <div class="meta">
+          <div class="title">Midnight Drive</div>
+          <div class="artist">Neon Coast</div>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="track"><div class="bar"></div></div>
+        <div class="times"><span>1:12</span><span>3:48</span></div>
+      </div>
+      <div class="controls">
+        <button class="cbtn prev" type="button" aria-label="Previous">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 3h2v10h-2zM13.8 3v10L6.3 8z"/></svg>
+        </button>
+        <button class="cbtn play" type="button" aria-label="Play">
+          <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.5v11l8.5-5.5z"/></svg>
+          <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h3v10H4zM9 3h3v10H9z"/></svg>
+        </button>
+        <button class="cbtn next" type="button" aria-label="Next">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11.5 3h2v10h-2zM2.2 3l7.5 5-7.5 5z"/></svg>
+        </button>
+      </div>
+      <div class="volume">
+        <span class="vicon">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5.5h2.6L9 2v12L4.6 10.5H2z"/><path class="wave" d="M10.8 5.2a3.6 3.6 0 0 1 0 5.6M12.6 3.4a6 6 0 0 1 0 9.2"/></svg>
+        </span>
+        <div class="vtrack"><div class="vfill"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-style-aqua {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Lucida Grande", sans-serif);
+  max-width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+/* Window: pinstriped surface, layered soft shadows, 1px gray edge */
+.demo-style-aqua .player {
+  width: 280px;
+  max-width: 100%;
+  border-radius: 9px;
+  overflow: hidden;
+  background: repeating-linear-gradient(180deg, #f2f4f7 0 2px, #e7eaef 2px 4px);
+  box-shadow:
+    0 0 0 1px rgba(60, 62, 70, .38),
+    0 14px 30px rgba(0, 20, 60, .30),
+    0 3px 8px rgba(0, 20, 60, .18);
+}
+/* Title bar: pinstripes + gumdrop traffic lights */
+.demo-style-aqua .titlebar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 20px;
+  padding: 0 8px;
+  background: repeating-linear-gradient(180deg, #f7f8fa 0 2px, #eaecef 2px 4px);
+  border-bottom: 1px solid rgba(0, 0, 0, .22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+.demo-style-aqua .gum {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 -2px 3px rgba(0, 0, 0, .28),
+    inset 0 1px 1px rgba(255, 255, 255, .75),
+    0 .5px 1px rgba(0, 0, 0, .25);
+}
+.demo-style-aqua .gum.r { background: radial-gradient(circle at 34% 28%, #ffe9e7 0%, #ff7b72 30%, #f04038 62%, #b3241c 100%); }
+.demo-style-aqua .gum.y { background: radial-gradient(circle at 34% 28%, #fff6d8 0%, #ffd35c 30%, #f5a81c 62%, #c07a08 100%); }
+.demo-style-aqua .gum.g { background: radial-gradient(circle at 34% 28%, #e4fbe0 0%, #62dd6e 30%, #2ab94a 62%, #157f2c 100%); }
+.demo-style-aqua .body { padding: 9px 12px 11px; }
+/* Album art: glossy gel tile */
+.demo-style-aqua .row-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.demo-style-aqua .art {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background:
+    radial-gradient(130% 90% at 50% -15%, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(165deg, #8dcdf5 0%, #3a93e2 45%, #1456c4 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .65),
+    inset 0 -4px 8px rgba(0, 25, 90, .40),
+    0 2px 5px rgba(0, 20, 60, .35);
+}
+.demo-style-aqua .art svg {
+  width: 24px;
+  height: 24px;
+  fill: rgba(255, 255, 255, .95);
+  filter: drop-shadow(0 1px 1px rgba(0, 30, 90, .5));
+}
+.demo-style-aqua .meta { min-width: 0; }
+.demo-style-aqua .title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1c1c1e;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-style-aqua .artist {
+  margin-top: 1px;
+  font-size: 10.5px;
+  color: #6a6f7a;
+  line-height: 1.3;
+}
+/* Progress: inset well + striped blue gel bar */
+.demo-style-aqua .progress { margin-top: 9px; }
+.demo-style-aqua .track {
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #c8cdd5 0%, #e6e9ed 45%, #f4f5f7 100%);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 10, 40, .30),
+    inset 0 -1px 1px rgba(255, 255, 255, .9),
+    0 1px 0 rgba(255, 255, 255, .55);
+}
+.demo-style-aqua .bar {
+  height: 100%;
+  width: 31%;
+  border-radius: 5px;
+  background:
+    radial-gradient(140% 100% at 50% -20%, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, 0) 55%),
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, .24) 0 6px, rgba(255, 255, 255, 0) 6px 12px),
+    linear-gradient(180deg, #6aa6f8 0%, #2b6fd8 55%, #1550b8 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .6),
+    inset 0 -2px 3px rgba(0, 25, 80, .40),
+    0 0 2px rgba(20, 80, 190, .35);
+}
+.demo-style-aqua .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+  font-size: 9px;
+  color: #7a8089;
+}
+/* Controls: gel spheres; play = pulsing blue default button */
+.demo-style-aqua .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+.demo-style-aqua .cbtn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.demo-style-aqua .cbtn::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 5%;
+  height: 48%;
+  border-radius: 999px 999px 55% 55% / 100% 100% 45% 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, .10) 100%);
+  pointer-events: none;
+}
+.demo-style-aqua .cbtn.play {
+  width: 34px;
+  height: 34px;
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(255, 255, 255, .9) 0%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(180deg, #6aa6f8 0%, #1862d8 55%, #0c4cc0 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .6),
+    inset 0 -3px 6px rgba(255, 255, 255, .35),
+    inset 0 -6px 10px rgba(4, 40, 120, .35),
+    0 1px 3px rgba(0, 30, 90, .45);
+  animation: aqua-pulse 1.8s ease-in-out infinite;
+}
+.demo-style-aqua .cbtn.prev,
+.demo-style-aqua .cbtn.next {
+  width: 26px;
+  height: 26px;
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, #fdfdfe 0%, #d9dee6 55%, #bcc5d1 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .9),
+    inset 0 -2px 4px rgba(110, 130, 165, .40),
+    0 1px 2px rgba(0, 20, 60, .28);
+}
+.demo-style-aqua .cbtn svg { position: relative; }
+.demo-style-aqua .cbtn.play svg {
+  width: 15px;
+  height: 15px;
+  fill: #ffffff;
+  filter: drop-shadow(0 1px 1px rgba(0, 25, 80, .55));
+}
+.demo-style-aqua .cbtn.prev svg,
+.demo-style-aqua .cbtn.next svg {
+  width: 12px;
+  height: 12px;
+  fill: #2b3a55;
+}
+.demo-style-aqua .cbtn .i-pause { display: none; }
+.demo-style-aqua.playing .cbtn.play .i-play { display: none; }
+.demo-style-aqua.playing .cbtn.play .i-pause { display: block; }
+.demo-style-aqua .cbtn:hover { filter: brightness(1.06); }
+.demo-style-aqua .cbtn:active { filter: brightness(.92); }
+.demo-style-aqua .cbtn.play:active { animation-play-state: paused; }
+.demo-style-aqua .cbtn:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .6),
+    inset 0 -3px 6px rgba(255, 255, 255, .35),
+    0 1px 3px rgba(0, 30, 90, .45),
+    0 0 0 3px rgba(80, 150, 255, .55);
+}
+@keyframes aqua-pulse {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  50% { filter: brightness(1.18) saturate(1.15); }
+}
+/* Volume: inset groove + gel fill with knob thumb */
+.demo-style-aqua .volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 9px;
+}
+.demo-style-aqua .vicon { flex: none; display: grid; place-items: center; }
+.demo-style-aqua .vicon svg {
+  width: 14px;
+  height: 14px;
+  fill: #5a7bb0;
+}
+.demo-style-aqua .vicon .wave {
+  fill: none;
+  stroke: #5a7bb0;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+.demo-style-aqua .vtrack {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #c8cdd5 0%, #e6e9ed 45%, #f4f5f7 100%);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 10, 40, .30),
+    inset 0 -1px 1px rgba(255, 255, 255, .9),
+    0 1px 0 rgba(255, 255, 255, .55);
+}
+.demo-style-aqua .vfill {
+  position: relative;
+  height: 100%;
+  width: 70%;
+  border-radius: 4px;
+  background:
+    radial-gradient(140% 100% at 50% -20%, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, #6aa6f8 0%, #2b6fd8 55%, #1550b8 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .6),
+    inset 0 -2px 3px rgba(0, 25, 80, .40);
+}
+.demo-style-aqua .vfill::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background:
+    radial-gradient(circle at 34% 26%, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, #7db4f7 0%, #2b6fd8 60%, #12479f 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .7),
+    inset 0 -2px 3px rgba(0, 25, 90, .45),
+    0 1px 2px rgba(0, 20, 60, .40);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-aqua .cbtn.play { animation: none; }
+  .demo-style-aqua .cbtn { transition: none; }
+  .demo-style-aqua .bar,
+  .demo-style-aqua .vfill { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const bar = ROOT.querySelector('.bar');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const TOTAL = 30000; // ms, 0% -> 100%
+  let playing = false;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function currentPct() {
+    const tw = bar.parentElement.getBoundingClientRect().width;
+    if (!tw) return 0;
+    return (bar.getBoundingClientRect().width / tw) * 100;
+  }
+
+  function animateTo(target, fromPct) {
+    if (reduced.matches) {
+      bar.style.transition = 'none';
+      bar.style.width = target + '%';
+      return;
+    }
+    const dist = Math.abs(target - fromPct);
+    bar.style.transition = 'width ' + (TOTAL * dist / 100 / 1000) + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    playing = !playing;
+    ROOT.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if (playing) {
+      const pct = currentPct();
+      if (pct >= 99.5) {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        void bar.offsetWidth;
+        animateTo(100, 0);
+      } else {
+        animateTo(100, pct);
+      }
+    } else {
+      const pct = currentPct();
+      bar.style.transition = 'none';
+      bar.style.width = pct + '%';
+    }
+  });
+
+  function restart() {
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    if (playing) {
+      void bar.offsetWidth;
+      animateTo(100, 0);
+    }
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    let pct = ((e.clientX - r.left) / r.width) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    vfill.style.width = pct + '%';
+  });
+})();
+</script>

@@ -1,0 +1,441 @@
+<div class="demo demo-style-claymorphism">
+  <div class="player">
+    <div class="art"></div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5.2" y="5.4" width="3.4" height="13.2" rx="1.7"/><path d="M18.9 6.3c0-1.2-1.4-1.9-2.4-1.3l-7.3 5.5a1.55 1.55 0 0 0 0 2.6l7.3 5.5c1 .8 2.4-.1 2.4-1.3z"/></svg></button>
+      <button class="cbtn play" type="button" aria-label="Play"><svg class="i-play" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.6 6c0-1.2 1.4-1.9 2.4-1.3l7.6 5.5a1.55 1.55 0 0 1 0 2.6l-7.6 5.5c-1 .8-2.4-.1-2.4-1.3z"/></svg><svg class="i-pause" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="5.4" width="3.6" height="13.2" rx="1.8"/><rect x="13.4" y="5.4" width="3.6" height="13.2" rx="1.8"/></svg></button>
+      <button class="cbtn next" type="button" aria-label="Next"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="15.4" y="5.4" width="3.4" height="13.2" rx="1.7"/><path d="M5.1 6.3c0-1.2 1.4-1.9 2.4-1.3l7.3 5.5a1.55 1.55 0 0 1 0 2.6l-7.3 5.5c-1 .8-2.4-.1-2.4-1.3z"/></svg></button>
+    </div>
+    <div class="volume">
+      <span class="vicon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.2 9.4v5.2a1 1 0 0 0 1 1h2.4l4.1 3.3c.9.7 2.1.1 2.1-1V6.1c0-1.1-1.2-1.7-2.1-1L7.6 8.4H5.2a1 1 0 0 0-1 1z" fill="currentColor"/><path d="M16.6 9.2a4 4 0 0 1 0 5.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M18.8 7.2a7.2 7.2 0 0 1 0 9.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+      <div class="vtrack" role="slider" tabindex="0" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70"><div class="vfill"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ---------- clay palette ----------
+   backdrop : milky periwinkle #e9ecfa -> #f6e9f5
+   card     : milky lavender  #faf3ff -> #f0e1fb   (own color, floats)
+   coral    : #ffc9a3/#ff8fab  (play, progress, art)
+   cream    : #fffdf6/#ffe9d9  (prev/next)
+   mint     : #a9e9cf/#7fd4b4  (volume)
+   ink      : #584567 / muted  #76648a / faint #7a6689  (>= 4.5:1 on pastel)
+------------------------------------- */
+.demo-style-claymorphism {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: size;
+  border-radius: 22px;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(110px 110px at 15% 20%, rgba(255, 183, 160, .45), rgba(255, 183, 160, 0) 72%),
+    radial-gradient(140px 140px at 86% 82%, rgba(147, 222, 192, .50), rgba(147, 222, 192, 0) 72%),
+    radial-gradient(100px 100px at 82% 14%, rgba(201, 179, 242, .55), rgba(201, 179, 242, 0) 72%),
+    linear-gradient(165deg, #e9ecfa 0%, #f6e9f5 100%);
+}
+
+/* ---------- the floating clay card ---------- */
+.demo-style-claymorphism .player {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "art meta"
+    "progress progress"
+    "controls controls"
+    "volume volume";
+  column-gap: 11px;
+  row-gap: 7px;
+  width: 272px;
+  max-width: 100%;
+  padding: 11px 14px 12px;
+  border-radius: 30px;
+  background: linear-gradient(165deg, #fbf4ff 0%, #f5e9fd 55%, #f0e1fb 100%);
+  /* clay recipe: soft drop + dark inner bottom + light inner top */
+  box-shadow:
+    0 14px 24px rgba(120, 90, 180, .22),
+    0 3px 8px rgba(120, 90, 180, .12),
+    inset 0 -8px 14px rgba(120, 90, 180, .15),
+    inset 0 6px 12px rgba(255, 255, 255, .80);
+}
+
+/* ---------- album art: tiny clay diorama ---------- */
+.demo-style-claymorphism .art {
+  grid-area: art;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .90) 0 10%, rgba(255, 255, 255, 0) 42%),
+    linear-gradient(145deg, #ffc9a3 0%, #ff9d9c 55%, #ff8fab 100%);
+  box-shadow:
+    0 7px 12px rgba(214, 95, 110, .32),
+    inset 0 -6px 9px rgba(196, 72, 96, .30),
+    inset 0 5px 8px rgba(255, 255, 255, .65);
+}
+.demo-style-claymorphism .art::before { /* mint moon */
+  content: "";
+  position: absolute;
+  right: 9%;
+  bottom: 9%;
+  width: 32%;
+  height: 32%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .95) 0 12%, rgba(255, 255, 255, 0) 45%),
+    linear-gradient(145deg, #c4f0dc, #93dec0);
+  box-shadow:
+    0 3px 5px rgba(70, 170, 130, .35),
+    inset 0 -3px 4px rgba(70, 170, 130, .35),
+    inset 0 2px 3px rgba(255, 255, 255, .85);
+}
+.demo-style-claymorphism .art::after { /* lilac pebble */
+  content: "";
+  position: absolute;
+  left: 11%;
+  bottom: 16%;
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e6dbff, #c9b3f2);
+  box-shadow:
+    0 2px 3px rgba(120, 90, 180, .30),
+    inset 0 -2px 3px rgba(120, 90, 180, .30),
+    inset 0 1px 2px rgba(255, 255, 255, .90);
+}
+
+/* ---------- chunky friendly type ---------- */
+.demo-style-claymorphism .meta {
+  grid-area: meta;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.demo-style-claymorphism .title {
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: #584567;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-style-claymorphism .artist {
+  margin-top: 1px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #76648a;
+}
+
+/* ---------- progress: groove carved into the clay ---------- */
+.demo-style-claymorphism .progress { grid-area: progress; }
+.demo-style-claymorphism .track {
+  height: 10px;
+  border-radius: 999px;
+  background: #e9d8f8;
+  box-shadow:
+    inset 0 2px 5px rgba(120, 90, 180, .30),
+    inset 0 -2px 3px rgba(255, 255, 255, .85);
+}
+.demo-style-claymorphism .bar {
+  width: 31%;
+  height: 100%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, .55) 0 8%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(90deg, #ffbd93, #ff8f9c 60%, #ff87a8);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, .50),
+    inset 0 -2px 3px rgba(205, 80, 105, .35),
+    0 1px 4px rgba(255, 135, 160, .45);
+}
+.demo-style-claymorphism .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  line-height: 1.2;
+  letter-spacing: .05em;
+  color: #7a6689;
+}
+
+/* ---------- squishy clay buttons ---------- */
+.demo-style-claymorphism .controls {
+  grid-area: controls;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0; /* override site.css's global .controls { margin-top: 32px } */
+}
+.demo-style-claymorphism .cbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: inherit;
+  color: #7b6389;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.demo-style-claymorphism .prev,
+.demo-style-claymorphism .next {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(150deg, #fffdf6, #ffe9d9);
+  box-shadow:
+    0 7px 12px rgba(170, 120, 90, .24),
+    inset 0 -5px 8px rgba(190, 130, 90, .22),
+    inset 0 4px 7px rgba(255, 255, 255, .90);
+}
+.demo-style-claymorphism .play {
+  width: 42px;
+  height: 42px;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, .55) 0 10%, rgba(255, 255, 255, 0) 45%),
+    linear-gradient(150deg, #ffbd93, #ff9296 58%, #ff87a6);
+  box-shadow:
+    0 9px 16px rgba(214, 95, 110, .36),
+    inset 0 -6px 9px rgba(205, 80, 105, .30),
+    inset 0 5px 8px rgba(255, 255, 255, .50);
+}
+.demo-style-claymorphism .cbtn:hover { transform: translateY(-1px); }
+.demo-style-claymorphism .prev:hover,
+.demo-style-claymorphism .next:hover {
+  box-shadow:
+    0 9px 15px rgba(170, 120, 90, .28),
+    inset 0 -5px 8px rgba(190, 130, 90, .22),
+    inset 0 4px 7px rgba(255, 255, 255, .90);
+}
+.demo-style-claymorphism .play:hover {
+  box-shadow:
+    0 11px 19px rgba(214, 95, 110, .42),
+    inset 0 -6px 9px rgba(205, 80, 105, .30),
+    inset 0 5px 8px rgba(255, 255, 255, .50);
+}
+/* pressing squashes the clay: drop shadow shrinks, top light inverts */
+.demo-style-claymorphism .cbtn:active { transform: translateY(2px) scale(.96); }
+.demo-style-claymorphism .prev:active,
+.demo-style-claymorphism .next:active {
+  box-shadow:
+    0 3px 6px rgba(170, 120, 90, .20),
+    inset 0 -2px 4px rgba(190, 130, 90, .24),
+    inset 0 6px 9px rgba(190, 130, 90, .18);
+}
+.demo-style-claymorphism .play:active {
+  box-shadow:
+    0 4px 8px rgba(214, 95, 110, .28),
+    inset 0 -2px 5px rgba(205, 80, 105, .32),
+    inset 0 7px 10px rgba(205, 80, 105, .22);
+}
+.demo-style-claymorphism .cbtn:focus-visible {
+  outline: 3px solid rgba(124, 92, 191, .70);
+  outline-offset: 2px;
+}
+.demo-style-claymorphism .i-pause { display: none; }
+.demo-style-claymorphism .player.playing .i-play { display: none; }
+.demo-style-claymorphism .player.playing .i-pause { display: inline; }
+
+/* ---------- volume ---------- */
+.demo-style-claymorphism .volume {
+  grid-area: volume;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-style-claymorphism .vicon {
+  flex: none;
+  display: inline-flex;
+  line-height: 0;
+  color: #8b759b;
+}
+.demo-style-claymorphism .vtrack {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #e9d8f8;
+  cursor: pointer;
+  box-shadow:
+    inset 0 2px 5px rgba(120, 90, 180, .30),
+    inset 0 -2px 3px rgba(255, 255, 255, .85);
+}
+.demo-style-claymorphism .vtrack:focus-visible {
+  outline: 3px solid rgba(124, 92, 191, .70);
+  outline-offset: 2px;
+}
+.demo-style-claymorphism .vfill {
+  width: 70%;
+  height: 100%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, .60) 0 8%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(90deg, #a9e9cf, #7fd4b4);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, .55),
+    inset 0 -2px 3px rgba(60, 160, 120, .35),
+    0 1px 4px rgba(110, 210, 175, .45);
+  transition: width .15s ease;
+}
+
+/* ---------- playing: the art blob breathes ---------- */
+@keyframes claymorphism-bob {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.05) rotate(2deg); }
+}
+.demo-style-claymorphism .player.playing .art {
+  animation: claymorphism-bob 2.2s ease-in-out infinite;
+}
+
+/* ---------- taller stage: bigger, same clay ---------- */
+@container (min-height: 240px) {
+  .demo-style-claymorphism .player {
+    width: 296px;
+    padding: 16px 20px 18px;
+    border-radius: 34px;
+    column-gap: 13px;
+    row-gap: 11px;
+    box-shadow:
+      0 20px 36px rgba(120, 90, 180, .24),
+      0 4px 10px rgba(120, 90, 180, .12),
+      inset 0 -9px 16px rgba(120, 90, 180, .16),
+      inset 0 7px 13px rgba(255, 255, 255, .80);
+  }
+  .demo-style-claymorphism .art { width: 60px; height: 60px; border-radius: 22px; }
+  .demo-style-claymorphism .title { font-size: 16.5px; }
+  .demo-style-claymorphism .artist { font-size: 12.5px; margin-top: 2px; }
+  .demo-style-claymorphism .track,
+  .demo-style-claymorphism .vtrack { height: 13px; }
+  .demo-style-claymorphism .times { font-size: 10.5px; margin-top: 4px; }
+  .demo-style-claymorphism .controls { gap: 16px; }
+  .demo-style-claymorphism .prev,
+  .demo-style-claymorphism .next { width: 40px; height: 40px; }
+  .demo-style-claymorphism .prev svg,
+  .demo-style-claymorphism .next svg { width: 13px; height: 13px; }
+  .demo-style-claymorphism .play { width: 52px; height: 52px; }
+  .demo-style-claymorphism .play svg { width: 17px; height: 17px; }
+  .demo-style-claymorphism .vicon svg { width: 16px; height: 16px; }
+  .demo-style-claymorphism .volume { gap: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-claymorphism .cbtn,
+  .demo-style-claymorphism .vfill { transition: none; }
+  .demo-style-claymorphism .player.playing .art { animation: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const player  = ROOT.querySelector('.player');
+  const bar     = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack  = ROOT.querySelector('.vtrack');
+  const vfill   = ROOT.querySelector('.vfill');
+  const vicon   = ROOT.querySelector('.vicon');
+  if (!player || !bar || !playBtn) return;
+
+  const START = 31;        // initial position, %
+  const DURATION = 30000;  // 31% -> 100% in ~30s
+  let pos = START;
+  let playing = false;
+  let raf = 0;
+  let last = 0;
+  let vol = 70;
+
+  function reduced() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  function render() { bar.style.width = pos + '%'; }
+  function syncPlayUI() {
+    player.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+  function tick(t) {
+    if (!playing) return;
+    if (!last) last = t;
+    pos = Math.min(100, pos + (t - last) * (100 - START) / DURATION);
+    last = t;
+    render();
+    if (pos >= 100) { playing = false; syncPlayUI(); return; }
+    raf = window.requestAnimationFrame(tick);
+  }
+  function play() {
+    if (pos >= 100) pos = START;
+    if (reduced()) {           // no animation: jump straight to the end
+      pos = 100; render();
+      playing = false; syncPlayUI();
+      return;
+    }
+    playing = true;
+    syncPlayUI();
+    last = 0;
+    window.cancelAnimationFrame(raf);
+    raf = window.requestAnimationFrame(tick);
+  }
+  function pause() {
+    playing = false;           // rAF stops, inline width holds the position
+    syncPlayUI();
+    window.cancelAnimationFrame(raf);
+  }
+  function restart() {         // prev/next: back to zero, replay
+    pos = 0;
+    playing = false;
+    window.cancelAnimationFrame(raf);
+    render();
+    play();
+  }
+
+  playBtn.addEventListener('click', function () { playing ? pause() : play(); });
+  if (prevBtn) prevBtn.addEventListener('click', restart);
+  if (nextBtn) nextBtn.addEventListener('click', restart);
+
+  function setVol(v) {
+    vol = Math.max(0, Math.min(100, v));
+    if (vfill) vfill.style.width = vol + '%';
+    if (vtrack) vtrack.setAttribute('aria-valuenow', String(Math.round(vol)));
+    if (vicon) vicon.style.opacity = vol === 0 ? '.45' : '1';
+  }
+  if (vtrack) {
+    vtrack.addEventListener('click', function (e) {
+      const r = vtrack.getBoundingClientRect();
+      if (r.width > 0) setVol((e.clientX - r.left) / r.width * 100);
+    });
+    vtrack.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { setVol(vol - 5); e.preventDefault(); }
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { setVol(vol + 5); e.preventDefault(); }
+      else if (e.key === 'Home') { setVol(0); e.preventDefault(); }
+      else if (e.key === 'End') { setVol(100); e.preventDefault(); }
+    });
+  }
+
+  render();
+  setVol(vol);
+  syncPlayUI();
+})();
+</script>
