@@ -1,0 +1,345 @@
+<div class="demo demo-style-corporate-memphis">
+  <div class="player">
+    <div class="art">
+      <svg viewBox="0 0 280 130" width="280" height="130" aria-hidden="true">
+        <!-- 背景装饰：有机色团 + 半圆 + 圆点（几何只是布景） -->
+        <path d="M92 22 Q118 6 156 12 Q196 18 206 48 Q216 82 190 102 Q158 122 118 114 Q84 106 76 72 Q70 40 92 22 Z" fill="#FDE68A"/>
+        <path d="M18 130 a16 16 0 0 1 32 0 Z" fill="#A78BFA"/>
+        <circle cx="30" cy="22" r="4.5" fill="#F9A8D4"/>
+        <circle cx="52" cy="48" r="3.5" fill="#6EE7B7"/>
+        <circle cx="250" cy="28" r="5" fill="#6EE7B7"/>
+        <circle cx="240" cy="102" r="4" fill="#A78BFA"/>
+        <circle cx="216" cy="16" r="3.5" fill="#F9A8D4"/>
+        <path d="M224 52 q6 -9 12 0 q6 9 12 0" fill="none" stroke="#F9A8D4" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 大音符（被抱着的超大物件） -->
+        <g class="note">
+          <rect x="192" y="26" width="5" height="56" rx="2.5" fill="#2E2A5B"/>
+          <path d="M197 26 q18 4 14 26 q-3 -13 -14 -16 Z" fill="#2E2A5B"/>
+          <ellipse cx="184" cy="86" rx="12" ry="9" fill="#2E2A5B" transform="rotate(-18 184 86)"/>
+        </g>
+        <!-- 面条小人：小脑袋、橡胶软管四肢、蓝皮肤 -->
+        <g class="fig">
+          <path d="M112 82 Q102 100 90 110" fill="none" stroke="#2E2A5B" stroke-width="10" stroke-linecap="round"/>
+          <path d="M128 82 Q138 102 156 104" fill="none" stroke="#2E2A5B" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="90" cy="110" r="6" fill="#6EE7B7"/>
+          <ellipse cx="158" cy="104" rx="8" ry="6" fill="#6EE7B7"/>
+          <rect x="102" y="47" width="34" height="36" rx="15" fill="#F9A8D4" transform="rotate(-8 119 65)"/>
+          <path d="M106 55 Q88 44 78 26" fill="none" stroke="#6C8CFF" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="78" cy="26" r="6.5" fill="#6C8CFF"/>
+          <path d="M134 56 Q158 62 172 80" fill="none" stroke="#6C8CFF" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="172" cy="80" r="6.5" fill="#6C8CFF"/>
+          <circle cx="118" cy="36" r="9" fill="#6C8CFF"/>
+          <circle cx="114" cy="29.5" r="5" fill="#2E2A5B"/>
+          <circle cx="121" cy="28.5" r="4" fill="#2E2A5B"/>
+        </g>
+      </svg>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4.5" y="5" width="2.6" height="14" rx="1.3"/><path d="M20 5.6v12.8c0 .95-1.05 1.52-1.85 1L9.6 13.1a1.25 1.25 0 0 1 0-2.15l8.55-6.35c.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 5.6v12.8c0 .95 1.05 1.52 1.85 1l9.7-6.4a1.25 1.25 0 0 0 0-2.1l-9.7-6.3c-.8-.52-1.85.05-1.85 1z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.6" y="5" width="3.4" height="14" rx="1.7"/><rect x="14" y="5" width="3.4" height="14" rx="1.7"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16.9" y="5" width="2.6" height="14" rx="1.3"/><path d="M4 5.6v12.8c0 .95 1.05 1.52 1.85 1l8.55-6.3a1.25 1.25 0 0 0 0-2.15L5.85 4.6c-.8-.6-1.85.03-1.85 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.2v5.6c0 .66.54 1.2 1.2 1.2h2.6l3.9 3.3c.62.52 1.55.06 1.55-.75V5.45c0-.8-.93-1.27-1.55-.75L7.8 8H5.2c-.66 0-1.2.54-1.2 1.2z"/><path d="M15.6 9.3a4.1 4.1 0 0 1 0 5.4M18 7a7.4 7.4 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Corporate Memphis —— 小脑袋面条人 + 大平涂蜡笔色，零渐变零阴影 ===== */
+.demo-style-corporate-memphis {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-style-corporate-memphis .player {
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #F6F3FF;              /* 米白偏紫的卡片底 */
+  border: 2px solid #E9E3FC;        /* 扁平描边，不是阴影 */
+  box-shadow: none;                 /* defining：任何投影都会破坏风格 */
+}
+/* ---- 封面：色团圆点背景上的面条小人抱音符 ---- */
+.demo-style-corporate-memphis .art {
+  background: #ECE7FD;              /* 平涂淡紫，无渐变 */
+  line-height: 0;
+}
+.demo-style-corporate-memphis .art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.demo-style-corporate-memphis .fig,
+.demo-style-corporate-memphis .note {
+  transform-box: fill-box;
+}
+.demo-style-corporate-memphis .fig { transform-origin: 50% 100%; }
+.demo-style-corporate-memphis .note { transform-origin: 50% 50%; }
+/* 播放中小人轻轻蹦、音符微微晃（欢快但克制） */
+.demo-style-corporate-memphis .player.playing .fig {
+  animation: cm-bob 1.4s ease-in-out infinite;
+}
+.demo-style-corporate-memphis .player.playing .note {
+  animation: cm-wig 1.4s ease-in-out infinite;
+}
+@keyframes cm-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes cm-wig {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+/* ---- 文字：墨色标题 + 柔和次要文字 ---- */
+.demo-style-corporate-memphis .meta {
+  padding: 12px 18px 0;
+}
+.demo-style-corporate-memphis .title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #2E2A5B;
+}
+.demo-style-corporate-memphis .artist {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #6E6899;
+}
+/* ---- 进度：扁平胶囊轨道，纯色填充 ---- */
+.demo-style-corporate-memphis .progress {
+  padding: 10px 18px 0;
+}
+.demo-style-corporate-memphis .track {
+  height: 10px;
+  border-radius: 999px;
+  background: #E3DDFA;
+  overflow: hidden;
+}
+.demo-style-corporate-memphis .bar {
+  height: 100%;
+  border-radius: 999px;
+  background: #6C63FF;              /* 平涂品牌紫，无渐变无辉光 */
+}
+.demo-style-corporate-memphis .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  font-weight: 500;
+  color: #6E6899;
+}
+/* ---- 控制：圆形平涂按钮，黄/紫/薄荷各一枚 ---- */
+.demo-style-corporate-memphis .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+.demo-style-corporate-memphis .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+  color: #2E2A5B;
+  transition: transform .25s cubic-bezier(.34, 1.56, .64, 1); /* 友好的小回弹 */
+}
+.demo-style-corporate-memphis .prev,
+.demo-style-corporate-memphis .next {
+  width: 36px;
+  height: 36px;
+}
+.demo-style-corporate-memphis .prev { background: #FDE68A; } /* 奶油黄 */
+.demo-style-corporate-memphis .next { background: #6EE7B7; } /* 薄荷绿 */
+.demo-style-corporate-memphis .play {
+  width: 52px;
+  height: 52px;
+  background: #6C63FF;
+  color: #FFFFFF;
+}
+.demo-style-corporate-memphis .cbtn:hover { transform: translateY(-3px); }
+.demo-style-corporate-memphis .cbtn:active { transform: translateY(0) scale(.92); }
+.demo-style-corporate-memphis .cbtn:focus-visible {
+  outline: 2px solid #6C63FF;
+  outline-offset: 2px;
+}
+.demo-style-corporate-memphis .play .i-pause { display: none; }
+.demo-style-corporate-memphis .play.playing .i-play { display: none; }
+.demo-style-corporate-memphis .play.playing .i-pause { display: block; }
+/* ---- 音量：扁平粉色滑条 ---- */
+.demo-style-corporate-memphis .volume {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 15px;
+  padding: 0 18px 16px;
+}
+.demo-style-corporate-memphis .vicon {
+  display: flex;
+  flex: none;
+  color: #6E6899;
+}
+.demo-style-corporate-memphis .vtrack {
+  position: relative;
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #E3DDFA;
+  overflow: hidden;
+  cursor: pointer;
+}
+.demo-style-corporate-memphis .vtrack::before { /* 扩大点击热区 */
+  content: "";
+  position: absolute;
+  inset: -7px -3px;
+}
+.demo-style-corporate-memphis .vfill {
+  height: 100%;
+  border-radius: 999px;
+  background: #F9A8D4;
+}
+/* ---- 动效兜底 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-corporate-memphis .player.playing .fig,
+  .demo-style-corporate-memphis .player.playing .note {
+    animation: none;
+  }
+  .demo-style-corporate-memphis .cbtn {
+    transition: none;
+  }
+  .demo-style-corporate-memphis .cbtn:hover,
+  .demo-style-corporate-memphis .cbtn:active {
+    transform: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const player = ROOT.querySelector('.player');
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30; // 全程秒数
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31; // 与初始 width:31% 对应
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    player.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) { // 减少动态效果：瞬移
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth; // 强制重排，让瞬移先生效
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent()); // 暂停：保持当前进度
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0; // 播完后再次播放从头开始
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() { // prev/next：归零重播
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) { // 点击设置音量
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  // 舞台自适应：首页卡片舞台较矮时整体等比缩小，保证不溢出
+  function fit() {
+    const host = ROOT.parentElement; // .fragment 容器
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

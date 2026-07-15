@@ -1,0 +1,326 @@
+<div class="demo demo-style-bauhaus">
+  <div class="pwrap">
+    <div class="player">
+      <div class="art">
+        <svg viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="a-blue" cx="27" cy="27" r="18"/>
+          <path class="a-yellow" d="M6 66 L26 34 L46 66 Z"/>
+          <rect class="a-red" x="42" y="38" width="22" height="22"/>
+          <rect class="a-ink" x="54" y="2" width="4" height="26" transform="rotate(28 56 15)"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <div class="title">Midnight Drive</div>
+        <div class="artist">Neon Coast</div>
+      </div>
+      <div class="progress">
+        <div class="track"><div class="bar"></div></div>
+        <div class="times"><span>1:12</span><span>3:48</span></div>
+      </div>
+      <div class="controls">
+        <button class="cbtn prev" type="button" aria-label="Previous">
+          <svg viewBox="0 0 34 34" aria-hidden="true">
+            <rect class="shape" x="1" y="1" width="32" height="32"/>
+            <g class="glyph"><rect x="10" y="11" width="3" height="12"/><path d="M23 11 L13 17 L23 23 Z"/></g>
+          </svg>
+        </button>
+        <button class="cbtn play" type="button" aria-label="Play">
+          <svg viewBox="0 0 46 46" aria-hidden="true">
+            <circle class="shape" cx="23" cy="23" r="22.5"/>
+            <g class="glyph ic-play"><path d="M19 14 L33 23 L19 32 Z"/></g>
+            <g class="glyph ic-pause"><rect x="16" y="14" width="4.5" height="18"/><rect x="25.5" y="14" width="4.5" height="18"/></g>
+          </svg>
+        </button>
+        <button class="cbtn next" type="button" aria-label="Next">
+          <svg viewBox="0 0 40 38" aria-hidden="true">
+            <path class="shape" d="M20 2 L38 36 L2 36 Z"/>
+            <g class="glyph"><path d="M14 21 L22 26 L14 31 Z"/><rect x="24" y="21" width="3" height="10"/></g>
+          </svg>
+        </button>
+      </div>
+      <div class="volume">
+        <span class="vicon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="9.5" width="4" height="5"/>
+            <path d="M7 9.5 L14 4 L14 20 L7 14.5 Z"/>
+            <rect class="a-red" x="17" y="10.5" width="3.5" height="3.5"/>
+          </svg>
+        </span>
+        <div class="vtrack"><div class="vfill"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Bauhaus —— 圆/三角/方 + 三原色 + 全小写几何字体，扁平无纵深 ===== */
+.demo-style-bauhaus {
+  --red: #e3000f;
+  --yellow: #ffd300;
+  --blue: #0057a8;
+  --ink: #141414;
+  --paper: #f2eee3;
+  font-family: Futura, "Century Gothic", "Avenir Next", var(--font-sans, sans-serif);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.demo-style-bauhaus .pwrap { transform-origin: center; }
+.demo-style-bauhaus .player {
+  position: relative;
+  width: 280px;
+  padding: 20px 16px 16px;
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px 14px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 0; /* 硬边，零圆角 */
+  text-transform: lowercase; /* 拜尔 universal 字体：废除大写 */
+}
+.demo-style-bauhaus .player::before { /* 顶部三原色带：红/黄/蓝三等分 */
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg,
+    var(--red) 0 33.4%, var(--yellow) 0 66.7%, var(--blue) 0);
+}
+.demo-style-bauhaus svg { display: block; }
+.demo-style-bauhaus .a-red { fill: var(--red); }
+.demo-style-bauhaus .a-yellow { fill: var(--yellow); }
+.demo-style-bauhaus .a-blue { fill: var(--blue); }
+.demo-style-bauhaus .a-ink { fill: var(--ink); }
+/* ---- 封面：康定斯基式构成 —— 蓝圆、黄三角、红方块、黑色对角条 ---- */
+.demo-style-bauhaus .art {
+  grid-column: 1;
+  width: 72px;
+  height: 72px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+.demo-style-bauhaus .art svg { width: 100%; height: 100%; }
+/* ---- 文字：全小写几何无衬线 ---- */
+.demo-style-bauhaus .meta {
+  grid-column: 2;
+  align-self: center;
+  min-width: 0;
+}
+.demo-style-bauhaus .title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-style-bauhaus .artist {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  opacity: 0.78;
+}
+.demo-style-bauhaus .artist::before { /* 红色小方块引子 */
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: none;
+  background: var(--red);
+}
+/* ---- 进度：白底墨线轨道，红色硬边填充 ---- */
+.demo-style-bauhaus .progress { grid-column: 1 / -1; }
+.demo-style-bauhaus .track {
+  height: 12px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  overflow: hidden;
+}
+.demo-style-bauhaus .bar {
+  width: 31%;
+  height: 100%;
+  background: var(--red);
+}
+.demo-style-bauhaus .times {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0.72;
+}
+/* ---- 控件即几何形：prev=红方块，play=蓝圆，next=黄三角 ---- */
+.demo-style-bauhaus .controls {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.demo-style-bauhaus .cbtn {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 80ms linear;
+}
+.demo-style-bauhaus .cbtn svg { overflow: visible; }
+.demo-style-bauhaus .cbtn .shape,
+.demo-style-bauhaus .cbtn .glyph { transition: fill 120ms linear; }
+.demo-style-bauhaus .prev { width: 34px; height: 34px; }
+.demo-style-bauhaus .play { width: 46px; height: 46px; }
+.demo-style-bauhaus .next { width: 40px; height: 38px; }
+.demo-style-bauhaus .prev .shape { fill: var(--red); }
+.demo-style-bauhaus .prev .glyph { fill: var(--paper); }
+.demo-style-bauhaus .play .shape { fill: var(--blue); }
+.demo-style-bauhaus .play .glyph { fill: var(--paper); }
+.demo-style-bauhaus .next .shape { fill: var(--yellow); }
+.demo-style-bauhaus .next .glyph { fill: var(--ink); }
+/* hover：换成另一个原色，绝不加纵深 */
+.demo-style-bauhaus .prev:hover .shape { fill: var(--blue); }
+.demo-style-bauhaus .play:hover .shape { fill: var(--yellow); }
+.demo-style-bauhaus .play:hover .glyph { fill: var(--ink); }
+.demo-style-bauhaus .next:hover .shape { fill: var(--red); }
+.demo-style-bauhaus .next:hover .glyph { fill: var(--paper); }
+.demo-style-bauhaus .cbtn:active { transform: translateY(1px) scale(0.97); }
+.demo-style-bauhaus .cbtn:focus { outline: none; }
+.demo-style-bauhaus .cbtn:focus-visible,
+.demo-style-bauhaus .vtrack:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+.demo-style-bauhaus .play .ic-pause { display: none; }
+.demo-style-bauhaus .play.is-playing .ic-play { display: none; }
+.demo-style-bauhaus .play.is-playing .ic-pause { display: block; }
+/* ---- 音量：白底墨线轨道，黄色填充 ---- */
+.demo-style-bauhaus .volume {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.demo-style-bauhaus .vicon { display: block; width: 18px; height: 18px; }
+.demo-style-bauhaus .vicon svg { width: 18px; height: 18px; fill: var(--ink); }
+.demo-style-bauhaus .vtrack {
+  flex: 1;
+  height: 10px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+.demo-style-bauhaus .vfill {
+  width: 70%;
+  height: 100%;
+  background: var(--yellow);
+  transition: width 80ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-bauhaus .cbtn,
+  .demo-style-bauhaus .cbtn .shape,
+  .demo-style-bauhaus .cbtn .glyph,
+  .demo-style-bauhaus .vfill { transition: none; }
+  .demo-style-bauhaus .cbtn:active { transform: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const wrap = ROOT.querySelector('.pwrap');
+  const player = ROOT.querySelector('.player');
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const motionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* 舞台自适应：首页矮舞台等比缩小，保证不溢出 */
+  function fit() {
+    const aw = ROOT.clientWidth, ah = ROOT.clientHeight;
+    if (!aw || !ah) return;
+    const s = Math.min(1, aw / (player.offsetWidth + 12), ah / (player.offsetHeight + 12));
+    wrap.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(ROOT);
+  else window.addEventListener('resize', fit);
+
+  /* play/pause：进度 31% -> 100%，约 30s */
+  let p = 31, playing = false, raf = 0, last = 0;
+  const RATE = (100 - 31) / 30000;
+  function render() { bar.style.width = p + '%'; }
+  function setPlaying(on) {
+    playing = on;
+    playBtn.classList.toggle('is-playing', on);
+    playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
+    cancelAnimationFrame(raf); raf = 0;
+    if (!on) return;
+    if (motionMQ.matches) { p = 100; render(); setPlaying(false); return; }
+    last = 0;
+    raf = requestAnimationFrame(tick);
+  }
+  function tick(now) {
+    if (!playing) return;
+    if (!last) last = now;
+    p = Math.min(100, p + (now - last) * RATE);
+    last = now;
+    render();
+    if (p >= 100) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  playBtn.addEventListener('click', function () { setPlaying(!playing); });
+
+  /* prev/next：归零重播 */
+  function restart() { p = 0; render(); last = 0; setPlaying(true); }
+  ROOT.querySelector('.prev').addEventListener('click', restart);
+  ROOT.querySelector('.next').addEventListener('click', restart);
+
+  /* 音量：点击/拖拽设置，支持方向键 */
+  let vol = 70, dragging = false;
+  function setVol(v) {
+    vol = Math.max(0, Math.min(100, v));
+    vfill.style.width = vol + '%';
+    vtrack.setAttribute('aria-valuenow', String(Math.round(vol)));
+  }
+  function volFromEvent(e) {
+    const r = vtrack.getBoundingClientRect();
+    if (r.width) setVol((e.clientX - r.left) / r.width * 100);
+  }
+  vtrack.setAttribute('role', 'slider');
+  vtrack.setAttribute('tabindex', '0');
+  vtrack.setAttribute('aria-label', 'Volume');
+  vtrack.setAttribute('aria-valuemin', '0');
+  vtrack.setAttribute('aria-valuemax', '100');
+  setVol(70);
+  vtrack.addEventListener('pointerdown', function (e) {
+    dragging = true;
+    volFromEvent(e);
+    try { vtrack.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  vtrack.addEventListener('pointermove', function (e) { if (dragging) volFromEvent(e); });
+  vtrack.addEventListener('pointerup', function () { dragging = false; });
+  vtrack.addEventListener('pointercancel', function () { dragging = false; });
+  vtrack.addEventListener('keydown', function (e) {
+    const step = { ArrowRight: 10, ArrowUp: 10, ArrowLeft: -10, ArrowDown: -10 }[e.key];
+    if (step) { setVol(vol + step); e.preventDefault(); }
+    else if (e.key === 'Home') { setVol(0); e.preventDefault(); }
+    else if (e.key === 'End') { setVol(100); e.preventDefault(); }
+  });
+})();
+</script>

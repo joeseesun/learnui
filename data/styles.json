@@ -1513,5 +1513,1167 @@
         "name": "Aqua"
       }
     ]
+  },
+  {
+    "slug": "swiss-style",
+    "name": "Swiss Style (International Typographic Style)",
+    "order": 15,
+    "tagline": "Swiss Style treats graphic design as engineering: content locked to a mathematical grid, set in one neutral grotesk (Helvetica, Akzidenz-Grotesk), aligned flush left, ragged right, printed black on white with a single flat accent — classically Swiss red. Photography is objective documentation, never illustration; decoration is abolished. Crystallized in 1950s Switzerland, it became the default voice of corporate identity and wayfinding, and its grid logic still underpins most 'clean' interfaces.",
+    "scope": "Scope: Covers the typographic discipline — grid system, neutral grotesk type, flush-left setting, objective photography — wherever it surfaces, from posters to app UIs. The wider 'Swiss design' umbrella (furniture, watches, architecture) stays out; the Minimalism boundary is drawn in confusedWith.",
+    "aliases": [
+      "posters with huge helvetica and a red square",
+      "black and white design with one red accent",
+      "that museum poster look where everything snaps to a grid",
+      "text all left-aligned with the right edge messy",
+      "the 60s corporate annual report style",
+      "tons of white space but everything lined up on invisible lines"
+    ],
+    "confusedWith": {
+      "slug": "minimalism",
+      "name": "Minimalism",
+      "because": "This is Swiss Style because it is a complete discipline, not an absence: an explicit mathematical grid, one neutral grotesk set flush left, and objective photography — the page is organized by rules, not merely emptied.",
+      "wouldBecomeIf": "It would become Minimalism if you kept the white space but dropped the system — center the type, switch to a serif or a rounded face, or place elements by feel instead of snapping them to grid lines — because then only the emptiness remains."
+    },
+    "signals": [
+      {
+        "id": "grid-system",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Mathematical grid system",
+        "description": "Every edge and baseline locks to an underlying column grid — classically 4–12 columns with constant gutters, plus a vertical baseline rhythm (e.g. 8px steps). An element that misses its grid line is a defect, not a choice."
+      },
+      {
+        "id": "neutral-grotesk",
+        "facet": "typography",
+        "role": "defining",
+        "name": "One neutral grotesk",
+        "description": "Helvetica, Akzidenz-Grotesk, or Univers (Inter or Arial on the web) carries everything alone; hierarchy comes from size and weight only — 700 headlines against 400 body — never from decorative faces."
+      },
+      {
+        "id": "flush-left",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Flush left, ragged right",
+        "description": "All text hangs from a hard left axis and the right edge is left to rag. Justified blocks and centered headlines break the discipline instantly."
+      },
+      {
+        "id": "black-white-red",
+        "facet": "color",
+        "role": "defining",
+        "name": "Black, white, one accent",
+        "description": "Paper-white ground (#fff or #f4f4f0), near-black ink (#111), and exactly one flat accent — classic Swiss red #e30613. No gradients, no second hue."
+      },
+      {
+        "id": "objective-photography",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Objective photography",
+        "description": "Documentary black-and-white photos, cropped to rectangular grid modules and treated as factual records that replace illustration. Filters, duotones, and staged whimsy are foreign."
+      },
+      {
+        "id": "asymmetric-balance",
+        "facet": "layout",
+        "role": "supporting",
+        "name": "Asymmetric balance",
+        "description": "A heavy typographic mass in one corner counterweighed by empty space elsewhere; the composition balances through grid position, never mirror symmetry."
+      },
+      {
+        "id": "accent-choice",
+        "facet": "color",
+        "role": "variable",
+        "name": "Which single accent",
+        "description": "Swiss red is the cliché; the rule is one flat accent per composition — blue or orange versions stay Swiss as long as the rest of the discipline holds."
+      },
+      {
+        "id": "ornament",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Ornament and softness",
+        "description": "Drop shadows, gradients, rounded corners, serifs, textures — decoration of any kind marks another school. Swiss surfaces are flat paper and ink."
+      }
+    ],
+    "code": [
+      {
+        "title": "The skeleton: 12-column grid, one grotesk, text hangs left",
+        "language": "css",
+        "code": ".poster { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; font-family: Helvetica, \"Helvetica Neue\", Arial, sans-serif; color: #111; background: #fff; text-align: left; }"
+      },
+      {
+        "title": "Flush-left headline, tight tracking, one Swiss-red accent",
+        "language": "css",
+        "code": ".poster h1 { grid-column: 1 / 9; margin: 0; font-size: 96px; font-weight: 700; line-height: 0.95; letter-spacing: -0.02em; }\n.poster .accent { color: #e30613; }"
+      },
+      {
+        "title": "Same skeleton as utilities",
+        "language": "tailwind",
+        "code": "<section class=\"grid grid-cols-12 gap-6 bg-white font-sans text-left text-neutral-900\">\n  <h1 class=\"col-span-8 text-8xl font-bold leading-none tracking-tight\">Grid <span class=\"text-[#e30613]\">Systems</span></h1>\n</section>"
+      }
+    ],
+    "brief": "Create the surface as a Swiss Style composition. Defining signals: an explicit 12-column grid, 24px gutters, every edge and baseline snapping to it on an 8px rhythm; one neutral grotesk (Helvetica, Arial, or Inter) with hierarchy by size and weight only — 16px body, 72–96px headlines at weight 700, line-height 0.95, letter-spacing -0.02em; all text flush left, ragged right — never justified, never centered; flat paper ground #ffffff, near-black ink #111111, one flat accent — Swiss red #e30613 — spent on one element (marker, rule, or word); imagery as documentary black-and-white photography cropped to grid rectangles; box-shadow: none, border-radius: 0, no gradients, no textures. Keep accent hue and photo subject flexible. Balance asymmetrically: the big type mass sits off-center, white space counterweighs it. Do not drift into Minimalism; the decisive difference is that Swiss is a system, not an absence — center the type or pick a serif and you have left it. Keep contrast at 4.5:1 (black/white is 21:1; #e30613 on white ~4.9:1), visible keyboard focus, and reduced-motion support.",
+    "accessibility": "The black-on-white core is a strength — #111 on #fff measures 21:1 — but Swiss red #e30613 on white is only ~4.9:1: fine for text, yet pairings like red on black fail, so measure every accent combination before shipping.\n\nPoster habits do not all transfer: 9–10px captions under 96px headlines are illegible on screen, so keep body text at 16px or above and captions at 12px or above. The ragged-right setting genuinely helps here — it reads easier than justified text for many readers, including people with dyslexia, so discipline and accessibility agree for once.\n\nA rigid 12-column grid can shatter under 200% text zoom; build it with relative units and minmax() so columns reflow instead of clipping. Motion is minimal by nature in this style, but any scroll-triggered grid reveals still need a prefers-reduced-motion fallback.",
+    "origin": "Crystallized in Switzerland in the 1950s around two poles — Ernst Keller's teaching at the Kunstgewerbeschule Zürich, and the Basel school where Armin Hofmann and Emil Ruder taught, with Max Bill carrying the Bauhaus inheritance — and codified by Josef Müller-Brockmann, whose 'Grid Systems in Graphic Design' (1981) remains the manual. Its voice, Helvetica, was drawn by Max Miedinger with Eduard Hoffmann at the Haas foundry in 1957 (renamed from Neue Haas Grotesk in 1960); its elder cousin Akzidenz-Grotesk dates to 1896. The journal Neue Grafik (1958–1965) exported the system worldwide, where it became the default language of corporate identity, posters, and wayfinding.",
+    "seeAlso": [
+      {
+        "slug": "styles/minimalism",
+        "name": "Minimalism"
+      },
+      {
+        "slug": "styles/bauhaus",
+        "name": "Bauhaus"
+      },
+      {
+        "slug": "styles/flat-design",
+        "name": "Flat Design"
+      },
+      {
+        "slug": "styles/web-brutalism",
+        "name": "Web Brutalism"
+      }
+    ]
+  },
+  {
+    "slug": "bauhaus",
+    "name": "Bauhaus",
+    "order": 16,
+    "tagline": "Bauhaus is the visual language of the 1919–1933 German school that set out to unify art, craft, and industrial production: compositions are built from the primary shapes — circle, triangle, square — filled with unmixed primaries red, yellow, and blue against black and white, while headlines drop capital letters for Herbert Bayer's all-lowercase geometric alphabet. A century later it is still the default shorthand for geometric modernism in posters, logos, and landing pages.",
+    "scope": "Scope: Covers the Bauhaus look as it appears in graphic and UI design — primary-shape construction, a primaries-plus-ink palette, lowercase geometric type. It is not the whole of modernism: Swiss Style is the later grid-locked successor, and De Stijl shares the primaries but locks them into orthogonal black grids.",
+    "aliases": [
+      "red yellow and blue circles triangles and squares",
+      "geometric posters that look like a kandinsky painting",
+      "lowercase geometric fonts with no capital letters at all",
+      "that primary color art school style with basic shapes",
+      "modernist logos made of a circle a triangle and a square"
+    ],
+    "confusedWith": {
+      "slug": "swiss-style",
+      "name": "Swiss Style",
+      "because": "This is Bauhaus because the layout is an expressive construction of pure circle, triangle and square in red, yellow and blue with all-lowercase geometric lettering — the composition itself performs, instead of an invisible grid organizing neutral content.",
+      "wouldBecomeIf": "It would become Swiss Style if the shape play were replaced by documentary photography, the lettering went back to mixed-case neutral grotesk locked to a strict mathematical grid, and the palette drained to black, white and grey plus a single accent — objectivity replacing expression."
+    },
+    "signals": [
+      {
+        "id": "primary-shapes",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Circle, triangle, square only",
+        "description": "Every decorative element is one of the three pure shapes — no blobs, stars, or freehand curves. Kandinsky's 1923 mapping still reads: yellow triangle, red square, blue circle."
+      },
+      {
+        "id": "primaries-and-ink",
+        "facet": "color",
+        "role": "defining",
+        "name": "Primaries plus black and white",
+        "description": "Unmixed red (#e3000f), yellow (#ffd300) and blue (#0057a8) on paper white with ink black — flat opaque fills, no tints, no mid-greys, no gradients."
+      },
+      {
+        "id": "lowercase-universal-type",
+        "facet": "typography",
+        "role": "defining",
+        "name": "All-lowercase geometric type",
+        "description": "Headlines and labels run with text-transform: lowercase in a constructed geometric sans (Futura, Century Gothic) — Bayer's universal-alphabet gesture: capitals abolished, letters built from circles and straight strokes."
+      },
+      {
+        "id": "asymmetric-tension",
+        "facet": "layout",
+        "role": "supporting",
+        "name": "Asymmetric diagonal tension",
+        "description": "Shapes overlap off-center and collide at angles — diagonal rules and unbalanced placement give the page constructivist energy instead of grid-locked calm."
+      },
+      {
+        "id": "black-bars-rules",
+        "facet": "geometry",
+        "role": "supporting",
+        "name": "Ink bars and rules",
+        "description": "Solid black bars 4–8px thick and thin rules cut across and around the color shapes, acting as scaffolding and punctuation."
+      },
+      {
+        "id": "flat-matte-planes",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Flat matte color planes",
+        "description": "Zero depth rendering: no shadows, glows, gradients, or textures — each shape is a single solid color with a hard edge."
+      },
+      {
+        "id": "mechanical-motion",
+        "facet": "motion",
+        "role": "variable",
+        "name": "Mechanical geometric motion",
+        "description": "When things move, they translate or rotate on straight paths in 150–250ms with linear or crisp easing — machine-like, never springy."
+      },
+      {
+        "id": "ornament-depth",
+        "facet": "depth",
+        "role": "avoid",
+        "name": "Ornament and soft depth",
+        "description": "Drop shadows, cute rounded corners, gradients, serifs, or decorative flourishes break it instantly — in Bauhaus the construction is the only ornament."
+      }
+    ],
+    "code": [
+      {
+        "title": "Palette + lowercase geometric type",
+        "language": "css",
+        "code": ":root{\n  --bauhaus-red:#e3000f; --bauhaus-yellow:#ffd300; --bauhaus-blue:#0057a8;\n  --bauhaus-ink:#141414; --bauhaus-paper:#f2eee3;\n}\n.bauhaus{\n  background:var(--bauhaus-paper); color:var(--bauhaus-ink);\n  font-family:\"Futura\",\"Century Gothic\",\"Avenir Next\",sans-serif;\n  text-transform:lowercase; /* bayer's universal alphabet: no capitals */\n}"
+      },
+      {
+        "title": "The three shapes in pure CSS",
+        "language": "css",
+        "code": ".circle{ width:64px; height:64px; border-radius:50%; background:var(--bauhaus-blue); }\n.square{ width:56px; height:56px; background:var(--bauhaus-red); }\n.triangle{ width:0; height:0; border-left:32px solid transparent;\n  border-right:32px solid transparent; border-bottom:55px solid var(--bauhaus-yellow); }"
+      },
+      {
+        "title": "Same construction as utilities",
+        "language": "tailwind",
+        "code": "lowercase font-sans bg-[#f2eee3] text-[#141414] — circle: rounded-full bg-[#0057a8]; triangle: w-0 h-0 border-x-[32px] border-x-transparent border-b-[55px] border-b-[#ffd300]"
+      }
+    ],
+    "brief": "Build the surface as a Bauhaus composition. Canvas: warm paper #f2eee3, ink #141414. Closed palette: red #e3000f, yellow #ffd300, blue #0057a8 — flat opaque fills only; no tints, gradients, shadows, or textures; corner radius 0–4px. Every decorative element is a pure circle, square, or CSS border-trick triangle (yellow triangle, red square, blue circle); overlap them asymmetrically with one or two diagonal ink bars 4–8px thick — the geometry is the only ornament. Type: constructed geometric sans (Futura, Century Gothic, Avenir Next; web: Jost/Montserrat); headlines/labels use text-transform: lowercase — never a capital; body copy may keep sentence case. Buttons are solid primary blocks with hard edges; hover swaps the fill to another primary, never adds depth. Motion is mechanical: translate/rotate on straight paths, 150–250ms, linear or crisp ease, no spring. Do not drift into Swiss Style: no documentary photography, no mixed-case grotesk on a strict grid, no drained monochrome palette. Keep 4.5:1 text contrast (ink on paper/yellow, paper on red/blue) and a visible focus outline.",
+    "accessibility": "Red-on-blue and blue-on-red pairings vibrate and fall well below 4.5:1 — never set text or small functional shapes in one primary on another. Ink on paper and on yellow passes easily; paper-white on red (#e3000f) or blue (#0057a8) must be measured per combination. Yellow on white fails badly: reserve yellow for shapes, never for text or thin icons.\n\nAll-lowercase headlines remove the word-shape cues that mixed case provides — acceptable for short display lines, but keep body copy, form labels, and anything longer than a phrase in sentence case, and build hierarchy with size and weight rather than relying on capitals.\n\nOverlapping saturated shapes and diagonal layouts raise cognitive load and can mask interaction order: give every interactive element a visible focus outline (2–3px ink with offset), never communicate state by primary color alone — pair it with a shape or icon change — and honor prefers-reduced-motion for any rotating or sliding geometry.",
+    "origin": "The Staatliches Bauhaus was founded in Weimar in 1919 by architect Walter Gropius, merging the city's art academy and crafts school to unite art, craft, and industrial production; it moved to Dessau in 1925 and Berlin in 1932 before closing in 1933 under Nazi pressure. Wassily Kandinsky and Paul Klee taught its formal grammar — Kandinsky's 1923 questionnaire fixed the yellow triangle, red square, and blue circle — while Herbert Bayer's 1925 'universal' alphabet pushed the all-lowercase geometric lettering. After the closure its masters emigrated — Gropius to Harvard, László Moholy-Nagy to found Chicago's New Bauhaus in 1937 — turning a fourteen-year school into the world's default modernist vocabulary.",
+    "seeAlso": [
+      {
+        "slug": "styles/swiss-style",
+        "name": "Swiss Style"
+      },
+      {
+        "slug": "styles/art-deco",
+        "name": "Art Deco"
+      },
+      {
+        "slug": "styles/minimalism",
+        "name": "Minimalism"
+      },
+      {
+        "slug": "styles/memphis",
+        "name": "Memphis"
+      }
+    ]
+  },
+  {
+    "slug": "memphis",
+    "name": "Memphis",
+    "order": 17,
+    "tagline": "Memphis is the postmodern design language launched by the Memphis Group in Milan in 1981: calculated 'bad taste' — hot pink, lemon yellow, teal and purple slammed together on white grounds, black-outlined toy geometry, and an allover confetti of squiggles, zigzags, dots and triangles. Born as radical furniture in printed plastic laminate, it was mocked and worshipped alike, dissolved in 1987, and resurrected as the default visual shorthand for 'the eighties' in graphic and UI design.",
+    "scope": "Scope: Covers the Memphis Group's original postmodern language (1981–87) and its later revival as pattern-driven 80s styling in graphics and UI. 'Corporate Memphis' — flat, big-limbed vector illustration — is a later namesake with its own entry. Solid color blocks with hard offset shadows and zero patterning belong to Neobrutalism.",
+    "aliases": [
+      "80s squiggles and triangles pattern everywhere",
+      "that saved by the bell intro style",
+      "pink yellow teal shapes with black outlines",
+      "geometric confetti background style",
+      "retro 80s geometric pattern website",
+      "white background with squiggly lines and dots"
+    ],
+    "confusedWith": {
+      "slug": "neobrutalism",
+      "name": "Neobrutalism",
+      "because": "This is Memphis because the look is pattern-first: squiggles, zigzags, dots and triangles scattered edge-to-edge across the ground, pink/yellow/teal/purple fills clashing underneath, and print-flat depth with no cast shadows.",
+      "wouldBecomeIf": "It would become neobrutalism if you swept the confetti off the ground, locked every element into a uniform 2–3px black border, and gave each one a hard black offset shadow — playful pattern collage traded for clean sticker-block construction."
+    },
+    "signals": [
+      {
+        "id": "confetti-pattern",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Allover confetti pattern",
+        "description": "Squiggles, zigzags, dots, crosses and tiny triangles scattered edge-to-edge over a white ground — the pattern IS the background, not an accent strip."
+      },
+      {
+        "id": "squiggle-line",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Squiggles and zigzags",
+        "description": "Hand-feeling wavy lines and lightning zigzags, usually 2–4px black strokes — the most-quoted Memphis mark, descended from Sottsass's 1978 'Bacterio' laminate print."
+      },
+      {
+        "id": "clashing-palette",
+        "facet": "color",
+        "role": "defining",
+        "name": "Deliberate color clashes",
+        "description": "Hot pink, lemon yellow, teal and purple (e.g. #ff5fa2, #ffd500, #2ec4b6, #7b61ff) placed side by side with no harmonic bridging — the clash is the point."
+      },
+      {
+        "id": "black-inked-shapes",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Black-inked toy shapes",
+        "description": "Circles, triangles, half-donuts and blobs outlined in 2–3px solid black, like cut paper or screen-print ink — playful geometry over grids."
+      },
+      {
+        "id": "flat-print-depth",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Collage depth, zero cast shadows",
+        "description": "Depth comes only from overlapping flat shapes; nothing casts a shadow — it reads as screen print or laminated paper, not simulated light."
+      },
+      {
+        "id": "asymmetric-collage",
+        "facet": "layout",
+        "role": "supporting",
+        "name": "Off-grid tilted composition",
+        "description": "Elements rotated a few degrees, overlapped, breaking columns on purpose; tidy symmetry reads as a mistake here."
+      },
+      {
+        "id": "laminate-plastic",
+        "facet": "surface",
+        "role": "variable",
+        "name": "Plastic-laminate gloss",
+        "description": "The furniture originals wore glossy printed laminate and terrazzo; UI versions sometimes echo it with speckle textures or a sticker finish — optional."
+      },
+      {
+        "id": "offset-shadows",
+        "facet": "depth",
+        "role": "avoid",
+        "name": "Hard offset shadows",
+        "description": "Solid displaced block shadows are neobrutalism's construction; on a Memphis surface they flatten the pattern party into sticker blocks."
+      }
+    ],
+    "code": [
+      {
+        "title": "Confetti ground — self-contained SVG tile, no image assets",
+        "language": "css",
+        "code": "background-color:#ffffff;\nbackground-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cpath d='M12 26q10-16 20 0t20 0' fill='none' stroke='%23000000' stroke-width='3'/%3E%3Ccircle cx='104' cy='32' r='7' fill='%23ff5fa2'/%3E%3Cpath d='M26 116l13-22 13 22z' fill='%23ffd500' stroke='%23000000' stroke-width='2'/%3E%3Crect x='96' y='98' width='15' height='15' fill='%232ec4b6' stroke='%23000000' stroke-width='2' transform='rotate(18 103 105)'/%3E%3C/svg%3E\");\nbackground-size:140px 140px;"
+      },
+      {
+        "title": "Inked toy shape — flat print, no shadow",
+        "language": "css",
+        "code": "border:3px solid #000; background:#ffd500; border-radius:12px; transform:rotate(-2deg); box-shadow:none;"
+      },
+      {
+        "title": "Squiggle divider — repeat-x wavy line",
+        "language": "css",
+        "code": "height:8px; background:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 4q3-6 6 0t6 0t6 0t6 0' fill='none' stroke='%23000000' stroke-width='2.5'/%3E%3C/svg%3E\") repeat-x;"
+      }
+    ],
+    "brief": "Create the surface in the spirit of Memphis (Memphis Group, 1981). Defining signals: allover confetti (squiggles, zigzags, dots, crosses, tiny triangles) on a white #ffffff ground; deliberate clashes of hot pink #ff5fa2, lemon yellow #ffd500, teal #2ec4b6, purple #7b61ff with no harmonic bridging; shapes inked with 2–3px solid #000000 outlines; print-flat depth — overlap alone layers shapes, NOTHING casts a shadow (no box-shadow, gradients, blur). Compose as playful collage: chips rotated ±2–4deg, broken grid, mixed geometries — a circle button beside square tags, squiggle for a divider. Headings: chunky rounded display grotesk, black, weight 700–900; body plain black 14–16px. Interactions bounce: cubic-bezier(.34,1.56,.64,1) overshoot on hover/press. Pattern stays dense in decor zones; long text sits on solid fills. Do not drift into neobrutalism: confetti removed plus uniform borders with 4px 4px 0 #000 offset shadows IS neobrutalism — Memphis is pattern-first with zero cast shadows. Text stays at 4.5:1 on solid fills (never white on yellow or pink); honor prefers-reduced-motion.",
+    "accessibility": "A busy patterned ground destroys text legibility fast: never set body copy directly on the confetti — give text a solid fill (white or one of the palette colors) and measure 4.5:1. White text on #ffd500 or #ff5fa2 fails; black text on those same fills passes.\n\nHigh-saturation clashes plus allover pattern are real cognitive load — the eye gets no resting place. Reserve dense confetti for hero and decoration zones, drop the density behind content, and avoid tiny high-frequency marks (1px dots moiré on screens and vibrate for sensitive readers).\n\nTilted elements and bouncy easing need limits: keep rotations small (±4deg) so text stays readable, and under prefers-reduced-motion replace the overshoot easing with instant state changes — the style survives the swap intact.",
+    "origin": "The Memphis Group was founded in Milan by designer Ettore Sottsass with a circle of young collaborators — Michele De Lucchi, Nathalie du Pasquier, George Sowden, Marco Zanini, Martine Bedin and others — at a December 1980 meeting where Bob Dylan's 'Stuck Inside of Mobile with the Memphis Blues Again' kept spinning, giving the group its name. Its first collection, shown in Milan in 1981, wrapped toy-like furniture in printed plastic laminates such as Sottsass's squiggly 1978 'Bacterio' pattern; the group disbanded in 1987, and its graphics became the era's shorthand for eighties pop design, revived wholesale by pattern and UI designers in the 2010s.",
+    "seeAlso": [
+      {
+        "slug": "styles/corporate-memphis",
+        "name": "Corporate Memphis"
+      },
+      {
+        "slug": "styles/neobrutalism",
+        "name": "Neobrutalism"
+      },
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K"
+      },
+      {
+        "slug": "styles/bauhaus",
+        "name": "Bauhaus"
+      }
+    ]
+  },
+  {
+    "slug": "vaporwave",
+    "name": "Vaporwave",
+    "order": 18,
+    "tagline": "Vaporwave is the visual dialect of the early-2010s internet music microgenre of the same name: a collage of 1980s–90s consumer debris — pastel pink-to-cyan gradient skies, Greek marble busts, Japanese katakana, Windows 95 window chrome, palm-tree sunsets over grid floors — degraded with VHS scanlines, chromatic aberration, and glitch. It treats corporate-utopian imagery as found footage: dreamy, ironic, and worn. A nostalgia remix, not a period original.",
+    "scope": "Scope: Covers the visual remix aesthetic, not the music's chopped-and-screwed production. The neon-outrun cousin that shares the sunset grid is synthwave/retrofuturism; the genuine turn-of-millennium original it samples is Y2K Digital Aesthetic (its own entry), and GeoCities-era amateur pages belong to Vernacular Web.",
+    "aliases": [
+      "that pink and teal aesthetic with the greek statue heads",
+      "the tumblr look with marble busts and japanese text",
+      "retro windows 95 popups over a pink gradient sunset",
+      "vhs glitch art with palm trees and katakana",
+      "that nostalgic 80s mall fever-dream collage style",
+      "the pastel purple grid sunset with statues"
+    ],
+    "confusedWith": {
+      "slug": "y2k",
+      "name": "Y2K Digital Aesthetic",
+      "because": "This is Vaporwave because it looks BACK: a 2010s remix of 80s/90s debris — pink-to-cyan gradient skies, marble busts, katakana, Windows 95 chrome, and VHS wear — nostalgia as collage, not millennium optimism.",
+      "wouldBecomeIf": "It would become Y2K if the gaze flipped forward: drop the busts, katakana, and tape decay, and re-render everything in mirror chrome, gel plastic, and iridescent blue-silver as if the future had just shipped."
+    },
+    "signals": [
+      {
+        "id": "pink-cyan-gradient",
+        "facet": "color",
+        "role": "defining",
+        "name": "Pink-to-cyan gradient skies",
+        "description": "The Floral Shoppe wash: cyan #01cdfe at the horizon bleeding through pink #ff71ce and purple #b967ff into deep indigo night. Applied to skies, washes, and type fills — never to chrome or metal."
+      },
+      {
+        "id": "marble-busts",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Greek marble statuary",
+        "description": "White-to-grey classical busts, heads, and torsos floating in the composition, sometimes sliced, masked, or duplicated. Antiquity is sampled like stock footage — the statue is the mascot."
+      },
+      {
+        "id": "win95-chrome",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Windows 95 window chrome",
+        "description": "Battleship-grey #c0c0c0 panels with 1–2px hard bevels, blue-gradient title bars, pixel icons, and dialog boxes used as decoration. The dead desktop is a collage element, not a working UI."
+      },
+      {
+        "id": "katakana-latin",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Katakana and full-width latin",
+        "description": "Japanese katakana — occasionally Chinese signage — placed as pure decoration, beside full-width spaced latin (ＡＥＳＴＨＥＴＩＣ). Meaning is optional; the exotic-mood texture is the point."
+      },
+      {
+        "id": "vhs-decay",
+        "facet": "surface",
+        "role": "defining",
+        "name": "VHS decay",
+        "description": "1px horizontal scanlines, chromatic aberration (RGB-split edges), tracking bands, tape noise, PLAY overlays and timestamps. Everything looks copied, worn, and re-recorded rather than rendered clean."
+      },
+      {
+        "id": "sunset-grid",
+        "facet": "imagery",
+        "role": "supporting",
+        "name": "Striped sun and grid floor",
+        "description": "A striped or pixelated sun setting over a perspective grid plane, usually with palm silhouettes — borrowed from synthwave but washed out to pastel."
+      },
+      {
+        "id": "glitch-motion",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Glitch and drift",
+        "description": "Elements slice-shift, stutter, and RGB-split in short loops; motion feels like a damaged tape, never a smooth physics animation."
+      },
+      {
+        "id": "chrome-futurism",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Chrome-and-gel futurism",
+        "description": "Mirror chrome, gel gloss, lens flares, and iridescent blue-silver belong to Y2K's forward-looking sheen. Vaporwave surfaces stay matte, faded, and degraded — polish kills the nostalgia."
+      }
+    ],
+    "code": [
+      {
+        "title": "Sunset gradient under a scanline overlay",
+        "language": "css",
+        "code": "background: repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px), linear-gradient(180deg, #2d1b69 0%, #b967ff 40%, #ff71ce 68%, #01cdfe 100%);"
+      },
+      {
+        "title": "Windows 95 raised bevel (buttons, panels, windows)",
+        "language": "css",
+        "code": "background: #c0c0c0; box-shadow: inset -1px -1px 0 #0a0a0a, inset 1px 1px 0 #fff, inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;"
+      },
+      {
+        "title": "Chromatic-aberration type",
+        "language": "css",
+        "code": "color: #fff; text-shadow: -2px 0 #ff71ce, 2px 0 #01cdfe;"
+      }
+    ],
+    "brief": "Create the surface using Vaporwave. Defining signals: gradient sky running cyan #01cdfe at the horizon through pink #ff71ce and purple #b967ff into indigo #2d1b69; floating white Greek marble statuary; Windows 95 chrome — #c0c0c0 panels with hard 1–2px bevels (inset -1px -1px 0 #0a0a0a, inset 1px 1px 0 #fff), blue-gradient title bars, square corners, zero blur; decorative Japanese katakana plus full-width spaced latin (ＡＥＳＴＨＥＴＩＣ); VHS decay — 1px scanlines at ~20% black, chromatic aberration (text-shadow: -2px 0 #ff71ce, 2px 0 #01cdfe), glitch slice-shifts; a striped sun over a perspective grid floor with palm silhouettes. Keep the choice of consumer fragments (logos, mall imagery) flexible. Type: small plain system sans, black on the grey chrome, white with RGB split over the art. Do not drift into Y2K: the decisive difference is gaze direction — vaporwave looks BACK at the 80s/90s through worn tape, so no mirror chrome, gel gloss, or iridescent blue-silver. Hold text at 4.5:1 on solid plates (never over scanlines), glitch under 3 flashes/sec, and honor prefers-reduced-motion.",
+    "accessibility": "Pastel-on-pastel is the core failure: pink text over the cyan or purple gradient reads around 1.5–2:1. Put body text on the solid #c0c0c0 chrome (black ink, 15:1+) or on solid dark plates over the art, and treat gradient or chromatic type as decoration with a readable duplicate.\n\nGlitch strobes, slice-shifts, and RGB-split flicker can trigger photosensitive reactions — keep any flashing under 3 per second, disable slice-shifts and flicker under prefers-reduced-motion, and never gate content behind the effect.\n\nDecorative katakana and full-width latin are meaningless to many users and get spelled out character-by-character by screen readers — mark them aria-hidden. Scanline and noise overlays cut effective contrast for low-vision users, so keep those layers out of text.",
+    "origin": "Vaporwave began as a music microgenre around 2010–2011 in online communities — Bandcamp, Tumblr, and their forums — with Daniel Lopatin's Eccojams Vol. 1 (2010, released under the alias Chuck Person) and the Macintosh Plus album Floral Shoppe (2011, an alias of producer Vektroid) as founding documents; the Floral Shoppe cover — pink wash, marble bust, katakana — set the visual template. James Ferraro's Far Side Virtual (2011) supplied the corporate-utopia source material, and the name puns on 'vaporware'. The collage aesthetic peaked on Tumblr around 2012–2015.",
+    "seeAlso": [
+      {
+        "slug": "styles/cyberpunk",
+        "name": "Cyberpunk"
+      },
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K Digital Aesthetic"
+      },
+      {
+        "slug": "styles/frutiger-aero",
+        "name": "Frutiger Aero"
+      },
+      {
+        "slug": "styles/pixel-art",
+        "name": "Pixel Art"
+      }
+    ]
+  },
+  {
+    "slug": "art-deco",
+    "name": "Art Deco",
+    "order": 19,
+    "tagline": "Art Deco is the geometry of luxury: mirror symmetry, sunburst and fan motifs, stepped ziggurat silhouettes, and gold linework on lacquer black with jewel accents. Named after the 1925 Paris Exposition des arts décoratifs, it gave the Chrysler Building its crown and Gatsby its glow. Where Bauhaus stripped geometry to function, Deco piled it on — gilded all-caps lettering and ornament dense enough to feel machined. It faded with wartime austerity and revives whenever design wants opulence.",
+    "scope": "Scope: This entry covers the ornamental 1920s–30s Deco look and its later revivals as a UI and branding style. Its chrome-and-speed-lines 1930s offshoot, Streamline Moderne, is a related but distinct flavor; the era's functional-geometry movement across the Atlantic is Bauhaus.",
+    "aliases": [
+      "great gatsby party invitation style",
+      "black and gold fancy 1920s look",
+      "gold lines and sun rays vintage luxury design",
+      "roaring twenties geometric borders",
+      "old hollywood glam wedding website style",
+      "that chrysler building looking gold and black ui"
+    ],
+    "confusedWith": {
+      "slug": "bauhaus",
+      "name": "Bauhaus",
+      "because": "This is Art Deco because the geometry is ornamental luxury: mirror symmetry, gilded linework, sunburst and fan motifs, jewel tones on black — the decoration itself is the point, not a byproduct.",
+      "wouldBecomeIf": "It would become Bauhaus if the ornament were stripped away and the symmetry broken — asymmetric grid, flat primary-color blocks, unadorned grotesk type, and not a gram of gold left."
+    },
+    "signals": [
+      {
+        "id": "mirror-symmetry",
+        "facet": "layout",
+        "role": "defining",
+        "name": "Mirror symmetry",
+        "description": "Everything hangs on one vertical center axis: ornaments, frames and type blocks mirror exactly left-to-right, often in nested symmetrical tiers. An off-center layout instantly stops reading as Deco."
+      },
+      {
+        "id": "sunburst-fan",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Sunburst and fan motifs",
+        "description": "Rays radiating from a single point (sunburst), scalloped fan shells, chevrons and zigzag bands — the canonical ornament kit, drawn as thin gold strokes 1–2px wide."
+      },
+      {
+        "id": "stepped-forms",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Stepped ziggurat forms",
+        "description": "Silhouettes recede in symmetric stair-steps — three to five shrinking tiers like the Chrysler Building crown — used for frame corners, badges and panel tops."
+      },
+      {
+        "id": "gold-black-jewel",
+        "facet": "color",
+        "role": "defining",
+        "name": "Gold on black, jewel accents",
+        "description": "Metallic gold linework (#c9a227, highlights #f0dc9a) on near-black lacquer (#0b0b0e), accented with deep emerald, sapphire or ruby; pastels or flat primaries break the spell."
+      },
+      {
+        "id": "gilded-caps",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Gilded all-caps lettering",
+        "description": "Headings set in ALL CAPS geometric or high-contrast display faces with letter-spacing 0.15–0.35em, rendered in gold — reading like inscriptions over a hotel entrance."
+      },
+      {
+        "id": "double-rules",
+        "facet": "surface",
+        "role": "supporting",
+        "name": "Hairline double rules",
+        "description": "Borders are paired strokes — a 2px gold line with a 1px inner hairline 4–6px inside it, mimicking engraved gilt frames. A single thick black border reads as neobrutalism, not Deco."
+      },
+      {
+        "id": "metal-choice",
+        "facet": "color",
+        "role": "variable",
+        "name": "Gold, chrome or copper",
+        "description": "Yellow gold is the default, but chrome-silver (the Streamline Moderne branch) and copper read equally Deco; what matters is metallic contrast on a dark ground, not the hue."
+      },
+      {
+        "id": "primary-blocks",
+        "facet": "color",
+        "role": "avoid",
+        "name": "Flat primary-color blocks",
+        "description": "Flat red/yellow/blue blocks on white with asymmetric grids and bare grotesk type belong to Bauhaus and De Stijl — ornament-free primaries are a different movement that happens to share the decade."
+      }
+    ],
+    "code": [
+      {
+        "title": "Double-rule gilded frame (2px line + inner hairline)",
+        "language": "css",
+        "code": "border: 2px solid #c9a227;\nbox-shadow: inset 0 0 0 5px #0b0b0e, inset 0 0 0 6px #c9a227; /* black gap, then the hairline */"
+      },
+      {
+        "title": "Sunburst fan — rays radiating from bottom-center",
+        "language": "css",
+        "code": "background: repeating-conic-gradient(from -90deg at 50% 100%, rgba(201,162,39,.9) 0deg 2deg, transparent 2deg 11deg);"
+      },
+      {
+        "title": "Gilded all-caps display type as utilities",
+        "language": "tailwind",
+        "code": "uppercase tracking-[0.28em] font-bold bg-gradient-to-b from-[#f0dc9a] via-[#c9a227] to-[#9c7f22] bg-clip-text text-transparent"
+      }
+    ],
+    "brief": "Build the surface as 1920s–30s Art Deco. Ground: near-black lacquer #0b0b0e; optional deep emerald panel #0f3d2e. Metal: gold linework — stops #f0dc9a/#c9a227/#9c7f22 (highlight/base/shade) as vertical gradients on strokes and display text (background-clip: text). Composition: strict mirror symmetry on one vertical axis; hero centered. Typography: ALL CAPS display face (Cinzel, Poiret One or Didot; fallback Georgia), letter-spacing 0.2–0.35em, headings in gradient gold; body small, sentence case, ivory #efe9dc. Ornament kit: sunburst fan — repeating-conic-gradient, ~2deg gold rays on 11deg spacing from bottom-center; stepped ziggurat corners on frames/badges; paired border rules: 2px gold stroke plus 1px inner hairline 4–6px inside (box-shadow: inset 0 0 0 5px #0b0b0e, inset 0 0 0 6px #c9a227). Cut button corners into octagons (clip-path). Depth comes from metal and line, never blurred drop shadows. Motion: almost none — one fade, or rays turning over 40s at most. Avoid: primary-color blocks, asymmetry, bubble radii, soft shadows, caps body text — that way lies Bauhaus or kitsch.",
+    "accessibility": "Gradient gold text fails silently: on #0b0b0e the base gold #c9a227 measures about 8.1:1, but a dark stop like #8a6d1d drops to 4.0:1 — keep every gradient stop at #9c7f22 (5.1:1) or lighter, or set the text in solid #c9a227.\n\nALL CAPS with 0.2em+ tracking is measurably slower to read and harder for dyslexic and low-vision users — reserve it for headings and short labels, and set body copy in sentence case with normal spacing. Dense ray and zigzag patterns cause visual vibration; keep ornament out of text zones and mark decorative layers aria-hidden.\n\nRotating sunbursts and shimmer must stop under prefers-reduced-motion. Gradient text made with background-clip disappears entirely in Windows forced-colors mode — add a @media (forced-colors: active) fallback that resets it to solid CanvasText with background: none.",
+    "origin": "Named after the Exposition internationale des arts décoratifs et industriels modernes held in Paris in 1925 — though the label only stuck after Bevis Hillier's 1968 book 'Art Deco of the 20s and 30s'. The look had crystallized in 1910s–20s France around designers such as furniture maker Émile-Jacques Ruhlmann, absorbing Cubist geometry and, after Tutankhamun's tomb was opened in 1922, Egyptian sunburst and stepped forms. In America it became the architecture of ambition: William Van Alen's Chrysler Building (1930) crowned New York with a stainless-steel sunburst, followed by the Empire State Building (1931). Depression-era and wartime austerity ended the party, and Baz Luhrmann's 2013 film 'The Great Gatsby' later gave the black-and-gold revival its pop-culture template.",
+    "seeAlso": [
+      {
+        "slug": "styles/bauhaus",
+        "name": "Bauhaus"
+      },
+      {
+        "slug": "styles/swiss-style",
+        "name": "Swiss Style"
+      },
+      {
+        "slug": "styles/skeuomorphism",
+        "name": "Skeuomorphism"
+      },
+      {
+        "slug": "styles/memphis",
+        "name": "Memphis"
+      }
+    ]
+  },
+  {
+    "slug": "cyberpunk",
+    "name": "Cyberpunk",
+    "order": 20,
+    "tagline": "Cyberpunk is the visual language of 'high tech, low life': near-black interfaces lit by neon magenta, cyan, and electric yellow, like signage over a rain-soaked street. Luminous hairline borders, bloom halos, scanlines, and glitch tears turn panels into hacked terminals, while monospace type and HUD brackets supply the instrumentation. Born in 1980s science fiction and pushed into UI by films and games like Cyberpunk 2077, it treats darkness as the canvas — every accent must earn its glow.",
+    "scope": "Scope: The screen-interface expression of the genre — dark HUDs, terminals, neon signage, glitch artifacts — not its literary themes, and not simply 'dark mode with purple'. Bright pastel retro-futurism (synthwave sunsets, VHS nostalgia) belongs to the vaporwave family, not to this entry.",
+    "aliases": [
+      "black interface with glowing neon pink and blue edges",
+      "blade runner style computer screens",
+      "that hacker hud with scanlines and glitchy text",
+      "cyberpunk 2077 menu style",
+      "dark futuristic ui that looks like a rainy tokyo street at night",
+      "terminal looking interface with neon glow and japanese signs"
+    ],
+    "confusedWith": {
+      "slug": "vaporwave",
+      "name": "Vaporwave",
+      "because": "This is Cyberpunk because the canvas is near-black and the light comes from neon — saturated magenta/cyan glow on a dark, high-contrast future city, framed by HUD furniture and monospace data. The mood is dystopian and forward-looking; the glitch reads as a hacked signal, not a worn tape.",
+      "wouldBecomeIf": "It would become vaporwave if someone turned the lights on and the calendar back — bright pastel pink and teal on light grounds, 80s–90s consumer nostalgia (Greek busts, VHS date stamps, early-Windows chrome), dreamy irony instead of dystopia. Both share glitch effects, but vaporwave's is VHS decay in daylight while cyberpunk's is signal interference in the dark."
+    },
+    "signals": [
+      {
+        "id": "neon-on-black",
+        "facet": "color",
+        "role": "defining",
+        "name": "Neon on a near-black canvas",
+        "description": "Backgrounds live at #05070f–#0a0e17; magenta #ff2a6d, cyan #05d9e8, and electric yellow #f9f002 sit on top at full glow. A light background disqualifies the style on sight."
+      },
+      {
+        "id": "luminous-strokes",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Glowing hairline borders",
+        "description": "Panels and buttons wear 1px bright strokes with matching bloom — box-shadow: 0 0 8px plus 0 0 24px in the border color — so every edge reads as neon tubing or a hologram seam."
+      },
+      {
+        "id": "hud-instrumentation",
+        "facet": "layout",
+        "role": "defining",
+        "name": "HUD instrumentation",
+        "description": "Corner brackets, tick marks, crosshair rules, and tiny numeric readouts frame content like a cockpit overlay; corners are sharp or chamfered with clip-path cuts, never bubbly."
+      },
+      {
+        "id": "terminal-type",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Monospace terminal type",
+        "description": "UI text is set in monospace or squared techno faces, often uppercase at 10–12px with .1–.2em letter-spacing, decorated with > _ :: // glyphs — the console is the voice of the interface."
+      },
+      {
+        "id": "glitch-scanlines",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Glitch and scanline artifacts",
+        "description": "RGB-split text shadows (magenta/cyan offsets), occasional slice-and-skew jitters, and a repeating 1px scanline overlay simulate a damaged feed — short bursts of seasoning, not constant noise."
+      },
+      {
+        "id": "cjk-neon-signage",
+        "facet": "imagery",
+        "role": "supporting",
+        "name": "CJK neon signage",
+        "description": "Vertical Japanese kana or Chinese characters glowing as sign tubes quote the Tokyo/Hong Kong streetscape the genre's films were built from."
+      },
+      {
+        "id": "hazard-corporate",
+        "facet": "imagery",
+        "role": "variable",
+        "name": "Hazard stripes and corporate chrome",
+        "description": "Yellow-black diagonal warning bands, mega-corp logos, and barcode livery mark the world as dangerous and owned; density runs from a single striped edge to full industrial cladding."
+      },
+      {
+        "id": "bright-pastel-nostalgia",
+        "facet": "color",
+        "role": "avoid",
+        "name": "Bright pastel nostalgia",
+        "description": "Light grounds, soft pink/lavender palettes, marble busts, and VHS timestamps are vaporwave's retro consumerism — warmth and daylight are the giveaway that this isn't cyberpunk."
+      }
+    ],
+    "code": [
+      {
+        "title": "Neon HUD panel",
+        "language": "css",
+        "code": "background: #0a0e17; border: 1px solid #05d9e8; border-radius: 2px; box-shadow: 0 0 8px rgba(5,217,232,.55), 0 0 24px rgba(5,217,232,.22), inset 0 0 12px rgba(5,217,232,.12); color: #d1f7ff; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;"
+      },
+      {
+        "title": "Glitch headline — RGB split with intermittent jitter",
+        "language": "css",
+        "code": ".glitch { color: #f9f002; text-shadow: -2px 0 #ff2a6d, 2px 0 #05d9e8; animation: glitch 3s infinite steps(1); } @keyframes glitch { 0%, 90%, 100% { transform: none; } 92% { transform: translateX(-2px) skewX(-8deg); } 94% { transform: translateX(2px); } 96% { transform: translateX(-1px); } }"
+      },
+      {
+        "title": "Scanline overlay + hazard stripes",
+        "language": "css",
+        "code": ".scanlines { background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 3px); } .hazard { background: repeating-linear-gradient(45deg, #f9f002 0 12px, #0a0a0a 12px 24px); }"
+      }
+    ],
+    "brief": "Build a cyberpunk HUD. Canvas: near-black with a blue cast — page #05070f, panels #0a0e17. Signal colors: magenta #ff2a6d and cyan #05d9e8; yellow #f9f002 for warnings/primary actions only. Text: off-white #d1f7ff, secondary #7f9bb3, monospace (ui-monospace / JetBrains Mono); micro-labels uppercase at 10–11px, letter-spacing .15em, prefixed with >_ or //. Every panel and button wears a 1px neon border with bloom — box-shadow: 0 0 8px rgba(5,217,232,.5), 0 0 24px rgba(5,217,232,.2), inset 0 0 12px rgba(5,217,232,.12) — corners sharp (2px) or 8–12px clip-path chamfers. Add HUD furniture: corner brackets, tick marks, tiny numeric readouts. Season with glitch: RGB-split headings (text-shadow: -2px 0 #ff2a6d, 2px 0 #05d9e8), rare 100–200ms skew/translate stutters, plus scanlines (1px rgba(255,255,255,.05) every 3px). Hazard stripes (45deg #f9f002/#0a0a0a, 12px steps) for danger zones only; CJK neon signage optional. Avoid light backgrounds, pastels, soft white shadows, bubbly radii, and VHS nostalgia — that's vaporwave. Keep motion intermittent: a hacked signal stutters, never floats.",
+    "accessibility": "Neon on dark is not automatically high-contrast: cyan #05d9e8 on #0a0e17 clears 4.5:1 comfortably, but magenta #ff2a6d at small sizes and yellow #f9f002 against glow halos can fall short — measure body text against the real background, keep glow out of the contrast equation, and never set long copy in the dimmest accent.\n\nGlitch flicker, RGB-split flashes, and sweeping scanlines are exactly the motion that bothers vestibular and photosensitive users: keep flashes under 3 per second, make glitches rare and short, and honor prefers-reduced-motion by freezing jitter, blink, and rain effects entirely.\n\nHUD decoration is cognitive noise: brackets, tickers, and blinking readouts compete with content, and uppercase wide-tracked monospace reads slowly at length. Mark decorative readouts aria-hidden, keep body copy in a comfortable size and face, and give focus a visible state that is more than a glow-color change (an offset outline in a reserved color works).",
+    "origin": "The genre was named by Bruce Bethke's 1983 short story 'Cyberpunk' and defined as literature by William Gibson's 1984 novel Neuromancer, but its visual language was set by film: Ridley Scott's Blade Runner (1982) fused the neon signage of Asian megacities with rain, smog, and towering video billboards into the 'high tech, low life' metropolis, and Katsuhiro Otomo's Akira (1988) added Neo-Tokyo's holographic advertising. The look became an actual interface kit through 1990s sci-fi screen graphics and, most decisively, CD Projekt Red's Cyberpunk 2077 (2020), whose glitching yellow-and-black HUD turned cyberpunk into a literal UI style.",
+    "seeAlso": [
+      {
+        "slug": "styles/vaporwave",
+        "name": "Vaporwave"
+      },
+      {
+        "slug": "styles/terminal-hacker",
+        "name": "Terminal Hacker"
+      },
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K"
+      },
+      {
+        "slug": "styles/web-brutalism",
+        "name": "Web Brutalism"
+      }
+    ]
+  },
+  {
+    "slug": "pixel-art",
+    "name": "Pixel Art",
+    "order": 21,
+    "tagline": "Pixel Art is a graphic language born from hardware limits: on the 8- and 16-bit consoles and arcade boards of the 1980s–90s, artists drew with visible square pixels and tiny indexed palettes, placing every sprite, glyph, and health bar pixel by pixel. What began as a constraint is now a deliberate retro aesthetic — crisp stair-stepped edges with no anti-aliasing, limited color ramps, dithered shading, chunky bitmap type, and frame-by-frame animation chosen for charm, not necessity.",
+    "scope": "Scope: Covers the deliberate retro game-art style applied to UI and illustration — the craft of placing individual pixels. It is not the 90s amateur-homepage look (that's Vernacular Web), and merely low-resolution or blurry images are not pixel art: without deliberate pixel-level construction and a limited palette, it's just a small picture.",
+    "aliases": [
+      "the retro video game look with visible square pixels",
+      "8-bit style ui like an old nintendo game",
+      "websites that look like a super nintendo menu screen",
+      "chunky pixelated graphics done on purpose",
+      "the indie game title screen aesthetic",
+      "health bars and dialog boxes like an old rpg"
+    ],
+    "confusedWith": {
+      "slug": "vernacular-web",
+      "name": "Vernacular Web",
+      "because": "This is Pixel Art because the retro look is constructed with pixel precision — a limited fixed palette, stair-stepped un-antialiased edges, bitmap type, and game controls like HP bars and dialog boxes; it is deliberate game art, not default browser output.",
+      "wouldBecomeIf": "It would become the Vernacular Web if the pixel craft were dropped in favor of whatever the browser and a GIF collection gave you — default blue links, Times text, tiled wallpaper, a visitor counter — a page decorated by an amateur rather than drawn by an artist."
+    },
+    "signals": [
+      {
+        "id": "visible-pixels",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Visible square pixels",
+        "description": "Artwork is built from visible, uniform square pixels — edges stair-step in fixed increments with no anti-aliasing; no amount of zoom ever reveals a smooth curve."
+      },
+      {
+        "id": "limited-palette",
+        "facet": "color",
+        "role": "defining",
+        "name": "Small fixed palette",
+        "description": "A piece commits to a handful of indexed colors — 8, 16, or 32 — with hue-shifted ramps for shading; gradients are faked with dot patterns, never blended."
+      },
+      {
+        "id": "pixelated-scaling",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Nearest-neighbor scaling",
+        "description": "Sprites and bitmaps scale with hard edges — image-rendering: pixelated, canvas imageSmoothing off; a single smoothed edge breaks the illusion instantly."
+      },
+      {
+        "id": "bitmap-type",
+        "facet": "typography",
+        "role": "defining",
+        "name": "Chunky bitmap type",
+        "description": "Headings and HUD text use pixel fonts or blocky uppercase with a hard 1–2px offset shadow — every glyph visibly assembled from squares, zero blur anywhere."
+      },
+      {
+        "id": "game-chrome",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Game UI chrome",
+        "description": "Controls are game controls: segmented HP/MP bars, RPG dialog boxes with stepped borders, blinking PRESS-START prompts, 8-bit icons like hearts, coins, and stars."
+      },
+      {
+        "id": "stepped-animation",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Frame-by-frame motion",
+        "description": "Animation advances in discrete frames — steps() easing, sprites flipping between two poses, 1–2 frame blinks; nothing tweens smoothly."
+      },
+      {
+        "id": "dithered-shading",
+        "facet": "surface",
+        "role": "supporting",
+        "name": "Dithered shading",
+        "description": "Checkerboard and ordered-noise dot patterns simulate gradients and shadow inside the fixed palette — a texture born directly of the color limit."
+      },
+      {
+        "id": "smooth-rendering",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Smooth rendering",
+        "description": "Anti-aliased curves, soft shadows, true gradients, or high-color photos dissolve the style — one blurred edge and it reads as a low-res image, not pixel art."
+      }
+    ],
+    "code": [
+      {
+        "title": "Nearest-neighbor scaling — the one-line make-or-break",
+        "language": "css",
+        "code": "image-rendering: crisp-edges; image-rendering: pixelated; /* scaled sprites keep hard stair-stepped edges */"
+      },
+      {
+        "title": "One-div pixel sprite via stacked box-shadows (4px cells)",
+        "language": "css",
+        "code": ".px-heart { width: 4px; height: 4px; background: transparent; box-shadow: 4px 0 #e43b44, 8px 0 #e43b44, 0 4px #e43b44, 4px 4px #e43b44, 8px 4px #e43b44, 12px 4px #e43b44, 16px 4px #e43b44, 20px 4px #e43b44, 24px 4px #e43b44, 0 8px #e43b44, 4px 8px #e43b44, 8px 8px #e43b44, 12px 8px #e43b44, 16px 8px #e43b44, 20px 8px #e43b44, 24px 8px #e43b44, 4px 12px #e43b44, 8px 12px #e43b44, 12px 12px #e43b44, 16px 12px #e43b44, 20px 12px #e43b44, 8px 16px #e43b44, 12px 16px #e43b44, 16px 16px #e43b44, 12px 20px #e43b44; }"
+      },
+      {
+        "title": "Segmented HP-style bar — 2px dark gaps every 12px",
+        "language": "css",
+        "code": ".hp { height: 14px; border: 2px solid #f4f4f4; background: #1a1c2c; } .hp > i { display: block; height: 100%; background: #38b764; background-image: repeating-linear-gradient(90deg, transparent 0 10px, #1a1c2c 10px 12px); box-shadow: inset 0 3px 0 #a7f070; }"
+      }
+    ],
+    "brief": "Create the surface as Pixel Art — deliberate 8/16-bit game UI. Defining signals: graphics of visible uniform square pixels, stair-stepped edges, no anti-aliasing; a small fixed palette — night #1a1c2c, purple #5d275d, red #b13e53, orange #ef7d57, yellow #ffcd75, pale #94b0c2, green #38b764; all bitmaps scaled nearest-neighbor (image-rendering: pixelated; canvas imageSmoothingEnabled = false); headings in a bitmap font ('Press Start 2P', uppercase, letter-spacing 2px) or blocky caps with hard 2px 2px 0 shadow, zero blur; controls as game chrome — segmented HP bars (2px gaps every 12px), RPG dialog panels (#1a1c2c fill, 3px solid #f4f4f4 border, border-radius 0), prompts blinking with steps(1); shading via checkerboard dithering, never gradients. Motion: steps() easing, two-frame blinks; no tweens or soft shadows. Do not drift into Vernacular Web: no browser defaults (blue links, system serif, tiled wallpaper); every pixel deliberate. Keep 4.5:1 text contrast (#ffcd75/#f4f4f4 on #1a1c2c passes; red fails), pause blinks under prefers-reduced-motion, body copy in readable mono or sans.",
+    "accessibility": "Pixel and bitmap fonts are decorative: they degrade fast at small sizes and in long reading — reserve them for headings and HUD labels, set body text in a readable sans or mono, and respect each font's minimum size (most pixel fonts need 8px+ and generous line-height).\n\nBlinking, flashing, and CRT-style flicker must stay under the 3-flashes-per-second seizure threshold and pause entirely under prefers-reduced-motion; scanline or screen-flicker overlays should be off by default.\n\nRetro palettes skew low-contrast (red on navy, green on black are classic failures): verify 4.5:1 for real text, and never encode state by hue alone — an HP bar's red versus green needs an icon or label too, or color-blind players can't read it.",
+    "origin": "The look was born from hardware limits: arcade boards and consoles like Nintendo's Famicom/NES (1983) and Super Famicom/SNES (1990) forced artists into tiny sprites and indexed palettes of a handful of colors, and the teams behind games like Super Mario Bros. and Final Fantasy turned that constraint into craft. The term 'pixel art' itself dates to a 1982 letter by Adele Goldberg and Robert Flegal at Xerox PARC. Once 3D and high-color displays made the limits obsolete, the style returned as a deliberate choice — illustration collectives like eBoy in the late 1990s and the 2000s indie-game wave (Cave Story, 2004) recast it as a retro aesthetic that now surfaces in UI wherever a product wants game-era charm.",
+    "seeAlso": [
+      {
+        "slug": "styles/vernacular-web",
+        "name": "Vernacular Web"
+      },
+      {
+        "slug": "styles/vaporwave",
+        "name": "Vaporwave"
+      },
+      {
+        "slug": "styles/y2k",
+        "name": "Y2K Digital Aesthetic"
+      },
+      {
+        "slug": "styles/web-brutalism",
+        "name": "Web Brutalism"
+      }
+    ]
+  },
+  {
+    "slug": "corporate-memphis",
+    "name": "Corporate Memphis",
+    "order": 22,
+    "tagline": "Corporate Memphis is the flat vector illustration style of late-2010s tech marketing: faceless people with tiny heads and disproportionately long, rubbery limbs, skin in blues, purples, and greens instead of real tones, bent into over-acted poses against blobs, dots, and arcs. Named after Alegria, the illustration system Facebook introduced around 2017, it became the default look of SaaS landing pages and empty states within years — then a byword for corporate sameness ('blanding').",
+    "scope": "Scope: Covers the figurative illustration language — the people, their proportions, and the palette — not the page chrome underneath, which is usually plain flat design. The 1980s Memphis Group's squiggle-and-confetti patterns get their own entry (Memphis); this style only borrows the name and some background geometry.",
+    "aliases": [
+      "tech company cartoons with tiny heads and long bendy arms",
+      "those flat people with blue or purple skin on startup websites",
+      "the illustration style every saas landing page and empty state uses",
+      "bendy noodle-arm people in pastel colors hugging giant objects",
+      "big tech art style where everyone's limbs are weirdly long",
+      "that alegria-looking flat people clipart"
+    ],
+    "confusedWith": {
+      "slug": "memphis",
+      "name": "Memphis",
+      "because": "This is Corporate Memphis because the image is built around flat vector people — tiny heads, noodle limbs, non-naturalistic skin — acting out a scene; the squiggles and dots behind them are just set dressing.",
+      "wouldBecomeIf": "It would become Memphis if the people walked off the page and only the geometric confetti remained — squiggles, triangles, and clashing patterns as pure surface decoration, with no characters at all."
+    },
+    "signals": [
+      {
+        "id": "noodle-people",
+        "facet": "imagery",
+        "role": "defining",
+        "name": "Tiny heads, noodle limbs",
+        "description": "Characters are drawn with heads half the natural size, arms and legs 1.5–2x too long and bending like rubber hoses, with oversized hands and feet — bodies assembled from simple capsules and blobs."
+      },
+      {
+        "id": "unnatural-skin",
+        "facet": "color",
+        "role": "defining",
+        "name": "Non-naturalistic skin tones",
+        "description": "Skin is filled with blue (#6C8CFF), purple (#A78BFA), green, or pink — never real skin colors; the abstraction was sold as universal and is the style's fastest tell."
+      },
+      {
+        "id": "flat-vector-fills",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Big flat fills, zero shading",
+        "description": "Every shape is one solid color: no gradients, no texture, no cast shadows; outlines are absent or a single thin line in a darker shade of the fill."
+      },
+      {
+        "id": "pastel-tech-palette",
+        "facet": "color",
+        "role": "supporting",
+        "name": "Soft bright tech palette",
+        "description": "Lavender, periwinkle, soft pink, butter yellow, and mint laid on off-white (#FBFAFF) — friendly and low-aggression, bright without neobrutalism's harsh saturation."
+      },
+      {
+        "id": "exaggerated-poses",
+        "facet": "imagery",
+        "role": "supporting",
+        "name": "Over-acted poses",
+        "description": "Figures leap, stretch, high-five, or hug oversized objects (a giant phone, a huge credit card) in impossible, cheerfully contorted stances."
+      },
+      {
+        "id": "blob-dot-backdrop",
+        "facet": "geometry",
+        "role": "supporting",
+        "name": "Blob-and-dot backdrops",
+        "description": "Organic blobs, half-circles, arcs, and floating dots frame the scene — the only genuine echo of 1980s Memphis, and the reason the nickname stuck."
+      },
+      {
+        "id": "realistic-humans",
+        "facet": "imagery",
+        "role": "avoid",
+        "name": "Realistic human proportions",
+        "description": "Anatomically correct figures, photos of real people, or 3D-rendered humans disqualify the look instantly — the style is defined by deliberately wrong bodies."
+      }
+    ],
+    "code": [
+      {
+        "title": "The palette, as custom properties",
+        "language": "css",
+        "code": ":root {\n  --cm-ink: #2E2A5B;    /* text, hair, pants */\n  --cm-blue: #6C8CFF;   /* skin */\n  --cm-purple: #A78BFA;\n  --cm-pink: #F9A8D4;\n  --cm-yellow: #FDE68A;\n  --cm-mint: #6EE7B7;\n  --cm-bg: #FBFAFF;     /* page ground */\n}"
+      },
+      {
+        "title": "A noodle limb in pure CSS — long capsule, flat fill, no outline or shadow",
+        "language": "css",
+        "code": ".arm {\n  width: 14px; height: 96px;            /* ~2x natural length */\n  background: var(--cm-blue);           /* flat non-natural skin */\n  border-radius: 999px;                 /* the capsule IS the limb */\n  transform: rotate(38deg);\n  transform-origin: top center;\n  box-shadow: none; border: none;       /* no shading, no outline */\n}"
+      },
+      {
+        "title": "Same construction as utilities (pill button + blob)",
+        "language": "tailwind",
+        "code": "rounded-full bg-[#6C63FF] px-6 py-3 font-bold text-white shadow-none transition hover:-translate-y-0.5\nrounded-[46%_54%_52%_48%/58%_60%_40%_42%] bg-[#FDE68A] shadow-none"
+      }
+    ],
+    "brief": "Create the surface in Corporate Memphis style. Canvas: SaaS hero or empty state on off-white #FBFAFF, generous whitespace, friendly geometric sans (Inter/Gilroy/Circular; headings 700, ink #2E2A5B). Build flat vector figures: tiny heads (~0.6x natural), rubber-hose limbs 1.5–2x natural drawn as capsules (border-radius: 999px), oversized hands and feet; skin in blue #6C8CFF, purple #A78BFA, or mint #6EE7B7 — never real tones; clothes and props flat pink #F9A8D4, butter #FDE68A. Zero gradients, texture, or drop shadows; outlines absent or one 2px line in a darker fill shade. Pose figures mid-action — leaping, stretching, hugging oversized objects. Backdrop: organic blobs (border-radius: 46% 54% 52% 48% / 58% 60% 40% 42%), half-circles, floating dots — all flat pastels. UI chrome: pill buttons (border-radius: 999px, flat fill, hover: translateY(-2px)); no shadows anywhere. Text contrast 4.5:1 — ink on pastel fills, never white on yellow. Avoid realistic proportions, real-people photography, gradients, and all-over Memphis confetti: figures are the point, geometry only the backdrop.",
+    "accessibility": "The pastel palette invites pastel-on-pastel text: white on butter yellow #FDE68A or lavender on off-white fails badly. Put ink #2E2A5B text on the light fills and measure every combination at 4.5:1 — soft does not have to mean low-contrast.\n\nBobbing, bouncing figures and parallax blobs are common on this style's landing pages; gate all of it behind prefers-reduced-motion, and keep the figures decorative — marked aria-hidden so screen readers skip the meaningless SVG.\n\nThe blue-skinned abstraction was meant to sidestep representation, but in practice it can read as erasing real diversity while infantilizing users with clownish bodies — pair the illustration with genuine representation elsewhere (photography, avatars, copy) rather than letting noodle people carry the whole brand.",
+    "origin": "Named after Alegria, the illustration system Facebook commissioned from the design studio Buck around 2017, whose flat, bendy-limbed characters became the template for big-tech marketing art. The dismissive label 'Corporate Memphis' stuck because the shapes floating behind the figures echo the 1980s Memphis Group's geometry — the two movements are otherwise unrelated. By 2019–2021 it was the default illustration style for SaaS landing pages and empty states across the industry, and the backlash to its sameness ('blanding') turned it into a cliché almost as fast.",
+    "seeAlso": [
+      {
+        "slug": "styles/memphis",
+        "name": "Memphis"
+      },
+      {
+        "slug": "styles/flat-design",
+        "name": "Flat Design"
+      },
+      {
+        "slug": "styles/claymorphism",
+        "name": "Claymorphism"
+      },
+      {
+        "slug": "styles/minimalism",
+        "name": "Minimalism"
+      }
+    ]
+  },
+  {
+    "slug": "material-design",
+    "name": "Material Design",
+    "order": 23,
+    "tagline": "Material Design is Google's physics-based design language: UIs are digital paper layered along a z-axis, each surface resting at a measured elevation that casts a soft shadow, the main action hovering as a circular FAB, every touch answered with an ink ripple. Bold brand color, white cards, and Roboto type align to an 8dp grid, and motion expresses hierarchy. Shipped with Android 5.0 in 2014, it became Android's default look — the systematic rebuttal to flat design's shadowless austerity.",
+    "scope": "Scope: Covers Google's design language across its generations — 2014's paper-and-ink system, 2018 Material Theming, and 2021's Material You. The generic 'flat with one soft shadow' SaaS look it inspired is not this entry: without the elevation scale, the FAB, and ripple physics, that is just Flat Design 2.0.",
+    "aliases": [
+      "google apps look with the floating round button",
+      "white cards with soft shadows on a gray background",
+      "the android material you style",
+      "the ripple effect that spreads when you tap stuff on android",
+      "paper cards stacked with drop shadows and a pink button",
+      "the gmail and google docs app look"
+    ],
+    "confusedWith": {
+      "slug": "flat-design",
+      "name": "Flat Design",
+      "because": "This is Material Design because depth is restored as a physics system — every surface sits at a measured z-axis elevation casting a shadow that encodes its height, and motion expresses where elements come from.",
+      "wouldBecomeIf": "It would become Flat Design if the z-axis were collapsed back to zero — shadows deleted, the FAB flattened into a solid color block, hierarchy left to color and type alone."
+    },
+    "signals": [
+      {
+        "id": "elevation-shadows",
+        "facet": "depth",
+        "role": "defining",
+        "name": "Stepped z-axis elevation",
+        "description": "Every surface rests at a measured height — 2dp cards, 4dp app bars, 6dp FABs, 8dp raised menus, 16dp drawers — and the soft shadow beneath it encodes exactly that height; press, and the shadow grows as the surface lifts toward you."
+      },
+      {
+        "id": "paper-surfaces",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Layered digital paper",
+        "description": "The UI is sheets of paper sliding over each other: white cards with crisp 2–4px corners floating on a light gray ground, their edges cut by shadow rather than by borders."
+      },
+      {
+        "id": "fab",
+        "facet": "geometry",
+        "role": "defining",
+        "name": "Floating action button",
+        "description": "One circular button (56dp diameter, 6dp elevation) in the accent color hovers above the content — the screen's single promoted action, often straddling the seam between header and content."
+      },
+      {
+        "id": "ink-ripple",
+        "facet": "motion",
+        "role": "defining",
+        "name": "Ink ripple touch feedback",
+        "description": "Touch answers with a ripple of ink spreading from the exact contact point across the surface — feedback is rendered as a physical event, not a hover-color swap."
+      },
+      {
+        "id": "bold-brand-color",
+        "facet": "color",
+        "role": "defining",
+        "name": "Bold primary, hot accent",
+        "description": "A saturated primary (Indigo 500 #3F51B5 class) owns bars and large areas; a contrasting accent (Pink A200 #FF4081 class) is reserved for the FAB and key controls against white cards."
+      },
+      {
+        "id": "meaningful-motion",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Motion explains hierarchy",
+        "description": "Transitions run 200–300ms on the standard curve cubic-bezier(0.4, 0, 0.2, 1); new surfaces grow out of the element that spawned them, so animation shows cause, not decoration."
+      },
+      {
+        "id": "eight-dp-grid",
+        "facet": "layout",
+        "role": "supporting",
+        "name": "8dp square grid",
+        "description": "Components align to an 8dp baseline grid — spacing in 8/16/24px multiples, 16px screen margins — so unrelated screens share the same rhythm."
+      },
+      {
+        "id": "flat-no-shadow",
+        "facet": "depth",
+        "role": "avoid",
+        "name": "Shadowless color blocks",
+        "description": "Pure 2D fills where hierarchy comes from color alone — zero elevation, zero ripple physics — is Flat Design; Material's entire point is the restored, measurable z-axis."
+      }
+    ],
+    "code": [
+      {
+        "title": "The workhorse: 2dp resting card",
+        "language": "css",
+        "code": "border-radius: 2px; background: #fff; box-shadow: 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px rgba(0,0,0,.12);"
+      },
+      {
+        "title": "FAB: 6dp resting, standard motion curve",
+        "language": "css",
+        "code": "border-radius: 50%; background: #FF4081; box-shadow: 0 6px 10px rgba(0,0,0,.14), 0 1px 18px rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2); transition: box-shadow .28s cubic-bezier(.4, 0, .2, 1);"
+      },
+      {
+        "title": "Same construction as utilities",
+        "language": "tailwind",
+        "code": "bg-white rounded-sm shadow-[0_2px_2px_rgba(0,0,0,.14),0_3px_1px_-2px_rgba(0,0,0,.2),0_1px_5px_rgba(0,0,0,.12)] /* card */ + rounded-full bg-[#FF4081] w-14 h-14 shadow-[0_6px_10px_rgba(0,0,0,.14),0_1px_18px_rgba(0,0,0,.12),0_3px_5px_-1px_rgba(0,0,0,.2)] /* fab */"
+      }
+    ],
+    "brief": "Build the surface in classic Material Design (2014 paper-and-ink generation). Canvas: light gray #FAFAFA ground, white #FFFFFF cards floating on a stepped dp elevation scale — 2dp card: box-shadow 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px rgba(0,0,0,.12); 8dp raised: 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12), 0 5px 5px -3px rgba(0,0,0,.2). Palette: primary Indigo 500 #3F51B5 for bars and large areas, accent Pink A200 #FF4081 for the FAB and key controls; text #212121 / #757575. Type: Roboto (fallback system sans), medium titles. Geometry: cards 2–4px radius; one circular FAB (56px, 6dp, lifts to 12dp pressed) in the accent. Interaction: ink ripples spread from the touch point; transitions 200–300ms cubic-bezier(0.4, 0, 0.2, 1), surfaces growing from their parent. Layout on an 8dp grid — 8/16/24px spacing. Do not drift into Flat Design: elevation shadows, the FAB, and ripples are mandatory — hierarchy by color alone with zero shadows is the neighbor style. Keep text on accent fills at 4.5:1 and honor prefers-reduced-motion.",
+    "accessibility": "Elevation alone is a weak affordance: a white card on a #FAFAFA ground can fail the 3:1 boundary ratio for controls, and shadows vanish entirely in forced-colors mode — interactive elements must read as interactive by color, label, and shape, not by lift alone.\n\nWhite ink on hot accent colors is the classic trap: white on Pink A200 #FF4081 measures roughly 3.3:1 — acceptable for the FAB's icon, too weak for text; white on Indigo 500 #3F51B5 passes at about 6.9:1. Check every pair against 4.5:1, or step down to a 700 shade.\n\nMotion is load-bearing here — surfaces grow and travel to explain where things came from — so prefers-reduced-motion needs a real fallback: replace growing and traveling transitions with instant cuts or simple crossfades, and drop the ripple animation.",
+    "origin": "Unveiled by Google at its I/O conference in June 2014 — led by design VP Matías Duarte and developed under the internal codename Quantum Paper — and shipped that year with Android 5.0 Lollipop as the company's first unified cross-platform design language. Its paper-and-ink metaphor and the Roboto typeface (designed by Christian Robertson) became the visual identity of Android; Google extended the system with Material Theming at I/O 2018 and with the wallpaper-tinted, personalized Material You alongside Android 12 in 2021.",
+    "seeAlso": [
+      {
+        "slug": "styles/flat-design",
+        "name": "Flat Design"
+      },
+      {
+        "slug": "styles/minimalism",
+        "name": "Minimalism"
+      },
+      {
+        "slug": "styles/claymorphism",
+        "name": "Claymorphism"
+      },
+      {
+        "slug": "styles/corporate-memphis",
+        "name": "Corporate Memphis"
+      }
+    ]
+  },
+  {
+    "slug": "terminal-hacker",
+    "name": "Terminal Hacker",
+    "order": 24,
+    "tagline": "Terminal Hacker turns the screen into a vintage character terminal: a pure black CRT glowing in a single phosphor ink — matrix green or amber — with monospace glyphs, a soft halo around every character, scanlines and flicker laid over everything, and a blinking block cursor typing content out like a machine. Born from 1970s–80s hardware limits, canonized by hacker cinema and The Matrix, it is now pure retro-futurist costume: the interface pretends to be forty-year-old equipment.",
+    "scope": "Scope: This entry is the retro CRT emulation — black ground, one phosphor color, glow, scanlines, block cursor. The broader neon-drenched dystopian look (magenta/cyan skylines, chrome, rain) is Cyberpunk; genuinely unstyled default HTML is Web Brutalism; blocky low-res game graphics are Pixel Art.",
+    "aliases": [
+      "green text on black like the matrix",
+      "movie hacker computer screen",
+      "old crt monitor look with scanlines",
+      "retro terminal with the blinking square cursor",
+      "website that looks like an 80s command line",
+      "glowing green monospace hacker aesthetic"
+    ],
+    "confusedWith": {
+      "slug": "web-brutalism",
+      "name": "Web Brutalism",
+      "because": "This is terminal-hacker because the page is a styled simulation of vintage CRT hardware: black ground, one glowing phosphor color, monospace glyphs, scanlines, and a blinking block cursor.",
+      "wouldBecomeIf": "It would become Web Brutalism if the CRT costume were removed — white ground, default serif type, plain blue links, bare HTML structure. One emulates a 1982 monitor; the other is no CSS at all."
+    },
+    "signals": [
+      {
+        "id": "phosphor-ink",
+        "facet": "color",
+        "role": "defining",
+        "name": "One phosphor ink on black",
+        "description": "Pure black ground (#000–#050805) with a single luminous ink for text, borders, and graphics — matrix green #00ff41 or amber #ffb000. One electron gun, one hue; a second color already feels wrong."
+      },
+      {
+        "id": "phosphor-glow",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Phosphor glow on every glyph",
+        "description": "Text and line art carry a same-hue halo — text-shadow: 0 0 6px rgba(0,255,65,.6), 0 0 20px rgba(0,255,65,.25) — as if the phosphor is still warm. Flat, matte text breaks the spell."
+      },
+      {
+        "id": "scanline-flicker",
+        "facet": "surface",
+        "role": "defining",
+        "name": "Scanlines and flicker",
+        "description": "A repeating-linear-gradient of 1px dark lines every 2–4px overlays the whole screen, plus a subtle brightness flicker in steps timing. The image should read as emitted by a tube, not printed."
+      },
+      {
+        "id": "block-cursor",
+        "facet": "motion",
+        "role": "defining",
+        "name": "Blinking block cursor",
+        "description": "A solid full-cell block █ at the input position, toggling on/off roughly once a second with steps(1) — a hard blink, never a fade. It marks where the machine is listening."
+      },
+      {
+        "id": "boot-typewriter",
+        "facet": "motion",
+        "role": "supporting",
+        "name": "Boot logs and typewriter reveal",
+        "description": "Screens open with BIOS-style self-tests ('MEM CHECK ...... OK') in terse ALL-CAPS machine voice behind prompt symbols (>, $, #), and content appears character-by-character at ~30–60ms per glyph."
+      },
+      {
+        "id": "ascii-art",
+        "facet": "imagery",
+        "role": "supporting",
+        "name": "ASCII boxes and character art",
+        "description": "Frames drawn from +---+ and |, progress bars as [██████░░░░], waveforms and logos built from characters on the monospace grid — graphics rendered as text because the hardware had nothing else."
+      },
+      {
+        "id": "which-phosphor",
+        "facet": "color",
+        "role": "variable",
+        "name": "Which phosphor",
+        "description": "Green #00ff41 is the Matrix cliché; amber #ffb000 reads warmer and more 'office 1983'; cool white is the sober variant. The construction carries the style, not the hue."
+      },
+      {
+        "id": "soft-polychrome",
+        "facet": "surface",
+        "role": "avoid",
+        "name": "Soft, polychrome UI",
+        "description": "Full-color imagery, gradients, rounded glass cards, and drop shadows dissolve the illusion instantly — if it looks like a modern app tinted green, it isn't terminal."
+      }
+    ],
+    "code": [
+      {
+        "title": "Phosphor ink + glow",
+        "language": "css",
+        "code": "color: #00ff41; background: #050805; font-family: ui-monospace, \"Cascadia Mono\", Menlo, monospace; text-shadow: 0 0 6px rgba(0,255,65,.6), 0 0 20px rgba(0,255,65,.25);"
+      },
+      {
+        "title": "CRT scanline + flicker overlay",
+        "language": "css",
+        "code": ".crt::after { content: \"\"; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px); animation: crt-flicker 3s steps(60) infinite; }"
+      },
+      {
+        "title": "Hard-blinking block cursor",
+        "language": "css",
+        "code": ".prompt::after { content: \"\\2588\"; animation: blink 1.1s steps(1) infinite; } @keyframes blink { 50% { opacity: 0; } }"
+      }
+    ],
+    "brief": "Create the surface as a terminal-hacker CRT emulation. Canvas: pure black (#000 to #050805), border-radius 0–2px, 1px borders in dim phosphor rgba(0,255,65,.35). Ink: one phosphor hue only — matrix green #00ff41 (amber #ffb000 acceptable) — for all text, icons, and graphics; dim states are the same hue at 40–60% opacity, never gray or a second hue. Type: monospace everywhere (ui-monospace, 'IBM Plex Mono', 'JetBrains Mono'), 12–14px, ALL CAPS for status lines; every glyph glows via text-shadow: 0 0 6px rgba(0,255,65,.6), 0 0 20px rgba(0,255,65,.25). Overlay the panel with scanlines (repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px)) plus subtle flicker (<3 flashes/sec). End input lines with a blinking block cursor █ (1.1s, steps(1), no fade). Reveal headings typewriter-style, prefix lines with > or $, draw boxes and bars as ASCII (+---+, [████░░]). Avoid color imagery, gradients, rounded capsules, drop shadows, white backgrounds — they break the tube. Honor prefers-reduced-motion: kill flicker, blink, and typewriter, showing full text instantly.",
+    "accessibility": "Full-brightness phosphor on black passes contrast easily (#00ff41 on #000 is roughly 13:1), but the glow and the dim 'muted' states eat it — keep body text at full brightness, test any dimmed line against 4.5:1, and remember bright-vs-dim is the only emphasis axis in a one-hue palette, so don't let dimmed text carry essential information.\n\nFlicker and jitter are the real hazard: keep any flashing below three per second and low in amplitude, and under prefers-reduced-motion disable flicker, cursor blink, and typewriter entirely — content must already be present in the DOM and fully readable without the animation.\n\nALL-CAPS log lines and dense monospace slow long-form reading, and some screen readers announce all-caps strings letter by letter — keep caps to short status strings, write body copy in normal case, and never let a long boot sequence gate access to the actual content.",
+    "origin": "Descends from 1970s–80s character terminals, when one electron gun meant one color: green- and amber-phosphor CRTs like IBM's 3270 (1971) and DEC's VT100 (1978) produced the look out of pure hardware necessity. Hollywood turned it into 'hacker' shorthand — WarGames (1983), and above all The Matrix (1999), whose falling green 'digital rain' was created by production designer Simon Whiteley from glyphs scanned out of Japanese cookbooks. The style survives as deliberate retro-futurism: CSS scanlines, boot sequences, and block cursors running on hardware that has never seen a tube.",
+    "seeAlso": [
+      {
+        "slug": "styles/cyberpunk",
+        "name": "Cyberpunk"
+      },
+      {
+        "slug": "styles/web-brutalism",
+        "name": "Web Brutalism"
+      },
+      {
+        "slug": "styles/pixel-art",
+        "name": "Pixel Art"
+      },
+      {
+        "slug": "styles/vaporwave",
+        "name": "Vaporwave"
+      }
+    ]
   }
 ]

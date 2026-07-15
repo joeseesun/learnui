@@ -1,5 +1,13 @@
 # LearnUI 部署进度（learnui.qiaomu.ai）
 
+## 2026-07-15 第三轮：语言自动探测 + 10 个原创新风格
+
+- [x] 首开语言按浏览器探测：`navigator.languages` 含 zh → 纯中文模式，其他 → 纯英文（`<head>` 内联脚本防闪烁 + `assets/site.js` 同款 fallback；用户手动切换才写 localStorage；JS 禁用时回退双语）
+- [x] 风格图鉴 14 → 24：原创增补 swiss-style、bauhaus、memphis、vaporwave、art-deco、cyberpunk、pixel-art、corporate-memphis、material-design、terminal-hacker（order 15–24，各含完整 EN+ZH 数据、交互标本、NEW 徽章）
+- [x] 内容生产契约沉淀：`reference/STYLE_AUTHOR_BRIEF.md`（schema + 质量红线），10 个并行子代理按契约产出，合并时脚本校验段落配对/引用完整性
+- [x] `data/styles-meta.json` 的「研究中」列表更新（Art Nouveau、Internet Ugly、Synthwave、Solarpunk、Maximalism）
+- [x] 全量验证：91 页零 JS 错误、标本尺寸全部达标、移动端 390px 零溢出、搜索/语言切换/复制按钮交互通过
+
 ## 2026-07-15 第二轮：改名 + 风格图鉴 + PWA + 域名修正
 
 - [x] 域名修正：`learnui.qiaomu.ai`（原 `leanui.qiaomu.ai` 拼写错误，已删除）
