@@ -99,12 +99,14 @@ def stage(slug, detail=False):
 
 def header():
     en_all, zh_all = t("tabAll"); en_g, zh_g = t("guideCrumb"); en_st, zh_st = t("stylesCrumb")
+    en_qz, zh_qz = t("quizCrumb")
     return f'''<header class="site-header">
  <div class="wrap header-in">
   <a class="wordmark" href="/">Learn UI Name<span class="wordmark-zh">界面叫啥</span></a>
   <nav class="site-nav">
    <a href="/#dictionary">Dictionary<span class="lang-zh nav-zh">词典</span></a>
    <a href="/styles/">{esc(en_st)}<span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
+   <a href="/quiz/">{esc(en_qz)}<span class="lang-zh nav-zh">{esc(zh_qz)}</span></a>
    <a href="/#guides">{esc(en_g)}<span class="lang-zh nav-zh">{esc(zh_g)}</span></a>
    <a href="/guides/translate/">Translation<span class="lang-zh nav-zh">翻译表</span></a>
   </nav>
@@ -822,6 +824,92 @@ def style_markdown(s, z):
         lines += ["## Origin / 起源", "", s["origin"], "", z.get("origin_zh", "")]
     return "\n".join(lines)
 
+def specimen_page(demo_slug):
+    """Standalone embeddable page holding one demo fragment — used by the quiz iframes.
+    Reuses site.css's .stage/.stage-center/.fragment so demos render exactly as on cards."""
+    return f'''<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/assets/site.css">
+<style>html,body{{height:100%;margin:0;background:#fff}}
+.spec-stage{{height:100%;border:0;border-radius:0;background:#fff}}
+.spec-stage .stage-center{{padding:16px}}</style>
+</head><body>
+<div class="stage spec-stage"><div class="stage-center"><div class="fragment" data-slug="{esc(demo_slug)}">{demo_fragment(demo_slug)}</div></div></div>
+</body></html>'''
+
+def quiz_items():
+    items = []
+    for e in ENTRIES:
+        z = ZH[e["slug"]]
+        items.append({"s": e["slug"], "k": "c", "en": e["name"], "zh": z["name_zh"], "u": entry_url(e)})
+    for s in STYLES:
+        z = style_zh(s)
+        items.append({"s": "style-" + s["slug"], "k": "s", "en": s["name"],
+                      "zh": z.get("name_zh", s["name"]), "u": style_url(s)})
+    return items
+
+def quiz_page():
+    en_b, zh_b = t("indexCrumb"); en_q, zh_q = t("quizCrumb")
+    en_ti, zh_ti = t("quizTitle"); en_d, zh_d = t("quizDesc")
+    items = quiz_items()
+    n_c = sum(1 for i in items if i["k"] == "c"); n_s = len(items) - n_c
+    data = json.dumps({"items": items,
+        "i18n": {k: [UI[k], UI.get(k + "Zh", "")] for k in
+                 ["quizSession","quizStreak","quizMastery","quizReset","quizNext","quizViewEntry",
+                  "quizWhatIs","quizWhichIs","quizCorrect","quizWrong","quizAnswerWas",
+                  "quizAllDone","quizKeepGoing"]}},
+        ensure_ascii=False)
+    def mode_btn(m, key, n):
+        en, zh = t(key)
+        act = ' active' if m == "mixed" else ""
+        return (f'<button type="button" class="qmode{act}" data-qmode="{m}">'
+                f'<span class="lang-en">{esc(en)}</span><span class="lang-zh">{esc(zh)}</span>'
+                f'<span class="qmode-n">{n}</span></button>')
+    en_s, zh_s = t("quizSession"); en_st2, zh_st2 = t("quizStreak"); en_m, zh_m = t("quizMastery"); en_r, zh_r = t("quizReset")
+    body = f'''{header()}
+<main class="wrap quiz-wrap">
+ <nav class="crumbs" aria-label="Breadcrumb">
+  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
+  <span class="crumb-sep">/</span>
+  <span><span class="lang-en">{esc(en_q)}</span><span class="lang-zh">{esc(zh_q)}</span></span>
+ </nav>
+ <section class="hero quiz-hero">
+  <h1><span class="lang-en">{esc(en_ti)}</span><span class="lang-zh">{esc(zh_ti)}</span></h1>
+  <p class="hero-desc"><span class="lang-en">{esc(en_d)}</span> <span class="lang-zh">{esc(zh_d)}</span></p>
+ </section>
+ <div class="quiz-bar">
+  <div class="quiz-modes" role="group" aria-label="Quiz mode">
+   {mode_btn("components", "quizModeComponents", n_c)}
+   {mode_btn("styles", "quizModeStyles", n_s)}
+   {mode_btn("mixed", "quizModeMixed", len(items))}
+  </div>
+  <div class="quiz-stats">
+   <span class="qstat"><span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span> <b id="q-session">0/0</b></span>
+   <span class="qstat"><span class="lang-en">{esc(en_st2)}</span><span class="lang-zh">{esc(zh_st2)}</span> <b id="q-streak">0</b></span>
+   <span class="qstat qstat-mastery"><span class="lang-en">{esc(en_m)}</span><span class="lang-zh">{esc(zh_m)}</span>
+    <span class="qbar"><i id="q-mastery-fill"></i></span><b id="q-mastery-n">0/{len(items)}</b></span>
+   <button type="button" class="qreset" id="q-reset"><span class="lang-en">{esc(en_r)}</span><span class="lang-zh">{esc(zh_r)}</span></button>
+  </div>
+ </div>
+ <div class="quiz-card" id="quiz-card">
+  <p class="quiz-q" id="quiz-q"></p>
+  <div class="quiz-stage" id="quiz-stage"></div>
+  <div class="quiz-choices" id="quiz-choices"></div>
+  <div class="quiz-foot">
+   <span class="quiz-fb" id="quiz-fb" role="status"></span>
+   <span class="quiz-foot-r">
+    <a class="quiz-link" id="quiz-link" href="#" hidden></a>
+    <button type="button" class="quiz-next" id="quiz-next" hidden></button>
+   </span>
+  </div>
+ </div>
+</main>
+{footer()}
+<script>window.QUIZ_DATA = {data};</script>
+<script src="/assets/quiz.js"></script>'''
+    return page(en_q, zh_q, en_d[:150], zh_d[:80], body, "quiz/")
+
 def write(path, content):
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -842,6 +930,10 @@ def build():
         write("styles/index.html", styles_hub_page())
         for s in STYLES:
             write(f'styles/{s["slug"]}/index.html', style_page(s))
+    # quiz + standalone specimen embeds (used by quiz iframes)
+    write("quiz/index.html", quiz_page())
+    for it in quiz_items():
+        write(f'specimen/{it["s"]}/index.html', specimen_page(it["s"]))
     # static assets
     shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(OUT, "assets"))
     shutil.copyfile(os.path.join(ROOT, "manifest.webmanifest"), os.path.join(OUT, "manifest.webmanifest"))
@@ -875,7 +967,7 @@ def build():
 </channel></rss>''')
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
     urls = ["/"] + [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
-           [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/"]
+           [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/", "/quiz/"]
     if STYLES:
         urls += ["/styles/"] + [f'/styles/{s["slug"]}/' for s in STYLES]
     write("sitemap.xml", f'''<?xml version="1.0" encoding="UTF-8"?>

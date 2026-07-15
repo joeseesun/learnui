@@ -1,5 +1,13 @@
 # LearnUI 部署进度（learnui.qiaomu.ai）
 
+## 2026-07-16 第四轮：测验模式 /quiz/
+
+- [x] 新页面 `/quiz/`：双向四选一测验（看标本选名字 / 看名字选标本），覆盖 62 组件 + 24 风格共 86 项
+- [x] 掌握度算法：连对 2 次算掌握、答错清零；出题 85% 未掌握 + 15% 已掌握复习（最久未练优先）；进度存 localStorage `ntui-quiz-v1`
+- [x] 标本按需加载：build 为每个 demo 生成独立嵌入页 `/specimen/<slug>/`（noindex），测验页 sandbox iframe 懒加载
+- [x] 键盘：1–4 作答、Enter 下一题；语言切换实时重渲染题干与选项；移动端 390px 无溢出
+- [x] 全站 178 页回归零 JS 错误；修复 sandbox iframe 字体 CORS（sandbox 加 allow-same-origin）
+
 ## 2026-07-15 第三轮：语言自动探测 + 10 个原创新风格
 
 - [x] 首开语言按浏览器探测：`navigator.languages` 含 zh → 纯中文模式，其他 → 纯英文（`<head>` 内联脚本防闪烁 + `assets/site.js` 同款 fallback；用户手动切换才写 localStorage；JS 禁用时回退双语）
