@@ -1,0 +1,300 @@
+<div class="demo demo-style-neumorphism">
+  <div class="player">
+    <div class="art"><div class="disc"></div></div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h2.4v14H6zM20 5v14L9.2 12z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play" aria-pressed="false">
+        <svg class="i-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11.5-7z"/></svg>
+        <svg class="i-pause" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5h3.6v14H6.5zM13.9 5h3.6v14h-3.6z"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.6 5H18v14h-2.4zM4 5v14l10.8-7z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19z" fill="currentColor" stroke="none"/><path d="M15 9.2a4 4 0 0 1 0 5.6"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-style-neumorphism {
+  /* classic Soft UI base: page and every control share ONE matte hue */
+  --base: #e0e5ec;
+  --lit: rgba(255, 255, 255, .9);
+  --shaded: rgba(163, 177, 198, .62);
+  --accent: #6675f2;
+  --ink: #525b70;
+  --ink-soft: #7d8799;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  background: var(--base);
+  border-radius: 24px;
+  padding: 7px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.demo-style-neumorphism *,
+.demo-style-neumorphism *::before,
+.demo-style-neumorphism *::after { box-sizing: border-box; }
+/* the panel is not placed ON the page — it is raised OUT of one surface */
+.demo-style-neumorphism .player {
+  width: 274px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 11px 15px;
+  background: var(--base);
+  border: 0;
+  border-radius: 20px;
+  box-shadow: -8px -8px 16px var(--lit), 8px 8px 16px var(--shaded);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 14px;
+  row-gap: 6px;
+  align-items: center;
+}
+/* --- album art: raised ring, pressed groove, matte dome --- */
+.demo-style-neumorphism .art {
+  grid-row: 1 / 5;
+  grid-column: 1;
+  position: relative;
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: var(--base);
+  box-shadow: -6px -6px 12px var(--lit), 6px 6px 12px var(--shaded);
+  display: grid;
+  place-items: center;
+}
+.demo-style-neumorphism .art::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  box-shadow: inset -4px -4px 8px rgba(255, 255, 255, .75), inset 4px 4px 8px rgba(163, 177, 198, .55);
+}
+.demo-style-neumorphism .disc {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  /* whisper-subtle same-hue dome, no material texture */
+  background: linear-gradient(135deg, #eef2f8 0%, #d3dae6 100%);
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, .8), 2px 2px 5px rgba(163, 177, 198, .5);
+}
+.demo-style-neumorphism .disc::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, .7), 1px 1px 2px rgba(163, 177, 198, .6);
+}
+/* --- track meta --- */
+.demo-style-neumorphism .meta { grid-column: 2; line-height: 1.3; }
+.demo-style-neumorphism .title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--ink);
+}
+.demo-style-neumorphism .artist {
+  margin-top: 1px;
+  font-size: 10.5px;
+  color: var(--ink-soft);
+}
+/* --- progress: a groove pressed INTO the surface --- */
+.demo-style-neumorphism .progress { grid-column: 2; width: 100%; }
+.demo-style-neumorphism .track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--base);
+  box-shadow: inset -3px -3px 6px rgba(255, 255, 255, .7), inset 3px 3px 6px rgba(163, 177, 198, .55);
+  overflow: hidden;
+}
+.demo-style-neumorphism .bar {
+  width: 31%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8b9bf9 0%, var(--accent) 100%);
+}
+.demo-style-neumorphism .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 8.5px;
+  color: var(--ink-soft);
+}
+/* --- controls: buttons stamped out of the same slab --- */
+.demo-style-neumorphism .controls {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0; /* defeat the site's global .controls margin-top */
+}
+.demo-style-neumorphism .cbtn {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--base);
+  color: #79839a;
+  box-shadow: -4px -4px 8px var(--lit), 4px 4px 8px var(--shaded);
+  transition: box-shadow 160ms ease, color 160ms ease;
+}
+.demo-style-neumorphism .prev,
+.demo-style-neumorphism .next { width: 34px; height: 34px; }
+.demo-style-neumorphism .play {
+  width: 44px;
+  height: 44px;
+  color: var(--accent);
+}
+.demo-style-neumorphism .cbtn:hover { color: var(--accent); }
+/* pressed state: the shadow pair flips inward */
+.demo-style-neumorphism .cbtn:active,
+.demo-style-neumorphism .play[aria-pressed="true"] {
+  box-shadow: inset -3px -3px 6px rgba(255, 255, 255, .75), inset 3px 3px 6px rgba(163, 177, 198, .55);
+}
+.demo-style-neumorphism .play .i-pause { display: none; }
+.demo-style-neumorphism .play[aria-pressed="true"] .i-play { display: none; }
+.demo-style-neumorphism .play[aria-pressed="true"] .i-pause { display: block; }
+/* non-shadow cue so focus survives the whisper contrast */
+.demo-style-neumorphism .cbtn:focus-visible {
+  outline: none;
+  box-shadow: -4px -4px 8px var(--lit), 4px 4px 8px var(--shaded), 0 0 0 2px var(--base), 0 0 0 4px var(--accent);
+}
+/* --- volume: another pressed groove with the accent fill --- */
+.demo-style-neumorphism .volume {
+  grid-column: 2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.demo-style-neumorphism .vicon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #79839a;
+  background: var(--base);
+  box-shadow: -2px -2px 5px var(--lit), 2px 2px 5px var(--shaded);
+}
+.demo-style-neumorphism .vtrack {
+  flex: 1;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--base);
+  box-shadow: inset -2px -2px 5px rgba(255, 255, 255, .7), inset 2px 2px 5px rgba(163, 177, 198, .55);
+  overflow: hidden;
+  cursor: pointer;
+}
+.demo-style-neumorphism .vfill {
+  width: 70%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8b9bf9 0%, var(--accent) 100%);
+  transition: width 150ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-neumorphism .cbtn,
+  .demo-style-neumorphism .bar,
+  .demo-style-neumorphism .vfill {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const track = ROOT.querySelector('.track');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+
+  const RATE = 69 / 30; /* %/s: 31% -> 100% in ~30s */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let pct = 31;
+  let playing = false;
+
+  function setBar(p) {
+    pct = Math.max(0, Math.min(100, p));
+    bar.style.transition = 'none';
+    bar.style.width = pct + '%';
+    void bar.offsetWidth; /* commit before the next transition starts */
+  }
+  function start() {
+    if (pct >= 99.5) setBar(0);
+    playing = true;
+    playBtn.setAttribute('aria-pressed', 'true');
+    playBtn.setAttribute('aria-label', 'Pause');
+    if (reduce.matches) { setBar(100); finish(); return; }
+    const dist = 100 - pct;
+    bar.style.transition = 'width ' + (dist / RATE) + 's linear';
+    bar.style.width = '100%';
+  }
+  function pause() {
+    const w = parseFloat(window.getComputedStyle(bar).width);
+    const tw = track.clientWidth || 1;
+    playing = false;
+    playBtn.setAttribute('aria-pressed', 'false');
+    playBtn.setAttribute('aria-label', 'Play');
+    setBar((w / tw) * 100);
+  }
+  function finish() {
+    playing = false;
+    playBtn.setAttribute('aria-pressed', 'false');
+    playBtn.setAttribute('aria-label', 'Play');
+  }
+  function restart() {
+    setBar(0);
+    if (playing) start();
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) pause(); else start();
+  });
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing) { pct = 100; finish(); }
+  });
+
+  vfill.style.width = '70%';
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    const p = (e.clientX - r.left) / r.width;
+    vfill.style.width = (Math.max(0, Math.min(1, p)) * 100) + '%';
+  });
+})();
+</script>

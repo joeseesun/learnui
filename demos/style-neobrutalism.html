@@ -1,0 +1,304 @@
+<div class="demo demo-style-neobrutalism">
+  <div class="pwrap">
+    <div class="player">
+      <div class="art">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <g fill="#000">
+            <circle cx="9" cy="9" r="2"/><circle cx="17" cy="9" r="2"/><circle cx="25" cy="9" r="2"/>
+            <circle cx="9" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><circle cx="25" cy="17" r="2"/>
+            <circle cx="9" cy="25" r="2"/><circle cx="17" cy="25" r="2"/><circle cx="25" cy="25" r="2"/>
+          </g>
+          <path transform="rotate(-8 36 32)" fill="#000" d="M36 10c2.5 13 6 17.5 19 22-13 4.5-16.5 9-19 22-2.5-13-6-17.5-19-22 13-4.5 16.5-9 19-22z"/>
+          <circle cx="51" cy="13" r="6.5" fill="#ff90e8" stroke="#000" stroke-width="2.5"/>
+          <path d="M7 53q3.5-6 7 0t7 0t7 0" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round"/>
+          <path d="M7 53q3.5-6 7 0t7 0t7 0" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <div class="title">Midnight Drive</div>
+        <div class="artist">Neon Coast</div>
+      </div>
+      <div class="progress">
+        <div class="track"><div class="bar"></div></div>
+        <div class="times"><span>1:12</span><span>3:48</span></div>
+      </div>
+      <div class="controls">
+        <button class="cbtn prev" type="button" aria-label="Previous">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 5.5h2.6v13H6.5z"/><path d="M19 5.5v13L9.8 12z"/></svg>
+        </button>
+        <button class="cbtn play" type="button" aria-label="Play">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12l10-6z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h3v12H8zM13 6h3v12h-3z"/></svg>
+        </button>
+        <button class="cbtn next" type="button" aria-label="Next">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5v13L14.2 12z"/><path d="M15 5.5h2.5v13H15z"/></svg>
+        </button>
+      </div>
+      <div class="volume">
+        <span class="vicon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12.5 19V5L7.5 9.5H4z"/><path d="M15.5 9a4.2 4.2 0 010 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/><path d="M18 6.8a7.4 7.4 0 010 10.4" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <div class="vtrack"><div class="vfill"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.demo-style-neobrutalism {
+  --nb-ink: #000;
+  --nb-cream: #fff6e3;
+  --nb-yellow: #ffdc58;
+  --nb-pink: #ff90e8;
+  --nb-cyan: #7df9ff;
+  --nb-lime: #b5f04a;
+  --nb-focus: #5046e5;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.demo-style-neobrutalism .pwrap { transform-origin: center; }
+.demo-style-neobrutalism .player {
+  width: 280px;
+  padding: 14px 16px 16px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 13px 14px;
+  background: var(--nb-cream);
+  border: 3px solid var(--nb-ink);
+  border-radius: 12px;
+  box-shadow: 7px 7px 0 var(--nb-ink);
+}
+.demo-style-neobrutalism svg { display: block; }
+/* cover art: flat yellow block + inked doodles */
+.demo-style-neobrutalism .art {
+  grid-column: 1;
+  width: 64px;
+  height: 64px;
+  background: var(--nb-yellow);
+  border: 2.5px solid var(--nb-ink);
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 var(--nb-ink);
+}
+.demo-style-neobrutalism .art svg { width: 100%; height: 100%; }
+/* chunky display type */
+.demo-style-neobrutalism .meta {
+  grid-column: 2;
+  align-self: center;
+  min-width: 0;
+}
+.demo-style-neobrutalism .title {
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--nb-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-style-neobrutalism .artist {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 0 2px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--nb-ink);
+  box-shadow: inset 0 -6px 0 var(--nb-lime);
+}
+/* progress */
+.demo-style-neobrutalism .progress { grid-column: 1 / -1; }
+.demo-style-neobrutalism .track {
+  height: 14px;
+  background: #fff;
+  border: 2.5px solid var(--nb-ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--nb-ink);
+  overflow: hidden;
+}
+.demo-style-neobrutalism .bar {
+  width: 31%;
+  height: 100%;
+  background: var(--nb-cyan);
+}
+.demo-style-neobrutalism .times {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--nb-ink);
+}
+/* controls */
+.demo-style-neobrutalism .controls {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.demo-style-neobrutalism .cbtn {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-family: inherit;
+  color: var(--nb-ink);
+  background: #fff;
+  border: 2.5px solid var(--nb-ink);
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 var(--nb-ink);
+  cursor: pointer;
+  transition: transform 60ms ease-out, box-shadow 60ms ease-out;
+}
+.demo-style-neobrutalism .cbtn svg { width: 18px; height: 18px; fill: var(--nb-ink); }
+.demo-style-neobrutalism .prev,
+.demo-style-neobrutalism .next { width: 40px; height: 38px; }
+.demo-style-neobrutalism .play {
+  width: 56px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--nb-pink);
+}
+.demo-style-neobrutalism .play svg { width: 20px; height: 20px; }
+.demo-style-neobrutalism .play .ic-pause { display: none; }
+.demo-style-neobrutalism .play.is-playing .ic-play { display: none; }
+.demo-style-neobrutalism .play.is-playing .ic-pause { display: block; }
+.demo-style-neobrutalism .cbtn:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 var(--nb-ink);
+}
+.demo-style-neobrutalism .cbtn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+.demo-style-neobrutalism .cbtn:focus { outline: none; }
+.demo-style-neobrutalism .cbtn:focus-visible,
+.demo-style-neobrutalism .vtrack:focus-visible {
+  outline: 3px solid var(--nb-focus);
+  outline-offset: 2px;
+}
+/* volume */
+.demo-style-neobrutalism .volume {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.demo-style-neobrutalism .vicon { display: block; width: 18px; height: 18px; }
+.demo-style-neobrutalism .vicon svg { width: 18px; height: 18px; fill: var(--nb-ink); }
+.demo-style-neobrutalism .vtrack {
+  flex: 1;
+  height: 12px;
+  background: #fff;
+  border: 2.5px solid var(--nb-ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--nb-ink);
+  overflow: hidden;
+  cursor: pointer;
+}
+.demo-style-neobrutalism .vfill {
+  width: 70%;
+  height: 100%;
+  background: var(--nb-lime);
+  transition: width 80ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-neobrutalism .cbtn,
+  .demo-style-neobrutalism .vfill { transition: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const wrap = ROOT.querySelector('.pwrap');
+  const player = ROOT.querySelector('.player');
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const motionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* fit the fixed-size player into whatever stage it lands on */
+  function fit() {
+    const aw = ROOT.clientWidth, ah = ROOT.clientHeight;
+    if (!aw || !ah) return;
+    const s = Math.min(1, aw / (player.offsetWidth + 14), ah / (player.offsetHeight + 14));
+    wrap.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(ROOT);
+  else window.addEventListener('resize', fit);
+
+  /* play / pause: progress runs 31% -> 100% over ~30s */
+  let p = 31, playing = false, raf = 0, last = 0;
+  const RATE = (100 - 31) / 30000;
+  function render() { bar.style.width = p + '%'; }
+  function setPlaying(on) {
+    playing = on;
+    playBtn.classList.toggle('is-playing', on);
+    playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
+    cancelAnimationFrame(raf); raf = 0;
+    if (!on) return;
+    if (motionMQ.matches) { p = 100; render(); setPlaying(false); return; }
+    last = 0;
+    raf = requestAnimationFrame(tick);
+  }
+  function tick(now) {
+    if (!playing) return;
+    if (!last) last = now;
+    p = Math.min(100, p + (now - last) * RATE);
+    last = now;
+    render();
+    if (p >= 100) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  playBtn.addEventListener('click', function () { setPlaying(!playing); });
+
+  /* prev / next: reset progress to zero and replay */
+  function restart() { p = 0; render(); last = 0; setPlaying(true); }
+  ROOT.querySelector('.prev').addEventListener('click', restart);
+  ROOT.querySelector('.next').addEventListener('click', restart);
+
+  /* volume: click / drag to set, arrow keys supported */
+  let vol = 70, dragging = false;
+  function setVol(v) {
+    vol = Math.max(0, Math.min(100, v));
+    vfill.style.width = vol + '%';
+    vtrack.setAttribute('aria-valuenow', String(Math.round(vol)));
+  }
+  function volFromEvent(e) {
+    const r = vtrack.getBoundingClientRect();
+    if (r.width) setVol((e.clientX - r.left) / r.width * 100);
+  }
+  vtrack.setAttribute('role', 'slider');
+  vtrack.setAttribute('tabindex', '0');
+  vtrack.setAttribute('aria-label', 'Volume');
+  vtrack.setAttribute('aria-valuemin', '0');
+  vtrack.setAttribute('aria-valuemax', '100');
+  setVol(70);
+  vtrack.addEventListener('pointerdown', function (e) {
+    dragging = true;
+    volFromEvent(e);
+    try { vtrack.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  vtrack.addEventListener('pointermove', function (e) { if (dragging) volFromEvent(e); });
+  vtrack.addEventListener('pointerup', function () { dragging = false; });
+  vtrack.addEventListener('pointercancel', function () { dragging = false; });
+  vtrack.addEventListener('keydown', function (e) {
+    const step = { ArrowRight: 10, ArrowUp: 10, ArrowLeft: -10, ArrowDown: -10 }[e.key];
+    if (step) { setVol(vol + step); e.preventDefault(); }
+    else if (e.key === 'Home') { setVol(0); e.preventDefault(); }
+    else if (e.key === 'End') { setVol(100); e.preventDefault(); }
+  });
+})();
+</script>

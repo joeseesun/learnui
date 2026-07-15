@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""LearnUI static site builder — bilingual (EN/中文) replica of namethatui.com.
+"""Learn UI Name static site builder — bilingual (EN/中文) replica of namethatui.com.
 Stdlib only. Reads data/ + demos/, writes site/."""
 import json, html, os, shutil, datetime
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE_URL = "https://leanui.qiaomu.ai"
+SITE_URL = "https://learnui.qiaomu.ai"
+SITE_NAME = "Learn UI Name"
+UMAMI_ID = "481306cd-4dad-4677-8456-f31490684e78"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee"}
 
 def load(p):
@@ -20,6 +22,28 @@ for i in range(1, 5):
     ZH.update(load(f"data/zh/entries-{i}.json"))
 GUIDES_ZH = load("data/zh/guides.json")
 TABLE_ZH = load("data/zh/translate-table-zh.json")
+
+def load_or(p, default):
+    full = os.path.join(ROOT, p)
+    if not os.path.exists(full):
+        return default
+    return load(p)
+
+def _nn(obj):
+    """Recursively convert None to "" so partial/WIP data stays renderable."""
+    if obj is None:
+        return ""
+    if isinstance(obj, dict):
+        return {k: _nn(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_nn(v) for v in obj]
+    return obj
+
+STYLES = _nn(load_or("data/styles.json", []))
+STYLES_META = _nn(load_or("data/styles-meta.json", {"hubTagline": "", "governedNote": "", "researching": []}))
+STYLES_ZH = _nn(load_or("data/zh/styles.json", {}))
+STYLES_META_ZH = _nn(load_or("data/zh/styles-meta-zh.json", {"hubTagline_zh": "", "governedNote_zh": ""}))
+STYLE_BY_SLUG = {s["slug"]: s for s in STYLES}
 
 OUT = os.path.join(ROOT, "site")
 
@@ -48,8 +72,21 @@ def bi_raw(en_html, zh_html, tag="p", cls="", clsen="", clszh=""):
     return (f'<{tag} class="lang-en {cls} {clsen}">{en_html}</{tag}>'
             f'<{tag} class="lang-zh {cls} {clszh}">{zh_html}</{tag}>')
 
+def paras(text_en, text_zh, cls):
+    """Multi-paragraph bilingual text (split on blank lines)."""
+    out = []
+    ens = [p.strip() for p in (text_en or "").split("\n\n") if p.strip()]
+    zhs = [p.strip() for p in (text_zh or "").split("\n\n") if p.strip()]
+    for i, p in enumerate(ens):
+        z = zhs[i] if i < len(zhs) else ""
+        out.append(bi(p, z, "p", cls))
+    return "".join(out)
+
 def demo_fragment(slug):
-    with open(os.path.join(ROOT, "demos", slug + ".html"), encoding="utf-8") as f:
+    path = os.path.join(ROOT, "demos", slug + ".html")
+    if not os.path.exists(path):
+        return f'<div class="demo demo-missing" style="color:#a3a3a3;font:12px monospace">specimen pending: {esc(slug)}</div>'
+    with open(path, encoding="utf-8") as f:
         return f.read()
 
 def stage(slug, detail=False):
@@ -59,17 +96,14 @@ def stage(slug, detail=False):
             f'<div class="fragment" data-slug="{esc(slug)}">{demo_fragment(slug)}</div>'
             f'</div></div>')
 
-def chip(text, cls=""):
-    return f'<span class="chip {cls}">{esc(text)}</span>'
-
-def header(active=""):
-    en_all, zh_all = t("tabAll"); en_web, _ = t("tabWeb"); en_mac, _ = t("tabMacos")
-    en_g, zh_g = t("guideCrumb")
+def header():
+    en_all, zh_all = t("tabAll"); en_g, zh_g = t("guideCrumb"); en_st, zh_st = t("stylesCrumb")
     return f'''<header class="site-header">
  <div class="wrap header-in">
-  <a class="wordmark" href="/">name that ui<span class="q">?</span> <span class="wordmark-zh">界面叫啥</span></a>
+  <a class="wordmark" href="/">Learn UI Name<span class="wordmark-zh">界面叫啥</span></a>
   <nav class="site-nav">
-   <a href="/#dictionary">{esc(en_all)}<span class="lang-zh nav-zh">{esc(zh_all)}</span></a>
+   <a href="/#dictionary">Dictionary<span class="lang-zh nav-zh">词典</span></a>
+   <a href="/styles/">{esc(en_st)}<span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
    <a href="/#guides">{esc(en_g)}<span class="lang-zh nav-zh">{esc(zh_g)}</span></a>
    <a href="/guides/translate/">Translation<span class="lang-zh nav-zh">翻译表</span></a>
   </nav>
@@ -85,7 +119,7 @@ def footer():
     en, zh = t("footerNews"); en2, zh2 = t("footerRss"); en3, zh3 = t("builtNote")
     return f'''<footer class="site-footer">
  <div class="wrap footer-in">
-  <p><span class="fw-500">name that ui<span class="q">?</span></span> · <span class="lang-en">{esc(UI["tagline"])}</span> <span class="lang-zh">{esc(UI["taglineZh"])}</span></p>
+  <p><span class="fw-500">Learn UI Name</span> · <span class="lang-en">{esc(UI["tagline"])}</span> <span class="lang-zh">{esc(UI["taglineZh"])}</span></p>
   <p class="foot-note">
    <span class="lang-en">{esc(en)} <a href="/feed.xml">{esc(en2)}</a></span>
    <span class="lang-zh">{esc(zh)} <a href="/feed.xml">{esc(zh2)}</a></span>
@@ -112,17 +146,22 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path=""):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title_en)} · {esc(title_zh)} — name that ui?</title>
+<title>{esc(title_en)} · {esc(title_zh)} — {SITE_NAME}</title>
 <meta name="description" content="{esc(desc_zh)} {esc(desc_en)}">
 <link rel="canonical" href="{esc(url)}">
-<meta property="og:title" content="{esc(title_en)} · {esc(title_zh)} — name that ui?">
+<meta property="og:title" content="{esc(title_en)} · {esc(title_zh)} — {SITE_NAME}">
 <meta property="og:description" content="{esc(desc_zh)} {esc(desc_en)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{esc(url)}">
-<link rel="alternate" type="application/rss+xml" title="name that ui? RSS" href="/feed.xml">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❓</text></svg>">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="{SITE_NAME} RSS" href="/feed.xml">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/geist-vf.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
-<script defer src="https://umami.qiaomu.ai/script.js" data-website-id="481306cd-4dad-4677-8456-f31490684e78" data-domains="leanui.qiaomu.ai"></script>
+<script defer src="https://umami.qiaomu.ai/script.js" data-website-id="{UMAMI_ID}" data-domains="learnui.qiaomu.ai"></script>
 </head>
 <body>
 {body}
@@ -137,7 +176,7 @@ def card(e):
     z = ZH[e["slug"]]
     new = f'<span class="tag tag-new">{esc(UI["newBadge"])}</span>' if e["slug"] in NEW_SLUGS else ""
     sym = e["api"][0]["symbol"]
-    return f'''<a class="card" data-platform="{e["platform"]}" href="{entry_url(e)}">
+    return f'''<a class="card" data-platform="{e["platform"]}" data-slug="{e["slug"]}" href="{entry_url(e)}">
  {stage(e["slug"])}
  <div class="card-meta">
   <h3 class="card-name">
@@ -157,12 +196,12 @@ def homepage():
         search_index.append({
             "slug": e["slug"], "platform": e["platform"], "url": entry_url(e),
             "name": e["name"], "name_zh": z["name_zh"], "tagline": e["tagline"],
-            "tagline_zh": z["tagline_zh"], "aka": e["aka"], "aka_zh": z["aka_zh"],
+            "tagline_zh": z["tagline_zh"], "symbol": e["api"][0]["symbol"],
+            "aka": e["aka"], "aka_zh": z["aka_zh"],
             "fuzzy": e["fuzzy"], "fuzzy_zh": z["fuzzy_zh"],
         })
     cards = "\n".join(card(e) for e in ENTRIES)
     g1, g2 = GUIDES["appkit-vs-swiftui"], GUIDES["swift-vs-electron"]
-    g1z, g2z = GUIDES_ZH["appkit-vs-swiftui"], GUIDES_ZH["swift-vs-electron"]
     en_cnt, zh_cnt = t("entriesCount", n=len(ENTRIES))
     en_ph, zh_ph = t("searchPlaceholder")
     en_s, zh_s = t("surprise")
@@ -174,13 +213,14 @@ def homepage():
   <h1 class="hero-title"><span class="lang-en">{esc(UI["heroTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["heroTitleZh"])}</span></h1>
   {bi(UI["heroSub"], UI["heroSubZh"], "p", "hero-sub")}
   <p class="vibe-promo"><span class="tag tag-new">{esc(UI["newBadge"])}</span>
-   <a class="lang-en" href="https://namethatui.com/styles" rel="noopener">{esc(en_vp)}</a>
-   <a class="lang-zh" href="https://namethatui.com/styles" rel="noopener">{esc(zh_vp)}</a></p>
+   <a class="lang-en" href="/styles/">{esc(en_vp)} →</a>
+   <a class="lang-zh" href="/styles/">{esc(zh_vp)} →</a></p>
   <div class="controls">
    <div class="search-box">
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
     <input id="search" type="search" autocomplete="off"
      data-ph-en="{esc(en_ph)}" data-ph-zh="{esc(zh_ph)}" placeholder="{esc(zh_ph)} / {esc(en_ph)}" aria-label="Search">
+    <kbd class="search-kbd">/</kbd>
    </div>
    <button type="button" id="surprise" class="btn btn-ghost">⚂ <span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span></button>
    <div class="tabs" role="tablist">
@@ -188,13 +228,21 @@ def homepage():
     <button type="button" class="tab" data-filter="web">Web</button>
     <button type="button" class="tab" data-filter="macos">macOS</button>
    </div>
+   <p class="count-note" id="count-note"><span class="lang-en" data-tpl="{esc(UI["entriesCount"])}">{esc(en_cnt)}</span><span class="lang-zh" data-tpl="{esc(UI["entriesCountZh"])}">{esc(zh_cnt)}</span></p>
   </div>
-  <p class="count-note"><span class="lang-en">{esc(en_cnt)}</span><span class="lang-zh">{esc(zh_cnt)}</span></p>
  </section>
  <section id="dictionary" class="grid" aria-live="polite">
 {cards}
  </section>
- <p id="no-result" class="no-result" hidden><span class="lang-en">{esc(UI["searchNoResult"])}</span><span class="lang-zh">{esc(UI["searchNoResultZh"])}</span></p>
+ <div id="no-result" class="no-result" hidden>
+  <p><span class="lang-en">{esc(UI["searchNoResult"])}</span><span class="lang-zh">{esc(UI["searchNoResultZh"])}</span></p>
+  <div class="no-result-examples">
+   <button type="button" data-q="the dots menu">“the dots menu”</button>
+   <button type="button" data-q="mac window buttons">“mac window buttons”</button>
+   <button type="button" data-q="红绿灯">「红绿灯」</button>
+   <button type="button" data-q="角落里弹出来的小消息">「角落里弹出来的小消息」</button>
+  </div>
+ </div>
  <section id="guides" class="guides">
   <h2 class="section-title"><span class="lang-en">{esc(en_gt)}</span><span class="lang-zh">{esc(zh_gt)}</span></h2>
   <div class="guide-grid">
@@ -234,10 +282,10 @@ def api_table(e, z):
  <td class="mono sym">{esc(a["symbol"])}</td>
  <td class="note">{note}</td>
 </tr>''')
-    return f'''<table class="api-table">
+    return f'''<div class="table-scroll"><table class="api-table">
 <thead><tr><th>{esc(en_f)}<span class="lang-zh th-zh">{esc(zh_f)}</span></th><th>{esc(en_s)}<span class="lang-zh th-zh">{esc(zh_s)}</span></th><th>{esc(en_n)}<span class="lang-zh th-zh">{esc(zh_n)}</span></th></tr></thead>
 <tbody>{"".join(rows)}</tbody>
-</table>'''
+</table></div>'''
 
 def copy_block(text_en, text_zh, block_id):
     en_c, zh_c = t("copy"); en_cd, zh_cd = t("copied")
@@ -449,10 +497,6 @@ def guide_page(slug):
 def translate_page():
     en_b, zh_b = t("indexCrumb"); en_g, zh_g = t("guideCrumb")
     en_tc, zh_tc = t("thingCol")
-    by_thing = {}
-    for e in ENTRIES:
-        for a in e["api"]:
-            by_thing.setdefault(e["name"].split(" (")[0].split(" vs.")[0], e)
     linkable = {"Alert": "alert", "Color well / color picker": "color-well", "Context menu": "context-menu",
                 "Level indicator": "level-indicator", "Gauge / level indicator": "level-indicator",
                 "Menu bar extra / status item": "menu-bar-extra", "Popover": "popover",
@@ -504,6 +548,266 @@ def translate_page():
 {footer()}'''
     return page(UI["translateTitle"], "翻译对照表", UI["translateLede"], UI["translateLedeZh"], body, "guides/translate/")
 
+# ---------------- styles atlas (Name That Vibe) ----------------
+
+def style_url(s):
+    return f'/styles/{s["slug"]}/'
+
+def style_zh(s):
+    return STYLES_ZH.get(s["slug"], {})
+
+def first_para(text):
+    return (text or "").split("\n\n")[0].strip()
+
+def style_card(s):
+    z = style_zh(s)
+    hay = " ".join([s.get("name") or "", z.get("name_zh") or "", s.get("tagline") or "", z.get("tagline_zh") or ""] +
+                   (s.get("aliases") or []) + (z.get("aliases_zh") or [])).lower()
+    return f'''<a class="style-card" data-search="{esc(hay)}" href="{style_url(s)}">
+ {stage("style-" + s["slug"])}
+ <div class="card-meta">
+  <h3 class="card-name">
+   <span class="lang-en">{esc(s["name"])}</span>
+   <span class="lang-zh card-name-zh">{esc(z.get("name_zh", ""))}</span>
+  </h3>
+  {bi(first_para(s.get("tagline", "")), first_para(z.get("tagline_zh", "")), "p", "card-tag")}
+ </div>
+</a>'''
+
+def styles_hub_page():
+    en_b, zh_b = t("indexCrumb"); en_sc, zh_sc = t("stylesCrumb")
+    en_cnt, zh_cnt = t("stylesCount", n=len(STYLES))
+    en_ph, zh_ph = t("searchStylesPlaceholder")
+    en_gv, zh_gv = t("governedTitle"); en_rs, zh_rs = t("researchingLabel")
+    cards = "\n".join(style_card(s) for s in STYLES)
+    chips = "".join(f"<span>{esc(n)}</span>" for n in STYLES_META.get("researching", []))
+    body = f'''{header()}
+<main class="wrap">
+ <nav class="crumbs">
+  <a href="/">{esc(en_b)}<span class="lang-zh">{esc(zh_b)}</span></a>
+  <span class="crumb-sep">/</span>
+  <span class="crumb-cur">{esc(en_sc)}<span class="lang-zh">{esc(zh_sc)}</span></span>
+ </nav>
+ <section class="hero" style="padding-top:32px">
+  <h1 class="hero-title" style="font-size:clamp(32px,4.6vw,48px)"><span class="lang-en">{esc(UI["stylesTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["stylesTitleZh"])}</span></h1>
+  {paras(STYLES_META.get("hubTagline", ""), STYLES_META_ZH.get("hubTagline_zh", ""), "hero-sub")}
+  <div class="atlas-note">
+   <h2><span class="lang-en">{esc(en_gv)}</span> <span class="lang-zh" style="font-weight:400;font-size:12.5px">{esc(zh_gv)}</span></h2>
+   {paras(STYLES_META.get("governedNote", ""), STYLES_META_ZH.get("governedNote_zh", ""), "")}
+   <div class="research-chips">{chips}</div>
+  </div>
+  <div class="controls">
+   <div class="search-box">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="style-search" type="search" autocomplete="off"
+     data-ph-en="{esc(en_ph)}" data-ph-zh="{esc(zh_ph)}" placeholder="{esc(zh_ph)} / {esc(en_ph)}" aria-label="Search styles">
+    <kbd class="search-kbd">/</kbd>
+   </div>
+   <p class="count-note" id="style-count"><span class="lang-en" data-tpl="{esc(UI["stylesCount"])}">{esc(en_cnt)}</span><span class="lang-zh" data-tpl="{esc(UI["stylesCountZh"])}">{esc(zh_cnt)}</span></p>
+  </div>
+ </section>
+ <section class="style-grid" id="styles" aria-live="polite">
+{cards}
+ </section>
+ <p id="style-no-result" class="no-result" hidden><span class="lang-en">{esc(UI["searchNoResult"])}</span><span class="lang-zh">{esc(UI["searchNoResultZh"])}</span></p>
+</main>
+{footer()}'''
+    return page(UI["stylesTitle"], UI["stylesTitleZh"], STYLES_META.get("hubTagline", "")[:150],
+                STYLES_META_ZH.get("hubTagline_zh", "")[:80], body, "styles/")
+
+def style_page(s):
+    z = style_zh(s)
+    en_b, zh_b = t("indexCrumb"); en_sc, zh_sc = t("stylesCrumb")
+    en_fy, zh_fy = t("ifYouCalledIt")
+    en_dna, zh_dna = t("dnaTitle"); en_cf, zh_cf = t("confusedTitle")
+    en_ic, zh_ic = t("styleCodeTitle"); en_br, zh_br = t("briefTitle")
+    en_a11y, zh_a11y = t("a11yTitle"); en_or, zh_or = t("originTitle")
+    en_sa, zh_sa = t("seeAlso"); en_cp, zh_cp = t("copyPage"); en_cd, zh_cd = t("copied")
+
+    aliases = ""
+    if s.get("aliases"):
+        chips = []
+        for i, a in enumerate(s["aliases"]):
+            az = z.get("aliases_zh", [])
+            ztxt = az[i] if i < len(az) else ""
+            chips.append(f'''<span class="alias-chip"><span class="lang-en">“{esc(a)}”</span><span class="lang-zh">「{esc(ztxt)}」</span></span>''')
+        aliases = f'''<section class="sect">
+ <h2 class="section-title"><span class="lang-en">{esc(en_fy)}</span><span class="lang-zh">{esc(zh_fy)}</span></h2>
+ <div class="alias-chips">{"".join(chips)}</div>
+</section>'''
+
+    dna = ""
+    if s.get("signals"):
+        items = []
+        role_keys = {"defining": ("roleDefining",), "supporting": ("roleSupporting",),
+                     "variable": ("roleVariable",), "avoid": ("roleAvoid",)}
+        for sig in s["signals"]:
+            sz = z.get("signals_zh", {}).get(sig["id"], {})
+            rk = role_keys.get(sig["role"], ("roleSupporting",))[0]
+            en_r, zh_r = t(rk)
+            items.append(f'''<li class="dna-item">
+ <div class="dna-head">
+  <span class="dna-name"><span class="lang-en">{esc(sig["name"])}</span><span class="lang-zh dna-name-zh">{esc(sz.get("name_zh", ""))}</span></span>
+  <span class="dna-facet">{esc(sig["facet"])}</span>
+  <span class="dna-role dna-role-{esc(sig["role"])}"><span class="lang-en">{esc(en_r)}</span><span class="lang-zh">{esc(zh_r)}</span></span>
+ </div>
+ {bi(sig["description"], sz.get("description_zh", ""), "p", "dna-desc")}
+</li>''')
+        dna = f'''<section class="sect" style="max-width:none">
+ <h2 class="section-title"><span class="lang-en">{esc(en_dna)}</span><span class="lang-zh">{esc(zh_dna)}</span></h2>
+ <ol class="dna">{"".join(items)}</ol>
+</section>'''
+
+    confused = ""
+    cw = s.get("confusedWith")
+    if cw and cw.get("slug") in STYLE_BY_SLUG:
+        other = STYLE_BY_SLUG[cw["slug"]]
+        oz = style_zh(other)
+        other_demo = "style-" + other["slug"]
+        pair = ""
+        if os.path.exists(os.path.join(ROOT, "demos", other_demo + ".html")):
+            pair = f'''<div class="vs-pair">
+ <div class="vs-cell">{stage("style-" + s["slug"])}<p class="vs-cell-label"><span class="lang-en">{esc(s["name"])}</span><span class="lang-zh">{esc(z.get("name_zh", ""))}</span></p></div>
+ <div class="vs-cell">{stage(other_demo)}<p class="vs-cell-label"><span class="lang-en">{esc(other["name"])}</span><span class="lang-zh">{esc(oz.get("name_zh", ""))}</span></p></div>
+</div>'''
+        czw = z.get("confused_zh", {})
+        confused = f'''<section class="sect" style="max-width:none">
+ <h2 class="section-title"><span class="lang-en">{esc(en_cf)}: {esc(cw["name"])}</span><span class="lang-zh">{esc(zh_cf)}：{esc(oz.get("name_zh", cw["name"]))}</span></h2>
+ {pair}
+ <div class="vs-why">
+  <div class="vs-why-card">{bi(cw.get("because", ""), czw.get("because_zh", ""), "p")}</div>
+  <div class="vs-why-card">{bi(cw.get("wouldBecomeIf", ""), czw.get("wouldBecomeIf_zh", ""), "p")}</div>
+ </div>
+</section>'''
+
+    code_sect = ""
+    if s.get("code"):
+        blocks = []
+        for i, c in enumerate(s["code"]):
+            title = f'<p class="code-title">{esc(c["title"])}</p>' if c.get("title") else ""
+            blocks.append(f'''<div class="code-block">
+ <button type="button" class="btn btn-copy" data-copy="code-{s["slug"]}-{i}" data-done-en="{esc(en_cd)}" data-done-zh="{esc(zh_cd)}"><span class="lang-en">{esc(t("copy")[0])}</span><span class="lang-zh">{esc(t("copy")[1])}</span></button>
+ {title}
+ <pre><code id="code-{s["slug"]}-{i}">{esc(c["code"])}</code></pre>
+</div>''')
+        code_sect = f'''<section class="sect">
+ <h2 class="section-title"><span class="lang-en">{esc(en_ic)}</span><span class="lang-zh">{esc(zh_ic)}</span></h2>
+ {"".join(blocks)}
+</section>'''
+
+    brief = ""
+    if s.get("brief"):
+        brief = f'''<section class="sect">
+ <h2 class="section-title"><span class="lang-en">{esc(en_br)}</span><span class="lang-zh">{esc(zh_br)}</span></h2>
+ {copy_block(s["brief"], z.get("brief_zh", ""), "brief-" + s["slug"])}
+</section>'''
+
+    a11y = ""
+    if s.get("accessibility"):
+        a11y = f'''<section class="sect">
+ <h2 class="section-title"><span class="lang-en">{esc(en_a11y)}</span><span class="lang-zh">{esc(zh_a11y)}</span></h2>
+ {paras(s["accessibility"], z.get("accessibility_zh", ""), "guide-para")}
+</section>'''
+
+    origin = ""
+    if s.get("origin"):
+        origin = f'''<section class="sect">
+ <h2 class="section-title"><span class="lang-en">{esc(en_or)}</span><span class="lang-zh">{esc(zh_or)}</span></h2>
+ {paras(s["origin"], z.get("origin_zh", ""), "guide-para")}
+</section>'''
+
+    see_also = ""
+    if s.get("seeAlso"):
+        cards = []
+        for sa in s["seeAlso"]:
+            ref = (sa.get("slug") or "")
+            if ref.startswith("styles/"):
+                ref = ref[len("styles/"):]
+            if ref in STYLE_BY_SLUG:
+                so = STYLE_BY_SLUG[ref]
+                soz = style_zh(so)
+                cards.append(f'''<a class="rel-card" href="{style_url(so)}">
+ <span class="rel-name"><span class="lang-en">{esc(so["name"])}</span><span class="lang-zh rel-name-zh">{esc(soz.get("name_zh", ""))}</span></span>
+</a>''')
+            else:
+                ent = next((x for x in ENTRIES if x["slug"] == ref), None)
+                if ent:
+                    ez = ZH[ent["slug"]]
+                    cards.append(f'''<a class="rel-card" href="{entry_url(ent)}">
+ <span class="rel-name"><span class="lang-en">{esc(ent["name"])}</span><span class="lang-zh rel-name-zh">{esc(ez["name_zh"])}</span></span>
+ <span class="rel-sym">{esc(ent["api"][0]["symbol"])}</span>
+</a>''')
+        if cards:
+            see_also = f'''<section class="sect">
+ <h2 class="section-title"><span class="lang-en">{esc(en_sa)}</span><span class="lang-zh">{esc(zh_sa)}</span></h2>
+ <div class="rel-grid">{"".join(cards)}</div>
+</section>'''
+
+    scope = ""
+    if s.get("scope"):
+        scope = paras(s["scope"], z.get("scope_zh", ""), "guide-para")
+
+    md = style_markdown(s, z)
+    body = f'''{header()}
+<main class="wrap entry">
+ <nav class="crumbs">
+  <a href="/">{esc(en_b)}<span class="lang-zh">{esc(zh_b)}</span></a>
+  <span class="crumb-sep">/</span>
+  <a href="/styles/">{esc(en_sc)}<span class="lang-zh">{esc(zh_sc)}</span></a>
+  <span class="crumb-sep">/</span>
+  <span class="crumb-cur">{esc(s["name"])}</span>
+ </nav>
+ <header class="entry-head">
+  <h1 class="entry-title">
+   <span class="lang-en">{esc(s["name"])}</span>
+   <span class="lang-zh entry-title-zh">{esc(z.get("name_zh", ""))}</span>
+  </h1>
+  {paras(s.get("tagline", ""), z.get("tagline_zh", ""), "entry-tag")}
+  {scope}
+ </header>
+ {stage("style-" + s["slug"], detail=True)}
+ <p class="stage-hint lang-zh">标本可交互 —— 点点看。Specimen is live — try it.</p>
+ {aliases}
+ {dna}
+ {confused}
+ {code_sect}
+ {brief}
+ {a11y}
+ {origin}
+ {see_also}
+ <section class="sect">
+  <button type="button" class="btn btn-ghost" id="copy-md" data-done-en="{esc(en_cd)}" data-done-zh="{esc(zh_cd)}">⧉ <span class="lang-en">{esc(en_cp)}</span><span class="lang-zh">{esc(zh_cp)}</span></button>
+  <template id="md-source">{esc(md)}</template>
+ </section>
+</main>
+{footer()}'''
+    return page(s["name"], z.get("name_zh", s["name"]), (s.get("tagline") or "")[:150],
+                (z.get("tagline_zh") or "")[:80], body, f'styles/{s["slug"]}/')
+
+def style_markdown(s, z):
+    lines = [f"# {s['name']} · {z.get('name_zh','')}", "",
+             f"Style reference — {SITE_URL}/styles/{s['slug']}/", ""]
+    if s.get("tagline"):
+        lines += [s["tagline"], z.get("tagline_zh", ""), ""]
+    if s.get("aliases"):
+        lines += ["## If you called it… / 如果你管它叫……", ""]
+        for i, a in enumerate(s["aliases"]):
+            az = z.get("aliases_zh", [])
+            lines.append(f"- “{a}” / 「{az[i] if i < len(az) else ''}」")
+        lines.append("")
+    if s.get("signals"):
+        lines += ["## Full style DNA / 完整风格 DNA", ""]
+        for sig in s["signals"]:
+            sz = z.get("signals_zh", {}).get(sig["id"], {})
+            lines += [f"- **[{sig['role']}] {sig['name']} · {sz.get('name_zh','')}** ({sig['facet']})",
+                      f"  {sig['description']}", f"  {sz.get('description_zh','')}"]
+        lines.append("")
+    if s.get("brief"):
+        lines += ["## Style brief / 风格 Brief", "", s["brief"], "", z.get("brief_zh", ""), ""]
+    if s.get("origin"):
+        lines += ["## Origin / 起源", "", s["origin"], "", z.get("origin_zh", "")]
+    return "\n".join(lines)
+
 def write(path, content):
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -520,8 +824,17 @@ def build():
     for slug in GUIDES:
         write(f"guides/{slug}/index.html", guide_page(slug))
     write("guides/translate/index.html", translate_page())
+    if STYLES:
+        write("styles/index.html", styles_hub_page())
+        for s in STYLES:
+            write(f'styles/{s["slug"]}/index.html', style_page(s))
     # static assets
     shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(OUT, "assets"))
+    shutil.copyfile(os.path.join(ROOT, "manifest.webmanifest"), os.path.join(OUT, "manifest.webmanifest"))
+    with open(os.path.join(ROOT, "sw.js"), encoding="utf-8") as f:
+        sw = f.read()
+    version = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H%M%S")
+    write("sw.js", sw.replace("__SW_VERSION__", version))
     # feed
     items = []
     date = datetime.datetime.now(datetime.timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
@@ -532,9 +845,16 @@ def build():
 <guid>{SITE_URL}/{e["platform"]}/{e["slug"]}/</guid>
 <pubDate>{date}</pubDate>
 <description>{esc(e["tagline"])} / {esc(z["tagline_zh"])}</description></item>''')
+    for s in STYLES:
+        z = style_zh(s)
+        items.append(f'''<item><title>{esc(s["name"])} · {esc(z.get("name_zh",""))}</title>
+<link>{SITE_URL}/styles/{s["slug"]}/</link>
+<guid>{SITE_URL}/styles/{s["slug"]}/</guid>
+<pubDate>{date}</pubDate>
+<description>{esc((s.get("tagline") or "")[:200])}</description></item>''')
     write("feed.xml", f'''<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>name that ui? · 界面叫啥</title>
+<title>Learn UI Name · 界面叫啥</title>
 <link>{SITE_URL}/</link>
 <description>{esc(UI["tagline"])} — bilingual UI dictionary</description>
 {"".join(items)}
@@ -542,6 +862,8 @@ def build():
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
     urls = ["/"] + [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
            [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/"]
+    if STYLES:
+        urls += ["/styles/"] + [f'/styles/{s["slug"]}/' for s in STYLES]
     write("sitemap.xml", f'''<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {"".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)}
