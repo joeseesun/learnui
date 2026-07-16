@@ -369,7 +369,11 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .table-note { display: block; font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
 .translate-table td { font-size: 13px; }
 .translate-table .mono { overflow-wrap: anywhere; }
-.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  /* 可横滑提示：两侧渐隐边缘（随滚动贴合，到底自动消失） */
+  background:
+    linear-gradient(to right, var(--bg), rgba(255,255,255,0)) left center / 28px 100% no-repeat local,
+    linear-gradient(to left, var(--bg), rgba(255,255,255,0)) right center / 28px 100% no-repeat local; }
 .table-scroll .translate-table { min-width: 620px; }
 
 /* ---------- styles atlas (Name That Vibe) ---------- */
@@ -453,10 +457,11 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 /* ---------- responsive ---------- */
 @media (max-width: 760px) {
   .wrap { padding: 0 16px; }
-  .header-in { gap: 12px; }
+  /* 头部两行：第一行 wordmark + 语言切换，第二行导航全宽横滚 */
+  .header-in { flex-wrap: wrap; height: auto; gap: 0 12px; padding: 10px 16px 0; }
   .wordmark-zh { display: none; }
-  .site-nav { gap: 14px; }
-  .nav-zh { display: none; }
+  .lang-switch { margin-left: auto; }
+  .site-nav { order: 3; width: 100%; margin: 10px 0 0; padding: 9px 0 10px; gap: 18px; border-top: 1px solid var(--line); }
   .hero { padding-top: 48px; }
   .grid, .style-grid { grid-template-columns: 1fr; gap: 20px; }
   .stage-card { height: 180px; }
