@@ -1,0 +1,379 @@
+<div class="demo demo-style-steampunk">
+  <div class="player">
+    <div class="art">
+      <svg class="gauge" width="88" height="88" viewBox="0 0 88 88" aria-hidden="true">
+        <defs>
+          <linearGradient id="sg-rim" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f0d6a6"/>
+            <stop offset=".5" stop-color="#d4a35b"/>
+            <stop offset="1" stop-color="#8c5e3c"/>
+          </linearGradient>
+        </defs>
+        <circle cx="44" cy="44" r="42" fill="url(#sg-rim)" stroke="#5c4028" stroke-width="1.5"/>
+        <circle cx="44" cy="44" r="36" fill="#2a1d14" stroke="#5c4028" stroke-width="1"/>
+        <g stroke="#f0d6a6" stroke-width="1.6" stroke-linecap="round">
+          <line x1="44" y1="10" x2="44" y2="17"/>
+          <line x1="78" y1="44" x2="71" y2="44"/>
+          <line x1="44" y1="78" x2="44" y2="71"/>
+          <line x1="10" y1="44" x2="17" y2="44"/>
+          <line x1="68" y1="20" x2="63" y2="25"/>
+          <line x1="20" y1="20" x2="25" y2="25"/>
+          <line x1="68" y1="68" x2="63" y2="63"/>
+          <line x1="20" y1="68" x2="25" y2="63"/>
+        </g>
+        <line class="needle" x1="44" y1="44" x2="44" y2="18" stroke="#b87333" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="44" cy="44" r="4" fill="#d4a35b" stroke="#5c4028" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4.5" y="5" width="2.6" height="14" rx="1.3"/><path d="M20 5.6v12.8c0 .95-1.05 1.52-1.85 1L9.6 13.1a1.25 1.25 0 0 1 0-2.15l8.55-6.35c.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 5.6v12.8c0 .95 1.05 1.52 1.85 1l9.7-6.4a1.25 1.25 0 0 0 0-2.1l-9.7-6.3c-.8-.52-1.85.05-1.85 1z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.6" y="5" width="3.4" height="14" rx="1.7"/><rect x="14" y="5" width="3.4" height="14" rx="1.7"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16.9" y="5" width="2.6" height="14" rx="1.3"/><path d="M4 5.6v12.8c0 .95 1.05 1.52 1.85 1l8.55-6.3a1.25 1.25 0 0 0 0-2.15L5.85 4.6c-.8-.6-1.85.03-1.85 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.2v5.6c0 .66.54 1.2 1.2 1.2h2.6l3.9 3.3c.62.52 1.55.06 1.55-.75V5.45c0-.8-.93-1.27-1.55-.75L7.8 8H5.2c-.66 0-1.2.54-1.2 1.2z"/><path d="M15.6 9.3a4.1 4.1 0 0 1 0 5.4M18 7a7.4 7.4 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Steampunk — brass gears, Victorian serif, pressure-gauge progress, riveted buttons ===== */
+.demo-style-steampunk {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  color: #3e2b1f;
+  max-width: 100%;
+}
+.demo-style-steampunk .player {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 14px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #e6dcc8 0%, #d8cbb3 100%);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, .4),
+    inset 0 0 50px rgba(139, 90, 43, .12);
+}
+/* brass gear border drawn on a pseudo element so it can extend beyond the panel */
+.demo-style-steampunk .player::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border: 12px solid transparent;
+  border-radius: 24px;
+  border-image-source: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2YwZDZhNiIvPjxzdG9wIG9mZnNldD0iLjUiIHN0b3AtY29sb3I9IiNkNGEzNWIiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4YzVlM2MiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9InIiIGN4PSIuNSIgY3k9Ii41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMGQ2YTYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiODg2NGIiLz48L3JhZGlhbEdyYWRpZW50Pgo8L2RlZnM+CjxwYXRoIGQ9Ik0wIDIwIFY4IFE1IDAgMTAgOCBUMjAgOCBUMzAgOCBUNDAgOCBUNTAgOCBUNjAgOCBWMjAgSDAgWiIgZmlsbD0idXJsKCNiKSIgc3Ryb2tlPSIjNWM0MDI4IiBzdHJva2Utd2lkdGg9Ii44Ii8+CjxwYXRoIGQ9Ik0wIDQwIFY1MiBRNSA2MCAxMCA1MiBUMjAgNTIgVDMwIDUyIFQ0MCA1MiBUNTAgNTIgVDYwIDUyIFY0MCBIMCBaIiBmaWxsPSJ1cmwoI2IpIiBzdHJva2U9IiM1YzQwMjgiIHN0cm9rZS13aWR0aD0iLjgiLz4KPHBhdGggZD0iTTIwIDAgSDggUTAgNSA4IDEwIFQ4IDIwIFQ4IDMwIFQ4IDQwIFQ4IDUwIFQ4IDYwIEgyMCBWMCBaIiBmaWxsPSJ1cmwoI2IpIiBzdHJva2U9IiM1YzQwMjgiIHN0cm9rZS13aWR0aD0iLjgiLz4KPHBhdGggZD0iTTQwIDAgSDUyIFE2MCA1IDUyIDEwIFQ1MiAyMCBUNTIgMzAgVDUyIDQwIFQ1MiA1MCBUNTIgNjAgSDQwIFYwIFoiIGZpbGw9InVybCgjYikiIHN0cm9rZT0iIzVjNDAyOCIgc3Ryb2tlLXdpZHRoPSIuOCIvPgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSI3IiBmaWxsPSJ1cmwoI3IpIiBzdHJva2U9IiM1YzQwMjgiIHN0cm9rZS13aWR0aD0iMSIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iMTAiIHI9IjIuNSIgZmlsbD0iIzVjNDAyOCIvPgo8Y2lyY2xlIGN4PSI1MCIgY3k9IjEwIiByPSI3IiBmaWxsPSJ1cmwoI3IpIiBzdHJva2U9IiM1YzQwMjgiIHN0cm9rZS13aWR0aD0iMSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMTAiIHI9IjIuNSIgZmlsbD0iIzVjNDAyOCIvPgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjUwIiByPSI3IiBmaWxsPSJ1cmwoI3IpIiBzdHJva2U9IiM1YzQwMjgiIHN0cm9rZS13aWR0aD0iMSIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iNTAiIHI9IjIuNSIgZmlsbD0iIzVjNDAyOCIvPgo8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI3IiBmaWxsPSJ1cmwoI3IpIiBzdHJva2U9IiM1YzQwMjgiIHN0cm9rZS13aWR0aD0iMSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjIuNSIgZmlsbD0iIzVjNDAyOCIvPgo8L3N2Zz4=");
+  border-image-slice: 20;
+  border-image-repeat: round;
+  pointer-events: none;
+  z-index: -1;
+}
+/* ---- cover art: a pressure-gauge face ---- */
+.demo-style-steampunk .art {
+  position: relative;
+  height: 108px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 2px solid #8c5e3c;
+  background: radial-gradient(circle at 50% 45%, #4a3425 0%, #2a1d14 70%, #1a120d 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, .55),
+    0 1px 0 rgba(255, 255, 255, .25);
+}
+.demo-style-steampunk .gauge {
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .5));
+}
+/* ---- typography ---- */
+.demo-style-steampunk .meta {
+  padding: 12px 4px 2px;
+  text-align: center;
+}
+.demo-style-steampunk .title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: .04em;
+  color: #3e2b1f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .35);
+}
+.demo-style-steampunk .artist {
+  margin-top: 2px;
+  font-size: 11px;
+  letter-spacing: .02em;
+  color: #6b4f3a;
+}
+/* ---- pressure-gauge progress ---- */
+.demo-style-steampunk .progress {
+  padding: 8px 4px 0;
+}
+.demo-style-steampunk .track {
+  position: relative;
+  height: 12px;
+  border: 2px solid #b8864b;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #4a3425 0%, #2a1d14 45%, #1a120d 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, .7),
+    0 1px 0 rgba(255, 255, 255, .2);
+  overflow: hidden;
+}
+.demo-style-steampunk .track::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: repeating-linear-gradient(90deg,
+    transparent 0 9%,
+    rgba(240, 214, 166, .45) 9% 10%,
+    transparent 10% 19%);
+  pointer-events: none;
+  z-index: 2;
+}
+.demo-style-steampunk .bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(180deg, #e89c55 0%, #b87333 50%, #8c4e25 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .4),
+    inset 0 -1px 1px rgba(0, 0, 0, .3);
+}
+.demo-style-steampunk .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 10px;
+  color: #5c4033;
+}
+/* ---- riveted brass buttons ---- */
+.demo-style-steampunk .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+.demo-style-steampunk .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #3e2b1f;
+  border: 2px solid #6e4c2e;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 32%, #f0d6a6 0%, #d4a35b 38%, #b8864b 65%, #8c5e3c 95%);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, .55),
+    inset 0 -2px 3px rgba(0, 0, 0, .35),
+    0 3px 5px rgba(0, 0, 0, .35),
+    -13px -13px 0 -18px #5c4028,
+    13px -13px 0 -18px #5c4028,
+    -13px 13px 0 -18px #5c4028,
+    13px 13px 0 -18px #5c4028;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.demo-style-steampunk .cbtn svg {
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, .35));
+}
+.demo-style-steampunk .prev,
+.demo-style-steampunk .next {
+  width: 38px;
+  height: 38px;
+}
+.demo-style-steampunk .play {
+  width: 46px;
+  height: 46px;
+}
+.demo-style-steampunk .cbtn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.08);
+}
+.demo-style-steampunk .cbtn:active {
+  transform: scale(.96);
+  box-shadow:
+    inset 0 2px 3px rgba(0, 0, 0, .4),
+    0 1px 1px rgba(0, 0, 0, .3),
+    -13px -13px 0 -18px #5c4028,
+    13px -13px 0 -18px #5c4028,
+    -13px 13px 0 -18px #5c4028,
+    13px 13px 0 -18px #5c4028;
+}
+.demo-style-steampunk .cbtn:focus-visible {
+  outline: 2px solid #b8864b;
+  outline-offset: 2px;
+}
+.demo-style-steampunk .play .i-pause { display: none; }
+.demo-style-steampunk .play.playing .i-play { display: none; }
+.demo-style-steampunk .play.playing .i-pause { display: block; }
+/* ---- volume gauge ---- */
+.demo-style-steampunk .volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 0 4px 2px;
+}
+.demo-style-steampunk .vicon {
+  display: flex;
+  flex: none;
+  color: #6e4c2e;
+}
+.demo-style-steampunk .vtrack {
+  position: relative;
+  flex: 1;
+  height: 10px;
+  border: 2px solid #b8864b;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #4a3425 0%, #2a1d14 45%, #1a120d 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(0, 0, 0, .65),
+    0 1px 0 rgba(255, 255, 255, .2);
+  overflow: hidden;
+}
+.demo-style-steampunk .vtrack::before {
+  content: "";
+  position: absolute;
+  inset: -6px -3px;
+}
+.demo-style-steampunk .vfill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(180deg, #e89c55 0%, #b87333 55%, #8c4e25 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .35);
+}
+/* ---- motion and transparency fallbacks ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-steampunk .cbtn {
+    transition: none;
+  }
+  .demo-style-steampunk .cbtn:hover,
+  .demo-style-steampunk .cbtn:active {
+    transform: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31;
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) {
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth;
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent());
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0;
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() {
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement;
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

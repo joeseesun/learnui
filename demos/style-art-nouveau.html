@@ -1,0 +1,359 @@
+<div class="demo demo-style-art-nouveau">
+  <div class="player">
+    <div class="art">
+      <svg class="vine-top" viewBox="0 0 280 110" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M-10 90 C40 90 50 40 90 40 C130 40 120 90 170 90 C220 90 230 30 290 30" fill="none" stroke="#7a2d3b" stroke-width="3"/>
+        <path d="M-10 90 C40 90 50 40 90 40 C130 40 120 90 170 90 C220 90 230 30 290 30" fill="none" stroke="#bfa15f" stroke-width="1" transform="translate(0,-2)"/>
+        <path d="M60 55 Q75 35 90 55 Q75 75 60 55" fill="#9fa86b"/>
+        <path d="M130 70 Q150 50 170 70 Q150 95 130 70" fill="#c26a4d"/>
+        <path d="M210 45 Q230 25 250 45 Q230 70 210 45" fill="#9fa86b"/>
+        <circle cx="90" cy="40" r="4" fill="#bfa15f"/>
+        <circle cx="170" cy="90" r="4" fill="#bfa15f"/>
+        <circle cx="250" cy="45" r="4" fill="#bfa15f"/>
+      </svg>
+      <div class="flourish-left" aria-hidden="true"></div>
+      <div class="flourish-right" aria-hidden="true"></div>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4.5" y="5" width="2.6" height="14" rx="1.3"/><path d="M20 5.6v12.8c0 .95-1.05 1.52-1.85 1L9.6 13.1a1.25 1.25 0 0 1 0-2.15l8.55-6.35c.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 5.6v12.8c0 .95 1.05 1.52 1.85 1l9.7-6.4a1.25 1.25 0 0 0 0-2.1l-9.7-6.3c-.8-.52-1.85.05-1.85 1z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.6" y="5" width="3.4" height="14" rx="1.7"/><rect x="14" y="5" width="3.4" height="14" rx="1.7"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16.9" y="5" width="2.6" height="14" rx="1.3"/><path d="M4 5.6v12.8c0 .95 1.05 1.52 1.85 1l8.55-6.3a1.25 1.25 0 0 0 0-2.15L5.85 4.6c-.8-.6-1.85.03-1.85 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.2v5.6c0 .66.54 1.2 1.2 1.2h2.6l3.9 3.3c.62.52 1.55.06 1.55-.75V5.45c0-.8-.93-1.27-1.55-.75L7.8 8H5.2c-.66 0-1.2.54-1.2 1.2z"/><path d="M15.6 9.3a4.1 4.1 0 0 1 0 5.4M18 7a7.4 7.4 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Art Nouveau — 流动有机线条、花卉藤蔓、土色宝石调、华丽衬线 ===== */
+.demo-style-art-nouveau {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-style-art-nouveau .player {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f7f3e8;
+  color: #3a2a1e;
+  /* 不对称有机边框：角落像茎秆一样卷曲 */
+  border-radius: 34px 10px 42px 14px;
+  border: 3px solid #7a2d3b;
+  box-shadow:
+    inset 0 0 0 2px #bfa15f,
+    inset 0 0 0 5px rgba(191, 161, 95, .18),
+    0 14px 34px rgba(58, 42, 30, .18);
+}
+/* ---- 封面：藤蔓花纹与花卉装饰 ---- */
+.demo-style-art-nouveau .art {
+  position: relative;
+  height: 110px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 20% 100%, rgba(159, 168, 107, .22), transparent 55%),
+    radial-gradient(120% 80% at 80% 0%, rgba(194, 106, 77, .16), transparent 55%),
+    #f7f3e8;
+}
+.demo-style-art-nouveau .vine-top {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .95;
+}
+.demo-style-art-nouveau .flourish-left,
+.demo-style-art-nouveau .flourish-right {
+  position: absolute;
+  width: 46px;
+  height: 64px;
+  bottom: 6px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.demo-style-art-nouveau .flourish-left {
+  left: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 64'%3E%3Cpath d='M40 58 C25 58 10 45 10 28 C10 15 18 6 30 4' fill='none' stroke='%237a2d3b' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M10 28 C22 22 34 30 40 18' fill='none' stroke='%23bfa15f' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='28' r='3.5' fill='%23bfa15f'/%3E%3C/svg%3E");
+}
+.demo-style-art-nouveau .flourish-right {
+  right: 8px;
+  transform: scaleX(-1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 64'%3E%3Cpath d='M40 58 C25 58 10 45 10 28 C10 15 18 6 30 4' fill='none' stroke='%237a2d3b' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M10 28 C22 22 34 30 40 18' fill='none' stroke='%23bfa15f' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='28' r='3.5' fill='%23bfa15f'/%3E%3C/svg%3E");
+}
+/* ---- 文字：华丽衬线标题 + 土色正文 ---- */
+.demo-style-art-nouveau .meta {
+  padding: 13px 20px 3px;
+  text-align: center;
+}
+.demo-style-art-nouveau .title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: #3a2a1e;
+  text-shadow: 1px 0 0 #bfa15f, -1px 0 0 #bfa15f;
+}
+.demo-style-art-nouveau .artist {
+  margin-top: 2px;
+  font-size: 11.5px;
+  letter-spacing: .05em;
+  color: #7a2d3b;
+}
+/* ---- 进度：酒红轨道 + 金线浮雕填充 ---- */
+.demo-style-art-nouveau .progress {
+  padding: 10px 20px 0;
+}
+.demo-style-art-nouveau .track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(122, 45, 59, .18);
+  border: 1px solid rgba(122, 45, 59, .28);
+  box-shadow: inset 0 1px 2px rgba(58, 42, 30, .12);
+  overflow: hidden;
+}
+.demo-style-art-nouveau .bar {
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, #7a2d3b 0%, #9e3a4a 60%, #bfa15f 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25);
+}
+.demo-style-art-nouveau .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  letter-spacing: .04em;
+  color: #7a2d3b;
+}
+/* ---- 控制按钮：有机曲线边框、金线浮雕 ---- */
+.demo-style-art-nouveau .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+.demo-style-art-nouveau .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #3a2a1e;
+  background: #f7f3e8;
+  border: 2px solid #7a2d3b;
+  /* 每个按钮都有不对称有机圆角 */
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.demo-style-art-nouveau .cbtn::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid #bfa15f;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.demo-style-art-nouveau .cbtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #7a2d3b;
+}
+.demo-style-art-nouveau .cbtn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.demo-style-art-nouveau .cbtn:focus-visible {
+  outline: 2px solid #bfa15f;
+  outline-offset: 3px;
+}
+.demo-style-art-nouveau .prev,
+.demo-style-art-nouveau .next {
+  width: 34px;
+  height: 34px;
+  border-radius: 16px 6px 16px 6px;
+}
+.demo-style-art-nouveau .play {
+  width: 48px;
+  height: 48px;
+  border-radius: 26px 10px 26px 10px;
+  background: #7a2d3b;
+  color: #f7f3e8;
+}
+.demo-style-art-nouveau .play::before {
+  border-color: #bfa15f;
+}
+.demo-style-art-nouveau .play .i-pause { display: none; }
+.demo-style-art-nouveau .play.playing .i-play { display: none; }
+.demo-style-art-nouveau .play.playing .i-pause { display: block; }
+/* ---- 音量：藤蔓风格滑条 ---- */
+.demo-style-art-nouveau .volume {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 12px;
+  padding: 0 20px 16px;
+}
+.demo-style-art-nouveau .vicon {
+  display: flex;
+  flex: none;
+  color: #7a2d3b;
+}
+.demo-style-art-nouveau .vtrack {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: rgba(122, 45, 59, .18);
+  border: 1px solid rgba(122, 45, 59, .28);
+  box-shadow: inset 0 1px 2px rgba(58, 42, 30, .12);
+  overflow: hidden;
+}
+.demo-style-art-nouveau .vtrack::before {
+  content: "";
+  position: absolute;
+  inset: -7px -3px;
+}
+.demo-style-art-nouveau .vfill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7a2d3b 0%, #bfa15f 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25);
+}
+/* ---- 动效兜底 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-art-nouveau .cbtn {
+    transition: none;
+  }
+  .demo-style-art-nouveau .cbtn:hover,
+  .demo-style-art-nouveau .cbtn:active {
+    transform: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31;
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) {
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth;
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent());
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0;
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() {
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement;
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

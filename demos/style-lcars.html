@@ -1,0 +1,363 @@
+<div class="demo demo-style-lcars">
+  <div class="player">
+    <div class="art">
+      <div class="lcars-row top">
+        <div class="lcars-elbow"><span>PLAYBACK</span></div>
+        <div class="lcars-cap"></div>
+      </div>
+      <div class="lcars-row blocks">
+        <div class="loz orange"></div>
+        <div class="loz peach"></div>
+        <div class="loz red"></div>
+        <div class="loz blue"></div>
+      </div>
+      <div class="lcars-row bottom">
+        <div class="status-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="5" width="2.8" height="14" rx="1.4"/><path d="M20 5.8v12.4c0 .9-1.1 1.5-1.9.9L9 13.2a1.3 1.3 0 0 1 0-2.2l9.1-6.9c.8-.6 1.9 0 1.9.9z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.8v12.4c0 .9 1.1 1.5 1.9.9l9.6-6.2a1.3 1.3 0 0 0 0-2.2L9.9 4.9c-.8-.6-1.9 0-1.9.9z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="3.3" height="14" rx="1.6"/><rect x="14.2" y="5" width="3.3" height="14" rx="1.6"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="17.2" y="5" width="2.8" height="14" rx="1.4"/><path d="M4 5.8v12.4c0 .9 1.1 1.5 1.9.9l9.1-6.9a1.3 1.3 0 0 0 0-2.2L5.9 4.9c-.8-.6-1.9 0-1.9.9z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon"></span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== LCARS — Starfleet 24th-century console UI ===== */
+.demo-style-lcars {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+  --lcars-bg: #0a0a0c;
+  --lcars-orange: #FF9900;
+  --lcars-peach: #FFCC99;
+  --lcars-amber: #FF9966;
+  --lcars-lavender: #9999CC;
+  --lcars-red: #CC6666;
+  --lcars-blue: #6699CC;
+  --lcars-ink: #0a0a0c;
+}
+.demo-style-lcars .player {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 14px;
+  overflow: hidden;
+  background: var(--lcars-bg);
+  border-radius: 0 24px 24px 0;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 16px 36px rgba(0,0,0,.45);
+}
+/* ---- Art: fake LCARS display with elbow header and lozenge blocks ---- */
+.demo-style-lcars .art {
+  position: relative;
+  height: 108px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: #000000;
+  border-radius: 0 18px 18px 0;
+}
+.demo-style-lcars .lcars-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.demo-style-lcars .lcars-elbow {
+  flex: 1;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  background: var(--lcars-lavender);
+  border-radius: 999px 0 0 999px;
+  color: var(--lcars-ink);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.demo-style-lcars .lcars-cap {
+  width: 22px;
+  height: 22px;
+  background: var(--lcars-lavender);
+  border-radius: 0 999px 999px 0;
+}
+.demo-style-lcars .loz {
+  height: 14px;
+  border-radius: 999px;
+}
+.demo-style-lcars .loz.orange { flex: 3; background: var(--lcars-orange); }
+.demo-style-lcars .loz.peach { flex: 2; background: var(--lcars-peach); }
+.demo-style-lcars .loz.red { flex: 1.2; background: var(--lcars-red); }
+.demo-style-lcars .loz.blue { flex: 1.5; background: var(--lcars-blue); }
+.demo-style-lcars .status-bar {
+  flex: 1;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  background: var(--lcars-amber);
+  border-radius: 0 999px 999px 0;
+}
+.demo-style-lcars .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lcars-ink);
+  opacity: .55;
+}
+/* ---- Meta: title/artist inside an orange lozenge ---- */
+.demo-style-lcars .meta {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background: var(--lcars-orange);
+  border-radius: 999px;
+  color: var(--lcars-ink);
+  text-transform: uppercase;
+}
+.demo-style-lcars .title {
+  font-size: 12.5px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  line-height: 1.2;
+}
+.demo-style-lcars .artist {
+  margin-top: 1px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  opacity: .85;
+}
+/* ---- Progress: flat orange fill on black track ---- */
+.demo-style-lcars .progress {
+  margin-top: 12px;
+}
+.demo-style-lcars .track {
+  position: relative;
+  height: 10px;
+  background: #000000;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.demo-style-lcars .bar {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--lcars-orange);
+}
+.demo-style-lcars .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--lcars-peach);
+}
+/* ---- Controls: flat lozenge buttons ---- */
+.demo-style-lcars .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.demo-style-lcars .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  color: var(--lcars-ink);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.demo-style-lcars .cbtn:focus-visible {
+  outline: 2px solid var(--lcars-red);
+  outline-offset: 2px;
+}
+.demo-style-lcars .prev,
+.demo-style-lcars .next {
+  width: 48px;
+  height: 28px;
+}
+.demo-style-lcars .prev { background: var(--lcars-orange); }
+.demo-style-lcars .next { background: var(--lcars-lavender); }
+.demo-style-lcars .play {
+  width: 64px;
+  height: 32px;
+  background: var(--lcars-peach);
+}
+.demo-style-lcars .cbtn:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+}
+.demo-style-lcars .play .i-pause { display: none; }
+.demo-style-lcars .play.playing .i-play { display: none; }
+.demo-style-lcars .play.playing .i-pause { display: block; }
+/* ---- Volume: small orange icon + lavender fill ---- */
+.demo-style-lcars .volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.demo-style-lcars .vicon {
+  flex: none;
+  width: 20px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--lcars-orange);
+}
+.demo-style-lcars .vtrack {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  cursor: pointer;
+  background: #000000;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.demo-style-lcars .vtrack::before {
+  content: "";
+  position: absolute;
+  inset: -7px -3px;
+}
+.demo-style-lcars .vfill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--lcars-lavender);
+}
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-lcars .cbtn { transition: none; }
+  .demo-style-lcars .cbtn:active { transform: none; }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31;
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) {
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth;
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent());
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0;
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() {
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  // Stage adaptive scaling
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement;
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

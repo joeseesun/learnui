@@ -1,0 +1,427 @@
+<div class="demo demo-style-holographic">
+  <div class="player">
+    <div class="art"><div class="shimmer"></div></div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4.5" y="5" width="2.6" height="14" rx="1.3"/><path d="M20 5.6v12.8c0 .95-1.05 1.52-1.85 1L9.6 13.1a1.25 1.25 0 0 1 0-2.15l8.55-6.35c.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 5.6v12.8c0 .95 1.05 1.52 1.85 1l9.7-6.4a1.25 1.25 0 0 0 0-2.1l-9.7-6.3c-.8-.52-1.85.05-1.85 1z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.6" y="5" width="3.4" height="14" rx="1.7"/><rect x="14" y="5" width="3.4" height="14" rx="1.7"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16.9" y="5" width="2.6" height="14" rx="1.3"/><path d="M4 5.6v12.8c0 .95 1.05 1.52 1.85 1l8.55-6.3a1.25 1.25 0 0 0 0-2.15L5.85 4.6c-.8-.6-1.85.03-1.85 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.2v5.6c0 .66.54 1.2 1.2 1.2h2.6l3.9 3.3c.62.52 1.55.06 1.55-.75V5.45c0-.8-.93-1.27-1.55-.75L7.8 8H5.2c-.66 0-1.2.54-1.2 1.2z"/><path d="M15.6 9.3a4.1 4.1 0 0 1 0 5.4M18 7a7.4 7.4 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Holographic — rainbow foil / oil-slick iridescence, NOT glassmorphism ===== */
+.demo-style-holographic {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-style-holographic .player {
+  position: relative;
+  width: 286px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 22px;
+  color: #f2f4f8;
+  background:
+    /* pastel shimmer overlays */
+    radial-gradient(120% 80% at 20% 30%, rgba(255, 179, 217, .35), transparent 45%),
+    radial-gradient(100% 70% at 80% 70%, rgba(103, 232, 249, .32), transparent 45%),
+    /* holographic foil body */
+    linear-gradient(135deg,
+      #ffffff 0%,
+      #c4cfdc 18%,
+      #8a93a3 34%,
+      #e6eaf0 50%,
+      #bfc8d4 66%,
+      #ffffff 82%,
+      #c4cfdc 100%);
+  box-shadow:
+    0 22px 44px rgba(10, 10, 15, .55),
+    0 6px 14px rgba(10, 10, 15, .35),
+    inset 0 0 0 1px rgba(255, 255, 255, .55),
+    inset 0 1px 0 rgba(255, 255, 255, .55);
+}
+/* ---- animated sheen across the whole foil body ---- */
+.demo-style-holographic .player::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg,
+    transparent 0%,
+    rgba(255, 255, 255, .0) 30%,
+    rgba(255, 255, 255, .45) 48%,
+    rgba(255, 255, 255, .0) 66%,
+    transparent 100%);
+  mix-blend-mode: overlay;
+  animation: holo-sheen 5s ease-in-out infinite;
+}
+@keyframes holo-sheen {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+/* ---- cover: oil-slick rainbow gradient on a dark field ---- */
+.demo-style-holographic .art {
+  position: relative;
+  height: 124px;
+  overflow: hidden;
+  background:
+    radial-gradient(140% 100% at 30% 20%, rgba(255, 179, 217, .5), transparent 42%),
+    radial-gradient(120% 90% at 80% 80%, rgba(103, 232, 249, .45), transparent 40%),
+    conic-gradient(from 200deg at 50% 55%,
+      #00f2ea 0deg,
+      #67e8f9 45deg,
+      #b967ff 90deg,
+      #ff006e 140deg,
+      #ffd700 190deg,
+      #00f2ea 240deg,
+      #c084fc 290deg,
+      #00f2ea 360deg);
+  border-bottom: 1px solid rgba(255, 255, 255, .45);
+}
+.demo-style-holographic .art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22) 0%, transparent 18%),
+    linear-gradient(180deg, transparent 82%, rgba(10,10,15,.18) 100%);
+  pointer-events: none;
+}
+.demo-style-holographic .shimmer {
+  position: absolute;
+  inset: -50%;
+  background:
+    conic-gradient(from 0deg,
+      transparent 0deg,
+      rgba(255,255,255,.28) 30deg,
+      transparent 60deg);
+  animation: holo-spin 7s linear infinite;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+@keyframes holo-spin {
+  to { transform: rotate(360deg); }
+}
+/* ---- metadata ---- */
+.demo-style-holographic .meta {
+  position: relative;
+  padding: 12px 18px 2px;
+}
+.demo-style-holographic .title {
+  position: relative;
+  font-size: 13.5px;
+  font-weight: 650;
+  letter-spacing: .01em;
+  color: #0a0a0f;
+}
+.demo-style-holographic .artist {
+  position: relative;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(10, 10, 15, .62);
+}
+/* ---- progress: chrome track + holographic fill ---- */
+.demo-style-holographic .progress {
+  position: relative;
+  padding: 9px 18px 0;
+}
+.demo-style-holographic .track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, #d8dde4 0%, #eef1f5 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(10, 10, 15, .28),
+    inset 0 0 0 1px rgba(255, 255, 255, .45);
+}
+.demo-style-holographic .bar {
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg,
+      #00f2ea 0%,
+      #b967ff 28%,
+      #ff006e 54%,
+      #ffd700 78%,
+      #67e8f9 100%);
+  box-shadow:
+    0 0 10px rgba(185, 103, 255, .55),
+    inset 0 1px 1px rgba(255, 255, 255, .8),
+    inset 0 -1px 1px rgba(10, 10, 15, .12);
+}
+.demo-style-holographic .times {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: rgba(10, 10, 15, .55);
+}
+/* ---- controls: stamped holographic foil buttons ---- */
+.demo-style-holographic .controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 13px;
+}
+.demo-style-holographic .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #0a0a0f;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 999px;
+  background:
+    radial-gradient(120% 80% at 25% 25%, rgba(255, 179, 217, .45), transparent 42%),
+    radial-gradient(100% 70% at 80% 80%, rgba(103, 232, 249, .38), transparent 40%),
+    linear-gradient(135deg,
+      #ffffff 0%,
+      #c4cfdc 22%,
+      #8a93a3 44%,
+      #e6eaf0 66%,
+      #ffffff 88%,
+      #c4cfdc 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .8),
+    inset 0 -1px 1px rgba(10, 10, 15, .12),
+    0 6px 14px rgba(10, 10, 15, .25);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.demo-style-holographic .cbtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg,
+    transparent 0%,
+    rgba(255,255,255,.0) 36%,
+    rgba(255,255,255,.55) 50%,
+    rgba(255,255,255,.0) 64%,
+    transparent 100%);
+  mix-blend-mode: overlay;
+  animation: holo-sheen 5s ease-in-out infinite;
+  pointer-events: none;
+}
+.demo-style-holographic .cbtn svg {
+  position: relative;
+  z-index: 1;
+}
+.demo-style-holographic .prev,
+.demo-style-holographic .next {
+  width: 36px;
+  height: 36px;
+}
+.demo-style-holographic .play {
+  width: 50px;
+  height: 50px;
+}
+.demo-style-holographic .cbtn:hover {
+  transform: scale(1.06);
+}
+.demo-style-holographic .cbtn:active {
+  transform: scale(.94);
+}
+.demo-style-holographic .cbtn:focus-visible {
+  outline: 2px solid #0a0a0f;
+  outline-offset: 2px;
+}
+.demo-style-holographic .play .i-pause { display: none; }
+.demo-style-holographic .play.playing .i-play { display: none; }
+.demo-style-holographic .play.playing .i-pause { display: block; }
+/* ---- volume ---- */
+.demo-style-holographic .volume {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 13px;
+  padding: 0 18px 16px;
+}
+.demo-style-holographic .vicon {
+  display: flex;
+  flex: none;
+  color: rgba(10, 10, 15, .65);
+}
+.demo-style-holographic .vtrack {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  background:
+    linear-gradient(180deg, #d8dde4 0%, #eef1f5 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(10, 10, 15, .28),
+    inset 0 0 0 1px rgba(255, 255, 255, .45);
+}
+.demo-style-holographic .vtrack::before {
+  content: "";
+  position: absolute;
+  inset: -7px -3px;
+}
+.demo-style-holographic .vfill {
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg,
+      #00f2ea 0%,
+      #b967ff 28%,
+      #ff006e 54%,
+      #ffd700 78%,
+      #67e8f9 100%);
+  box-shadow:
+    0 0 8px rgba(185, 103, 255, .5),
+    inset 0 1px 1px rgba(255, 255, 255, .8);
+}
+/* ---- reduced motion / transparency ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-holographic .player::before,
+  .demo-style-holographic .cbtn::before,
+  .demo-style-holographic .shimmer {
+    animation: none;
+  }
+  .demo-style-holographic .cbtn {
+    transition: none;
+  }
+  .demo-style-holographic .cbtn:hover,
+  .demo-style-holographic .cbtn:active {
+    transform: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31;
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) {
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth;
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent());
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0;
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() {
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement;
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>
