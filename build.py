@@ -104,11 +104,11 @@ def header():
  <div class="wrap header-in">
   <a class="wordmark" href="/">Learn UI Name<span class="wordmark-zh">界面叫啥</span></a>
   <nav class="site-nav">
-   <a href="/#dictionary">Dictionary<span class="lang-zh nav-zh">词典</span></a>
-   <a href="/styles/">{esc(en_st)}<span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
-   <a href="/quiz/">{esc(en_qz)}<span class="lang-zh nav-zh">{esc(zh_qz)}</span></a>
-   <a href="/#guides">{esc(en_g)}<span class="lang-zh nav-zh">{esc(zh_g)}</span></a>
-   <a href="/guides/translate/">Translation<span class="lang-zh nav-zh">翻译表</span></a>
+   <a href="/#dictionary"><span class="lang-en">Dictionary</span><span class="lang-zh nav-zh">词典</span></a>
+   <a href="/styles/"><span class="lang-en">{esc(en_st)}</span><span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
+   <a href="/quiz/"><span class="lang-en">{esc(en_qz)}</span><span class="lang-zh nav-zh">{esc(zh_qz)}</span></a>
+   <a href="/#guides"><span class="lang-en">{esc(en_g)}</span><span class="lang-zh nav-zh">{esc(zh_g)}</span></a>
+   <a href="/guides/translate/"><span class="lang-en">Translation</span><span class="lang-zh nav-zh">翻译表</span></a>
   </nav>
   <div class="lang-switch" role="group" aria-label="Language">
    <button type="button" data-mode="bilingual" class="ls-btn">对照</button>
@@ -409,11 +409,11 @@ def entry_page(e):
     body = f'''{header()}
 <main class="wrap entry">
  <nav class="crumbs">
-  <a href="/">{esc(en_b)}<span class="lang-zh">{esc(zh_b)}</span></a>
+  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
   <span class="crumb-sep">/</span>
   <a href="/?platform={e["platform"]}#dictionary">{plat_label}</a>
   <span class="crumb-sep">/</span>
-  <span class="crumb-cur">{esc(e["name"])}</span>
+  <span class="crumb-cur"><span class="lang-en">{esc(e["name"])}</span><span class="lang-zh">{esc(z["name_zh"])}</span></span>
  </nav>
  <header class="entry-head">
   <h1 class="entry-title">
@@ -539,11 +539,11 @@ def guide_page(slug):
     body = f'''{header()}
 <main class="wrap entry guide">
  <nav class="crumbs">
-  <a href="/">{esc(en_b)}<span class="lang-zh">{esc(zh_b)}</span></a>
+  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
   <span class="crumb-sep">/</span>
-  <span>{esc(en_g)}<span class="lang-zh">{esc(zh_g)}</span></span>
+  <span><span class="lang-en">{esc(en_g)}</span><span class="lang-zh">{esc(zh_g)}</span></span>
   <span class="crumb-sep">/</span>
-  <span class="crumb-cur">{esc(g["title"])}</span>
+  <span class="crumb-cur"><span class="lang-en">{esc(g["title"])}</span><span class="lang-zh">{esc(gz["title_zh"])}</span></span>
  </nav>
  <header class="entry-head">
   <h1 class="entry-title"><span class="lang-en">{esc(g["title"])}</span><span class="lang-zh entry-title-zh">{esc(gz["title_zh"])}</span></h1>
@@ -585,11 +585,11 @@ def translate_page():
     body = f'''{header()}
 <main class="wrap entry">
  <nav class="crumbs">
-  <a href="/">{esc(en_b)}<span class="lang-zh">{esc(zh_b)}</span></a>
+  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
   <span class="crumb-sep">/</span>
-  <span>{esc(en_g)}<span class="lang-zh">{esc(zh_g)}</span></span>
+  <span><span class="lang-en">{esc(en_g)}</span><span class="lang-zh">{esc(zh_g)}</span></span>
   <span class="crumb-sep">/</span>
-  <span class="crumb-cur">{esc(UI["translateTitle"])}</span>
+  <span class="crumb-cur"><span class="lang-en">{esc(UI["translateTitle"])}</span><span class="lang-zh">翻译对照表</span></span>
  </nav>
  <header class="entry-head">
   <h1 class="entry-title"><span class="lang-en">{esc(UI["translateTitle"])}</span><span class="lang-zh entry-title-zh">翻译对照表</span></h1>
@@ -646,9 +646,9 @@ def styles_hub_page():
     body = f'''{header()}
 <main class="wrap">
  <nav class="crumbs">
-  <a href="/">{esc(en_b)}<span class="lang-zh">{esc(zh_b)}</span></a>
+  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
   <span class="crumb-sep">/</span>
-  <span class="crumb-cur">{esc(en_sc)}<span class="lang-zh">{esc(zh_sc)}</span></span>
+  <span class="crumb-cur"><span class="lang-en">{esc(en_sc)}</span><span class="lang-zh">{esc(zh_sc)}</span></span>
  </nav>
  <section class="hero" style="padding-top:32px">
   <h1 class="hero-title" style="font-size:clamp(32px,4.6vw,48px)"><span class="lang-en">{esc(UI["stylesTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["stylesTitleZh"])}</span></h1>
@@ -815,11 +815,11 @@ def style_page(s):
     body = f'''{header()}
 <main class="wrap entry">
  <nav class="crumbs">
-  <a href="/">{esc(en_b)}<span class="lang-zh">{esc(zh_b)}</span></a>
+  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
   <span class="crumb-sep">/</span>
-  <a href="/styles/">{esc(en_sc)}<span class="lang-zh">{esc(zh_sc)}</span></a>
+  <a href="/styles/"><span class="lang-en">{esc(en_sc)}</span><span class="lang-zh">{esc(zh_sc)}</span></a>
   <span class="crumb-sep">/</span>
-  <span class="crumb-cur">{esc(s["name"])}</span>
+  <span class="crumb-cur"><span class="lang-en">{esc(s["name"])}</span><span class="lang-zh">{esc(z.get("name_zh", s["name"]))}</span></span>
  </nav>
  <header class="entry-head">
   <h1 class="entry-title">
@@ -939,7 +939,7 @@ def vs_page(a_slug, b_slug):
   <span class="crumb-sep">/</span>
   <a href="/styles/"><span class="lang-en">{esc(en_sc)}</span><span class="lang-zh">{esc(zh_sc)}</span></a>
   <span class="crumb-sep">/</span>
-  <span>{esc(title_en)}</span>
+  <span class="crumb-cur"><span class="lang-en">{esc(title_en)}</span><span class="lang-zh">{esc(title_zh)}</span></span>
  </nav>
  <section class="hero">
   <h1><span class="lang-en">{esc(title_en)}</span><span class="lang-zh">{esc(title_zh)}</span></h1>
