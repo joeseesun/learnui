@@ -1,0 +1,357 @@
+<div class="demo demo-style-pop-art">
+  <div class="player">
+    <div class="art">
+      <div class="starburst" aria-hidden="true">POP!</div>
+      <div class="halftone-face"></div>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4.5" y="5" width="2.6" height="14" rx="1.3"/><path d="M20 5.6v12.8c0 .95-1.05 1.52-1.85 1L9.6 13.1a1.25 1.25 0 0 1 0-2.15l8.55-6.35c.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 5.6v12.8c0 .95 1.05 1.52 1.85 1l9.7-6.4a1.25 1.25 0 0 0 0-2.1l-9.7-6.3c-.8-.52-1.85.05-1.85 1z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.6" y="5" width="3.4" height="14" rx="1.7"/><rect x="14" y="5" width="3.4" height="14" rx="1.7"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16.9" y="5" width="2.6" height="14" rx="1.3"/><path d="M4 5.6v12.8c0 .95 1.05 1.52 1.85 1l8.55-6.3a1.25 1.25 0 0 0 0-2.15L5.85 4.6c-.8-.6-1.85.03-1.85 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.2v5.6c0 .66.54 1.2 1.2 1.2h2.6l3.9 3.3c.62.52 1.55.06 1.55-.75V5.45c0-.8-.93-1.27-1.55-.75L7.8 8H5.2c-.66 0-1.2.54-1.2 1.2z"/><path d="M15.6 9.3a4.1 4.1 0 0 1 0 5.4M18 7a7.4 7.4 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Pop Art — comic panels, Ben-Day dots, thick black outlines, saturated primaries ===== */
+.demo-style-pop-art {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-style-pop-art .player {
+  position: relative;
+  width: 286px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 3px solid #000;
+  background: #fff;
+  box-shadow: 6px 6px 0 #000;
+}
+/* Ben-Day halftone ground */
+.demo-style-pop-art .player::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#000 18%, transparent 20%);
+  background-size: 6px 6px;
+  opacity: .16;
+  pointer-events: none;
+}
+/* Comic panel gutters */
+.demo-style-pop-art .art,
+.demo-style-pop-art .meta,
+.demo-style-pop-art .progress,
+.demo-style-pop-art .controls,
+.demo-style-pop-art .volume {
+  position: relative;
+  z-index: 1;
+}
+.demo-style-pop-art .art {
+  height: 110px;
+  border-bottom: 3px solid #000;
+  background: #ffd500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+}
+.demo-style-pop-art .starburst {
+  flex: none;
+  width: 76px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  font-family: Impact, Haettenschweiler, "Arial Narrow", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  background: #ff2a2a;
+  clip-path: polygon(
+    50% 0%, 58% 28%, 80% 12%, 66% 36%, 96% 42%,
+    68% 50%, 94% 66%, 64% 60%, 74% 88%, 50% 68%,
+    26% 88%, 36% 60%, 6% 66%, 32% 50%, 4% 42%,
+    34% 36%, 20% 12%, 42% 28%
+  );
+  border: none;
+  filter: drop-shadow(2px 2px 0 #000);
+}
+.demo-style-pop-art .halftone-face {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  background:
+    radial-gradient(circle at 35% 38%, #000 10%, transparent 11%),
+    radial-gradient(circle at 65% 38%, #000 10%, transparent 11%),
+    radial-gradient(circle at 50% 62%, #000 13%, transparent 14%),
+    radial-gradient(#fff 20%, #0066ff 21%, #0066ff 40%, transparent 41%) 0 0 / 8px 8px;
+  box-shadow: 3px 3px 0 #000;
+}
+.demo-style-pop-art .meta {
+  padding: 12px 14px 4px;
+  background: #fff;
+}
+.demo-style-pop-art .title {
+  font-family: Impact, Haettenschweiler, "Arial Narrow", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: #000;
+  line-height: 1.15;
+}
+.demo-style-pop-art .artist {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #ff1493;
+}
+/* Progress as comic strip bar */
+.demo-style-pop-art .progress {
+  padding: 8px 14px 0;
+  background: #fff;
+}
+.demo-style-pop-art .track {
+  position: relative;
+  height: 12px;
+  border: 3px solid #000;
+  background: #fff;
+}
+.demo-style-pop-art .bar {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #00e5ff 0 8px,
+    #0066ff 8px 16px
+  );
+  border-right: 2px solid #000;
+}
+.demo-style-pop-art .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: #000;
+}
+/* Controls — chunky comic buttons */
+.demo-style-pop-art .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 14px 0;
+  background: #fff;
+}
+.demo-style-pop-art .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: 3px solid #000;
+  color: #000;
+  background: #ffd500;
+  box-shadow: 4px 4px 0 #000;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.demo-style-pop-art .cbtn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #000;
+}
+.demo-style-pop-art .cbtn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 #000;
+}
+.demo-style-pop-art .cbtn:focus-visible {
+  outline: 3px solid #ff2a2a;
+  outline-offset: 2px;
+}
+.demo-style-pop-art .prev,
+.demo-style-pop-art .next {
+  width: 36px;
+  height: 36px;
+  background: #00e5ff;
+}
+.demo-style-pop-art .play {
+  width: 50px;
+  height: 50px;
+  background: #ff2a2a;
+  color: #fff;
+}
+.demo-style-pop-art .play .i-pause { display: none; }
+.demo-style-pop-art .play.playing .i-play { display: none; }
+.demo-style-pop-art .play.playing .i-pause { display: block; }
+/* Volume */
+.demo-style-pop-art .volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px 14px;
+  background: #fff;
+}
+.demo-style-pop-art .vicon {
+  display: flex;
+  flex: none;
+  color: #000;
+}
+.demo-style-pop-art .vtrack {
+  position: relative;
+  flex: 1;
+  height: 12px;
+  border: 3px solid #000;
+  background: #fff;
+  cursor: pointer;
+}
+.demo-style-pop-art .vtrack::before {
+  content: "";
+  position: absolute;
+  inset: -6px -2px;
+}
+.demo-style-pop-art .vfill {
+  height: 100%;
+  background: #ff1493;
+  border-right: 2px solid #000;
+}
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-pop-art .cbtn {
+    transition: none;
+  }
+  .demo-style-pop-art .cbtn:hover,
+  .demo-style-pop-art .cbtn:active {
+    transform: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31;
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) {
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth;
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent());
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0;
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() {
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) {
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement;
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

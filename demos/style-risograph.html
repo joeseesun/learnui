@@ -1,0 +1,390 @@
+<div class="demo demo-style-risograph">
+  <div class="player">
+    <div class="art">
+      <!-- 三层错位的专色图形：粉 / 青 / 黄 -->
+      <div class="pass pass-pink"></div>
+      <div class="pass pass-cyan"></div>
+      <div class="pass pass-yellow"></div>
+      <!-- 颗粒遮罩层 -->
+      <div class="grain"></div>
+      <!-- 黑墨描边装饰 -->
+      <svg class="doodle" viewBox="0 0 274 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <path d="M10 95 q40 -20 80 0 t80 0 t80 0" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="230" cy="28" r="10" fill="#ffd60a" stroke="#1a1a1a" stroke-width="2"/>
+        <path d="M30 30 l12 -20 l12 20 z" fill="#ff4da6" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round" transform="rotate(-8 42 20)"/>
+      </svg>
+    </div>
+    <div class="meta">
+      <div class="title">Midnight Drive</div>
+      <div class="artist">Neon Coast</div>
+    </div>
+    <div class="progress">
+      <div class="track"><div class="bar" style="width:31%"></div></div>
+      <div class="times"><span>1:12</span><span>3:48</span></div>
+    </div>
+    <div class="controls">
+      <button class="cbtn prev" type="button" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4.5" y="5" width="2.6" height="14" rx="1.3"/><path d="M20 5.6v12.8c0 .95-1.05 1.52-1.85 1L9.6 13.1a1.25 1.25 0 0 1 0-2.15l8.55-6.35c.8-.6 1.85-.03 1.85 1z"/></svg>
+      </button>
+      <button class="cbtn play" type="button" aria-label="Play">
+        <svg class="i-play" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 5.6v12.8c0 .95 1.05 1.52 1.85 1l9.7-6.4a1.25 1.25 0 0 0 0-2.1l-9.7-6.3c-.8-.52-1.85.05-1.85 1z"/></svg>
+        <svg class="i-pause" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.6" y="5" width="3.4" height="14" rx="1.7"/><rect x="14" y="5" width="3.4" height="14" rx="1.7"/></svg>
+      </button>
+      <button class="cbtn next" type="button" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="16.9" y="5" width="2.6" height="14" rx="1.3"/><path d="M4 5.6v12.8c0 .95 1.05 1.52 1.85 1l8.55-6.3a1.25 1.25 0 0 0 0-2.15L5.85 4.6c-.8-.6-1.85.03-1.85 1z"/></svg>
+      </button>
+    </div>
+    <div class="volume">
+      <span class="vicon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.2v5.6c0 .66.54 1.2 1.2 1.2h2.6l3.9 3.3c.62.52 1.55.06 1.55-.75V5.45c0-.8-.93-1.27-1.55-.75L7.8 8H5.2c-.66 0-1.2.54-1.2 1.2z"/><path d="M15.6 9.3a4.1 4.1 0 0 1 0 5.4M18 7a7.4 7.4 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <div class="vtrack"><div class="vfill" style="width:70%"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+/* ===== Risograph（孔版印刷风）—— 限定专色、错位叠印、颗粒纹理、粗糙边缘 ===== */
+.demo-style-risograph {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  max-width: 100%;
+}
+.demo-style-risograph .player {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 2px solid #1a1a1a;
+  border-radius: 4px; /* 轻微圆角，印刷裁切感 */
+  background: #f6f1e7; /* 米白新闻纸 */
+  box-shadow: 6px 6px 0 rgba(26, 26, 26, .18); /* 轻微印压痕 */
+}
+/* ---- 通用颗粒纹理 ---- */
+.demo-style-risograph .grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* ---- 封面：三层错位专色 + 粗糙边缘 ---- */
+.demo-style-risograph .art {
+  position: relative;
+  height: 110px;
+  overflow: hidden;
+  border-bottom: 2px solid #1a1a1a;
+  background: #f6f1e7;
+}
+.demo-style-risograph .pass {
+  position: absolute;
+  mix-blend-mode: multiply;
+  opacity: .92;
+}
+.demo-style-risograph .pass-pink {
+  left: 26px;
+  top: 14px;
+  width: 86px;
+  height: 86px;
+  transform: translate(-1.5px, -1px);
+  border-radius: 50%;
+  background: #ff4da6;
+  clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%); /* 略带锯齿的圆 */
+}
+.demo-style-risograph .pass-cyan {
+  left: 92px;
+  top: 22px;
+  width: 70px;
+  height: 70px;
+  transform: translate(1.5px, 1px) rotate(12deg);
+  background: #00b4d8;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+}
+.demo-style-risograph .pass-yellow {
+  left: 150px;
+  top: 10px;
+  width: 94px;
+  height: 94px;
+  transform: translate(0, -1.5px) rotate(-8deg);
+  border-radius: 50%;
+  background: #ffd60a;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); /* 星形/太阳光，边缘带齿 */
+}
+.demo-style-risograph .doodle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+/* ---- 文字区：粗黑标题 + 青蓝油墨艺人标签 ---- */
+.demo-style-risograph .meta {
+  position: relative;
+  padding: 12px 18px 3px;
+}
+.demo-style-risograph .title {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .01em;
+  color: #1a1a1a;
+  text-transform: uppercase;
+}
+.demo-style-risograph .artist {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #f6f1e7;
+  background: #00b4d8;
+  border: 2px solid #1a1a1a;
+}
+/* ---- 进度条：米白轨道 + 颗粒感粉色填充 ---- */
+.demo-style-risograph .progress {
+  padding: 9px 18px 0;
+}
+.demo-style-risograph .track {
+  position: relative;
+  height: 10px;
+  overflow: hidden;
+  border: 2px solid #1a1a1a;
+  background: #f6f1e7;
+}
+.demo-style-risograph .bar {
+  position: relative;
+  height: 100%;
+  background: #ff4da6;
+}
+.demo-style-risograph .bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .2;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.demo-style-risograph .times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: #1a1a1a;
+}
+/* ---- 控制：三色错位的油墨按钮 ---- */
+.demo-style-risograph .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 13px;
+}
+.demo-style-risograph .cbtn {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #1a1a1a;
+  border: 2px solid #1a1a1a;
+  border-radius: 2px;
+  background: #f6f1e7;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.demo-style-risograph .cbtn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .18;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.demo-style-risograph .prev,
+.demo-style-risograph .next {
+  width: 36px;
+  height: 36px;
+}
+.demo-style-risograph .prev {
+  background: #00b4d8;
+  transform: translate(-1px, -1px);
+}
+.demo-style-risograph .next {
+  background: #ffd60a;
+  transform: translate(1px, 1px);
+}
+.demo-style-risograph .play {
+  width: 50px;
+  height: 50px;
+  background: #ff4da6;
+  transform: translate(0, -1px);
+}
+.demo-style-risograph .prev:hover { transform: translate(-1px, -3px); }
+.demo-style-risograph .next:hover { transform: translate(1px, -3px); }
+.demo-style-risograph .play:hover { transform: translate(0, -3px); }
+.demo-style-risograph .prev:active { transform: translate(-1px, 0); }
+.demo-style-risograph .next:active { transform: translate(1px, 0); }
+.demo-style-risograph .play:active { transform: translate(0, 0); }
+.demo-style-risograph .cbtn:focus-visible {
+  outline: 2px solid #ff4da6;
+  outline-offset: 2px;
+}
+.demo-style-risograph .play .i-pause { display: none; }
+.demo-style-risograph .play.playing .i-play { display: none; }
+.demo-style-risograph .play.playing .i-pause { display: block; }
+/* ---- 音量：黑边白槽 + 黄色颗粒填充 ---- */
+.demo-style-risograph .volume {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 13px;
+  padding: 0 18px 15px;
+}
+.demo-style-risograph .vicon {
+  display: flex;
+  flex: none;
+  color: #1a1a1a;
+}
+.demo-style-risograph .vtrack {
+  position: relative;
+  flex: 1;
+  height: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #1a1a1a;
+  background: #f6f1e7;
+}
+.demo-style-risograph .vtrack::before {
+  content: "";
+  position: absolute;
+  inset: -7px -3px;
+}
+.demo-style-risograph .vfill {
+  position: relative;
+  height: 100%;
+  background: #ffd60a;
+}
+.demo-style-risograph .vfill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .2;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* ---- 动效与无障碍兜底 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .demo-style-risograph .cbtn {
+    transition: none;
+  }
+}
+</style>
+<script>
+(function () {
+  const ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
+  if (!ROOT) return;
+
+  const bar = ROOT.querySelector('.bar');
+  const playBtn = ROOT.querySelector('.play');
+  const prevBtn = ROOT.querySelector('.prev');
+  const nextBtn = ROOT.querySelector('.next');
+  const vtrack = ROOT.querySelector('.vtrack');
+  const vfill = ROOT.querySelector('.vfill');
+  const DURATION = 30; // 全程秒数
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let playing = false;
+  let progress = 31; // 与初始 width:31% 对应
+
+  function currentPercent() {
+    const br = bar.getBoundingClientRect();
+    const tr = bar.parentElement.getBoundingClientRect();
+    return tr.width ? Math.min(100, (br.width / tr.width) * 100) : progress;
+  }
+
+  function updateIcon() {
+    playBtn.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  function freezeAt(p) {
+    bar.style.transition = 'none';
+    bar.style.width = p + '%';
+    progress = p;
+  }
+
+  function animateTo(target) {
+    if (reduced.matches) { // 减少动态效果：瞬移
+      freezeAt(target);
+      playing = false;
+      updateIcon();
+      return;
+    }
+    const remain = Math.max((target - progress) / 100 * DURATION, 0.05);
+    bar.style.transition = 'none';
+    bar.style.width = progress + '%';
+    void bar.offsetWidth; // 强制重排，让瞬移先生效
+    bar.style.transition = 'width ' + remain + 's linear';
+    bar.style.width = target + '%';
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (playing) {
+      freezeAt(currentPercent()); // 暂停：保持当前进度
+      playing = false;
+    } else {
+      if (progress >= 99.5) progress = 0; // 播完后再次播放从头开始
+      playing = true;
+      animateTo(100);
+    }
+    updateIcon();
+  });
+
+  bar.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'width' && playing && currentPercent() >= 99.5) {
+      playing = false;
+      progress = 100;
+      updateIcon();
+    }
+  });
+
+  function restart() { // prev/next：归零重播
+    progress = 0;
+    playing = true;
+    animateTo(100);
+    updateIcon();
+  }
+  prevBtn.addEventListener('click', restart);
+  nextBtn.addEventListener('click', restart);
+
+  vtrack.addEventListener('click', function (e) { // 点击设置音量
+    const r = vtrack.getBoundingClientRect();
+    if (!r.width) return;
+    const p = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+    vfill.style.width = p + '%';
+  });
+
+  // 舞台自适应：首页卡片舞台较矮时整体等比缩小，保证不溢出
+  const player = ROOT.querySelector('.player');
+  function fit() {
+    const host = ROOT.parentElement; // .fragment 容器
+    if (!host || !player) return;
+    player.style.transform = '';
+    const availW = host.clientWidth, availH = host.clientHeight;
+    const w = player.offsetWidth, h = player.offsetHeight;
+    if (!w || !h || !availW || !availH) return;
+    const s = Math.min(1, availW / w, availH / h);
+    if (s < 1) player.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  requestAnimationFrame(fit);
+  window.addEventListener('resize', fit);
+})();
+</script>

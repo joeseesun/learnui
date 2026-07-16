@@ -1,5 +1,17 @@
 # LearnUI 部署进度（learnui.qiaomu.ai）
 
+## 2026-07-16 第六轮：20 个新增视觉风格（风格图鉴 24 → 44）
+
+- [x] 联网搜索并筛选 20 个不与现有 24 种重合的视觉风格：Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS
+- [x] 并行产出：每种风格 EN `data/styles.json` 条目 + ZH `data/zh/styles.json` 条目 + `demos/style-<slug>.html` 交互标本；脚本合并后重排 order 1–44
+- [x] `STYLE_NEW_SLUGS` 更新为 20 个新风格，前 10 个原创风格的 NEW 徽章自然到期
+- [x] `data/styles-meta.json`「研究中」列表移除 Art Nouveau（已正式收录）
+- [x] og 分享图：`scripts/gen-og.py` 补生成 40 张新风格/对比图，全站累计 150 张 1200×630（62 词条 + 44 风格 + 40 vs + 4 通用）
+- [x] vs 对比页累计 40 个（含 4 组新增新风格互对：constructivism-vs-de-stijl、dieselpunk-vs-steampunk、hand-drawn-vs-line-art、zine-collage-vs-anti-design）
+- [x] 全站页数：152 页 + 106 个标本嵌入页 = 258 个静态页面；测验 `/quiz/` 题库扩展为 62 组件 + 44 风格 = 106 题
+- [x] README / DEPLOY 数字同步更新
+- [x] 回归验证：258 页零 JS 错误、标本尺寸全达标、新增风格页抽查通过
+
 ## 2026-07-16 第五轮：SEO 包 + 关注/打赏
 
 - [x] og 分享图：`scripts/gen-og.py` 用 Playwright 生成 110 张 1200×630（86 词条/风格 + 20 vs 页 + 4 张通用），全页 `og:image` + `twitter:card summary_large_image`

@@ -8,7 +8,7 @@ SITE_URL = "https://learnui.qiaomu.ai"
 SITE_NAME = "Learn UI Name"
 UMAMI_ID = "481306cd-4dad-4677-8456-f31490684e78"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee"}
-STYLE_NEW_SLUGS = {"swiss-style","bauhaus","memphis","vaporwave","art-deco","cyberpunk","pixel-art","corporate-memphis","material-design","terminal-hacker"}
+STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars"}
 
 def load(p):
     with open(os.path.join(ROOT, p), encoding="utf-8") as f:
