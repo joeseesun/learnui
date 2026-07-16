@@ -1,5 +1,14 @@
 # LearnUI 部署进度（learnui.qiaomu.ai）
 
+## 2026-07-16 第五轮：SEO 包 + 关注/打赏
+
+- [x] og 分享图：`scripts/gen-og.py` 用 Playwright 生成 110 张 1200×630（86 词条/风格 + 20 vs 页 + 4 张通用），全页 `og:image` + `twitter:card summary_large_image`
+- [x] vs 对比页 20 个（`/styles/vs/<a>-vs-<b>/`）：风格易混淆对去重生成，because/wouldBecomeIf 双向文案 + 双标本 + FAQPage JSON-LD；风格详情页混淆板块互链
+- [x] JSON-LD：词条/风格页 DefinedTerm + 全站 BreadcrumbList（构建后全量校验合法）
+- [x] sitemap 加 `lastmod`；自定义 404 页 + nginx `error_page 404 /404.html`
+- [x] footer「关注与支持」：公众号 QR + 打赏 QR + X/GitHub 链接（用户明确要求，qiaomu-profile 标准素材）
+- [x] 回归：198 页零 JS 错误、标本尺寸全达标
+
 ## 2026-07-16 第四轮：测验模式 /quiz/
 
 - [x] 新页面 `/quiz/`：双向四选一测验（看标本选名字 / 看名字选标本），覆盖 62 组件 + 24 风格共 86 项
