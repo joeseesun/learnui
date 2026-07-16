@@ -120,9 +120,27 @@ def header():
 
 def footer():
     en, zh = t("footerNews"); en2, zh2 = t("footerRss"); en3, zh3 = t("builtNote")
+    en_s, zh_s = t("supportTitle"); en_f, zh_f = t("supportFollow"); en_r, zh_r = t("supportReward"); en_x, zh_x = t("supportX")
     return f'''<footer class="site-footer">
  <div class="wrap footer-in">
   <p><span class="fw-500">Learn UI Name</span> · <span class="lang-en">{esc(UI["tagline"])}</span> <span class="lang-zh">{esc(UI["taglineZh"])}</span></p>
+  <div class="footer-support">
+   <p class="support-title"><span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span></p>
+   <div class="support-row">
+    <figure class="support-qr">
+     <img src="/assets/img/qrcode-wechat.jpg" alt="WeChat QR" width="88" height="88" loading="lazy">
+     <figcaption><span class="lang-en">{esc(en_f)}</span><span class="lang-zh">{esc(zh_f)}</span></figcaption>
+    </figure>
+    <figure class="support-qr">
+     <img src="/assets/img/qrcode-reward.png" alt="Reward QR" width="88" height="88" loading="lazy">
+     <figcaption><span class="lang-en">{esc(en_r)}</span><span class="lang-zh">{esc(zh_r)}</span></figcaption>
+    </figure>
+    <p class="support-links">
+     <a href="https://x.com/vista8" rel="noopener"><span class="lang-en">{esc(en_x)}</span><span class="lang-zh">{esc(zh_x)}</span></a>
+     <a href="https://github.com/joeseesun" rel="noopener">GitHub @joeseesun</a>
+    </p>
+   </div>
+  </div>
   <p class="foot-note">
    <span class="lang-en">{esc(en)} <a href="/feed.xml">{esc(en2)}</a></span>
    <span class="lang-zh">{esc(zh)} <a href="/feed.xml">{esc(zh2)}</a></span>
@@ -142,8 +160,10 @@ def footer():
  <div class="def-src" id="def-src"></div>
 </div>'''
 
-def page(title_en, title_zh, desc_en, desc_zh, body, path=""):
+def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/og/_default.png", jsonld=""):
     url = SITE_URL + "/" + path
+    og_url = SITE_URL + og_image
+    ld = f'<script type="application/ld+json">{jsonld}</script>' if jsonld else ""
     return f'''<!DOCTYPE html>
 <html lang="zh-CN" data-lang-mode="bilingual">
 <head>
@@ -156,7 +176,13 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path=""):
 <meta property="og:description" content="{esc(desc_zh)} {esc(desc_en)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{esc(url)}">
+<meta property="og:image" content="{esc(og_url)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{esc(og_url)}">
 <meta name="theme-color" content="#ffffff">
+{ld}
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="alternate" type="application/rss+xml" title="{SITE_NAME} RSS" href="/feed.xml">
 <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
@@ -183,6 +209,20 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path=""):
 <script src="/assets/site.js"></script>
 </body>
 </html>'''
+
+def ld_graph(*nodes):
+    return json.dumps({"@context": "https://schema.org", "@graph": [n for n in nodes if n]}, ensure_ascii=False)
+
+def ld_breadcrumb(items):
+    """items: [(name, url_path), ...]"""
+    return {"@type": "BreadcrumbList",
+            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": SITE_URL + u}
+                                 for i, (n, u) in enumerate(items)]}
+
+def ld_defined_term(name, desc, path):
+    return {"@type": "DefinedTerm", "name": name, "description": desc,
+            "url": SITE_URL + path,
+            "inDefinedTermSet": {"@type": "DefinedTermSet", "name": SITE_NAME, "url": SITE_URL}}
 
 def entry_url(e):
     return f'/{e["platform"]}/{e["slug"]}/'
@@ -281,7 +321,7 @@ def homepage():
 </main>
 {footer()}
 <script id="search-index" type="application/json">{json.dumps(search_index, ensure_ascii=False).replace("</", "<\\/")}</script>'''
-    return page(UI["heroTitle"], UI["heroTitleZh"], UI["heroSub"], UI["heroSubZh"], body)
+    return page(UI["heroTitle"], UI["heroTitleZh"], UI["heroSub"], UI["heroSubZh"], body, og_image="/assets/og/_home.png")
 
 def api_table(e, z):
     en_f, zh_f = t("framework"); en_s, zh_s = t("symbol"); en_n, zh_n = t("note")
@@ -411,7 +451,13 @@ def entry_page(e):
  </section>
 </main>
 {footer()}'''
-    return page(e["name"], z["name_zh"], e["tagline"], z["tagline_zh"], body, f'{e["platform"]}/{e["slug"]}/')
+    en_b, zh_b = t("indexCrumb")
+    path = f'{e["platform"]}/{e["slug"]}/'
+    ld = ld_graph(
+        ld_defined_term(f'{e["name"]} · {z["name_zh"]}', e["tagline"], "/" + path),
+        ld_breadcrumb([(f"{en_b} · {zh_b}", "/"), (e["name"], "/" + path)]))
+    return page(e["name"], z["name_zh"], e["tagline"], z["tagline_zh"], body, path,
+                og_image=f'/assets/og/{e["slug"]}.png', jsonld=ld)
 
 def entry_markdown(e, z):
     lines = [f"# {e['name']} · {z['name_zh']}", "",
@@ -629,7 +675,7 @@ def styles_hub_page():
 </main>
 {footer()}'''
     return page(UI["stylesTitle"], UI["stylesTitleZh"], STYLES_META.get("hubTagline", "")[:150],
-                STYLES_META_ZH.get("hubTagline_zh", "")[:80], body, "styles/")
+                STYLES_META_ZH.get("hubTagline_zh", "")[:80], body, "styles/", og_image="/assets/og/_styles.png")
 
 def style_page(s):
     z = style_zh(s)
@@ -687,6 +733,7 @@ def style_page(s):
  <div class="vs-cell">{stage(other_demo)}<p class="vs-cell-label"><span class="lang-en">{esc(other["name"])}</span><span class="lang-zh">{esc(oz.get("name_zh", ""))}</span></p></div>
 </div>'''
         czw = z.get("confused_zh", {})
+        en_vb, zh_vb = t("vsCrumb")
         confused = f'''<section class="sect" style="max-width:none">
  <h2 class="section-title"><span class="lang-en">{esc(en_cf)}: {esc(cw["name"])}</span><span class="lang-zh">{esc(zh_cf)}：{esc(oz.get("name_zh", cw["name"]))}</span></h2>
  {pair}
@@ -694,6 +741,7 @@ def style_page(s):
   <div class="vs-why-card">{bi(cw.get("because", ""), czw.get("because_zh", ""), "p")}</div>
   <div class="vs-why-card">{bi(cw.get("wouldBecomeIf", ""), czw.get("wouldBecomeIf_zh", ""), "p")}</div>
  </div>
+ <p class="vs-more"><a href="{vs_url(s["slug"], other["slug"])}"><span class="lang-en">{esc(en_vb)}: {esc(s["name"])} vs {esc(other["name"])} →</span><span class="lang-zh">{esc(zh_vb)}页 →</span></a></p>
 </section>'''
 
     code_sect = ""
@@ -797,8 +845,14 @@ def style_page(s):
  </section>
 </main>
 {footer()}'''
+    en_b, zh_b = t("indexCrumb"); en_sc, zh_sc = t("stylesCrumb")
+    path = f'styles/{s["slug"]}/'
+    ld = ld_graph(
+        ld_defined_term(f'{s["name"]} · {z.get("name_zh", s["name"])}', (s.get("tagline") or "")[:200], "/" + path),
+        ld_breadcrumb([(f"{en_b} · {zh_b}", "/"), (f"{en_sc} · {zh_sc}", "/styles/"), (s["name"], "/" + path)]))
     return page(s["name"], z.get("name_zh", s["name"]), (s.get("tagline") or "")[:150],
-                (z.get("tagline_zh") or "")[:80], body, f'styles/{s["slug"]}/')
+                (z.get("tagline_zh") or "")[:80], body, path,
+                og_image=f'/assets/og/style-{s["slug"]}.png', jsonld=ld)
 
 def style_markdown(s, z):
     lines = [f"# {s['name']} · {z.get('name_zh','')}", "",
@@ -823,6 +877,82 @@ def style_markdown(s, z):
     if s.get("origin"):
         lines += ["## Origin / 起源", "", s["origin"], "", z.get("origin_zh", "")]
     return "\n".join(lines)
+
+def vs_pairs():
+    """Unique unordered confused-with pairs across styles."""
+    seen, pairs = set(), []
+    for s in STYLES:
+        c = (s.get("confusedWith") or {}).get("slug", "")
+        if not c or c not in STYLE_BY_SLUG:
+            continue
+        key = tuple(sorted([s["slug"], c]))
+        if key in seen:
+            continue
+        seen.add(key)
+        pairs.append((s["slug"], c))
+    return pairs
+
+def vs_url(a, b):
+    x, y = sorted([a, b])
+    return f'/styles/vs/{x}-vs-{y}/'
+
+def vs_page(a_slug, b_slug):
+    a, b = STYLE_BY_SLUG[a_slug], STYLE_BY_SLUG[b_slug]
+    az, bz = style_zh(a), style_zh(b)
+    en_b, zh_b = t("indexCrumb"); en_sc, zh_sc = t("stylesCrumb")
+    en_v, zh_v = t("vsCrumb"); en_d, zh_d = t("vsDesc"); en_vb, zh_vb = t("vsViewBoth")
+    title_en = f'{a["name"]} vs {b["name"]}'
+    title_zh = f'{az.get("name_zh", a["name"])} 对比 {bz.get("name_zh", b["name"])}'
+
+    pair = f'''<div class="vs-pair">
+ <div class="vs-cell">{stage("style-" + a["slug"])}<p class="vs-cell-label"><span class="lang-en">{esc(a["name"])}</span><span class="lang-zh">{esc(az.get("name_zh", ""))}</span></p></div>
+ <div class="vs-cell">{stage("style-" + b["slug"])}<p class="vs-cell-label"><span class="lang-en">{esc(b["name"])}</span><span class="lang-zh">{esc(bz.get("name_zh", ""))}</span></p></div>
+</div>'''
+
+    # directional text blocks (whichever directions exist in the data)
+    blocks, faq = [], []
+    for x, y, xz, yz in [(a, b, az, bz), (b, a, bz, az)]:
+        cw = x.get("confusedWith") or {}
+        if cw.get("slug") != y["slug"]:
+            continue
+        czw = xz.get("confused_zh", {})
+        en_ti, zh_ti = t("vsThisIs", a=x["name"]); en_wb, zh_wb = t("vsWouldBecome", b=y["name"])
+        blocks.append(f'''<div class="vs-why">
+  <div class="vs-why-card"><p class="vs-why-head"><span class="lang-en">{esc(en_ti)}</span><span class="lang-zh">{esc(zh_ti)}</span></p>{bi(cw.get("because", ""), czw.get("because_zh", ""), "p")}</div>
+  <div class="vs-why-card"><p class="vs-why-head"><span class="lang-en">{esc(en_wb)}</span><span class="lang-zh">{esc(zh_wb)}</span></p>{bi(cw.get("wouldBecomeIf", ""), czw.get("wouldBecomeIf_zh", ""), "p")}</div>
+</div>''')
+        faq.append({"@type": "Question", "name": f'How to tell {x["name"]} from {y["name"]}?',
+                    "acceptedAnswer": {"@type": "Answer", "text": (cw.get("because", "") + " " + cw.get("wouldBecomeIf", "")).strip()}})
+
+    links = f'''<p class="vs-links"><span class="lang-en">{esc(en_vb)}:</span><span class="lang-zh">{esc(zh_vb)}：</span>
+ <a href="{style_url(a)}">{esc(a["name"])}</a> · <a href="{style_url(b)}">{esc(b["name"])}</a></p>'''
+
+    path = vs_url(a_slug, b_slug).lstrip("/")
+    ld = ld_graph(
+        {"@type": "FAQPage", "mainEntity": faq} if faq else None,
+        ld_breadcrumb([(f"{en_b} · {zh_b}", "/"), (f"{en_sc} · {zh_sc}", "/styles/"),
+                       (f"{en_v} · {zh_v}", "/styles/vs/"), (title_en, "/" + path)]))
+    body = f'''{header()}
+<main class="wrap">
+ <nav class="crumbs" aria-label="Breadcrumb">
+  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
+  <span class="crumb-sep">/</span>
+  <a href="/styles/"><span class="lang-en">{esc(en_sc)}</span><span class="lang-zh">{esc(zh_sc)}</span></a>
+  <span class="crumb-sep">/</span>
+  <span>{esc(title_en)}</span>
+ </nav>
+ <section class="hero">
+  <h1><span class="lang-en">{esc(title_en)}</span><span class="lang-zh">{esc(title_zh)}</span></h1>
+  <p class="hero-desc"><span class="lang-en">{esc(en_d)}</span> <span class="lang-zh">{esc(zh_d)}</span></p>
+ </section>
+ {pair}
+ {"".join(blocks)}
+ {links}
+</main>
+{footer()}'''
+    x, y = sorted([a_slug, b_slug])
+    return page(title_en, title_zh, en_d[:150], zh_d[:80], body, path,
+                og_image=f"/assets/og/vs-{x}-vs-{y}.png", jsonld=ld)
 
 def specimen_page(demo_slug):
     """Standalone embeddable page holding one demo fragment — used by the quiz iframes.
@@ -908,7 +1038,7 @@ def quiz_page():
 {footer()}
 <script>window.QUIZ_DATA = {data};</script>
 <script src="/assets/quiz.js"></script>'''
-    return page(en_q, zh_q, en_d[:150], zh_d[:80], body, "quiz/")
+    return page(en_q, zh_q, en_d[:150], zh_d[:80], body, "quiz/", og_image="/assets/og/_quiz.png")
 
 def write(path, content):
     full = os.path.join(OUT, path)
@@ -934,6 +1064,21 @@ def build():
     write("quiz/index.html", quiz_page())
     for it in quiz_items():
         write(f'specimen/{it["s"]}/index.html', specimen_page(it["s"]))
+    # style look-alike comparison pages ("X vs Y")
+    for a, b in vs_pairs():
+        write(vs_url(a, b).lstrip("/") + "index.html", vs_page(a, b))
+    # 404
+    write("404.html", page("404", "页面不存在", "Page not found.", "页面不存在。",
+                           f'''{header()}
+<main class="wrap">
+ <section class="hero">
+  <h1>404</h1>
+  <p class="hero-desc"><span class="lang-en">This page doesn't exist. Try the dictionary, the styles atlas, or the quiz.</span>
+  <span class="lang-zh">页面不存在。去词典、风格图鉴或测验看看。</span></p>
+  <p class="hero-desc"><a href="/">Dictionary</a> · <a href="/styles/">Styles</a> · <a href="/quiz/">Quiz</a></p>
+ </section>
+</main>
+{footer()}''', "404.html"))
     # static assets
     shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(OUT, "assets"))
     shutil.copyfile(os.path.join(ROOT, "manifest.webmanifest"), os.path.join(OUT, "manifest.webmanifest"))
@@ -969,10 +1114,12 @@ def build():
     urls = ["/"] + [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
            [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/", "/quiz/"]
     if STYLES:
-        urls += ["/styles/"] + [f'/styles/{s["slug"]}/' for s in STYLES]
+        urls += ["/styles/"] + [f'/styles/{s["slug"]}/' for s in STYLES] + \
+                [vs_url(a, b) for a, b in vs_pairs()]
+    today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
     write("sitemap.xml", f'''<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{"".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)}
+{"".join(f"<url><loc>{SITE_URL}{u}</loc><lastmod>{today}</lastmod></url>" for u in urls)}
 </urlset>''')
     print(f"Built {len(urls)} pages into site/")
 

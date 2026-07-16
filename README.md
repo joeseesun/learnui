@@ -9,7 +9,7 @@
 
 [在线演示 Live Demo](https://learnui.qiaomu.ai/) · [风格图鉴 Name That Vibe](https://learnui.qiaomu.ai/styles/) · [词条示例](https://learnui.qiaomu.ai/web/text-scramble/) · [翻译对照表](https://learnui.qiaomu.ai/guides/translate/)
 
-**已验证：** 178 个静态页面零 JS 错误；62 个 UI 标本 + 24 个风格标本全部真实渲染；搜索/筛选/双语切换/复制/查词/测验交互通过；移动端无横向溢出；`python3 build.py` 一条命令重建全站。
+**已验证：** 198 个静态页面零 JS 错误；62 个 UI 标本 + 24 个风格标本全部真实渲染；搜索/筛选/双语切换/复制/查词/测验交互通过；移动端无横向溢出；`python3 build.py` 一条命令重建全站。
 
 ## 这是什么
 
@@ -45,7 +45,8 @@
 ```bash
 git clone https://github.com/joeseesun/learnui.git
 cd learnui
-python3 build.py          # 生成 site/（92 页 + 86 个标本嵌入页）
+python3 build.py          # 生成 site/（112 页 + 86 个标本嵌入页）
+python3 scripts/gen-og.py # 生成 110 张 og 分享图 → assets/og/（需 playwright）
 cd site && python3 -m http.server 8000
 # 打开 http://127.0.0.1:8000/
 ```
@@ -78,7 +79,7 @@ learnui/
 
 ## 实测验证
 
-- 全量 178 页 Playwright 巡检：无 JS 错误，标本均有真实渲染尺寸
+- 全量 198 页 Playwright 巡检：无 JS 错误，标本均有真实渲染尺寸
 - 交互测试：中英文搜索、平台筛选、语言三态切换、随机词条、剪贴板复制、翻译表过滤、灯箱开合，全部通过
 - 移动端 390px 无横向溢出（翻译表独立横向滚动）
 - 线上环境：<https://learnui.qiaomu.ai/> 200，HTTPS + HSTS，Umami 统计链路实测写入成功
@@ -119,7 +120,8 @@ A faithful content replica of [namethatui.com](https://namethatui.com/) (includi
 ```bash
 git clone https://github.com/joeseesun/learnui.git
 cd learnui
-python3 build.py          # builds site/ (92 pages + 86 specimen embeds, stdlib only)
+python3 build.py          # builds site/ (112 pages + 86 specimen embeds, stdlib only)
+python3 scripts/gen-og.py # 1200x630 og images for every page (needs playwright)
 cd site && python3 -m http.server 8000
 ```
 
@@ -127,7 +129,7 @@ Edit `data/*.json` (English source), `data/zh/*.json` (Chinese), or `demos/<slug
 
 ## Verified
 
-- All 178 pages load with zero JS errors; every specimen renders with real dimensions
+- All 198 pages load with zero JS errors; every specimen renders with real dimensions
 - Interaction tests pass: EN/ZH search, platform filter, language modes, random entry, clipboard, table filter, lightbox
 - No horizontal overflow at 390px; production site live with HTTPS + HSTS + Umami
 
